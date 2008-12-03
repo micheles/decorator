@@ -1,0 +1,52 @@
+HISTORY
+----------
+
+2.3.2. Small optimization in the code for decorator factories. First version
+       with the code uploaded to PyPI (01/12/2008)
+2.3.1. Set the zipsafe flag to False, since I want my users to have the source, not
+     a zipped egg (25/07/2008)
+2.3.0. Added support for writing decorator factories with minimal effort (feature
+     requested by Matthew Wilson); implemented it by enhancing 'decorator' to 
+     a Python 2.6 class decorator (10/07/2008)
+2.2.0. Added a note on 'inspect.getsource' not working for decorated
+     functions; referenced PEP 326; highlighted the snippets in the 
+     documentation with pygments; slightly simplified the code (31/07/2007)
+2.1.0. Replaced the utility 'update_wrapper' with 'new_wrapper' and
+     updated the documentation accordingly; fixed and improved the 
+     doctester argument parsing, signaled by Sam Wyse (3/07/2007)
+2.0.1. Included the licence in the source code too; fixed a versioning
+     issue by adding the version number to the zip file and fixing
+     the link to it on the web page, thanks to Philip Jenvey (17/02/2007)
+2.0. Rewritten and simplified the implementation; broken compatibility
+     with previous versions (in minor ways); added the utility function
+     'update_wrapper' instead of 'newfunc' (13/01/2007)
+1.1. 'decorator' instances now have attributes __name__, __doc__,
+     __module__ and __dict__ coming from the associated caller function; 
+     included the licence into the documentation (02/12/2006)
+1.0. Added LICENCE.txt; added a setuptools-friendly setup.py script 
+     contributed by Luke Arno (10/08/2006)
+0.8.1. Minor fixes to the documentation (21/06/2006)
+0.8. Improved the documentation, added the 'caveats' section (16/06/2006)
+0.7.1. Improved the tail_recursive example (15/05/2006)
+0.7. Renamed 'copyfunc' into 'newfunc' and added the ability to copy
+     the signature from a model function;   improved '_decorator' to
+     set the '__module__' attribute too, with the intent of improving 
+     error messages; updated the documentation (10/05/2006)
+0.6. Changed decorator.__call__ so that the module somewhat works
+     even for Python 2.3 (but the signature-preserving feature is
+     lost) (20/12/2005)
+0.5.2. Minor changes to the documentation; improved 'getattr_' and
+       shortened 'locked' (28/06/2005)
+0.5.1. Minor corrections to the documentation (20/05/2005)
+0.5. Fixed a bug with out-of-the-mind signatures, added a check for reserved
+     names in the argument list and simplified the code (thanks to Duncan 
+     Booth) (19/05/2005)
+0.4.1. Fixed a typo in the documentation (thanks to Anthon van der Neut)
+     (17/05/2005)
+0.4. Added getinfo, some tests and improved the documentation (12/05/2005)
+0.3. Simplified copyfunc, renamed deferred to delayed and added the 
+     nonblocking example (10/05/2005)
+0.2. Added copyfunc, improved the multithreading examples, improved
+     the doctester program (09/05/2005)
+0.1.1. Added the license specification and two docstrings (06/05/2005)
+0.1. Initial release  (04/05/2005)

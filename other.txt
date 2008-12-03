@@ -1,0 +1,125 @@
+>>> from examples import deferred
+
+>>> fac = deferred(0.0)
+
+>>> results = [] # or use a Queue, if you wish
+
+>>> def f(x):
+...     "In real life, should perform some computation on x"
+...     results.append(x)
+
+>>> action["user1"] = fac(f)
+>>> action["user2"] = fac(f)
+
+>>> f1("arg1"); print f1.thread
+<_Timer(Thread-1, started)>
+
+>>> f2("arg2"); print f2.thread
+<_Timer(Thread-2, started)>
+
+>>> time.sleep(.4)
+>>> print results
+['arg1', 'arg2']
+
+ #<examples.py>
+
+ import time, threading
+ from decorator import decorator
+
+ @decorator
+ def blocking(proc, *args, **kw):
+     thread = getattr(proc, "thread", None)
+     if thread is None:
+         proc.thread = threading.Thread(None, proc, args, kw)
+         proc.thread.start()
+     elif thread.isAlive():
+         raise AccessError("Resource locked!")
+     else:
+         proc.thread = None
+ blocking.copy = True
+
+ #</examples.py>
+
+>>> from examples import threaded
+>>> def f():
+...     print "done"
+
+>>> read1, read2 = blocking(readinput), blocking(readinput)
+>>> read1(), read2()
+done
+done
+
+Thread factories
+---------------------------------------------
+
+ #<examples.py>
+
+ import threading
+
+ @decorator
+ def threadfactory(f, *args, **kw):
+     f.created = getattr(f, "created", 0) + 1
+     return threading.Thread(None, f, f.__name__ + str(f.created), args, kw)
+
+ #</examples.py>
+
+Here the decorator takes a regular function and convert it into a 
+thread factory. The name of the generated thread is given by
+the name of the function plus an integer number, counting how
+many threads have been created by the factory. 
+
+>>> from examples import threadfactory
+
+>>> @threadfactory
+... def do_action():
+...     "doing something in a separate thread."
+
+
+>>> action1 = do_action() # create a first thread
+>>> print action1
+<Thread(do_action1, initial)>
+
+>>> action2 = do_action() # create a second thread
+>>> action2.start() # start it
+>>> print action2
+<Thread(do_action2, started)>
+
+The ``.created`` attribute stores the total number of created threads:
+
+>>> print do_action.created
+2
+The thread object also stores the result of the function call.
+
+ #<main.py>
+
+ def delayed(nsec):
+     def call(func, *args, **kw):
+         def set_result(): thread.result = func(*args, **kw)
+         thread = threading.Timer(nsec, set_result)
+         thread.result = "Not available"
+         thread.start()
+         return thread
+     return decorator(call)
+
+ #</main.py>
+
+Here is an example of usage::
+
+ #<main.py>
+ 
+ valuelist = []
+ 
+ def send_to_external_process(value):
+     time.sleep(.1) # simulate some time delay
+     valuelist.append(value)
+
+ @delayed(.2) # give time to the value to reach the external process
+ def get_from_external_process():
+     return valuelist.pop()
+
+ 
+ #</main.py>
+
+>>> send_to_external_process("value")
+>>> print get_from_external_process()
+value
