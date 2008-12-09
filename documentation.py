@@ -35,7 +35,7 @@ we all know that flat is better than nested.
 The aim of the ``decorator`` module it to simplify the usage of 
 decorators for the average programmer, and to popularize decorators
 usage giving examples of useful decorators, such as ``memoize``,
-``tracing``, ``redirecting_stdout``, ``locked``, etc.
+``tracing``, etc.
 
 The core of this module is a decorator factory called ``decorator``. 
 All decorators discussed here are built as simple recipes on top 
@@ -77,41 +77,32 @@ the issue.
 Statement of the problem
 ------------------------------
 
-Suppose you want to trace a function: this is a typical use case
-for a decorator and you can find in many places code like this:
+A typical decorator is a decorator to memoize functions. 
+Such a decorator works by caching
+the result of a function call in a dictionary, so that the next time
+the function is called with the same input parameters the result is retrieved
+from the cache and not recomputed. There are many implementations of 
+``memoize`` in http://www.python.org/moin/PythonDecoratorLibrary, 
+but they do not preserve the signature.
+A simple implementation for Python 2.5 could be the following:
 
-.. code-block:: python
+$$memoize25
 
- try:
-     from functools import update_wrapper
- except ImportError: # using Python version < 2.5
-     def decorator_trace(f):
-         def newf(*args, **kw):
-            print "calling %s with args %s, %s" % (f.__name__, args, kw)
-            return f(*args, **kw)
-         newf.__name__ = f.__name__
-         newf.__dict__.update(f.__dict__)
-         newf.__doc__ = f.__doc__
-         newf.__module__ = f.__module__
-         return newf
- else: # using Python 2.5+
-     def decorator_trace(f):
-         def newf(*args, **kw):
-             print "calling %s with args %s, %s" % (f.__name__, args, kw)
-             return f(*args, **kw)
-         return update_wrapper(newf, f)
+Here we used the ``functools.update_wrapper`` utility, which has
+been added in Python 2.5 to simplify the definition of decorators.
 
 The implementation above works in the sense that the decorator 
 can accept functions with generic signatures; unfortunately this
 implementation does *not* define a signature-preserving decorator, since in
-general ``decorator_trace`` returns a function with a
+general ``memoize25`` returns a function with a
 *different signature* from the original function.
 
 Consider for instance the following case:
 
->>> @decorator_trace
+>>> @memoize25
 ... def f1(x):
-...     pass
+...     time.sleep(1)
+...     return x
 
 Here the original function takes a single argument named ``x``,
 but the decorated function takes any number of arguments and
@@ -139,9 +130,7 @@ The solution is to provide a generic factory of generators, which
 hides the complexity of making signature-preserving decorators
 from the application programmer. The ``decorator`` factory
 allows to define decorators without the need to use nested functions 
-or classes. As an example, here is how you can define
-``decorator_trace``.
-
+or classes. 
 First of all, you must import ``decorator``:
 
 >>> from decorator import decorator
@@ -150,14 +139,43 @@ Then you must define a helper function with signature ``(f, *args, **kw)``
 which calls the original function ``f`` with arguments ``args`` and ``kw``
 and implements the tracing capability:
 
+$$_memoize
+
+At this point you can define your decorator by means of ``decorator.wrap``:
+
+$$memoize
+
+Here is a test of usage:
+
+>>> @memoize
+... def heavy_computation():
+...     time.sleep(2)
+...     return "done"
+
+>>> print heavy_computation() # the first time it will take 2 seconds
+done
+
+>>> print heavy_computation() # the second time it will be instantaneous
+done
+
+The signature of ``heavy_computation`` is the one you would expect:
+
+>>> print getargspec(heavy_computation) 
+([], None, None, None)
+
+Notice that in general it is impossible to memoize correctly something
+that depends on mutable arguments.
+
+A ``trace`` decorator
+------------------------------------------------------
+
+As an additional example, here is how you can define a ``trace`` decorator.
+
 $$_trace
 
-At this point you can define your decorator in terms of the helper function
-via ``decorator.apply``:
-    
 $$trace
 
-Therefore, you can write the following:
+Then, you can write the following:
  
 >>> @trace
 ... def f1(x):
@@ -187,7 +205,7 @@ calling f with args (0, 3, 2), {}
 
 That includes even functions with exotic signatures like the following:
 
->>> @decorator(trace)
+>>> @trace
 ... def exotic_signature((x, y)=(1,2)): return x+y
 
 >>> print getargspec(exotic_signature)
@@ -202,12 +220,9 @@ in Python 2.6 and removed in Python 3.0.
 ``decorator`` is a decorator
 ---------------------------------------------
 
-``decorator`` is able to convert the helper function into a 
-signature-preserving decorator 
-object, i.e  is a callable object that takes a function and returns a 
-decorated function with the same signature of the original function.
-
-The ``decorator`` factory itself can be considered as a signature-changing
+The ``decorator`` module provides an easy shortcut to convert
+the helper function into a signature-preserving decorator: the
+``decorator`` function itself, which can be considered as a signature-changing
 decorator, just as ``classmethod`` and ``staticmethod``.
 However, ``classmethod`` and ``staticmethod`` return generic
 objects which are not callable, while ``decorator`` returns
@@ -219,11 +234,21 @@ Therefore, you can write
 ...     print "calling %s with args %s, %s" % (f.func_name, args, kw)
 ...     return f(*args, **kw)
 
-and this idiom is actually redefining ``tracing`` to be a decorator.
+instead of
+
+.. code-block:: python
+  
+ def _tracing(f, *args, **kw):
+     print "calling %s with args %s, %s" % (f.func_name, args, kw)
+     return f(*args, **kw)
+
+ def tracing(f):
+     return decorator.wrap(_tracing, f)
+  
 We can easily check that the signature has changed:
 
 >>> print getargspec(tracing)
-(['func'], None, None, None)
+(['f'], None, None, None)
 
 Therefore now ``tracing`` can be used as a decorator and
 the following will work:
@@ -234,50 +259,8 @@ the following will work:
 >>> func()
 calling func with args (), {}
 
-BTW, you may use the decorator on lambda functions too:
-
->>> tracing(lambda : None)()
-calling <lambda> with args (), {}
-
 For the rest of this document, I will discuss examples of useful
 decorators built on top of ``decorator``.
-
-``memoize``
----------------------------------------------------------
-
-This decorator implements the ``memoize`` pattern, i.e. it caches
-the result of a function in a dictionary, so that the next time
-the function is called with the same input parameters the result is retrieved
-from the cache and not recomputed. There are many implementations of 
-``memoize`` in http://www.python.org/moin/PythonDecoratorLibrary, 
-but they do not preserve the signature.
-
-$$_memoize
-
-$$memoize
-
-Here is a test of usage:
-
->>> @memoize
-... def heavy_computation():
-...     time.sleep(2)
-...     return "done"
-
->>> print heavy_computation() # the first time it will take 2 seconds
-done
-
->>> print heavy_computation() # the second time it will be instantaneous
-done
-
-As an exercise, try to implement ``memoize`` *properly* without the
-``decorator`` factory.
-
-For sake of semplicity, my implementation only works for functions
-with no keyword arguments.  One can relax this requirement, and allow
-keyword arguments in the signature, for instance by using ``(args,
-tuple(kwargs.iteritems()))`` as key for the memoize dictionary.
-Notice that in general it is impossible to memoize correctly something
-that depends on mutable arguments.
 
 ``delayed`` and ``threaded``
 --------------------------------------------
@@ -336,12 +319,7 @@ be locked:
 
  datalist = [] # for simplicity the written data are stored into a list.
 
- def write(data):
-     "Writing to a sigle-access resource"
-     with threading.Lock():
-         time.sleep(1)
-         datalist.append(data)
-
+$$write
 
 Since the writing function is locked, we are guaranteed that at any given time 
 there is at most one writer. Here is an example.
@@ -399,20 +377,14 @@ Please wait ...
 >>> print read_data()
 some data
 
-Class decorators and decorator factories
+decorator factories
 --------------------------------------------------------------------
 
-Starting from Python 2.6 it is possible to decorate classes.  The
-decorator module takes advantage of this feature to provide a facility
-for writing complex decorator factories. We have already seen examples
+We have already seen examples
 of simple decorator factories, implemented as functions returning a
 decorator. For more complex situations, it is more convenient to
 implement decorator factories as classes returning callable objects
-that can be used as signature-preserving decorators. To this aim,
-``decorator`` can also be used as a class decorator. Given a class
-with a ``.call(self, func, *args, **kw)`` method ``decorator(cls)`` adds a
-suitable ``__call__`` method to the class; it raises a TypeError if
-the class already has a nontrivial ``__call__`` method.
+that can be used as signature-preserving decorators.
 
 To give an example of usage, let me
 show a (simplistic) permission system based on classes.
@@ -452,7 +424,6 @@ Here is an example of usage::
     ...
   PermissionError: User does not have the permission to run delete!
 
-
 A ``PowerUser`` could call ``.insert`` but not ``.delete``, whereas
 and ``Admin`` can call all the methods.
 
@@ -469,7 +440,7 @@ interface requirements for (more stringent) inheritance requirements.
 
 .. _I generally dislike inheritance: http://stacktrace.it/articoli/2008/06/i-pericoli-della-programmazione-con-i-mixin1
 
-Dealing with third party decorators: ``new_wrapper``
+Dealing with third party decorators: ``decorator.apply``
 ------------------------------------------------------------
 
 Sometimes you find on the net some cool decorator that you would
@@ -477,29 +448,10 @@ like to include in your code. However, more often than not the cool
 decorator is not signature-preserving. Therefore you may want an easy way to 
 upgrade third party decorators to signature-preserving decorators without
 having to rewrite them in terms of ``decorator``. To this aim the
-``decorator`` module provides an utility function called ``new_wrapper``. 
-``new_wrapper`` takes a wrapper function with a generic signature and returns
-a copy of it with the right signature.
-For instance, suppose you have a wrapper function ``wrapper`` (or generically
-a callable object) with a "permissive" signature (say ``wrapper(*args, **kw)``)
-returned by a third party non signature-preserving decorator; let ``model``
-be the original function, with a stricter signature; then
-``new_wrapper(wrapper, model)`` 
-returns a copy of ``wrapper`` with signature copied from ``model``. 
-Notice that it is your responsability to make sure that the original 
-function and the model function have compatibile signature, i.e. that 
-the signature of the model is stricter (or equivalent) than the signature 
-of the original function. If not, you will get an error at calling
-time, not at decoration time.
+``decorator`` module provides an utility function
+``decorator.apply(third_party_decorator, func)``. 
 
-With ``new_wrapper`` at your disposal, it is a breeze to define an utility
-to upgrade old-style decorators to signature-preserving decorators.
-
-
-``tail_recursive``
-------------------------------------------------------------
-
-In order to give an example of usage for ``new_wrapper``, I will show a 
+In order to give an example of usage, I will show a 
 pretty slick decorator that converts a tail-recursive function in an iterative
 function. I have shamelessly stolen the basic idea from Kay Schluehr's recipe
 in the Python Cookbook, 
@@ -507,11 +459,11 @@ http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691.
 
 $$TailRecursive
 
+Here the decorator is implemented as a class returning callable
+objects.
+
 $$tail_recursive
 
-Here the decorator is implemented as a class returning callable
-objects. ``upgrade_dec`` converts that class in a factory function
-returning functions.
 Here is how you apply the upgraded decorator to the good old factorial:
 
 .. code-block:: python
@@ -599,12 +551,12 @@ ZeroDivisionError: integer division or modulo by zero
 You see here the inner call to the decorator ``tracing``, which calls 
 ``f(*args, **kw)``, and a reference to  ``File "<string>", line 2, in f``. 
 This latter reference is due to the fact that internally the decorator
-module uses ``eval`` to generate the decorated function. Notice that
-``eval`` is *not* responsibile for the performance penalty, since is the
+module uses ``exec`` to generate the decorated function. Notice that
+``exec`` is *not* responsibile for the performance penalty, since is the
 called *only once* at function decoration time, and not every time
 the decorated function is called.
 
-Using ``eval`` means that ``inspect.getsource`` will not work for decorated
+Using ``exec`` means that ``inspect.getsource`` will not work for decorated
 functions. This means that the usual '??' trick in IPython will give you
 the (right on the spot) message 
 ``Dynamically generated function. No source code available.``. This 
@@ -622,51 +574,59 @@ $$example
 <BLANKLINE>
 
 (see bug report 1764286_ for an explanation of what is happening).
+Actually, starting from release 3.0, the decorator module, adds
+a ``__source__`` attribute to the decorated function, therefore
+you can get the code which is executed:
+
+>>> print f.__source__
+# _call_=<function __main__.tracing>
+# _func_=<function __main__.f>
+def f():
+    return _call_(_func_, )
+<BLANKLINE>
 
 .. _1764286: http://bugs.python.org/issue1764286
 
-At present, there is no clean way to avoid ``eval``. A clean solution
+The generated function is a closure depending on the the caller
+``_call_`` and the original function ``_func_``. For debugging convenience
+you get the names of the moduled where they are defined in a comment:
+in this example they are defined in the ``__main__`` module.
+
+At present, there is no clean way to avoid ``exec``. A clean solution
 would require to change the CPython implementation of functions and
 add an hook to make it possible to change their signature directly. 
-This will happen in future versions of Python (see PEP 362_) and 
-then the decorator module will become obsolete.
+That could happen in future versions of Python (see PEP 362_) and 
+then the decorator module would become obsolete. However, at present,
+even in Python 3.0 it is impossible to change the function signature
+directly, therefore the ``decorator`` module is still useful (this is
+the reason why I am releasing version 3.0).
 
 .. _362: http://www.python.org/dev/peps/pep-0362
-
-For debugging purposes, it may be useful to know that the decorator
-module also provides a ``getinfo`` utility function which returns a 
-dictionary containing information about a function.
-For instance, for the factorial function we will get
-
->>> d = getinfo(factorial)
->>> d['name']
-'factorial'
->>> d['argnames']
-['n', 'acc']
->>> d['signature']
-'n, acc'
->>> d['defaults']
-(1,)
->>> d['doc']
-'The good old factorial'
 
 In the present implementation, decorators generated by ``decorator``
 can only be used on user-defined Python functions or methods, not on generic 
 callable objects, nor on built-in functions, due to limitations of the
 ``inspect`` module in the standard library.
-Also, there is a restriction on the names of the arguments: if try to
-call an argument ``_call_`` or ``_func_`` you will get an AssertionError:
+
+Moreover, you can decorate anonymous functions:
+
+>>> tracing(lambda : None)()
+calling <lambda> with args (), {}
+    
+There is a restriction on the names of the arguments: for instance,
+if try to call an argument ``_call_`` or ``_func_``
+you will get a ``NameError``:
 
 >>> @tracing
 ... def f(_func_): print f
 ... 
 Traceback (most recent call last):
   ...
-AssertionError: You cannot use _call_ or _func_ as argument names!
+NameError: _func_ is overridden in
+def f(_func_):
+    return _call_(_func_, _func_)
 
-(the existence of these two reserved names is an implementation detail).
-
-Moreover, the implementation is such that the decorated function contains
+Finally, the implementation is such that the decorated function contains
 a copy of the original function attributes:
 
 >>> def f(): pass # the original function
@@ -681,8 +641,67 @@ a copy of the original function attributes:
 >>> f.attr2 # the original attribute did not change
 'something else'
 
-That's all folks, enjoy!
+The ``FunctionMaker`` class
+---------------------------------------------------------------
 
+The public API of the ``decorator`` module consists in the
+``decorator`` function and its two attributes ``decorator.wrap`` and
+``decorator.apply``.  Internally, the functionality is implemented via
+a ``FunctionMaker`` class which is able to generate on the fly
+functions with a given name and signature. You should not need to
+resort to ``FunctionMaker`` when writing ordinary decorators, but it
+is interesting to know how the module works internally, so I have
+decided to add this paragraph.  Notice that while I do not have plan
+to change or remove the functionality provided in the
+``FunctionMaker`` class, I do not guarantee that it will stay
+unchanged forever. On the other hand, the functionality provided by
+``decorator`` has been there from version 0.1 and it is guaranteed to
+stay there forever.
+``FunctionMaker`` takes the name and the signature of a function in
+input, or a whole function. Here is an example of how to
+restrict the signature of a function:
+
+>>> def f(*args, **kw):
+...     print args, kw
+
+>>> f1 = FunctionMaker(name="f1", signature="a,b").make('''
+... def %(name)s(%(signature)s):
+...     f(%(signature)s)''', f=f)
+
+>>> f1(1,2)
+(1, 2) {}
+
+The utility ``decorator.wrap`` instead takes a function in input and
+returns a new function; it is defined as follows:
+
+$$decorator_wrap
+
+Backward compatibility notes
+---------------------------------------------------------------
+
+Version 3.0 is a complete rewrite of the original implementation.
+It is mostly compatible with the past, a part for a few differences.
+
+The utilites ``get_info`` and ``new_wrapper``, available
+in the 2.X versions, have been deprecated and they will be removed
+in the future. For the moment, using them raises a ``DeprecationWarning``.
+``get_info`` has been removed since it was little used and since it had
+to be changed anyway to work with Python 3.0; ``new_wrapper`` has been
+removed since it was useless: its major use case (converting
+signature changing decorators to signature preserving decorators)
+has been subsumed by ``decorator.apply``
+and the other use case can be managed with the ``FunctionMaker``.
+
+Finally ``decorator`` cannot be used as a class decorator and the
+`functionality introduced in version 2.3`_ has been removed. That
+means that in order to define decorator factories with classes you
+need to override the ``__call__`` method explicitly (no magic anymore).
+
+All these changes should not cause any trouble, since they were
+all rarely used features. Should you have trouble, you are invited to
+downgrade to the 2.3 version.
+
+.. _functionality introduced in version 2.3: http://www.phyast.pitt.edu/~micheles/python/documentation.html#class-decorators-and-decorator-factories
 
 LICENCE
 ---------------------------------------------
@@ -715,22 +734,25 @@ If you use this software and you are happy with it, consider sending me a
 note, just to gratify my ego. On the other hand, if you use this software and
 you are unhappy with it, send me a patch!
 """
-
-import sys, threading
+from __future__ import with_statement
+import sys, threading, time, functools
 from decorator import *
+
+decorator_wrap = decorator.wrap
 
 def _trace(f, *args, **kw):
     print "calling %s with args %s, %s" % (f.func_name, args, kw)
     return f(*args, **kw)
+
 def trace(f):
-    return decorator.apply(_trace, f)
+    return decorator.wrap(_trace, f)
 
 def delayed(nsec):
-    def call(proc, *args, **kw):
+    def _delayed(proc, *args, **kw):
         thread = threading.Timer(nsec, proc, args, kw)
         thread.start()
         return thread
-    return decorator(call)
+    return decorator(_delayed)
 
 def identity_dec(func):
     def wrapper(*args, **kw):
@@ -750,28 +772,32 @@ def _memoize(func, *args, **kw):
     if key in cache:
         return cache[key]
     else:
-        result = func(*args, **kw)
-        cache[key] = result
+        cache[key] = result = func(*args, **kw)
         return result
 
 def memoize(f):
     f.cache = {}
-    return decorator.apply(_memoize, f)
+    return decorator.wrap(_memoize, f)
 
-@decorator
-def locked(func, *args, **kw):
-    lock = getattr_(func, "lock", threading.Lock)
-    lock.acquire()
-    try:
-        result = func(*args, **kw)
-    finally:
-        lock.release()
-    return result
+def memoize25(func):
+    func.cache = {}
+    def memoize(*args, **kw):
+        if kw:
+          key = args, frozenset(kw.items())
+        else:
+          key = args
+        cache = func.cache  # created at decoration time
+        if key in cache:
+            return cache[key]
+        else:
+            cache[key] = result = func(*args, **kw)
+            return result
+    return functools.update_wrapper(memoize, func)
 
 threaded = delayed(0) # no-delay decorator
 
 def blocking(not_avail="Not Available"):
-    def call(f, *args, **kw):
+    def _blocking(f, *args, **kw):
         if not hasattr(f, "thread"): # no thread running
             def set_result(): f.result = f(*args, **kw)
             f.thread = threading.Thread(None, set_result)
@@ -782,7 +808,7 @@ def blocking(not_avail="Not Available"):
         else: # the thread is ended, return the stored result
             del f.thread 
             return f.result
-    return decorator(call)
+    return decorator(_blocking)
 
 class User(object):
     "Will just be able to see a page"
@@ -821,8 +847,7 @@ class Restricted(object):
             '%s does not have the permission to run %s!'
             % (userclass.__name__, func.__name__))
     def __call__(self, func):
-        return decorator.apply(self.call, func)
-
+        return decorator.wrap(self.call, func)
 
 class Action(object):
     @Restricted(User)
@@ -868,8 +893,27 @@ class TailRecursive(object):
             self.firstcall = True 
             return result
 
-tail_recursive = upgrade_dec(TailRecursive)
+def tail_recursive(func):
+    return decorator.apply(TailRecursive, func)
+
+@tail_recursive
+def factorial(n, acc=1):
+    "The good old factorial"
+    if n == 0: return acc
+    return factorial(n-1, n*acc)
 
 def fact(n): # this is not tail-recursive
     if n == 0: return 1
     return n * fact(n-1)
+
+datalist = []
+
+def write(data):
+    "Writing to a sigle-access resource"
+    with threading.Lock():
+        time.sleep(1)
+        datalist.append(data)
+
+
+if __name__ == '__main__':
+    import doctest; doctest.testmod()
