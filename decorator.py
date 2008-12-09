@@ -93,25 +93,28 @@ def makefn(src, funcdata, save_source=True, **evaldict):
     func = evaldict[name]
     return funcdata.update(func, __source__=src)
 
-def decorator(caller, func=None):
+def decorator_apply(caller, func):
+    "decorator.apply(caller, func) is akin to decorator(caller)(func)"
+    fd = FuncData(func)
+    name = fd.name
+    signature = fd.signature
+    for arg in signature.split(','):
+        argname = arg.strip(' *')
+        assert not argname in('_func_', '_call_'), (
+            '%s is a reserved argument name!' % argname)
+    src = """def %(name)s(%(signature)s):
+    return _call_(_func_, %(signature)s)""" % locals()
+    return makefn(src, fd, save_source=False, _func_=func, _call_=caller)
+
+def decorator(caller):
     """
-    decorator(caller) converts a caller function into a decorator;
-    decorator(caller, func) is akin to decorator(caller)(func).
+    decorator(caller) converts a caller function into a decorator.
     """
-    if func:
-        fd = FuncData(func)
-        name = fd.name
-        signature = fd.signature
-        for arg in signature.split(','):
-            argname = arg.strip(' *')
-            assert not argname in('_func_', '_call_'), (
-               '%s is a reserved argument name!' % argname)
-        src = """def %(name)s(%(signature)s):
-        return _call_(_func_, %(signature)s)""" % locals()
-        return makefn(src, fd, save_source=False, _func_=func, _call_=caller)
-    src = 'def %s(func): return decorator(caller, func)' % caller.__name__
+    src = 'def %s(func): return appl(caller, func)' % caller.__name__
     return makefn(src, FuncData(caller), save_source=False,
-                  caller=caller, decorator=decorator)
+                  caller=caller, appl=decorator_apply)
+
+decorator.apply = decorator_apply
 
 @decorator
 def deprecated(func, *args, **kw):

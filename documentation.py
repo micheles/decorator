@@ -14,12 +14,13 @@ The ``decorator`` module
 Introduction
 ------------------------------------------------
 
-Python 2.4 decorators are an interesting example of why syntactic sugar 
-matters: in principle, their introduction changed nothing, since they do 
-not provide any new functionality which was not already present in the
-language; in practice, their introduction has significantly changed the way 
-we structure our programs in Python. I believe the change is for the best, 
-and that decorators are a great idea since:
+Python decorators are an interesting example of why syntactic sugar
+matters. In principle, their introduction in Python 2.4 changed
+nothing, since they do not provide any new functionality which was not
+already present in the language; in practice, their introduction has
+significantly changed the way we structure our programs in Python. I
+believe the change is for the best, and that decorators are a great
+idea since:
 
 * decorators help reducing boilerplate code;
 * decorators help separation of concerns; 
@@ -145,12 +146,15 @@ First of all, you must import ``decorator``:
 
 >>> from decorator import decorator
 
-Then you must define an helper function with signature ``(f, *args, **kw)``
+Then you must define a helper function with signature ``(f, *args, **kw)``
 which calls the original function ``f`` with arguments ``args`` and ``kw``
 and implements the tracing capability:
 
 $$_trace
 
+At this point you can define your decorator in terms of the helper function
+via ``decorator.apply``:
+    
 $$trace
 
 Therefore, you can write the following:
@@ -192,7 +196,8 @@ That includes even functions with exotic signatures like the following:
 calling exotic_signature with args ((1, 2),), {}
 3
 
-Notice that exotic signatures have been disabled in Python 3.0.
+Notice that the support for exotic signatures has been deprecated
+in Python 2.6 and removed in Python 3.0.
 
 ``decorator`` is a decorator
 ---------------------------------------------
@@ -274,38 +279,6 @@ tuple(kwargs.iteritems()))`` as key for the memoize dictionary.
 Notice that in general it is impossible to memoize correctly something
 that depends on mutable arguments.
 
-``locked``
----------------------------------------------------------------
-
-There are good use cases for decorators is in multithreaded programming.
-For instance, a ``locked`` decorator can remove the boilerplate 
-for acquiring/releasing locks [#]_.
-
-.. [#] In Python 2.5, the preferred way to manage locking is via 
-       the ``with`` statement: http://docs.python.org/lib/with-locks.html
-
-To show an example of usage, suppose one wants to write some data to
-an external resource which can be accessed by a single user at once
-(for instance a printer). Then the access to the writing function must 
-be locked:
-
-.. code-block:: python
-
- import time
-
- datalist = [] # for simplicity the written data are stored into a list.
-
- @locked
- def write(data):
-     "Writing to a sigle-access resource"
-     time.sleep(1)
-     datalist.append(data)
-
-
-Since the writing function is locked, we are guaranteed that at any given time 
-there is at most one writer. An example multithreaded program that invokes
-``write`` and prints the datalist is shown in the next section.
-
 ``delayed`` and ``threaded``
 --------------------------------------------
 
@@ -350,8 +323,28 @@ to deserve a name:
  threaded = delayed(0)
 
 Threaded procedures will be executed in a separated thread as soon
-as they are called. Here is an example using the ``write``
-routine defined before:
+as they are called. Here is an example.
+
+Suppose one wants to write some data to
+an external resource which can be accessed by a single user at once
+(for instance a printer). Then the access to the writing function must 
+be locked:
+
+.. code-block:: python
+
+ import time
+
+ datalist = [] # for simplicity the written data are stored into a list.
+
+ def write(data):
+     "Writing to a sigle-access resource"
+     with threading.Lock():
+         time.sleep(1)
+         datalist.append(data)
+
+
+Since the writing function is locked, we are guaranteed that at any given time 
+there is at most one writer. Here is an example.
 
 >>> @threaded
 ... def writedata(data):
@@ -405,35 +398,6 @@ Please wait ...
 >>> time.sleep(1.1) # after 3.1 seconds, data is available
 >>> print read_data()
 some data
-
-``redirecting_stdout``
--------------------------------------------
-
-Decorators help in removing the boilerplate associated to ``try .. finally``
-blocks. We saw the case of ``locked``; here is another example:
-
-$$redirecting_stdout
-
-Here is an example of usage:
-
->>> from StringIO import StringIO
-
->>> out = StringIO()
-
->>> @redirecting_stdout(out)
-... def helloworld():
-...     print "hello, world!"
-
->>> helloworld()
-
->>> out.getvalue()
-'hello, world!\n'
-
-Similar tricks can be used to remove the boilerplate associate with
-transactional databases. I think you got the idea, so I will leave
-the transactional example as an exercise for the reader. Of course
-in Python 2.5 these use cases can also be addressed with the ``with``
-statement.
 
 Class decorators and decorator factories
 --------------------------------------------------------------------
@@ -529,9 +493,8 @@ of the original function. If not, you will get an error at calling
 time, not at decoration time.
 
 With ``new_wrapper`` at your disposal, it is a breeze to define an utility
-to upgrade old-style decorators to signature-preserving decorators:
+to upgrade old-style decorators to signature-preserving decorators.
 
-$$upgrade_dec
 
 ``tail_recursive``
 ------------------------------------------------------------
@@ -760,7 +723,7 @@ def _trace(f, *args, **kw):
     print "calling %s with args %s, %s" % (f.func_name, args, kw)
     return f(*args, **kw)
 def trace(f):
-    return decorator(_trace, f)
+    return decorator.apply(_trace, f)
 
 def delayed(nsec):
     def call(proc, *args, **kw):
@@ -793,7 +756,7 @@ def _memoize(func, *args, **kw):
 
 def memoize(f):
     f.cache = {}
-    return decorator(_memoize, f)
+    return decorator.apply(_memoize, f)
 
 @decorator
 def locked(func, *args, **kw):
@@ -819,17 +782,6 @@ def blocking(not_avail="Not Available"):
         else: # the thread is ended, return the stored result
             del f.thread 
             return f.result
-    return decorator(call)
-
-def redirecting_stdout(new_stdout):
-    def call(func, *args, **kw):
-        save_stdout = sys.stdout
-        sys.stdout = new_stdout
-        try:
-            result = func(*args, **kw)
-        finally:
-            sys.stdout = save_stdout
-        return result
     return decorator(call)
 
 class User(object):
@@ -869,7 +821,7 @@ class Restricted(object):
             '%s does not have the permission to run %s!'
             % (userclass.__name__, func.__name__))
     def __call__(self, func):
-        return decorator(self.call, func)
+        return decorator.apply(self.call, func)
 
 
 class Action(object):
