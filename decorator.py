@@ -108,30 +108,22 @@ class FunctionMaker(object):
         self.update(func, __source__=source)
         return func
 
-def decorator_wrap(caller, func):
-    "Decorate a function with a caller"
-    fun = FunctionMaker(func)
-    src = """def %(name)s(%(signature)s):
+def decorator(caller, func=None):
+    """
+    decorator(caller) converts a caller function into a decorator;
+    decorator(caller, func) decorates a function using a caller.
+    """
+    if func is None: # returns a decorator
+        fun = FunctionMaker(caller)
+        first_arg = inspect.getargspec(caller)[0][0]
+        src = 'def %s(%s): return _call_(caller, %s)' % (
+            caller.__name__, first_arg, first_arg)
+        return fun.make(src, caller=caller, _call_=decorator)
+    else: # returns a decorated function
+        fun = FunctionMaker(func)
+        src = """def %(name)s(%(signature)s):
     return _call_(_func_, %(signature)s)"""
-    return fun.make(src, _func_=func, _call_=caller)
-
-def decorator_apply(dec, func):
-    "Decorate a function using a signature-non-preserving decorator"
-    fun = FunctionMaker(func)
-    src = '''def %(name)s(%(signature)s):
-    return decorated(%(signature)s)'''
-    return fun.make(src, decorated=dec(func))
-
-def decorator(caller):
-    "decorator(caller) converts a caller function into a decorator"
-    fun = FunctionMaker(caller)
-    first_arg = fun.signature.split(',')[0]
-    src = 'def %s(%s): return _call_(caller, %s)' % (
-        caller.__name__, first_arg, first_arg)
-    return fun.make(src, caller=caller, _call_=decorator_wrap)
-
-decorator.wrap = decorator_wrap
-decorator.apply = decorator_apply
+        return fun.make(src, _func_=func, _call_=caller)
 
 ###################### deprecated functionality #########################
 
