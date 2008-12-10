@@ -57,7 +57,7 @@ class FunctionMaker(object):
                 self.dict = func.__dict__.copy()
         if name:
             self.name = name
-        if signature:
+        if signature is not None:
             self.signature = signature
         if defaults:
             self.defaults = defaults
@@ -67,7 +67,8 @@ class FunctionMaker(object):
             self.module = module
         if funcdict:
             self.dict = funcdict
-        self.name, self.signature # check existence required attributes
+        assert self.name and hasattr(self, 'signature')
+        # check existence required attributes
 
     def update(self, func, **kw):
         "Update the signature of func with the data in self"
@@ -78,9 +79,9 @@ class FunctionMaker(object):
         func.__module__ = getattr(self, 'module', _callermodule())
         func.__dict__.update(kw)
  
-    def make(self, templ, save_source=False, **evaldict):
+    def make(self, src_templ, save_source=False, **evaldict):
         "Make a new function from a given template and update the signature"
-        src = templ % vars(self) # expand name and signature
+        src = src_templ % vars(self) # expand name and signature
         mo = DEF.match(src)
         if mo is None:
             raise SyntaxError('not a valid function template\n%s' % src)
