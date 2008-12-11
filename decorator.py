@@ -27,14 +27,22 @@ for the documentation.
 
 __all__ = ["decorator", "FunctionMaker", "getinfo", "new_wrapper"]
 
-import os, sys, re, inspect, warnings, tempfile
+import os, sys, re, inspect, warnings
 
 DEF = re.compile('\s*def\s*([_\w][_\w\d]*)\s*\(')
 
-# helper
-def _callermodule(level=2):
-    return sys._getframe(level).f_globals.get('__name__', '?')
+# patch inspect.getsource to recognize the __source__ attribute
+inspect_getsource = inspect.getsource
 
+def getsource(obj):
+    "A replacement for inspect.getsource honoring the __source__ attribute"
+    try:
+        return obj.__source__
+    except AttributeError:
+        return inspect_getsource(obj)
+
+inspect.getsource = getsource
+    
 # basic functionality
 class FunctionMaker(object):
     """
@@ -67,8 +75,8 @@ class FunctionMaker(object):
             self.module = module
         if funcdict:
             self.dict = funcdict
-        assert self.name and hasattr(self, 'signature')
         # check existence required attributes
+        assert self.name and hasattr(self, 'signature')
 
     def update(self, func, **kw):
         "Update the signature of func with the data in self"
@@ -76,10 +84,11 @@ class FunctionMaker(object):
         func.__doc__ = getattr(self, 'doc', None)
         func.__dict__ = getattr(self, 'dict', {})
         func.func_defaults = getattr(self, 'defaults', None)
-        func.__module__ = getattr(self, 'module', _callermodule())
+        callermodule = sys._getframe(3).f_globals.get('__name__', '?')
+        func.__module__ = getattr(self, 'module', callermodule)
         func.__dict__.update(kw)
  
-    def make(self, src_templ, save_source=False, **evaldict):
+    def make(self, src_templ, **evaldict):
         "Make a new function from a given template and update the signature"
         src = src_templ % vars(self) # expand name and signature
         mo = DEF.match(src)
@@ -89,22 +98,26 @@ class FunctionMaker(object):
         reserved_names = set([name] + [
             arg.strip(' *') for arg in self.signature.split(',')])
         s = ''
-        for n, v in evaldict.items():
+        for n, v in evaldict.iteritems():
             if inspect.isfunction(v):
                 s += '# %s=<function %s.%s>\n' % (n, v.__module__, v.__name__)
+            elif isinstance(v, basestring):
+                s += '# %s=\n%s\n' % (name, '\n'.join(
+                    '## ' + line for line in v.splitlines()))
+            else:
+                s += '# %s=%r\n' % (n, v)
             if n in reserved_names:
                 raise NameError('%s is overridden in\n%s' % (n, src))
         source = s + src
         if not source.endswith('\n'): # add a newline just for safety
             source += '\n'
-        if save_source:
-            fhandle, fname = tempfile.mkstemp()
-            os.write(fhandle, source)
-            os.close(fhandle)
-        else:
-            fname = '?'
-        code = compile(source, fname, 'single')
-        exec code in evaldict
+        try:
+            code = compile(source, '<string>', 'single')
+            exec code in evaldict
+        except:
+            print >> sys.stderr, 'Error in generated code:'
+            print >> sys.stderr, source
+            raise
         func = evaldict[name]
         self.update(func, __source__=source)
         return func
@@ -124,7 +137,9 @@ def decorator(caller, func=None):
         fun = FunctionMaker(func)
         src = """def %(name)s(%(signature)s):
     return _call_(_func_, %(signature)s)"""
-        return fun.make(src, _func_=func, _call_=caller)
+        decorated = fun.make(src, _func_=func, _call_=caller)
+        decorated.__source__ = inspect_getsource(func)
+        return decorated
 
 ###################### deprecated functionality #########################
 

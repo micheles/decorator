@@ -265,7 +265,7 @@ calling func with args (), {}
 For the rest of this document, I will discuss examples of useful
 decorators built on top of ``decorator``.
 
-``delayed`` and ``threaded``
+``delayed`` and ``async``
 --------------------------------------------
 
 Often, one wants to define families of decorators, i.e. decorators depending
@@ -306,40 +306,34 @@ to deserve a name:
 
 .. code-block:: python
 
- threaded = delayed(0)
+ async = delayed(0, name='async') # no-delay decorator
 
-Threaded procedures will be executed in a separated thread as soon
-as they are called. Here is an example.
+Asynchronous procedures will be executed in a parallel thread.
 
 Suppose one wants to write some data to
 an external resource which can be accessed by a single user at once
 (for instance a printer). Then the access to the writing function must 
-be locked:
+be locked. Here is a minimalistic example:
 
-.. code-block:: python
+>>> datalist = [] # for simplicity the written data are stored into a list.
 
- import time
+>>> @async
+... def write(data):
+...     # append data to the datalist by locking
+...     with threading.Lock():
+...         time.sleep(1) # emulate some long running operation
+...         datalist.append(data)
+...     # other operations not requiring a lock here
 
- datalist = [] # for simplicity the written data are stored into a list.
-
-$$write
-
-Since the writing function is locked, we are guaranteed that at any given time 
-there is at most one writer. Here is an example.
-
->>> @threaded
-... def writedata(data):
-...     write(data)
-
-Each call to ``writedata`` will create a new writer thread, but there will 
+Each call to ``write`` will create a new writer thread, but there will 
 be no synchronization problems since ``write`` is locked.
 
->>> writedata("data1") 
+>>> write("data1") 
 <_Timer(Thread-1, started)>
 
 >>> time.sleep(.1) # wait a bit, so we are sure data2 is written after data1
 
->>> writedata("data2") 
+>>> write("data2") 
 <_Timer(Thread-2, started)>
 
 >>> time.sleep(2) # wait for the writers to complete
@@ -756,18 +750,21 @@ def decorator_apply(dec, func):
     return fun.make(src, decorated=dec(func))
 
 def _trace(f, *args, **kw):
-    print "calling %s with args %s, %s" % (f.func_name, args, kw)
+    print "calling %s with args %s, %s" % (f.__name__, args, kw)
     return f(*args, **kw)
 
 def trace(f):
     return decorator(_trace, f)
 
-def delayed(nsec):
-    def _delayed(proc, *args, **kw):
+def delayed(nsec, name='delayed'):
+    def caller(proc, *args, **kw):
         thread = threading.Timer(nsec, proc, args, kw)
         thread.start()
         return thread
-    return decorator(_delayed)
+    caller.__name__ = name
+    return decorator(caller)
+
+async = delayed(0, name='async') # no-delay decorator
 
 def identity_dec(func):
     def wrapper(*args, **kw):
@@ -781,7 +778,7 @@ def memoize25(func):
     func.cache = {}
     def memoize(*args, **kw):
         if kw:
-            key = args, frozenset(kw.items())
+            key = args, frozenset(kw.iteritems())
         else:
             key = args
         cache = func.cache
@@ -795,7 +792,7 @@ def memoize25(func):
 def _memoize(func, *args, **kw):
     # args and kw must be hashable
     if kw:
-        key = args, frozenset(kw.items())
+        key = args, frozenset(kw.iteritems())
     else:
         key = args
     cache = func.cache
@@ -808,8 +805,6 @@ def _memoize(func, *args, **kw):
 def memoize(f):
     f.cache = {}
     return decorator(_memoize, f)
-
-threaded = delayed(0) # no-delay decorator
 
 def blocking(not_avail="Not Available"):
     def _blocking(f, *args, **kw):
@@ -920,15 +915,6 @@ def factorial(n, acc=1):
 def fact(n): # this is not tail-recursive
     if n == 0: return 1
     return n * fact(n-1)
-
-datalist = []
-
-def write(data):
-    "Writing to a sigle-access resource"
-    with threading.Lock():
-        time.sleep(1)
-        datalist.append(data)
-
 
 if __name__ == '__main__':
     import doctest; doctest.testmod()
