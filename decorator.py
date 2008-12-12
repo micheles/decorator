@@ -25,24 +25,12 @@ Decorator module, see http://pypi.python.org/pypi/decorator
 for the documentation.
 """
 
-__all__ = ["decorator", "FunctionMaker", "getinfo", "new_wrapper"]
+__all__ = ["decorator", "FunctionMaker", "deprecated", "getinfo", "new_wrapper"]
 
 import os, sys, re, inspect, warnings
 
 DEF = re.compile('\s*def\s*([_\w][_\w\d]*)\s*\(')
 
-# patch inspect.getsource to recognize the __source__ attribute
-inspect_getsource = inspect.getsource
-
-def getsource(obj):
-    "A replacement for inspect.getsource honoring the __source__ attribute"
-    try:
-        return obj.__source__
-    except AttributeError:
-        return inspect_getsource(obj)
-
-inspect.getsource = getsource
-    
 # basic functionality
 class FunctionMaker(object):
     """
@@ -88,38 +76,32 @@ class FunctionMaker(object):
         func.__module__ = getattr(self, 'module', callermodule)
         func.__dict__.update(kw)
  
-    def make(self, src_templ, **evaldict):
+    def make(self, src_templ, evaldict=None, addsource=None, **attrs):
         "Make a new function from a given template and update the signature"
         src = src_templ % vars(self) # expand name and signature
+        evaldict = evaldict or {}
         mo = DEF.match(src)
         if mo is None:
             raise SyntaxError('not a valid function template\n%s' % src)
         name = mo.group(1) # extract the function name
         reserved_names = set([name] + [
             arg.strip(' *') for arg in self.signature.split(',')])
-        s = ''
         for n, v in evaldict.iteritems():
-            if inspect.isfunction(v):
-                s += '# %s=<function %s.%s>\n' % (n, v.__module__, v.__name__)
-            elif isinstance(v, basestring):
-                s += '# %s=\n%s\n' % (name, '\n'.join(
-                    '## ' + line for line in v.splitlines()))
-            else:
-                s += '# %s=%r\n' % (n, v)
             if n in reserved_names:
                 raise NameError('%s is overridden in\n%s' % (n, src))
-        source = s + src
-        if not source.endswith('\n'): # add a newline just for safety
-            source += '\n'
+        if not src.endswith('\n'): # add a newline just for safety
+            src += '\n'
         try:
-            code = compile(source, '<string>', 'single')
+            code = compile(src, '<string>', 'single')
             exec code in evaldict
         except:
             print >> sys.stderr, 'Error in generated code:'
-            print >> sys.stderr, source
+            print >> sys.stderr, src
             raise
         func = evaldict[name]
-        self.update(func, __source__=source)
+        if addsource:
+            attrs['__source__'] = src + addsource
+        self.update(func, **attrs)
         return func
 
 def decorator(caller, func=None):
@@ -132,14 +114,13 @@ def decorator(caller, func=None):
         first_arg = inspect.getargspec(caller)[0][0]
         src = 'def %s(%s): return _call_(caller, %s)' % (
             caller.__name__, first_arg, first_arg)
-        return fun.make(src, caller=caller, _call_=decorator)
+        return fun.make(src, dict(caller=caller, _call_=decorator),
+                        undecorated=caller)
     else: # returns a decorated function
         fun = FunctionMaker(func)
         src = """def %(name)s(%(signature)s):
     return _call_(_func_, %(signature)s)"""
-        decorated = fun.make(src, _func_=func, _call_=caller)
-        decorated.__source__ = inspect_getsource(func)
-        return decorated
+        return fun.make(src, dict(_func_=func, _call_=caller), undecorated=func)
 
 ###################### deprecated functionality #########################
 

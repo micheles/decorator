@@ -5,6 +5,7 @@ The ``decorator`` module
 :author: Michele Simionato
 :E-mail: michele.simionato@gmail.com
 :version: $VERSION ($DATE)
+:Requirements: Python 2.4+
 :Download page: http://pypi.python.org/pypi/decorator
 :Installation: ``easy_install decorator``
 :License: BSD license
@@ -184,10 +185,12 @@ $$_trace
 $$trace
 
 Then, you can write the following:
+
+.. code-block:: python
  
->>> @trace
-... def f1(x):
-...     pass
+ >>> @trace
+ ... def f1(x):
+ ...     pass
 
 It is immediate to verify that ``f1`` works
 
@@ -201,26 +204,30 @@ and it that it has the correct signature:
 
 The same decorator works with functions of any signature:
 
->>> @trace
-... def f(x, y=1, z=2, *args, **kw):
-...     pass
+.. code-block:: python
+ 
+ >>> @trace
+ ... def f(x, y=1, z=2, *args, **kw):
+ ...     pass
 
->>> f(0, 3)
-calling f with args (0, 3, 2), {}
-
->>> print getargspec(f) 
-(['x', 'y', 'z'], 'args', 'kw', (1, 2))
+ >>> f(0, 3)
+ calling f with args (0, 3, 2), {}
+ 
+ >>> print getargspec(f) 
+ (['x', 'y', 'z'], 'args', 'kw', (1, 2))
 
 That includes even functions with exotic signatures like the following:
 
->>> @trace
-... def exotic_signature((x, y)=(1,2)): return x+y
-
->>> print getargspec(exotic_signature)
-([['x', 'y']], None, None, ((1, 2),))
->>> exotic_signature() 
-calling exotic_signature with args ((1, 2),), {}
-3
+.. code-block:: python
+ 
+ >>> @trace
+ ... def exotic_signature((x, y)=(1,2)): return x+y
+ 
+ >>> print getargspec(exotic_signature)
+ ([['x', 'y']], None, None, ((1, 2),))
+ >>> exotic_signature() 
+ calling exotic_signature with args ((1, 2),), {}
+ 3
 
 Notice that the support for exotic signatures has been deprecated
 in Python 2.6 and removed in Python 3.0.
@@ -265,52 +272,24 @@ calling func with args (), {}
 For the rest of this document, I will discuss examples of useful
 decorators built on top of ``decorator``.
 
-``delayed`` and ``async``
+``async``
 --------------------------------------------
 
-Often, one wants to define families of decorators, i.e. decorators depending
-on one or more parameters. 
+Here I show a decorator
+which is able to convert a blocking procedure into an asynchronous
+procedure. The procedure, when called, 
+is executed in a separate thread. The implementation is not difficult:
 
-Here I will consider the example of a one-parameter family of ``delayed`` 
-decorators taking a procedure and converting it into a delayed procedure. 
-In this case the time delay is the parameter. 
+$$_async
+$$async
 
-A delayed procedure is a procedure that, when called, 
-is executed in a separate thread after a certain time 
-delay. The implementation is not difficult:
-
-$$delayed
-
-Notice that without the help of ``decorator``, an additional level of 
-nesting would have been needed.
-
-Delayed decorators as intended to be used on procedures, i.e.
+``async`` as intended to be used on procedures, i.e.
 on functions returning ``None``, since the return value of the original 
 function is discarded by this implementation. The decorated function returns 
 the current execution thread, which can be stored and checked later, for 
 instance to verify that the thread ``.isAlive()``.
 
-Delayed procedures can be useful in many situations. For instance, I have used 
-this pattern to start a web browser *after* the web server started, 
-in code such as
-
->>> @delayed(2)
-... def start_browser():
-...     "code to open an external browser window here"
-
->>> #start_browser() # will open the browser in 2 seconds
->>> #server.serve_forever() # enter the server mainloop
-
-The particular case in which there is no delay is important enough
-to deserve a name:
-
-.. code-block:: python
-
- async = delayed(0, name='async') # no-delay decorator
-
-Asynchronous procedures will be executed in a parallel thread.
-
-Suppose one wants to write some data to
+Here is an example of usage. Suppose one wants to write some data to
 an external resource which can be accessed by a single user at once
 (for instance a printer). Then the access to the writing function must 
 be locked. Here is a minimalistic example:
@@ -329,12 +308,12 @@ Each call to ``write`` will create a new writer thread, but there will
 be no synchronization problems since ``write`` is locked.
 
 >>> write("data1") 
-<_Timer(Thread-1, started)>
+<Thread(write-1, started)>
 
 >>> time.sleep(.1) # wait a bit, so we are sure data2 is written after data1
 
 >>> write("data2") 
-<_Timer(Thread-2, started)>
+<Thread(write-2, started)>
 
 >>> time.sleep(2) # wait for the writers to complete
 
@@ -349,36 +328,43 @@ sometimes it is best to have back a "busy" message than to block everything.
 This behavior can be implemented with a suitable decorator:
 
 $$blocking
+
+(notice that without the help of ``decorator``, an additional level of 
+nesting would have been needed). This is actually an example
+of a one-parameter family of decorators where the
+"busy message" is the parameter. 
    
 Functions decorated with ``blocking`` will return a busy message if
 the resource is unavailable, and the intended result if the resource is 
 available. For instance:
 
->>> @blocking("Please wait ...")
-... def read_data():
-...     time.sleep(3) # simulate a blocking resource
-...     return "some data"
+.. code-block:: python
 
->>> print read_data() # data is not available yet
-Please wait ...
+ >>> @blocking("Please wait ...")
+ ... def read_data():
+ ...     time.sleep(3) # simulate a blocking resource
+ ...     return "some data"
 
->>> time.sleep(1)  
->>> print read_data() # data is not available yet
-Please wait ...
+ >>> print read_data() # data is not available yet
+ Please wait ...
 
->>> time.sleep(1)
->>> print read_data() # data is not available yet
-Please wait ...
+ >>> time.sleep(1)  
+ >>> print read_data() # data is not available yet
+ Please wait ...
 
->>> time.sleep(1.1) # after 3.1 seconds, data is available
->>> print read_data()
-some data
+ >>> time.sleep(1)
+ >>> print read_data() # data is not available yet
+ Please wait ...
+
+ >>> time.sleep(1.1) # after 3.1 seconds, data is available
+ >>> print read_data()
+ some data
 
 decorator factories
 --------------------------------------------------------------------
 
-We have already seen examples
-of simple decorator factories, implemented as functions returning a
+We have just seen an example
+of a simple decorator factories, implemented as a function returning a
 decorator. For more complex situations, it is more convenient to
 implement decorator factories as classes returning callable objects
 that can be used as signature-preserving decorators.
@@ -457,15 +443,17 @@ stay there forever.
 input, or a whole function. Here is an example of how to
 restrict the signature of a function:
 
->>> def f(*args, **kw):
-...     print args, kw
+.. code-block:: python
 
->>> f1 = FunctionMaker(name="f1", signature="a,b").make('''
-... def %(name)s(%(signature)s):
-...     f(%(signature)s)''', f=f)
+ >>> def f(*args, **kw):
+ ...     print args, kw
 
->>> f1(1,2)
-(1, 2) {}
+ >>> f1 = FunctionMaker(name="f1", signature="a,b").make('''
+ ... def %(name)s(%(signature)s):
+ ...     f(%(signature)s)''', dict(f=f))
+
+ >>> f1(1,2)
+ (1, 2) {}
 
 Sometimes you find on the net some cool decorator that you would
 like to include in your code. However, more often than not the cool 
@@ -522,6 +510,55 @@ $$fact
 (a function is tail recursive if it either returns a value without
 making a recursive call, or returns directly the result of a recursive
 call).
+
+Getting the source code
+---------------------------------------------------
+
+Iinternally the decorator module uses ``exec`` to generate the decorated
+function with the right signature. Therefore the ordinary
+``inspect.getsource`` will not work for decorated
+functions. This means that the usual '??' trick in IPython will give you
+the (right on the spot) message 
+``Dynamically generated function. No source code available.``.
+In the past I have considered this acceptable, since ``inspect.getsource``
+does not really work even with regular decorators. In that case
+``inspect.getsource`` gives you the wrapper source code which is probably
+not what you want:
+
+$$identity_dec
+$$example
+
+>>> import inspect
+>>> print inspect.getsource(example)
+    def wrapper(*args, **kw):
+        return func(*args, **kw)
+<BLANKLINE>
+
+(see bug report 1764286_ for an explanation of what is happening).
+Unfortunately the bug is still there, even in Python 2.6 and 3.0.
+There is however a workaround. The decorator module adds an
+attribute ``.undecorated`` to the decorated function, containing
+a reference to the original function. The easy way to get
+the source code is to call ``inspect.getsource`` on the
+undecorated function:
+
+>>> print inspect.getsource(factorial.undecorated)
+@tail_recursive
+def factorial(n, acc=1):
+    "The good old factorial"
+    if n == 0: return acc
+    return factorial(n-1, n*acc)
+<BLANKLINE>
+
+.. _1764286: http://bugs.python.org/issue1764286
+
+Starting from release 3.0, the decorator module also adds
+a ``__source__`` attribute to the decorated function.
+
+The generated function is a closure depending on the the caller
+``_call_`` and the original function ``_func_``. For debugging convenience
+you get the names of the moduled where they are defined in a comment:
+in this example they are defined in the ``__main__`` module.
 
 Caveats and limitations
 -------------------------------------------
@@ -589,42 +626,6 @@ module uses ``exec`` to generate the decorated function. Notice that
 ``exec`` is *not* responsibile for the performance penalty, since is the
 called *only once* at function decoration time, and not every time
 the decorated function is called.
-
-Using ``exec`` means that ``inspect.getsource`` will not work for decorated
-functions. This means that the usual '??' trick in IPython will give you
-the (right on the spot) message 
-``Dynamically generated function. No source code available.``. This 
-however is preferable to the situation with regular decorators, where 
-``inspect.getsource`` gives you the wrapper source code which is probably
-not what you want:
-
-$$identity_dec
-$$example
-
->>> import inspect
->>> print inspect.getsource(example)
-    def wrapper(*args, **kw):
-        return func(*args, **kw)
-<BLANKLINE>
-
-(see bug report 1764286_ for an explanation of what is happening).
-Actually, starting from release 3.0, the decorator module, adds
-a ``__source__`` attribute to the decorated function, therefore
-you can get the code which is executed:
-
->>> print f.__source__
-# _call_=<function __main__.trace>
-# _func_=<function __main__.f>
-def f():
-    return _call_(_func_, )
-<BLANKLINE>
-
-.. _1764286: http://bugs.python.org/issue1764286
-
-The generated function is a closure depending on the the caller
-``_call_`` and the original function ``_func_``. For debugging convenience
-you get the names of the moduled where they are defined in a comment:
-in this example they are defined in the ``__main__`` module.
 
 At present, there is no clean way to avoid ``exec``. A clean solution
 would require to change the CPython implementation of functions and
@@ -702,6 +703,17 @@ downgrade to the 2.3 version.
 
 .. _functionality introduced in version 2.3: http://www.phyast.pitt.edu/~micheles/python/documentation.html#class-decorators-and-decorator-factories
 
+Python 3.0 support
+------------------------------------------------------------
+
+The examples shown here have been tested with Python 2.5. Python 2.4
+is also supported - of course the examples requiring the ``with``
+statement will not work there - as well as Python 2.5. Python 3.0
+is supported too. Simply run the script ``2to3`` on the module
+``decorator.py`` and you will get a version of the code running
+with Python 3.0. Notice however that the decorator module is little
+tested with Python 3.0, since I mostly use Python 2.5.
+
 LICENCE
 ---------------------------------------------
 
@@ -734,7 +746,7 @@ note, just to gratify my ego. On the other hand, if you use this software and
 you are unhappy with it, send me a patch!
 """
 from __future__ import with_statement
-import sys, threading, time, functools
+import sys, threading, time, functools, inspect, itertools
 from decorator import *
 from setup import VERSION
 
@@ -747,7 +759,7 @@ def decorator_apply(dec, func):
     fun = FunctionMaker(func)
     src = '''def %(name)s(%(signature)s):
     return decorated(%(signature)s)'''
-    return fun.make(src, decorated=dec(func))
+    return fun.make(src, dict(decorated=dec(func)), undecorated=func)
 
 def _trace(f, *args, **kw):
     print "calling %s with args %s, %s" % (f.__name__, args, kw)
@@ -756,16 +768,17 @@ def _trace(f, *args, **kw):
 def trace(f):
     return decorator(_trace, f)
 
-def delayed(nsec, name='delayed'):
-    def caller(proc, *args, **kw):
-        thread = threading.Timer(nsec, proc, args, kw)
-        thread.start()
-        return thread
-    caller.__name__ = name
-    return decorator(caller)
+def _async(proc, *args, **kw):
+    name = '%s-%s' % (proc.__name__, proc.counter.next())
+    thread = threading.Thread(None, proc, name, args, kw)
+    thread.start()
+    return thread
 
-async = delayed(0, name='async') # no-delay decorator
-
+def async(proc):
+    # every decorated procedure has its own independent thread counter
+    proc.counter = itertools.count(1)
+    return decorator(_async, proc)
+ 
 def identity_dec(func):
     def wrapper(*args, **kw):
         return func(*args, **kw)
