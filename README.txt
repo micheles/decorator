@@ -7,16 +7,14 @@ The decorator module requires Python 2.4.
 
 Installation:
 
-Unzip the archive in a directory called "decorator" in your Python path. 
-For instance, on Unices you could give something like that:
-
-$ unzip decorator.zip -d decorator
+Copy the file decorator.py somewhere in your Python path.
 
 Testing:
 
-Just go in the package directory and give
+Run
 
-$ python doctester.py documentation.txt
+$ python documentation.py
 
-This will generate the main.py file containing all the examples
-discussed in the documentation, and will run the corresponding tests.
+This should work perfectly with Python 2.4 and Python 2.5 and give
+minor errors with Python 2.6 (some inner details such as the
+introduction of the ArgSpec namedtuple and Thread.__repr__ changed).

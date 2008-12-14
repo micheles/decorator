@@ -1,6 +1,11 @@
 HISTORY
 ----------
 
+3.0. New major version introducing ``FunctionMaker`` and the two-argument
+     syntax for ``decorator``. Moreover, added support for getting the
+     source code. This version is Python 3.0 ready.
+     Major overhaul of the documentation, now hosted on 
+     http://packages.python.org/decorator (14/12/2008).
 2.3.2. Small optimization in the code for decorator factories. First version
        with the code uploaded to PyPI (01/12/2008)
 2.3.1. Set the zipsafe flag to False, since I want my users to have the source, not

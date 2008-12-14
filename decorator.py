@@ -76,7 +76,7 @@ class FunctionMaker(object):
         func.__module__ = getattr(self, 'module', callermodule)
         func.__dict__.update(kw)
  
-    def make(self, src_templ, evaldict=None, addsource=None, **attrs):
+    def make(self, src_templ, evaldict=None, addsource=False, **attrs):
         "Make a new function from a given template and update the signature"
         src = src_templ % vars(self) # expand name and signature
         evaldict = evaldict or {}
@@ -100,7 +100,7 @@ class FunctionMaker(object):
             raise
         func = evaldict[name]
         if addsource:
-            attrs['__source__'] = src + addsource
+            attrs['__source__'] = src
         self.update(func, **attrs)
         return func
 
