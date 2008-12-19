@@ -1,1 +1,2 @@
 include documentation.html documentation.pdf
+exclude Makefile
