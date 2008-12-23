@@ -6,7 +6,7 @@ The ``decorator`` module
 :E-mail: michele.simionato@gmail.com
 :Version: $VERSION ($DATE)
 :Requires: Python 2.4+
-:Download page: http://pypi.python.org/pypi/decorator
+:Download page: http://pypi.python.org/pypi/decorator/$VERSION
 :Installation: ``easy_install decorator``
 :License: BSD license
 
