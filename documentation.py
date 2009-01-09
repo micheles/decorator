@@ -775,10 +775,7 @@ you are unhappy with it, send me a patch!
 """
 from __future__ import with_statement
 import sys, threading, time, functools, inspect, itertools  
-try:
-    import multiprocessing
-except ImportError:
-    import processing as multiprocessing
+import multiprocessing
 from decorator import *
 from setup import VERSION
 

@@ -15,7 +15,7 @@ if __name__ == '__main__':
     setup(name='decorator',
           version=VERSION,
           description='Better living through Python with decorators',
-          long_description=doc,
+          long_description='</pre>%s<pre>' % doc,
           author='Michele Simionato',
           author_email='michele.simionato@gmail.com',
           url='http://pypi.python.org/pypi/decorator',
