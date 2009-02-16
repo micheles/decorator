@@ -40,7 +40,8 @@ class FunctionMaker(object):
     """
     def __init__(self, func=None, name=None, signature=None,
                  defaults=None, doc=None, module=None, funcdict=None):
-        if func: # func can also be a class or a callable
+        if func:
+            # func can also be a class or a callable, but not an instance method
             self.name = func.__name__
             if self.name == '<lambda>': # small hack for lambda functions
                 self.name = '_lambda_' 
@@ -64,7 +65,9 @@ class FunctionMaker(object):
         if funcdict:
             self.dict = funcdict
         # check existence required attributes
-        assert self.name and hasattr(self, 'signature')
+        assert hasattr(self, 'name')
+        if not hasattr(self, 'signature'):
+            raise TypeError('You are decorating a non function: %s' % func)
 
     def update(self, func, **kw):
         "Update the signature of func with the data in self"

@@ -1,6 +1,9 @@
 HISTORY
 ----------
 
+3.0.1. Improved the error message in case a bound/unbound method is passed
+     instead of a function and documented this case; that should make life
+     easier for users like Gustavo Nerea (16/02/2009)
 3.0. New major version introducing ``FunctionMaker`` and the two-argument
      syntax for ``decorator``. Moreover, added support for getting the
      source code. This version is Python 3.0 ready.
