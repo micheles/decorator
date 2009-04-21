@@ -983,37 +983,36 @@ class Action(object):
     @Restricted(Admin)
     def delete(self):
         pass
-    
+
 class TailRecursive(object):
     """
     tail_recursive decorator based on Kay Schluehr's recipe
     http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691
+    with improvements by me and George Sakkis.
     """
-    CONTINUE = object() # sentinel
 
     def __init__(self, func):
         self.func = func
         self.firstcall = True
+        self.CONTINUE = object() # sentinel
 
     def __call__(self, *args, **kwd):
-        try:
-            if self.firstcall: # start looping
-                self.firstcall = False
-                while True:            
-                    result = self.func(*args, **kwd)
-                    if result is self.CONTINUE: # update arguments
+        CONTINUE = self.CONTINUE
+        if self.firstcall:
+            func = self.func
+            self.firstcall = False
+            try:
+                while True:
+                    result = func(*args, **kwd)
+                    if result is CONTINUE: # update arguments
                         args, kwd = self.argskwd
                     else: # last call
-                        break
-            else: # return the arguments of the tail call
-                self.argskwd = args, kwd
-                return self.CONTINUE
-        except: # reset and re-raise
-            self.firstcall = True
-            raise
-        else: # reset and exit
-            self.firstcall = True 
-            return result
+                        return result
+            finally:
+                self.firstcall = True
+        else: # return the arguments of the tail call
+            self.argskwd = args, kwd
+            return CONTINUE
 
 def tail_recursive(func):
     return decorator_apply(TailRecursive, func)
