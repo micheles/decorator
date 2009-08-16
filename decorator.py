@@ -34,12 +34,13 @@ import os, sys, re, inspect, warnings
 try:
     from functools import partial
 except ImportError: # for Python version < 2.5
-    def partial(func, *args):
+    class partial(object):
         "A poor man replacement of partial for use in the decorator module only"
-        f = lambda *otherargs: func(*(args + otherargs))
-        f.args = args
-        f.func = func
-        return f
+        def __init__(self, func, *args):
+            self.func = func
+            self.args = args
+        def __call__(self, *otherargs):
+            return self.func(*(self.args + otherargs))
 
 DEF = re.compile('\s*def\s*([_\w][_\w\d]*)\s*\(')
 
@@ -151,12 +152,6 @@ def decorator(caller, func=None):
             dict(_call_=caller, _func_=func), undecorated=func)
     else: # returns a decorator
         return partial(decorator, caller)
-
-def decorator_factory(decfac):
-    "decorator.factory(decfac) returns a one-parameter family of decorators"
-    return partial(lambda df, param: decorator(partial(df, param)), decfac)
-
-decorator.factory = decorator_factory
 
 ###################### deprecated functionality #########################
 

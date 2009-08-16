@@ -295,24 +295,27 @@ Here is an example of usage:
 
 If you are using an old Python version (Python 2.4) the
 ``decorator`` module provides a poor man replacement for
-``functools.partial`` as a higher order function.
+``functools.partial``.
 
 There is also an easy way to create one-parameter factories of
-decorators. Suppose for instance you want to generated different
+decorators, based on the following
+``decorator_factory`` utility:
+
+$$decorator_factory
+
+``decorator_factory`` converts a function with signature
+``(param, func, *args, **kw)`` into a one-parameter family
+of decorators. Suppose for instance you want to generated different
 tracing generator, with different tracing messages.
 Here is how to do it:
 
 .. code-block:: python
 
- >>> @decorator.factory
+ >>> @decorator_factory
  ... def trace_factory(message_template, f, *args, **kw):
  ...     name = f.func_name
  ...     print message_template % locals()
  ...     return f(*args, **kw)
-
-``decorator.factory`` converts a function with signature
-``(param, func, *args, **kw)`` into a one-parameter family
-of decorators. 
 
 .. code-block:: python
 
@@ -770,9 +773,9 @@ Finally ``decorator`` cannot be used as a class decorator and the
 `functionality introduced in version 2.3`_ has been removed. That
 means that in order to define decorator factories with classes you
 need to define the ``__call__`` method explicitly (no magic anymore).
-Starting from version 3.1 there is
-an easy way to define decorator factories by using ``decorator.factory``,
-so that there is less need to use classes to implement decorator factories.
+Since there is
+an easy way to define decorator factories by using ``decorator_factory``,
+there is less need to use classes to implement decorator factories.
 
 All these changes should not cause any trouble, since they were
 all rarely used features. Should you have any trouble, you can always
@@ -834,13 +837,17 @@ you are unhappy with it, send me a patch!
 """
 from __future__ import with_statement
 import sys, threading, time, functools, inspect, itertools  
-import multiprocessing
+from functools import partial
 from decorator import *
 from setup import VERSION
 
 today = time.strftime('%Y-%m-%d')
 
 __doc__ = __doc__.replace('$VERSION', VERSION).replace('$DATE', today)
+
+def decorator_factory(decfac): # partial is functools.partial
+    "decorator_factory(decfac) returns a one-parameter family of decorators"
+    return partial(lambda df, param: decorator(partial(df, param)), decfac)
 
 def decorator_apply(dec, func):
     """
@@ -945,7 +952,7 @@ def memoize(f):
     f.cache = {}
     return decorator(_memoize, f)
     
-@decorator.factory
+@decorator_factory
 def blocking(not_avail, f, *args, **kw):
     if not hasattr(f, "thread"): # no thread running
         def set_result(): f.result = f(*args, **kw)
@@ -973,40 +980,36 @@ def get_userclass():
 class PermissionError(Exception):
     pass
 
-class Restricted(object):
-    """
-    Restrict public methods and functions to a given class of users.
-    If instantiated twice with the same userclass return the same
-    object.
-    """
-    _cache = {} 
-    def __new__(cls, userclass):
-        if userclass in cls._cache:
-            return cls._cache[userclass]
-        self = cls._cache[userclass] = super(Restricted, cls).__new__(cls)
-        self.userclass = userclass
-        return self
-    def call(self, func, *args, **kw):
-        userclass = get_userclass()
-        if issubclass(userclass, self.userclass):
-            return func(*args, **kw)
-        else:
-            raise PermissionError(
+@decorator_factory
+def restricted(user_class, func, *args, **kw):
+    "Restrict access to a given class of users"
+    userclass = get_userclass()
+    if issubclass(userclass, user_class):
+        return func(*args, **kw)
+    else:
+        raise PermissionError(
             '%s does not have the permission to run %s!'
             % (userclass.__name__, func.__name__))
-    def __call__(self, func):
-        return decorator(self.call, func)
 
 class Action(object):
-    @Restricted(User)
+    """
+    >>> a = Action()
+    >>> a.view() # ok
+    >>> a.insert() # err
+    Traceback (most recent call last):
+       ...
+    PermissionError: User does not have the permission to run insert!
+
+    """
+    @restricted(User)
     def view(self):
         pass
 
-    @Restricted(PowerUser)
+    @restricted(PowerUser)
     def insert(self):
         pass
 
-    @Restricted(Admin)
+    @restricted(Admin)
     def delete(self):
         pass
 
