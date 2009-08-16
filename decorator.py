@@ -31,6 +31,15 @@ for the documentation.
 __all__ = ["decorator", "FunctionMaker", "deprecated", "getinfo", "new_wrapper"]
 
 import os, sys, re, inspect, warnings
+try:
+    from functools import partial
+except ImportError: # for Python version < 2.5
+    def partial(func, *args):
+        "A poor man replacement of partial for use in the decorator module only"
+        f = lambda *otherargs: func(*(args + otherargs))
+        f.args = args
+        f.func = func
+        return f
 
 DEF = re.compile('\s*def\s*([_\w][_\w\d]*)\s*\(')
 
@@ -77,7 +86,7 @@ class FunctionMaker(object):
         func.__name__ = self.name
         func.__doc__ = getattr(self, 'doc', None)
         func.__dict__ = getattr(self, 'dict', {})
-        func.func_defaults = getattr(self, 'defaults', None)
+        func.func_defaults = getattr(self, 'defaults', ())
         callermodule = sys._getframe(3).f_globals.get('__name__', '?')
         func.__module__ = getattr(self, 'module', callermodule)
         func.__dict__.update(kw)
@@ -110,23 +119,44 @@ class FunctionMaker(object):
         self.update(func, **attrs)
         return func
 
+    @classmethod
+    def create(cls, obj, body, evaldict, defaults=None, addsource=True,**attrs):
+        """
+        Create a function from the strings name, signature and body.
+        evaldict is the evaluation dictionary. If addsource is true an attribute
+        __source__ is added to the result. The attributes attrs are added,
+        if any.
+        """
+        if isinstance(obj, str): # "name(signature)"
+            name, rest = obj.strip().split('(', 1)
+            signature = rest[:-1]
+            func = None
+        else: # a function
+            name = None
+            signature = None
+            func = obj
+        fun = cls(func, name, signature, defaults)
+        ibody = ''.join('    ' + line for line in body.splitlines())
+        return fun.make('def %(name)s(%(signature)s):\n' + ibody, 
+                        evaldict, addsource, **attrs)
+  
 def decorator(caller, func=None):
     """
     decorator(caller) converts a caller function into a decorator;
     decorator(caller, func) decorates a function using a caller.
     """
-    if func is None: # returns a decorator
-        fun = FunctionMaker(caller)
-        first_arg = inspect.getargspec(caller)[0][0]
-        src = 'def %s(%s): return _call_(caller, %s)' % (
-            caller.__name__, first_arg, first_arg)
-        return fun.make(src, dict(caller=caller, _call_=decorator),
-                        undecorated=caller)
-    else: # returns a decorated function
-        fun = FunctionMaker(func)
-        src = """def %(name)s(%(signature)s):
-    return _call_(_func_, %(signature)s)"""
-        return fun.make(src, dict(_func_=func, _call_=caller), undecorated=func)
+    if func is not None: # returns a decorated function
+        return FunctionMaker.create(
+            func, "return _call_(_func_, %(signature)s)",
+            dict(_call_=caller, _func_=func), undecorated=func)
+    else: # returns a decorator
+        return partial(decorator, caller)
+
+def decorator_factory(decfac):
+    "decorator.factory(decfac) returns a one-parameter family of decorators"
+    return partial(lambda df, param: decorator(partial(df, param)), decfac)
+
+decorator.factory = decorator_factory
 
 ###################### deprecated functionality #########################
 
