@@ -137,7 +137,7 @@ class FunctionMaker(object):
             signature = None
             func = obj
         fun = cls(func, name, signature, defaults)
-        ibody = ''.join('    ' + line for line in body.splitlines())
+        ibody = '\n'.join('    ' + line for line in body.splitlines())
         return fun.make('def %(name)s(%(signature)s):\n' + ibody, 
                         evaldict, addsource, **attrs)
   
