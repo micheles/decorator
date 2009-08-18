@@ -281,7 +281,7 @@ object which can be used as a decorator:
 .. code-block:: python
 
  >>> trace # doctest: +ELLIPSIS
- <functools.partial object at 0x...>
+ <function trace at 0x...>
 
 Here is an example of usage:
 
@@ -837,8 +837,8 @@ you are unhappy with it, send me a patch!
 """
 from __future__ import with_statement
 import sys, threading, time, functools, inspect, itertools  
-from functools import partial
 from decorator import *
+from functools import partial
 from setup import VERSION
 
 today = time.strftime('%Y-%m-%d')
@@ -1055,6 +1055,15 @@ def factorial(n, acc=1):
 def fact(n): # this is not tail-recursive
     if n == 0: return 1
     return n * fact(n-1)
+
+
+def atest_for_pylons():
+    """
+    In version 3.1.0 decorator(caller) returned a nameless partial
+    object, thus breaking Pylons. That must not happen anymore.
+    >>> decorator(_memoize).__name__
+    '_memoize'
+    """
 
 if __name__ == '__main__':
     import doctest; doctest.testmod()

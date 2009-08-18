@@ -28,19 +28,23 @@ Decorator module, see http://pypi.python.org/pypi/decorator
 for the documentation.
 """
 
-__all__ = ["decorator", "FunctionMaker", "deprecated", "getinfo", "new_wrapper"]
+__all__ = ["decorator", "FunctionMaker", "partial",
+           "deprecated", "getinfo", "new_wrapper"]
 
 import os, sys, re, inspect, warnings
 try:
     from functools import partial
 except ImportError: # for Python version < 2.5
     class partial(object):
-        "A poor man replacement of partial for use in the decorator module only"
-        def __init__(self, func, *args):
+        "A simple replacement of functools.partial"
+        def __init__(self, func, *args, **kw):
             self.func = func
-            self.args = args
-        def __call__(self, *otherargs):
-            return self.func(*(self.args + otherargs))
+            self.args = args                
+            self.keywords = kw
+        def __call__(self, *otherargs, **otherkw):
+            kw = self.keywords.copy()
+            kw.update(otherkw)
+            return self.func(*(self.args + otherargs), **kw)
 
 DEF = re.compile('\s*def\s*([_\w][_\w\d]*)\s*\(')
 
@@ -151,7 +155,14 @@ def decorator(caller, func=None):
             func, "return _call_(_func_, %(signature)s)",
             dict(_call_=caller, _func_=func), undecorated=func)
     else: # returns a decorator
-        return partial(decorator, caller)
+        if isinstance(caller, partial):
+            return partial(decorator, caller)
+        # otherwise assume caller is a function
+        f = inspect.getargspec(caller)[0][0] # first arg
+        return FunctionMaker.create(
+            '%s(%s)' % (caller.__name__, f), 
+            'return decorator(_call_, %s)' % f,
+            dict(_call_=caller, decorator=decorator), undecorated=caller)
 
 ###################### deprecated functionality #########################
 

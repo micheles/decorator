@@ -1,6 +1,8 @@
 HISTORY
 ----------
 
+3.1.1. Fixed a bug which was breaking Pylons, signaled by
+     Gabriel de Perthuis, and added a test for it. (18/08/2009)
 3.1. Added decorator.factory, an easy way to define families of decorators
      (requested by various users, including David Laban). Refactored the
      FunctionMaker class and added an easier to use .create classmethod.
