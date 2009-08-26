@@ -31,7 +31,7 @@ for the documentation.
 __all__ = ["decorator", "FunctionMaker", "partial",
            "deprecated", "getinfo", "new_wrapper"]
 
-import os, sys, re, inspect, warnings
+import os, sys, re, inspect, string, warnings
 try:
     from functools import partial
 except ImportError: # for Python version < 2.5
@@ -58,16 +58,19 @@ class FunctionMaker(object):
     def __init__(self, func=None, name=None, signature=None,
                  defaults=None, doc=None, module=None, funcdict=None):
         if func:
-            # func can also be a class or a callable, but not an instance method
+            # func can be a class or a callable, but not an instance method
             self.name = func.__name__
             if self.name == '<lambda>': # small hack for lambda functions
                 self.name = '_lambda_' 
             self.doc = func.__doc__
             self.module = func.__module__
             if inspect.isfunction(func):
+                argspec = inspect.getargspec(func)
+                self.args, self.varargs, self.keywords, self.defaults = argspec
+                for i, arg in enumerate(self.args):
+                    setattr(self, 'arg%d' % i, arg)
                 self.signature = inspect.formatargspec(
-                    formatvalue=lambda val: "", *inspect.getargspec(func))[1:-1]
-                self.defaults = func.func_defaults
+                    formatvalue=lambda val: "", *argspec)[1:-1]
                 self.dict = func.__dict__.copy()
         if name:
             self.name = name
@@ -95,7 +98,7 @@ class FunctionMaker(object):
         callermodule = sys._getframe(3).f_globals.get('__name__', '?')
         func.__module__ = getattr(self, 'module', callermodule)
         func.__dict__.update(kw)
- 
+
     def make(self, src_templ, evaldict=None, addsource=False, **attrs):
         "Make a new function from a given template and update the signature"
         src = src_templ % vars(self) # expand name and signature
@@ -125,7 +128,8 @@ class FunctionMaker(object):
         return func
 
     @classmethod
-    def create(cls, obj, body, evaldict, defaults=None, addsource=True,**attrs):
+    def create(cls, obj, body, evaldict, defaults=None,
+               doc=None, module=None, addsource=True,**attrs):
         """
         Create a function from the strings name, signature and body.
         evaldict is the evaluation dictionary. If addsource is true an attribute
@@ -134,13 +138,13 @@ class FunctionMaker(object):
         """
         if isinstance(obj, str): # "name(signature)"
             name, rest = obj.strip().split('(', 1)
-            signature = rest[:-1]
+            signature = rest[:-1] #strip a right parens            
             func = None
         else: # a function
             name = None
             signature = None
             func = obj
-        fun = cls(func, name, signature, defaults)
+        fun = cls(func, name, signature, defaults, doc, module)
         ibody = '\n'.join('    ' + line for line in body.splitlines())
         return fun.make('def %(name)s(%(signature)s):\n' + ibody, 
                         evaldict, addsource, **attrs)
@@ -162,7 +166,8 @@ def decorator(caller, func=None):
         return FunctionMaker.create(
             '%s(%s)' % (caller.__name__, f), 
             'return decorator(_call_, %s)' % f,
-            dict(_call_=caller, decorator=decorator), undecorated=caller)
+            dict(_call_=caller, decorator=decorator), undecorated=caller,
+            doc=caller.__doc__, module=caller.__module__)
 
 ###################### deprecated functionality #########################
 

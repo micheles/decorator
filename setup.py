@@ -3,7 +3,7 @@ try:
 except ImportError:
     from distutils.core import setup
 
-VERSION = '3.1.1'
+VERSION = '3.1.2'
 
 if __name__ == '__main__':
     try:
