@@ -3,7 +3,7 @@ try:
 except ImportError:
     from distutils.core import setup
 
-VERSION = '3.1.2'
+from decorator import __version__ as VERSION
 
 if __name__ == '__main__':
     try:

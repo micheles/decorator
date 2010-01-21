@@ -28,8 +28,9 @@ Decorator module, see http://pypi.python.org/pypi/decorator
 for the documentation.
 """
 
-__all__ = ["decorator", "FunctionMaker", "partial",
-           "deprecated", "getinfo", "new_wrapper"]
+__version__ = '3.2.0'
+
+__all__ = ["decorator", "FunctionMaker", "partial"]
 
 import os, sys, re, inspect, string, warnings
 try:
@@ -168,86 +169,3 @@ def decorator(caller, func=None):
             'return decorator(_call_, %s)' % f,
             dict(_call_=caller, decorator=decorator), undecorated=caller,
             doc=caller.__doc__, module=caller.__module__)
-
-###################### deprecated functionality #########################
-
-@decorator
-def deprecated(func, *args, **kw):
-    "A decorator for deprecated functions"
-    warnings.warn(
-        ('Calling the deprecated function %r\n'
-         'Downgrade to decorator 2.3 if you want to use this functionality')
-        % func.__name__, DeprecationWarning, stacklevel=3)
-    return func(*args, **kw)
-
-@deprecated
-def getinfo(func):
-    """
-    Returns an info dictionary containing:
-    - name (the name of the function : str)
-    - argnames (the names of the arguments : list)
-    - defaults (the values of the default arguments : tuple)
-    - signature (the signature : str)
-    - doc (the docstring : str)
-    - module (the module name : str)
-    - dict (the function __dict__ : str)
-    
-    >>> def f(self, x=1, y=2, *args, **kw): pass
-
-    >>> info = getinfo(f)
-
-    >>> info["name"]
-    'f'
-    >>> info["argnames"]
-    ['self', 'x', 'y', 'args', 'kw']
-    
-    >>> info["defaults"]
-    (1, 2)
-
-    >>> info["signature"]
-    'self, x, y, *args, **kw'
-    """
-    assert inspect.ismethod(func) or inspect.isfunction(func)
-    regargs, varargs, varkwargs, defaults = inspect.getargspec(func)
-    argnames = list(regargs)
-    if varargs:
-        argnames.append(varargs)
-    if varkwargs:
-        argnames.append(varkwargs)
-    signature = inspect.formatargspec(regargs, varargs, varkwargs, defaults,
-                                      formatvalue=lambda value: "")[1:-1]
-    return dict(name=func.__name__, argnames=argnames, signature=signature,
-                defaults = func.func_defaults, doc=func.__doc__,
-                module=func.__module__, dict=func.__dict__,
-                globals=func.func_globals, closure=func.func_closure)
-
-@deprecated
-def update_wrapper(wrapper, model, infodict=None):
-    "A replacement for functools.update_wrapper"
-    infodict = infodict or getinfo(model)
-    wrapper.__name__ = infodict['name']
-    wrapper.__doc__ = infodict['doc']
-    wrapper.__module__ = infodict['module']
-    wrapper.__dict__.update(infodict['dict'])
-    wrapper.func_defaults = infodict['defaults']
-    wrapper.undecorated = model
-    return wrapper
-
-@deprecated
-def new_wrapper(wrapper, model):
-    """
-    An improvement over functools.update_wrapper. The wrapper is a generic
-    callable object. It works by generating a copy of the wrapper with the 
-    right signature and by updating the copy, not the original.
-    Moreovoer, 'model' can be a dictionary with keys 'name', 'doc', 'module',
-    'dict', 'defaults'.
-    """
-    if isinstance(model, dict):
-        infodict = model
-    else: # assume model is a function
-        infodict = getinfo(model)
-    assert not '_wrapper_' in infodict["argnames"], (
-        '"_wrapper_" is a reserved argument name!')
-    src = "lambda %(signature)s: _wrapper_(%(signature)s)" % infodict
-    funcopy = eval(src, dict(_wrapper_=wrapper))
-    return update_wrapper(funcopy, model, infodict)

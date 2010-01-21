@@ -119,8 +119,8 @@ keyword arguments:
 .. code-block:: python
 
  >>> from inspect import getargspec 
- >>> print getargspec(f1) 
- ([], 'args', 'kw', None)
+ >>> print getargspec(f1)
+ ArgSpec(args=[], varargs='args', keywords='kw', defaults=None)
 
 This means that introspection tools such as pydoc will give
 wrong informations about the signature of ``f1``. This is pretty bad:
@@ -186,7 +186,7 @@ The signature of ``heavy_computation`` is the one you would expect:
 .. code-block:: python
 
  >>> print getargspec(heavy_computation) 
- ([], None, None, None)
+ ArgSpec(args=[], varargs=None, keywords=None, defaults=None)
 
 A ``trace`` decorator
 ------------------------------------------------------
@@ -219,7 +219,7 @@ and it that it has the correct signature:
 .. code-block:: python
 
  >>> print getargspec(f1) 
- (['x'], None, None, None)
+ ArgSpec(args=['x'], varargs=None, keywords=None, defaults=None)
 
 The same decorator works with functions of any signature:
 
@@ -233,7 +233,7 @@ The same decorator works with functions of any signature:
  calling f with args (0, 3, 2), {}
  
  >>> print getargspec(f) 
- (['x', 'y', 'z'], 'args', 'kw', (1, 2))
+ ArgSpec(args=['x', 'y', 'z'], varargs='args', keywords='kw', defaults=(1, 2))
 
 That includes even functions with exotic signatures like the following:
 
@@ -243,7 +243,7 @@ That includes even functions with exotic signatures like the following:
  ... def exotic_signature((x, y)=(1,2)): return x+y
  
  >>> print getargspec(exotic_signature)
- ([['x', 'y']], None, None, ((1, 2),))
+ ArgSpec(args=[['x', 'y']], varargs=None, keywords=None, defaults=((1, 2),))
  >>> exotic_signature() 
  calling exotic_signature with args ((1, 2),), {}
  3
@@ -296,49 +296,6 @@ Here is an example of usage:
 If you are using an old Python version (Python 2.4) the
 ``decorator`` module provides a poor man replacement for
 ``functools.partial``.
-
-There is also an easy way to create one-parameter factories of
-decorators, based on the following
-``decorator_factory`` utility:
-
-$$decorator_factory
-
-``decorator_factory`` converts a function with signature
-``(param, func, *args, **kw)`` into a one-parameter family
-of decorators. Suppose for instance you want to generated different
-tracing generator, with different tracing messages.
-Here is how to do it:
-
-.. code-block:: python
-
- >>> @decorator_factory
- ... def trace_factory(message_template, f, *args, **kw):
- ...     name = f.func_name
- ...     print message_template % locals()
- ...     return f(*args, **kw)
-
-.. code-block:: python
-
- >>> trace_factory # doctest: +ELLIPSIS
- <functools.partial object at 0x...>
-
- >>> trace = trace_factory('Calling %(name)s with args %(args)s '
- ...                        'and keywords %(kw)s')
-
-In this example the parameter (``message_template``) is 
-just a string, but in general it can be a tuple, a dictionary, or
-a generic object, so there is no real restriction (for instance,
-if you want to define a two-parameter family of decorators just
-use a tuple with two arguments as parameter).
-Here is an example of usage:
-
-.. code-block:: python
-
- >>> @trace
- ... def func(): pass
-
- >>> func()
- Calling func with args () and keywords {}
 
 ``blocking``
 -------------------------------------------
@@ -794,10 +751,6 @@ Finally ``decorator`` cannot be used as a class decorator and the
 `functionality introduced in version 2.3`_ has been removed. That
 means that in order to define decorator factories with classes you
 need to define the ``__call__`` method explicitly (no magic anymore).
-Since there is
-an easy way to define decorator factories by using ``decorator_factory``,
-there is less need to use classes to implement decorator factories.
-
 All these changes should not cause any trouble, since they were
 all rarely used features. Should you have any trouble, you can always
 downgrade to the 2.3 version.
@@ -865,10 +818,6 @@ from setup import VERSION
 today = time.strftime('%Y-%m-%d')
 
 __doc__ = __doc__.replace('$VERSION', VERSION).replace('$DATE', today)
-
-def decorator_factory(decfac): # partial is functools.partial
-    "decorator_factory(decfac) returns a one-parameter family of decorators"
-    return partial(lambda df, param: decorator(partial(df, param)), decfac)
 
 def decorator_apply(dec, func):
     """
@@ -972,19 +921,20 @@ def _memoize(func, *args, **kw):
 def memoize(f):
     f.cache = {}
     return decorator(_memoize, f)
-    
-@decorator_factory
-def blocking(not_avail, f, *args, **kw):
-    if not hasattr(f, "thread"): # no thread running
-        def set_result(): f.result = f(*args, **kw)
-        f.thread = threading.Thread(None, set_result)
-        f.thread.start()
-        return not_avail
-    elif f.thread.isAlive():
-        return not_avail
-    else: # the thread is ended, return the stored result
-        del f.thread
-        return f.result
+
+def blocking(not_avail):
+    def blocking(f, *args, **kw):
+        if not hasattr(f, "thread"): # no thread running
+            def set_result(): f.result = f(*args, **kw)
+            f.thread = threading.Thread(None, set_result)
+            f.thread.start()
+            return not_avail
+        elif f.thread.isAlive():
+            return not_avail
+        else: # the thread is ended, return the stored result
+            del f.thread
+            return f.result
+    return decorator(blocking)
 
 class User(object):
     "Will just be able to see a page"
@@ -1001,16 +951,17 @@ def get_userclass():
 class PermissionError(Exception):
     pass
 
-@decorator_factory
-def restricted(user_class, func, *args, **kw):
-    "Restrict access to a given class of users"
-    userclass = get_userclass()
-    if issubclass(userclass, user_class):
-        return func(*args, **kw)
-    else:
-        raise PermissionError(
-            '%s does not have the permission to run %s!'
-            % (userclass.__name__, func.__name__))
+def restricted(user_class):
+    def restricted(func, *args, **kw):
+        "Restrict access to a given class of users"
+        userclass = get_userclass()
+        if issubclass(userclass, user_class):
+            return func(*args, **kw)
+        else:
+            raise PermissionError(
+                '%s does not have the permission to run %s!'
+                % (userclass.__name__, func.__name__))
+    return decorator(restricted)
 
 class Action(object):
     """
@@ -1077,7 +1028,6 @@ def fact(n): # this is not tail-recursive
     if n == 0: return 1
     return n * fact(n-1)
 
-
 def atest_for_pylons():
     """
     In version 3.1.0 decorator(caller) returned a nameless partial
@@ -1091,6 +1041,14 @@ def atest_for_pylons():
     >>> deprecated.__doc__
     'A decorator for deprecated functions'
     """
+
+@decorator
+def deprecated(func, *args, **kw):
+    "A decorator for deprecated functions"
+    warnings.warn(
+        'Calling the deprecated function %r\n' % func.__name__, 
+        DeprecationWarning, stacklevel=3)
+    return func(*args, **kw)
 
 if __name__ == '__main__':
     import doctest; doctest.testmod()
