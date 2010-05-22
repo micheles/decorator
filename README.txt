@@ -1,9 +1,13 @@
 Decorator module
 =================
 
-Dependencies:
 
-The decorator module requires Python 2.4.
+:Author: Michele Simionato
+:E-mail: michele.simionato@gmail.com
+:Requires: Python 2.4+
+:Download page: http://pypi.python.org/pypi/decorator
+:Installation: ``easy_install decorator``
+:License: BSD license
 
 Installation
 -------------
