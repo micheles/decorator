@@ -53,7 +53,7 @@ There are various versions of the documentation:
 -  `HTML version (Python 3)`_ 
 -  `PDF version (Python 3)`_ 
 
-.. _HTML version (Python 2): documentation.html
-.. _PDF version (Python 2): documentation.pdf
-.. _HTML version (Python 3): documentation3.html
-.. _PDF version (Python 3): documentation3.pdf
+.. _HTML version (Python 2): http://micheles.googlecode.com/hg/decorator/documentation.html
+.. _PDF version (Python 2): http://micheles.googlecode.com/hg/decorator/documentation.pdf
+.. _HTML version (Python 3): http://micheles.googlecode.com/hg/decorator/documentation3.html
+.. _PDF version (Python 3): http://micheles.googlecode.com/hg/decorator/documentation3.pdf
