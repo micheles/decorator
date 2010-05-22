@@ -83,11 +83,11 @@ the function is called with the same input parameters the result is retrieved
 from the cache and not recomputed. There are many implementations of 
 ``memoize`` in http://www.python.org/moin/PythonDecoratorLibrary, 
 but they do not preserve the signature.
-A simple implementation for Python 2.5 could be the following (notice
+A simple implementation could be the following (notice
 that in general it is impossible to memoize correctly something
 that depends on non-hashable arguments):
 
-$$memoize25
+$$memoize_uw
 
 Here we used the functools.update_wrapper_ utility, which has
 been added in Python 2.5 expressly to simplify the definition of decorators
@@ -100,14 +100,14 @@ from the original function to the decorated function by hand).
 The implementation above works in the sense that the decorator 
 can accept functions with generic signatures; unfortunately this
 implementation does *not* define a signature-preserving decorator, since in
-general ``memoize25`` returns a function with a
+general ``memoize_uw`` returns a function with a
 *different signature* from the original function.
 
 Consider for instance the following case:
 
 .. code-block:: python
 
- >>> @memoize25
+ >>> @memoize_uw
  ... def f1(x):
  ...     time.sleep(1) # simulate some long computation
  ...     return x
@@ -160,7 +160,7 @@ At this point you can define your decorator as follows:
 
 $$memoize
 
-The difference with respect to the Python 2.5 approach, which is based
+The difference with respect to the ``memoize_uw`` approach, which is based
 on nested functions, is that the decorator module forces you to lift
 the inner function at the outer level (*flat is better than nested*).
 Moreover, you are forced to pass explicitly the function you want to
@@ -685,12 +685,12 @@ Compatibility notes
 ---------------------------------------------------------------
 
 Version 3.2 is the first version of the ``decorator`` module to officially
-support Python 3.0. Actually, the module has supported Python 3.0 from
+support Python 3. Actually, the module has supported Python 3 from
 the beginning, via the ``2to3`` conversion tool, but this step has
 been now integrated in the build process, thanks to the distribute_
 project, the Python 3-compatible replacement of easy_install. 
 The hard work (for me) has been converting the documentation and the
-doctests.  This has been possibly only now that docutils_ and pygments_
+doctests.  This has been possible only now that docutils_ and pygments_
 have been ported to Python 3. 
 
 The ``decorator`` module *per se* does not contain any change, apart
@@ -722,11 +722,11 @@ downgrade to the 2.3 version.
 The examples shown here have been tested with Python 2.6. Python 2.4
 is also supported - of course the examples requiring the ``with``
 statement will not work there. Python 2.5 works fine, but if you
-run the examples here in the interactive interpreter
+run the examples in the interactive interpreter
 you will notice a few differences since
 ``getargspec`` returns an ``ArgSpec`` namedtuple instead of a regular
 tuple. That means that running the file
-``documentation.py`` under Python 2.5 will a few errors, but
+``documentation.py`` under Python 2.5 will print a few errors, but
 they are not serious. 
 
 .. _functionality introduced in version 2.3: http://www.phyast.pitt.edu/~micheles/python/documentation.html#class-decorators-and-decorator-factories
@@ -851,7 +851,7 @@ def identity_dec(func):
 @identity_dec
 def example(): pass
 
-def memoize25(func):
+def memoize_uw(func):
     func.cache = {}
     def memoize(*args, **kw):
         if kw: # frozenset is used to ensure hashability

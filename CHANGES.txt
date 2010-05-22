@@ -3,8 +3,8 @@ HISTORY
 
 3.2. Added __version__ (thanks to Gregg Lind), removed functionality which 
      has been deprecated for years, removed the confusing decorator_factory
-     example and added full support for Python 3 (thanks to Claus Klein)
-     (22/05/2010)
+     example and added official support for Python 3 (requested by Claus Klein).
+     Moved the documentation from PyPI to googlecode (22/05/2010)
 3.1.2. Added attributes args, varargs, keywords and arg0, ..., argN
      to FunctionMaker objects generated from a function; fixed another
      Pylons-breaking bug signaled by Lawrence Oluyede (25/08/2009)

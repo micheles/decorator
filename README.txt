@@ -1,15 +1,32 @@
 Decorator module
----------------------------
+=================
 
 Dependencies:
 
 The decorator module requires Python 2.4.
 
-Installation:
+Installation
+-------------
+
+If you are lazy, just perform
+
+$ easy_install decorator
+
+which will install just the module on your system. Notice that
+Python 3 requires the easy_install version of the distribute_ project.
+
+If you prefer to install the full distribution from source, including
+the documentation, download the tarball_, unpack it and run
 
 $ python setup.py install
 
-Testing:
+in the main directory, possibly as superuser.
+
+.. _tarball: http://pypi.python.org/pypi/decorator
+.. _distribute: http://packages.python.org/distribute/
+
+Testing
+--------
 
 For Python 2.4, 2.5, 2.6, 2.7 run
 
@@ -22,16 +39,21 @@ $ python documentation3.py
 You will see a few innocuous errors with Python 2.4 and 2.5, because
 some inner details such as the introduction of the ArgSpec namedtuple 
 and Thread.__repr__ changed. You may safely ignore them.
-
-Notice:
-
-You may get into trouble if in your system there is an older version
+Notice that you may run into trouble if in your system there is an older version
 of the decorator module; in such a case remove the old version.
 
-Documentation:
+Documentation
+--------------
 
-There are two versions of the documentation, one for `Python 2`_ and one
-for `Python 3`_ .
+There are various versions of the documentation:
 
-.. _Python 2: documentation.html
-.. _Python 3: documentation3.html
+-  `HTML version (Python 2)`_ 
+-  `PDF version (Python 2)`_ 
+
+-  `HTML version (Python 3)`_ 
+-  `PDF version (Python 3)`_ 
+
+.. _HTML version (Python 2): documentation.html
+.. _PDF version (Python 2): documentation.pdf
+.. _HTML version (Python 3): documentation3.html
+.. _PDF version (Python 3): documentation3.pdf

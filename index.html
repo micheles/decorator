@@ -309,22 +309,39 @@ ul.auto-toc {
 
 <p>Dependencies:</p>
 <p>The decorator module requires Python 2.4.</p>
-<p>Installation:</p>
+<div class="section" id="installation">
+<h1>Installation</h1>
+<p>If you are lazy, just perform</p>
+<p>$ easy_install decorator</p>
+<p>which will install just the module on your system. Notice that
+Python 3 requires the easy_install version of the <a class="reference external" href="http://packages.python.org/distribute/">distribute</a> project.</p>
+<p>If you prefer to install the full distribution from source, including
+the documentation, download the <a class="reference external" href="http://pypi.python.org/pypi/decorator">tarball</a>, unpack it and run</p>
 <p>$ python setup.py install</p>
-<p>Testing:</p>
+<p>in the main directory, possibly as superuser.</p>
+</div>
+<div class="section" id="testing">
+<h1>Testing</h1>
 <p>For Python 2.4, 2.5, 2.6, 2.7 run</p>
 <p>$ python documentation.py</p>
 <p>for Python 3.X run</p>
 <p>$ python documentation3.py</p>
 <p>You will see a few innocuous errors with Python 2.4 and 2.5, because
 some inner details such as the introduction of the ArgSpec namedtuple
-and Thread.__repr__ changed. You may safely ignore them.</p>
-<p>Notice:</p>
-<p>You may get into trouble if in your system there is an older version
+and Thread.__repr__ changed. You may safely ignore them.
+Notice that you may run into trouble if in your system there is an older version
 of the decorator module; in such a case remove the old version.</p>
-<p>Documentation:</p>
-<p>There are two versions of the documentation, one for <a class="reference external" href="documentation.html">Python 2</a> and one
-for <a class="reference external" href="documentation3.html">Python 3</a> .</p>
+</div>
+<div class="section" id="documentation">
+<h1>Documentation</h1>
+<p>There are various versions of the documentation:</p>
+<ul class="simple">
+<li><a class="reference external" href="documentation.html">HTML version (Python 2)</a></li>
+<li><a class="reference external" href="documentation.pdf">PDF version (Python 2)</a></li>
+<li><a class="reference external" href="documentation3.html">HTML version (Python 3)</a></li>
+<li><a class="reference external" href="documentation3.pdf">PDF version (Python 3)</a></li>
+</ul>
+</div>
 </div>
 </body>
 </html>
