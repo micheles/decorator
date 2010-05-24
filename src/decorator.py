@@ -32,7 +32,7 @@ __version__ = '3.2.0'
 
 __all__ = ["decorator", "FunctionMaker", "partial"]
 
-import os, sys, re, inspect, string, warnings
+import os, sys, re, inspect
 
 try:
     from functools import partial
