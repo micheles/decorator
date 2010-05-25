@@ -954,9 +954,9 @@ endobj
  /Border [ 0
  0
  0 ]
- /Rect [ 334.9756
+ /Rect [ 286.1685
  367.1936
- 381.0399
+ 329.8913
  379.1936 ]
  /Subtype /Link
  /Type /Annot >>
@@ -969,9 +969,9 @@ endobj
  /Border [ 0
  0
  0 ]
- /Rect [ 272.2429
+ /Rect [ 188.8729
  343.1936
- 308.9229
+ 225.5529
  355.1936 ]
  /Subtype /Link
  /Type /Annot >>
@@ -984,9 +984,9 @@ endobj
  /Border [ 0
  0
  0 ]
- /Rect [ 328.3829
+ /Rect [ 245.0129
  343.1936
- 374.5129
+ 291.1429
  355.1936 ]
  /Subtype /Link
  /Type /Annot >>
@@ -1076,7 +1076,7 @@ endobj
 % 'R64': class PDFInfo 
 64 0 obj
 << /Author (Michele Simionato)
- /CreationDate (D:20100522100033-01'00')
+ /CreationDate (D:20100525055112-01'00')
  /Keywords ()
  /Producer (ReportLab http://www.reportlab.com)
  /Subject (\(unspecified\))
@@ -1345,7 +1345,7 @@ q
 1 0 0 1 91.03937 3 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (3.2.0 \(2010-05-22\)) Tj T* ET
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (3.2.0 \(2010-05-25\)) Tj T* ET
 Q
 Q
 q
@@ -3273,7 +3273,7 @@ endobj
 % 'R93': class PDFStream 
 93 0 obj
 % page stream
-<< /Length 7976 >>
+<< /Length 7968 >>
 stream
 1 0 0 1 0 0 cm BT /F1 12 Tf 14.4 TL ET
 q
@@ -3337,7 +3337,7 @@ Q
 q
 1 0 0 1 62.69291 339.6236 cm
 q
-BT 1 0 0 1 0 52.82 Tm 1.19686 Tw 12 TL /F1 10 Tf 0 0 0 rg (Version 3.2 is the first version of the ) Tj /F5 10 Tf (decorator ) Tj /F1 10 Tf (module to officially support Python 3.0. Actually, the) Tj T* 0 Tw 1.33311 Tw (module has supported Python 3.0 from the beginning, via the ) Tj /F5 10 Tf (2to3 ) Tj /F1 10 Tf (conversion tool, but this step has) Tj T* 0 Tw 2.714269 Tw (been now integrated in the build process, thanks to the ) Tj 0 0 .501961 rg (distribute ) Tj 0 0 0 rg (project, the Python 3-compatible) Tj T* 0 Tw 1.961412 Tw (replacement of easy_install. The hard work \(for me\) has been converting the documentation and the) Tj T* 0 Tw (doctests. This has been possible only now that ) Tj 0 0 .501961 rg (docutils ) Tj 0 0 0 rg (and ) Tj 0 0 .501961 rg (pygments ) Tj 0 0 0 rg (have been ported to Python 3.) Tj T* ET
+BT 1 0 0 1 0 52.82 Tm 1.71811 Tw 12 TL /F1 10 Tf 0 0 0 rg (Version 3.2 is the first version of the ) Tj /F5 10 Tf (decorator ) Tj /F1 10 Tf (module to officially support Python 3. Actually, the) Tj T* 0 Tw .273516 Tw (module has supported Python 3 from the beginning, via the ) Tj /F5 10 Tf (2to3 ) Tj /F1 10 Tf (conversion tool, but this step has been) Tj T* 0 Tw .37284 Tw (now integrated in the build process, thanks to the ) Tj 0 0 .501961 rg (distribute ) Tj 0 0 0 rg (project, the Python 3-compatible replacement) Tj T* 0 Tw .11811 Tw (of easy_install. The hard work \(for me\) has been converting the documentation and the doctests. This has) Tj T* 0 Tw (been possible only now that ) Tj 0 0 .501961 rg (docutils ) Tj 0 0 0 rg (and ) Tj 0 0 .501961 rg (pygments ) Tj 0 0 0 rg (have been ported to Python 3.) Tj T* ET
 Q
 Q
 q
@@ -3637,30 +3637,30 @@ xref
 0000097401 00000 n
 0000104281 00000 n
 0000111010 00000 n
-0000119087 00000 n
-0000121833 00000 n
-0000122109 00000 n
-0000122186 00000 n
-0000122263 00000 n
-0000122340 00000 n
-0000122418 00000 n
-0000122497 00000 n
-0000122576 00000 n
-0000122655 00000 n
-0000122734 00000 n
-0000122813 00000 n
-0000122893 00000 n
-0000122973 00000 n
-0000123053 00000 n
-0000123133 00000 n
+0000119079 00000 n
+0000121825 00000 n
+0000122101 00000 n
+0000122178 00000 n
+0000122255 00000 n
+0000122332 00000 n
+0000122410 00000 n
+0000122489 00000 n
+0000122568 00000 n
+0000122647 00000 n
+0000122726 00000 n
+0000122805 00000 n
+0000122885 00000 n
+0000122965 00000 n
+0000123045 00000 n
+0000123125 00000 n
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com) 
- [(\273\274\270\361\231\313i\315\035\242\307]\215 7M) (\273\274\270\361\231\313i\315\035\242\307]\215 7M)] 
+ [(\200\237\200\270\204\232\213\275\321-~/\272\325j]) (\200\237\200\270\204\232\213\275\321-~/\272\325j])] 
 
  /Info 64 0 R
  /Root 63 0 R
  /Size 110 >>
 startxref
-123182
+123174
 %%EOF
