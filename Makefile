@@ -15,4 +15,4 @@ pdf: /tmp/documentation.rst /tmp/documentation3.rst
 	cp /tmp/documentation.html /tmp/documentation3.html .
 
 upload: documentation.pdf documentation3.pdf
-	python setup.py register sdist upload 
+	python3 setup.py register sdist upload 
