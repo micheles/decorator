@@ -1035,7 +1035,7 @@ def fact(n): # this is not tail-recursive
     if n == 0: return 1
     return n * fact(n-1)
 
-def atest_for_pylons():
+def a_test_for_pylons():
     """
     In version 3.1.0 decorator(caller) returned a nameless partial
     object, thus breaking Pylons. That must not happen again.
@@ -1043,19 +1043,11 @@ def atest_for_pylons():
     >>> decorator(_memoize).__name__
     '_memoize'
 
-    Here is another bug of version 3.1.1 to avoid:
+    Here is another bug of version 3.1.1 missing the docstring to avoid:
 
-    >>> deprecated.__doc__
-    'A decorator for deprecated functions'
+    >>> factorial.__doc__
+    'The good old factorial'
     """
-
-@decorator
-def deprecated(func, *args, **kw):
-    "A decorator for deprecated functions"
-    warnings.warn(
-        'Calling the deprecated function %r\n' % func.__name__, 
-        DeprecationWarning, stacklevel=3)
-    return func(*args, **kw)
 
 if __name__ == '__main__':
     import doctest; doctest.testmod()
