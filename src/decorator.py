@@ -28,11 +28,11 @@ Decorator module, see http://pypi.python.org/pypi/decorator
 for the documentation.
 """
 
-__version__ = '3.2.0'
+__version__ = '3.2.1'
 
 __all__ = ["decorator", "FunctionMaker", "partial"]
 
-import os, sys, re, inspect
+import sys, re, inspect
 
 try:
     from functools import partial
@@ -109,13 +109,13 @@ class FunctionMaker(object):
         if mo is None:
             raise SyntaxError('not a valid function template\n%s' % src)
         name = mo.group(1) # extract the function name
-        reserved_names = set([name] + [
-            arg.strip(' *') for arg in self.signature.split(',')])
-        for n, v in evaldict.iteritems():
-            if n in reserved_names:
+        names = set([name] + [arg.strip(' *') for arg in 
+                             self.signature.split(',')])
+        for n in names:
+            if n in ('_func_', '_call_'):
                 raise NameError('%s is overridden in\n%s' % (n, src))
         if not src.endswith('\n'): # add a newline just for safety
-            src += '\n'
+            src += '\n' # this is needed in old versions of Python
         try:
             code = compile(src, '<string>', 'single')
             exec code in evaldict
@@ -146,9 +146,9 @@ class FunctionMaker(object):
             name = None
             signature = None
             func = obj
-        fun = cls(func, name, signature, defaults, doc, module)
+        self = cls(func, name, signature, defaults, doc, module)
         ibody = '\n'.join('    ' + line for line in body.splitlines())
-        return fun.make('def %(name)s(%(signature)s):\n' + ibody, 
+        return self.make('def %(name)s(%(signature)s):\n' + ibody, 
                         evaldict, addsource, **attrs)
   
 def decorator(caller, func=None):
@@ -157,16 +157,22 @@ def decorator(caller, func=None):
     decorator(caller, func) decorates a function using a caller.
     """
     if func is not None: # returns a decorated function
+        evaldict = func.func_globals.copy()
+        evaldict['_call_'] = caller
+        evaldict['_func_'] = func
         return FunctionMaker.create(
             func, "return _call_(_func_, %(signature)s)",
-            dict(_call_=caller, _func_=func), undecorated=func)
+            evaldict, undecorated=func)
     else: # returns a decorator
         if isinstance(caller, partial):
             return partial(decorator, caller)
         # otherwise assume caller is a function
-        f = inspect.getargspec(caller)[0][0] # first arg
+        first = inspect.getargspec(caller)[0][0] # first arg
+        evaldict = caller.func_globals.copy()
+        evaldict['_call_'] = caller
+        evaldict['decorator'] = decorator
         return FunctionMaker.create(
-            '%s(%s)' % (caller.__name__, f), 
-            'return decorator(_call_, %s)' % f,
-            dict(_call_=caller, decorator=decorator), undecorated=caller,
+            '%s(%s)' % (caller.__name__, first), 
+            'return decorator(_call_, %s)' % first,
+            evaldict, undecorated=caller,
             doc=caller.__doc__, module=caller.__module__)

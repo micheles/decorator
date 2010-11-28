@@ -486,7 +486,7 @@ $$identity_dec
  <BLANKLINE>
 
 (see bug report 1764286_ for an explanation of what is happening).
-Unfortunately the bug is still there, even in Python 2.6 and 3.0.
+Unfortunately the bug is still there, even in Python 2.7 and 3.1.
 There is however a workaround. The decorator module adds an
 attribute ``.undecorated`` to the decorated function, containing
 a reference to the original function. The easy way to get

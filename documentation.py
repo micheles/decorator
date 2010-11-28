@@ -502,7 +502,7 @@ $$identity_dec
  <BLANKLINE>
 
 (see bug report 1764286_ for an explanation of what is happening).
-Unfortunately the bug is still there, even in Python 2.6 and 3.0.
+Unfortunately the bug is still there, even in Python 2.7 and 3.1.
 There is however a workaround. The decorator module adds an
 attribute ``.undecorated`` to the decorated function, containing
 a reference to the original function. The easy way to get
@@ -710,7 +710,9 @@ you will get a ``NameError``:
  def f(_func_):
      return _call_(_func_, _func_)
 
-Finally, the implementation is such that the decorated function contains
+Finally, the implementation is such that the decorated function
+attribute ``.func_globals`` is a *copy* of the original function
+attribute. Moreover the decorated function contains
 a *copy* of the original function dictionary
 (``vars(decorated_f) is not vars(f)``):
 

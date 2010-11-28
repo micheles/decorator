@@ -1,6 +1,8 @@
 HISTORY
 ----------
 
+3.2.1. Now the .func_globals of the decorated function are the same of
+     the undecorated function, as requested by Paul Ollis (28/12/2010)
 3.2. Added __version__ (thanks to Gregg Lind), removed functionality which 
      has been deprecated for years, removed the confusing decorator_factory
      example and added official support for Python 3 (requested by Claus Klein).
