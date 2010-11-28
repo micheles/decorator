@@ -83,10 +83,10 @@
 <tr class="field"><th class="docinfo-name">E-mail:</th><td class="field-body"><a class="reference external" href="mailto:michele.simionato&#64;gmail.com">michele.simionato&#64;gmail.com</a></td>
 </tr>
 <tr><th class="docinfo-name">Version:</th>
-<td>3.2.0 (2010-05-25)</td></tr>
+<td>3.2.1 (2010-11-28)</td></tr>
 <tr class="field"><th class="docinfo-name">Requires:</th><td class="field-body">Python 2.4+</td>
 </tr>
-<tr class="field"><th class="docinfo-name">Download page:</th><td class="field-body"><a class="reference external" href="http://pypi.python.org/pypi/decorator/3.2.0">http://pypi.python.org/pypi/decorator/3.2.0</a></td>
+<tr class="field"><th class="docinfo-name">Download page:</th><td class="field-body"><a class="reference external" href="http://pypi.python.org/pypi/decorator/3.2.1">http://pypi.python.org/pypi/decorator/3.2.1</a></td>
 </tr>
 <tr class="field"><th class="docinfo-name">Installation:</th><td class="field-body"><tt class="docutils literal">easy_install decorator</tt></td>
 </tr>
@@ -184,7 +184,7 @@ that depends on non-hashable arguments):</p>
     <span class="n">func</span><span class="o">.</span><span class="n">cache</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">def</span> <span class="nf">memoize</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">kw</span><span class="p">:</span> <span class="c"># frozenset is used to ensure hashability</span>
-            <span class="n">key</span> <span class="o">=</span> <span class="n">args</span><span class="p">,</span> <span class="n">frozenset</span><span class="p">(</span><span class="n">kw</span><span class="o">.</span><span class="n">iteritems</span><span class="p">())</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">args</span><span class="p">,</span> <span class="nb">frozenset</span><span class="p">(</span><span class="n">kw</span><span class="o">.</span><span class="n">iteritems</span><span class="p">())</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">key</span> <span class="o">=</span> <span class="n">args</span>
         <span class="n">cache</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">cache</span>
@@ -211,7 +211,7 @@ general <tt class="docutils literal">memoize_uw</tt> returns a function with a
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nd">@memoize_uw</span>
 <span class="o">...</span> <span class="k">def</span> <span class="nf">f1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-<span class="o">...</span>     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span> <span class="c"># simulate some long computation</span>
+<span class="o">...</span>     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c"># simulate some long computation</span>
 <span class="o">...</span>     <span class="k">return</span> <span class="n">x</span>
 </pre></div>
 
@@ -232,10 +232,10 @@ pydoc will tell you that the function accepts a generic signature
 <tt class="docutils literal">*args</tt>, <tt class="docutils literal">**kw</tt>, but when you try to call the function with more than an
 argument, you will get an error:</p>
 <div class="codeblock python">
-<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">f1</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="mf">1</span><span class="p">)</span>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">f1</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
    <span class="o">...</span>
-<span class="ne">TypeError</span><span class="p">:</span> <span class="n">f1</span><span class="p">()</span> <span class="n">takes</span> <span class="n">exactly</span> <span class="mf">1</span> <span class="n">positional</span> <span class="n">argument</span> <span class="p">(</span><span class="mf">2</span> <span class="n">given</span><span class="p">)</span>
+<span class="ne">TypeError</span><span class="p">:</span> <span class="n">f1</span><span class="p">()</span> <span class="n">takes</span> <span class="n">exactly</span> <span class="mi">1</span> <span class="n">positional</span> <span class="n">argument</span> <span class="p">(</span><span class="mi">2</span> <span class="n">given</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -260,7 +260,7 @@ i.e. memoization in this case:</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="k">def</span> <span class="nf">_memoize</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">kw</span><span class="p">:</span> <span class="c"># frozenset is used to ensure hashability</span>
-        <span class="n">key</span> <span class="o">=</span> <span class="n">args</span><span class="p">,</span> <span class="n">frozenset</span><span class="p">(</span><span class="n">kw</span><span class="o">.</span><span class="n">iteritems</span><span class="p">())</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">args</span><span class="p">,</span> <span class="nb">frozenset</span><span class="p">(</span><span class="n">kw</span><span class="o">.</span><span class="n">iteritems</span><span class="p">())</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">key</span> <span class="o">=</span> <span class="n">args</span>
     <span class="n">cache</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">cache</span> <span class="c"># attributed added by memoize</span>
@@ -289,7 +289,7 @@ decorate to the caller function.</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nd">@memoize</span>
 <span class="o">...</span> <span class="k">def</span> <span class="nf">heavy_computation</span><span class="p">():</span>
-<span class="o">...</span>     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">2</span><span class="p">)</span>
+<span class="o">...</span>     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="o">...</span>     <span class="k">return</span> <span class="s">&quot;done&quot;</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">heavy_computation</span><span class="p">())</span> <span class="c"># the first time it will take 2 seconds</span>
@@ -336,8 +336,8 @@ function is called:</p>
 </div>
 <p>It is immediate to verify that <tt class="docutils literal">f1</tt> works</p>
 <div class="codeblock python">
-<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">f1</span><span class="p">(</span><span class="mf">0</span><span class="p">)</span>
-<span class="n">calling</span> <span class="n">f1</span> <span class="k">with</span> <span class="n">args</span> <span class="p">(</span><span class="mf">0</span><span class="p">,),</span> <span class="p">{}</span>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">f1</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">calling</span> <span class="n">f1</span> <span class="k">with</span> <span class="n">args</span> <span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="p">{}</span>
 </pre></div>
 
 </div>
@@ -351,14 +351,14 @@ function is called:</p>
 <p>The same decorator works with functions of any signature:</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nd">@trace</span>
-<span class="o">...</span> <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">2</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<span class="o">...</span> <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
 <span class="o">...</span>     <span class="k">pass</span>
 
-<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="mf">3</span><span class="p">)</span>
-<span class="n">calling</span> <span class="n">f</span> <span class="k">with</span> <span class="n">args</span> <span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="mf">3</span><span class="p">,</span> <span class="mf">2</span><span class="p">),</span> <span class="p">{}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">calling</span> <span class="n">f</span> <span class="k">with</span> <span class="n">args</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">{}</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">getargspec</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
-<span class="n">ArgSpec</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">,</span> <span class="s">&#39;z&#39;</span><span class="p">],</span> <span class="n">varargs</span><span class="o">=</span><span class="s">&#39;args&#39;</span><span class="p">,</span> <span class="n">keywords</span><span class="o">=</span><span class="s">&#39;kw&#39;</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">))</span>
+<span class="n">ArgSpec</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">,</span> <span class="s">&#39;z&#39;</span><span class="p">],</span> <span class="n">varargs</span><span class="o">=</span><span class="s">&#39;args&#39;</span><span class="p">,</span> <span class="n">keywords</span><span class="o">=</span><span class="s">&#39;kw&#39;</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -390,7 +390,7 @@ For instance, you can write directly</p>
 object which can be used as a decorator:</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">trace</span>
-<span class="o">&lt;</span><span class="n">function</span> <span class="n">trace</span> <span class="n">at</span> <span class="mf">0</span><span class="n">x</span><span class="o">...&gt;</span>
+<span class="o">&lt;</span><span class="n">function</span> <span class="n">trace</span> <span class="n">at</span> <span class="mi">0</span><span class="n">x</span><span class="o">...&gt;</span>
 </pre></div>
 
 </div>
@@ -437,17 +437,17 @@ available. For instance:</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nd">@blocking</span><span class="p">(</span><span class="s">&quot;Please wait ...&quot;</span><span class="p">)</span>
 <span class="o">...</span> <span class="k">def</span> <span class="nf">read_data</span><span class="p">():</span>
-<span class="o">...</span>     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">3</span><span class="p">)</span> <span class="c"># simulate a blocking resource</span>
+<span class="o">...</span>     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="c"># simulate a blocking resource</span>
 <span class="o">...</span>     <span class="k">return</span> <span class="s">&quot;some data&quot;</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">read_data</span><span class="p">())</span> <span class="c"># data is not available yet</span>
 <span class="n">Please</span> <span class="n">wait</span> <span class="o">...</span>
 
-<span class="o">&gt;&gt;&gt;</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">read_data</span><span class="p">())</span> <span class="c"># data is not available yet</span>
 <span class="n">Please</span> <span class="n">wait</span> <span class="o">...</span>
 
-<span class="o">&gt;&gt;&gt;</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">read_data</span><span class="p">())</span> <span class="c"># data is not available yet</span>
 <span class="n">Please</span> <span class="n">wait</span> <span class="o">...</span>
 
@@ -512,7 +512,7 @@ The implementation is the following:</p>
     <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="n">on_success</span><span class="o">=</span><span class="n">on_success</span><span class="p">,</span>
                  <span class="n">on_failure</span><span class="o">=</span><span class="n">on_failure</span><span class="p">,</span> <span class="n">on_closing</span><span class="o">=</span><span class="n">on_closing</span><span class="p">):</span>
         <span class="c"># every decorated function has its own independent thread counter</span>
-        <span class="n">func</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span>
+        <span class="n">func</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="n">func</span><span class="o">.</span><span class="n">on_success</span> <span class="o">=</span> <span class="n">on_success</span>
         <span class="n">func</span><span class="o">.</span><span class="n">on_failure</span> <span class="o">=</span> <span class="n">on_failure</span>
         <span class="n">func</span><span class="o">.</span><span class="n">on_closing</span> <span class="o">=</span> <span class="n">on_closing</span>
@@ -528,7 +528,7 @@ The implementation is the following:</p>
                 <span class="k">return</span> <span class="n">func</span><span class="o">.</span><span class="n">on_success</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
             <span class="k">finally</span><span class="p">:</span>
                 <span class="n">func</span><span class="o">.</span><span class="n">on_closing</span><span class="p">()</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">-</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">next</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">counter</span><span class="p">))</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">-</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="nb">next</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">counter</span><span class="p">))</span>
         <span class="n">thread</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">threadfactory</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">func_wrapper</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
         <span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">thread</span>
@@ -551,7 +551,7 @@ be locked. Here is a minimalistic example:</p>
 <span class="o">...</span> <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
 <span class="o">...</span>     <span class="c"># append data to the datalist by locking</span>
 <span class="o">...</span>     <span class="k">with</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">():</span>
-<span class="o">...</span>         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span> <span class="c"># emulate some long running operation</span>
+<span class="o">...</span>         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c"># emulate some long running operation</span>
 <span class="o">...</span>         <span class="n">datalist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="o">...</span>     <span class="c"># other operations not requiring a lock here</span>
 </pre></div>
@@ -561,14 +561,14 @@ be locked. Here is a minimalistic example:</p>
 be no synchronization problems since <tt class="docutils literal">write</tt> is locked.</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">write</span><span class="p">(</span><span class="s">&quot;data1&quot;</span><span class="p">)</span>
-<span class="o">&lt;</span><span class="n">Thread</span><span class="p">(</span><span class="n">write</span><span class="o">-</span><span class="mf">1</span><span class="p">,</span> <span class="n">started</span><span class="o">...</span><span class="p">)</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">Thread</span><span class="p">(</span><span class="n">write</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">started</span><span class="o">...</span><span class="p">)</span><span class="o">&gt;</span>
 
-<span class="o">&gt;&gt;&gt;</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="o">.</span><span class="mf">1</span><span class="p">)</span> <span class="c"># wait a bit, so we are sure data2 is written after data1</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="o">.</span><span class="mi">1</span><span class="p">)</span> <span class="c"># wait a bit, so we are sure data2 is written after data1</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="n">write</span><span class="p">(</span><span class="s">&quot;data2&quot;</span><span class="p">)</span>
-<span class="o">&lt;</span><span class="n">Thread</span><span class="p">(</span><span class="n">write</span><span class="o">-</span><span class="mf">2</span><span class="p">,</span> <span class="n">started</span><span class="o">...</span><span class="p">)</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">Thread</span><span class="p">(</span><span class="n">write</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">started</span><span class="o">...</span><span class="p">)</span><span class="o">&gt;</span>
 
-<span class="o">&gt;&gt;&gt;</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">2</span><span class="p">)</span> <span class="c"># wait for the writers to complete</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c"># wait for the writers to complete</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">datalist</span><span class="p">)</span>
 <span class="p">[</span><span class="s">&#39;data1&#39;</span><span class="p">,</span> <span class="s">&#39;data2&#39;</span><span class="p">]</span>
@@ -595,8 +595,8 @@ were the function is generated by <tt class="docutils literal">exec</tt>. Here i
 <span class="o">...</span>     <span class="k">print</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">kw</span><span class="p">)</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="n">f1</span> <span class="o">=</span> <span class="n">FunctionMaker</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;f1(a, b)&#39;</span><span class="p">,</span> <span class="s">&#39;f(a, b)&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">))</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">f1</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="mf">2</span><span class="p">)</span>
-<span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">)</span> <span class="p">{}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">f1</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{}</span>
 </pre></div>
 
 </div>
@@ -679,7 +679,7 @@ source code which is probably not what you want:</p>
 
 </div>
 <p>(see bug report <a class="reference external" href="http://bugs.python.org/issue1764286">1764286</a> for an explanation of what is happening).
-Unfortunately the bug is still there, even in Python 2.6 and 3.0.
+Unfortunately the bug is still there, even in Python 2.7 and 3.1.
 There is however a workaround. The decorator module adds an
 attribute <tt class="docutils literal">.undecorated</tt> to the decorated function, containing
 a reference to the original function. The easy way to get
@@ -688,10 +688,10 @@ undecorated function:</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">factorial</span><span class="o">.</span><span class="n">undecorated</span><span class="p">))</span>
 <span class="nd">@tail_recursive</span>
-<span class="k">def</span> <span class="nf">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">acc</span><span class="o">=</span><span class="mf">1</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">acc</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="s">&quot;The good old factorial&quot;</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mf">0</span><span class="p">:</span> <span class="k">return</span> <span class="n">acc</span>
-    <span class="k">return</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mf">1</span><span class="p">,</span> <span class="n">n</span><span class="o">*</span><span class="n">acc</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="n">acc</span>
+    <span class="k">return</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">*</span><span class="n">acc</span><span class="p">)</span>
 <span class="o">&lt;</span><span class="n">BLANKLINE</span><span class="o">&gt;</span>
 </pre></div>
 
@@ -774,16 +774,16 @@ objects.</p>
 <p>Here is how you apply the upgraded decorator to the good old factorial:</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="nd">@tail_recursive</span>
-<span class="k">def</span> <span class="nf">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">acc</span><span class="o">=</span><span class="mf">1</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">acc</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="s">&quot;The good old factorial&quot;</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mf">0</span><span class="p">:</span> <span class="k">return</span> <span class="n">acc</span>
-    <span class="k">return</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mf">1</span><span class="p">,</span> <span class="n">n</span><span class="o">*</span><span class="n">acc</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="n">acc</span>
+    <span class="k">return</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">*</span><span class="n">acc</span><span class="p">)</span>
 </pre></div>
 
 </div>
 <div class="codeblock python">
-<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">factorial</span><span class="p">(</span><span class="mf">4</span><span class="p">))</span>
-<span class="mf">24</span>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">factorial</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="mi">24</span>
 </pre></div>
 
 </div>
@@ -794,8 +794,8 @@ frame. Notice also that the decorator will not work on functions which
 are not tail recursive, such as the following</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="k">def</span> <span class="nf">fact</span><span class="p">(</span><span class="n">n</span><span class="p">):</span> <span class="c"># this is not tail-recursive</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mf">0</span><span class="p">:</span> <span class="k">return</span> <span class="mf">1</span>
-    <span class="k">return</span> <span class="n">n</span> <span class="o">*</span> <span class="n">fact</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mf">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">n</span> <span class="o">*</span> <span class="n">fact</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -844,7 +844,7 @@ longer and more difficult to understand. Consider this example:</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nd">@trace</span>
 <span class="o">...</span> <span class="k">def</span> <span class="nf">f</span><span class="p">():</span>
-<span class="o">...</span>     <span class="mf">1</span><span class="o">/</span><span class="mf">0</span>
+<span class="o">...</span>     <span class="mi">1</span><span class="o">/</span><span class="mi">0</span>
 </pre></div>
 
 </div>
@@ -854,11 +854,11 @@ function is decorated the traceback will be longer:</p>
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="p">()</span>
 <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
   <span class="o">...</span>
-     <span class="n">File</span> <span class="s">&quot;&lt;string&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mf">2</span><span class="p">,</span> <span class="ow">in</span> <span class="n">f</span>
-     <span class="n">File</span> <span class="s">&quot;&lt;doctest __main__[22]&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mf">4</span><span class="p">,</span> <span class="ow">in</span> <span class="n">trace</span>
+     <span class="n">File</span> <span class="s">&quot;&lt;string&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">2</span><span class="p">,</span> <span class="ow">in</span> <span class="n">f</span>
+     <span class="n">File</span> <span class="s">&quot;&lt;doctest __main__[22]&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">4</span><span class="p">,</span> <span class="ow">in</span> <span class="n">trace</span>
        <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
-     <span class="n">File</span> <span class="s">&quot;&lt;doctest __main__[51]&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mf">3</span><span class="p">,</span> <span class="ow">in</span> <span class="n">f</span>
-       <span class="mf">1</span><span class="o">/</span><span class="mf">0</span>
+     <span class="n">File</span> <span class="s">&quot;&lt;doctest __main__[51]&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">3</span><span class="p">,</span> <span class="ow">in</span> <span class="n">f</span>
+       <span class="mi">1</span><span class="o">/</span><span class="mi">0</span>
 <span class="ne">ZeroDivisionError</span><span class="p">:</span> <span class="nb">int</span> <span class="n">division</span> <span class="ow">or</span> <span class="n">modulo</span> <span class="n">by</span> <span class="n">zero</span>
 </pre></div>
 
