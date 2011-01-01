@@ -16,9 +16,9 @@ def f1():
 
 def test0():
     assert os.path.basename(identity.func_globals['__file__']) == 'test.py'
-    print identity.__doc__
+    print(identity.__doc__)
 
 def test1():
     assert os.path.basename(f1.func_globals['__file__']) == 'test.py'
-    print f1.__doc__
+    print(f1.__doc__)
 

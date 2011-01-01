@@ -1,6 +1,6 @@
 ##########################     LICENCE     ###############################
 ##
-##   Copyright (c) 2005-2010, Michele Simionato
+##   Copyright (c) 2005-2011, Michele Simionato
 ##   All rights reserved.
 ##
 ##   Redistributions of source code must retain the above copyright 
@@ -28,7 +28,7 @@ Decorator module, see http://pypi.python.org/pypi/decorator
 for the documentation.
 """
 
-__version__ = '3.2.1'
+__version__ = '3.3.0'
 
 __all__ = ["decorator", "FunctionMaker", "partial"]
 
@@ -48,6 +48,23 @@ except ImportError: # for Python version < 2.5
             kw.update(otherkw)
             return self.func(*(self.args + otherargs), **kw)
 
+if sys.version >= '3':
+    from inspect import getfullargspec
+else:
+    class getfullargspec(object):
+        "A quick and dirty replacement for getfullargspec for Python 2.X"
+        def __init__(self, f):
+            self.args, self.varargs, self.varkw, self.defaults = \
+                inspect.getargspec(f)
+            self.kwonlyargs = []
+            self.kwonlydefaults = None
+            self.annotations = getattr(f, '__annotations__', {})
+        def __iter__(self):
+            yield self.args
+            yield self.varargs
+            yield self.varkw
+            yield self.defaults
+
 DEF = re.compile('\s*def\s*([_\w][_\w\d]*)\s*\(')
 
 # basic functionality
@@ -59,6 +76,7 @@ class FunctionMaker(object):
     """
     def __init__(self, func=None, name=None, signature=None,
                  defaults=None, doc=None, module=None, funcdict=None):
+        self.shortsignature = signature
         if func:
             # func can be a class or a callable, but not an instance method
             self.name = func.__name__
@@ -67,13 +85,25 @@ class FunctionMaker(object):
             self.doc = func.__doc__
             self.module = func.__module__
             if inspect.isfunction(func):
-                argspec = inspect.getargspec(func)
-                self.args, self.varargs, self.keywords, self.defaults = argspec
+                argspec = getfullargspec(func)
+                for a in ('args', 'varargs', 'varkw', 'defaults', 'kwonlyargs',
+                          'kwonlydefaults', 'annotations'):
+                    setattr(self, a, getattr(argspec, a))
                 for i, arg in enumerate(self.args):
                     setattr(self, 'arg%d' % i, arg)
                 self.signature = inspect.formatargspec(
                     formatvalue=lambda val: "", *argspec)[1:-1]
+                allargs = list(self.args)
+                if self.varargs:
+                    allargs.append('*' + self.varargs)
+                if self.varkw:
+                    allargs.append('**' + self.varkw)
+                try:
+                    self.shortsignature = ', '.join(allargs)
+                except TypeError: # exotic signature, valid only in Python 2.X
+                    self.shortsignature = self.signature
                 self.dict = func.__dict__.copy()
+        # func=None happens when decorating a caller
         if name:
             self.name = name
         if signature is not None:
@@ -110,7 +140,7 @@ class FunctionMaker(object):
             raise SyntaxError('not a valid function template\n%s' % src)
         name = mo.group(1) # extract the function name
         names = set([name] + [arg.strip(' *') for arg in 
-                             self.signature.split(',')])
+                             self.shortsignature.split(',')])
         for n in names:
             if n in ('_func_', '_call_'):
                 raise NameError('%s is overridden in\n%s' % (n, src))
@@ -118,6 +148,7 @@ class FunctionMaker(object):
             src += '\n' # this is needed in old versions of Python
         try:
             code = compile(src, '<string>', 'single')
+            # print >> sys.stderr, 'Compiling %s' % src
             exec code in evaldict
         except:
             print >> sys.stderr, 'Error in generated code:'
@@ -161,7 +192,7 @@ def decorator(caller, func=None):
         evaldict['_call_'] = caller
         evaldict['_func_'] = func
         return FunctionMaker.create(
-            func, "return _call_(_func_, %(signature)s)",
+            func, "return _call_(_func_, %(shortsignature)s)",
             evaldict, undecorated=func)
     else: # returns a decorator
         if isinstance(caller, partial):

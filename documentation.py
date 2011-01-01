@@ -733,32 +733,29 @@ a *copy* of the original function dictionary
 Compatibility notes
 ---------------------------------------------------------------
 
-Version 3.2 is the first version of the ``decorator`` module to officially
-support Python 3. Actually, the module has supported Python 3 from
-the beginning, via the ``2to3`` conversion tool, but this step has
-been now integrated in the build process, thanks to the distribute_
-project, the Python 3-compatible replacement of easy_install. 
-The hard work (for me) has been converting the documentation and the
-doctests.  This has been possible only now that docutils_ and pygments_
-have been ported to Python 3. 
+Version 3.3 is the first version of the ``decorator`` module to fully
+support Python 3, including `function annotations`_. Version 3.2 was the
+first version to support Python 3 via the ``2to3`` conversion tool
+invoked in the build process by the distribute_ project, the Python
+3-compatible replacement of easy_install.  The hard work (for me) has
+been converting the documentation and the doctests.  This has been
+possible only after that docutils_ and pygments_ have been ported to
+Python 3.
 
-The ``decorator`` module *per se* does not contain any change, apart
-from the removal of the functions ``get_info`` and ``new_wrapper``,
-which have been deprecated for years. ``get_info`` has been removed
-since it was little used and since it had to be changed anyway to work
-with Python 3.0; ``new_wrapper`` has been removed since it was
-useless: its major use case (converting signature changing decorators
-to signature preserving decorators) has been subsumed by
-``decorator_apply`` and the other use case can be managed with the
-``FunctionMaker``.
+Version 3 of the ``decorator`` module do not contain any backward
+incompatible change, apart from the removal of the functions
+``get_info`` and ``new_wrapper``, which have been deprecated for
+years. ``get_info`` has been removed since it was little used and
+since it had to be changed anyway to work with Python 3.0;
+``new_wrapper`` has been removed since it was useless: its major use
+case (converting signature changing decorators to signature preserving
+decorators) has been subsumed by ``decorator_apply``, whereas the other use
+case can be managed with the ``FunctionMaker``.
 
 There are a few changes in the documentation: I removed the 
 ``decorator_factory`` example, which was confusing some of my users,
 and I removed the part about exotic signatures in the Python 3
 documentation, since Python 3 does not support them.
-Notice that there is no support for Python 3 `function annotations`_ 
-since it seems premature at the moment, when most people are
-still using Python 2.X.
 
 Finally ``decorator`` cannot be used as a class decorator and the
 `functionality introduced in version 2.3`_ has been removed. That
