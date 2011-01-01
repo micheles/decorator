@@ -244,6 +244,8 @@ stored in a dictionary named ``__annotations__``. The decorator module,
 starting from release 3.3, is able to understand and to preserve the 
 annotations. Here is an example:
 
+.. code-block:: python
+
  >>> @trace
  ... def f(x: 'the first argument', y: 'default argument'=1, z=2,
  ...       *args: 'varargs', **kw: 'kwargs'):
@@ -251,6 +253,8 @@ annotations. Here is an example:
  
 In order to introspect functions with annotations, one needs the
 utility ``inspect.getfullargspec``, new in Python 3:
+
+.. code-block:: python
 
  >>> from inspect import getfullargspec 
  >>> argspec = getfullargspec(f)
@@ -270,10 +274,14 @@ utility ``inspect.getfullargspec``, new in Python 3:
 
 You can also check that the ``__annotations__`` dictionary is preserved:
 
+.. code-block:: python
+
   >>> f.__annotations__ == f.undecorated.__annotations__
   True
 
 The two dictionaries are different objects, though
+
+.. code-block:: python
 
   >>> id(f.__annotations__) != id(f.undecorated.__annotations__)
   True

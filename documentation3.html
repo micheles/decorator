@@ -369,48 +369,55 @@ function is called:</p>
 <p>Python 3 introduced the concept of <a class="reference external" href="http://www.python.org/dev/peps/pep-3107/">function annotations</a>,i.e. the ability
 to annotate the signature of a function with additional information,
 stored in a dictionary named <tt class="docutils literal"><span class="pre">__annotations__</span></tt>. The decorator module,
-starting from release 3.3 is able to understand and to preserve the
+starting from release 3.3, is able to understand and to preserve the
 annotations. Here is an example:</p>
-<blockquote>
-<pre class="doctest-block">
-&gt;&gt;&gt; &#64;trace
-... def f(x: 'the first argument', y: 'default argument'=1, z=2, *args:
-'varargs', **kw: 'kwargs'):
-...     pass
-</pre>
-<pre class="doctest-block">
-&gt;&gt;&gt; from inspect import getfullargspec
-&gt;&gt;&gt; argspec = getfullargspec(f)
-&gt;&gt;&gt; argspec.args
-['x', 'y', 'z']
-&gt;&gt;&gt; argspec.varargs
-'args'
-&gt;&gt;&gt; argspec.varkw
-'kw'
-&gt;&gt;&gt; argspec.defaults
-(1, 2)
-&gt;&gt;&gt; argspec.kwonlyargs
-[]
-&gt;&gt;&gt; argspec.kwonlydefaults
-&gt;&gt;&gt; sorted(argspec.annotations.items())
-[('args', 'varargs'), ('kw', 'kwargs'), ('x', 'the first argument'), ('y',
-'default argument')]
-</pre>
-</blockquote>
+<div class="codeblock python">
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nd">@trace</span>
+<span class="o">...</span> <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="s">&#39;the first argument&#39;</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="s">&#39;default argument&#39;</span><span class="o">=</span><span class="mf">1</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">2</span><span class="p">,</span>
+<span class="o">...</span>       <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="s">&#39;varargs&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">:</span> <span class="s">&#39;kwargs&#39;</span><span class="p">):</span>
+<span class="o">...</span>     <span class="k">pass</span>
+</pre></div>
+
+</div>
+<p>In order to introspect functions with annotations, one needs the
+utility <tt class="docutils literal"><span class="pre">inspect.getfullargspec</span></tt>, new in Python 3:</p>
+<div class="codeblock python">
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">getfullargspec</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">argspec</span> <span class="o">=</span> <span class="n">getfullargspec</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">argspec</span><span class="o">.</span><span class="n">args</span>
+<span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">,</span> <span class="s">&#39;z&#39;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">argspec</span><span class="o">.</span><span class="n">varargs</span>
+<span class="s">&#39;args&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">argspec</span><span class="o">.</span><span class="n">varkw</span>
+<span class="s">&#39;kw&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">argspec</span><span class="o">.</span><span class="n">defaults</span>
+<span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">argspec</span><span class="o">.</span><span class="n">kwonlyargs</span>
+<span class="p">[]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">argspec</span><span class="o">.</span><span class="n">kwonlydefaults</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">sorted</span><span class="p">(</span><span class="n">argspec</span><span class="o">.</span><span class="n">annotations</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+<span class="p">[(</span><span class="s">&#39;args&#39;</span><span class="p">,</span> <span class="s">&#39;varargs&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;kw&#39;</span><span class="p">,</span> <span class="s">&#39;kwargs&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;x&#39;</span><span class="p">,</span> <span class="s">&#39;the first argument&#39;</span><span class="p">),</span> <span class="p">(</span><span class="s">&#39;y&#39;</span><span class="p">,</span>
+<span class="s">&#39;default argument&#39;</span><span class="p">)]</span>
+</pre></div>
+
+</div>
 <p>You can also check that the <tt class="docutils literal"><span class="pre">__annotations__</span></tt> dictionary is preserved:</p>
-<blockquote>
-<pre class="doctest-block">
-&gt;&gt;&gt; f.__annotations__ == f.undecorated.__annotations__
-True
-</pre>
-</blockquote>
-<p>The two dictionaries are different objects, though:</p>
-<blockquote>
-<pre class="doctest-block">
-&gt;&gt;&gt; id(f.__annotations__) != id(f.undecorated.__annotations__)
-True
-</pre>
-</blockquote>
+<div class="codeblock python">
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="o">.</span><span class="n">__annotations__</span> <span class="o">==</span> <span class="n">f</span><span class="o">.</span><span class="n">undecorated</span><span class="o">.</span><span class="n">__annotations__</span>
+<span class="bp">True</span>
+</pre></div>
+
+</div>
+<p>The two dictionaries are different objects, though</p>
+<div class="codeblock python">
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nb">id</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">__annotations__</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">id</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">undecorated</span><span class="o">.</span><span class="n">__annotations__</span><span class="p">)</span>
+<span class="bp">True</span>
+</pre></div>
+
+</div>
+<p>since internally the decorator module creates an entirely new dictionary
+(it is not simply attaching the <tt class="docutils literal"><span class="pre">__annotations__</span></tt> attribute to the new
+function).</p>
 </div>
 <div class="section" id="decorator-is-a-decorator">
 <h1><a class="toc-backref" href="#id10"><tt class="docutils literal"><span class="pre">decorator</span></tt> is a decorator</a></h1>

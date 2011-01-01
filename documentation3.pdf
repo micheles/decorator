@@ -301,7 +301,7 @@ endobj
  /Dest [ 48 0 R
  /XYZ
  62.69291
- 765.0236
+ 683.8236
  0 ]
  /Rect [ 62.69291
  455.5936
@@ -319,7 +319,7 @@ endobj
  /Dest [ 48 0 R
  /XYZ
  62.69291
- 765.0236
+ 683.8236
  0 ]
  /Rect [ 527.0227
  455.5936
@@ -337,7 +337,7 @@ endobj
  /Dest [ 48 0 R
  /XYZ
  62.69291
- 350.4236
+ 269.2236
  0 ]
  /Rect [ 62.69291
  437.5936
@@ -355,7 +355,7 @@ endobj
  /Dest [ 48 0 R
  /XYZ
  62.69291
- 350.4236
+ 269.2236
  0 ]
  /Rect [ 527.0227
  437.5936
@@ -373,7 +373,7 @@ endobj
  /Dest [ 49 0 R
  /XYZ
  62.69291
- 511.8236
+ 410.6236
  0 ]
  /Rect [ 62.69291
  419.5936
@@ -391,7 +391,7 @@ endobj
  /Dest [ 49 0 R
  /XYZ
  62.69291
- 511.8236
+ 410.6236
  0 ]
  /Rect [ 527.0227
  419.5936
@@ -409,7 +409,7 @@ endobj
  /Dest [ 51 0 R
  /XYZ
  62.69291
- 655.8236
+ 563.8236
  0 ]
  /Rect [ 62.69291
  401.5936
@@ -427,7 +427,7 @@ endobj
  /Dest [ 51 0 R
  /XYZ
  62.69291
- 655.8236
+ 563.8236
  0 ]
  /Rect [ 527.0227
  401.5936
@@ -445,7 +445,7 @@ endobj
  /Dest [ 53 0 R
  /XYZ
  62.69291
- 681.0236
+ 579.0236
  0 ]
  /Rect [ 62.69291
  383.5936
@@ -463,7 +463,7 @@ endobj
  /Dest [ 53 0 R
  /XYZ
  62.69291
- 681.0236
+ 579.0236
  0 ]
  /Rect [ 521.4627
  383.5936
@@ -478,10 +478,10 @@ endobj
  0
  0 ]
  /Contents ()
- /Dest [ 53 0 R
+ /Dest [ 55 0 R
  /XYZ
  62.69291
- 234.4236
+ 765.0236
  0 ]
  /Rect [ 62.69291
  365.5936
@@ -496,10 +496,10 @@ endobj
  0
  0 ]
  /Contents ()
- /Dest [ 53 0 R
+ /Dest [ 55 0 R
  /XYZ
  62.69291
- 234.4236
+ 765.0236
  0 ]
  /Rect [ 521.4627
  365.5936
@@ -517,7 +517,7 @@ endobj
  /Dest [ 56 0 R
  /XYZ
  62.69291
- 513.4236
+ 371.0236
  0 ]
  /Rect [ 62.69291
  347.5936
@@ -535,7 +535,7 @@ endobj
  /Dest [ 56 0 R
  /XYZ
  62.69291
- 513.4236
+ 371.0236
  0 ]
  /Rect [ 521.4627
  347.5936
@@ -553,7 +553,7 @@ endobj
  /Dest [ 65 0 R
  /XYZ
  62.69291
- 655.8236
+ 530.6236
  0 ]
  /Rect [ 62.69291
  329.5936
@@ -571,7 +571,7 @@ endobj
  /Dest [ 65 0 R
  /XYZ
  62.69291
- 655.8236
+ 530.6236
  0 ]
  /Rect [ 521.4627
  329.5936
@@ -589,7 +589,7 @@ endobj
  /Dest [ 65 0 R
  /XYZ
  62.69291
- 304.8236
+ 179.6236
  0 ]
  /Rect [ 62.69291
  311.5936
@@ -607,7 +607,7 @@ endobj
  /Dest [ 65 0 R
  /XYZ
  62.69291
- 304.8236
+ 179.6236
  0 ]
  /Rect [ 521.4627
  311.5936
@@ -894,9 +894,9 @@ endobj
  0
  0 ]
  /Rect [ 137.6966
- 391.1936
+ 289.1936
  180.8679
- 403.1936 ]
+ 301.1936 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -929,9 +929,9 @@ endobj
  0
  0 ]
  /Rect [ 62.69291
- 591.3936
+ 448.3936
  363.4029
- 603.3936 ]
+ 460.3936 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -983,9 +983,9 @@ endobj
  0
  0 ]
  /Rect [ 301.1597
- 416.1936
+ 284.9936
  317.8397
- 428.1936 ]
+ 296.9936 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -1018,9 +1018,9 @@ endobj
  0
  0 ]
  /Rect [ 497.5627
- 620.3936
+ 495.1936
  531.1777
- 632.3936 ]
+ 507.1936 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -1033,9 +1033,9 @@ endobj
  0
  0 ]
  /Rect [ 62.69291
- 608.3936
+ 483.1936
  114.3929
- 620.3936 ]
+ 495.1936 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -1048,9 +1048,9 @@ endobj
  0
  0 ]
  /Rect [ 172.9507
- 596.3936
+ 471.1936
  216.6742
- 608.3936 ]
+ 483.1936 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -1063,9 +1063,9 @@ endobj
  0
  0 ]
  /Rect [ 82.15291
- 572.3936
+ 447.1936
  118.8329
- 584.3936 ]
+ 459.1936 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -1078,9 +1078,9 @@ endobj
  0
  0 ]
  /Rect [ 138.2929
- 572.3936
+ 447.1936
  184.4229
- 584.3936 ]
+ 459.1936 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -1093,9 +1093,9 @@ endobj
  0
  0 ]
  /Rect [ 364.2921
- 434.3936
+ 309.1936
  531.64
- 446.3936 ]
+ 321.1936 ]
  /Subtype /Link
  /Type /Annot >>
 endobj
@@ -1155,7 +1155,7 @@ endobj
 % 'R68': class PDFInfo 
 68 0 obj
 << /Author (Michele Simionato)
- /CreationDate (D:20110101090748-01'00')
+ /CreationDate (D:20110101092131-01'00')
  /Keywords ()
  /Producer (ReportLab http://www.reportlab.com)
  /Subject (\(unspecified\))
@@ -1244,7 +1244,7 @@ endobj
 << /Dest [ 48 0 R
  /XYZ
  62.69291
- 765.0236
+ 683.8236
  0 ]
  /Next 77 0 R
  /Parent 69 0 R
@@ -1256,7 +1256,7 @@ endobj
 << /Dest [ 48 0 R
  /XYZ
  62.69291
- 350.4236
+ 269.2236
  0 ]
  /Next 78 0 R
  /Parent 69 0 R
@@ -1268,7 +1268,7 @@ endobj
 << /Dest [ 49 0 R
  /XYZ
  62.69291
- 511.8236
+ 410.6236
  0 ]
  /Next 79 0 R
  /Parent 69 0 R
@@ -1280,7 +1280,7 @@ endobj
 << /Dest [ 51 0 R
  /XYZ
  62.69291
- 655.8236
+ 563.8236
  0 ]
  /Next 80 0 R
  /Parent 69 0 R
@@ -1292,7 +1292,7 @@ endobj
 << /Dest [ 53 0 R
  /XYZ
  62.69291
- 681.0236
+ 579.0236
  0 ]
  /Next 81 0 R
  /Parent 69 0 R
@@ -1301,10 +1301,10 @@ endobj
 endobj
 % 'Outline.11': class OutlineEntryObject 
 81 0 obj
-<< /Dest [ 53 0 R
+<< /Dest [ 55 0 R
  /XYZ
  62.69291
- 234.4236
+ 765.0236
  0 ]
  /Next 82 0 R
  /Parent 69 0 R
@@ -1316,7 +1316,7 @@ endobj
 << /Dest [ 56 0 R
  /XYZ
  62.69291
- 513.4236
+ 371.0236
  0 ]
  /Next 83 0 R
  /Parent 69 0 R
@@ -1328,7 +1328,7 @@ endobj
 << /Dest [ 65 0 R
  /XYZ
  62.69291
- 655.8236
+ 530.6236
  0 ]
  /Next 84 0 R
  /Parent 69 0 R
@@ -1340,7 +1340,7 @@ endobj
 << /Dest [ 65 0 R
  /XYZ
  62.69291
- 304.8236
+ 179.6236
  0 ]
  /Parent 69 0 R
  /Prev 83 0 R
@@ -1701,7 +1701,7 @@ q
 q
 0 0 .501961 rg
 0 0 .501961 RG
-BT 1 0 0 1 0 4.82 Tm /F2 10 Tf 12 TL 60.88 0 Td (10) Tj T* -60.88 0 Td ET
+BT 1 0 0 1 0 4.82 Tm /F2 10 Tf 12 TL 60.88 0 Td (11) Tj T* -60.88 0 Td ET
 Q
 Q
 q
@@ -2402,7 +2402,7 @@ endobj
 % 'R90': class PDFStream 
 90 0 obj
 % page stream
-<< /Length 6427 >>
+<< /Length 8197 >>
 stream
 1 0 0 1 0 0 cm BT /F1 12 Tf 14.4 TL ET
 q
@@ -2461,19 +2461,11 @@ Q
 q
 1 0 0 1 62.69291 492.978 cm
 q
-BT 1 0 0 1 0 40.82 Tm 1.937318 Tw 12 TL /F1 10 Tf 0 0 0 rg (Python 3 introduced the concept of ) Tj 0 0 .501961 rg (function annotations) Tj 0 0 0 rg (,i.e. the ability to annotate the signature of a) Tj T* 0 Tw 2.24816 Tw (function with additional information, stored in a dictionary named ) Tj /F4 10 Tf (__annotations__) Tj /F1 10 Tf (. The decorator) Tj T* 0 Tw 2.097485 Tw (module, starting from release 3.3 is able to understand and to preserve the annotations. Here is an) Tj T* 0 Tw (example:) Tj T* ET
+BT 1 0 0 1 0 40.82 Tm 1.937318 Tw 12 TL /F1 10 Tf 0 0 0 rg (Python 3 introduced the concept of ) Tj 0 0 .501961 rg (function annotations) Tj 0 0 0 rg (,i.e. the ability to annotate the signature of a) Tj T* 0 Tw 2.24816 Tw (function with additional information, stored in a dictionary named ) Tj /F4 10 Tf (__annotations__) Tj /F1 10 Tf (. The decorator) Tj T* 0 Tw 1.923735 Tw (module, starting from release 3.3, is able to understand and to preserve the annotations. Here is an) Tj T* 0 Tw (example:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 486.978 cm
-Q
-q
-1 0 0 1 62.69291 207.859 cm
-0 0 0 rg
-BT /F1 10 Tf 12 TL ET
-BT 1 0 0 1 0 2 Tm  T* ET
-q
-1 0 0 1 20 217.919 cm
+1 0 0 1 62.69291 423.778 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -2483,57 +2475,49 @@ q
 .662745 .662745 .662745 RG
 .5 w
 .960784 .960784 .862745 rg
-n -6 -6 442.6898 60 re B*
+n -6 -6 468.6898 60 re B*
 Q
 q
-BT 1 0 0 1 0 41.71 Tm 12 TL /F4 10 Tf 0 0 0 rg (>) Tj (>) Tj (>) Tj ( @trace) Tj T* (... def f\(x: 'the first argument', y: 'default argument'=1, z=2, *args:) Tj T* ('varargs', **kw: 'kwargs'\):) Tj T* (...     pass) Tj T* ET
+BT 1 0 0 1 0 41.71 Tm 12 TL /F4 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj .666667 .133333 1 rg (@trace) Tj 0 0 0 rg  T* .4 .4 .4 rg (...) Tj 0 0 0 rg ( ) Tj /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (f) Tj 0 0 0 rg (\() Tj (x) Tj (:) Tj ( ) Tj .729412 .129412 .129412 rg ('the first argument') Tj 0 0 0 rg (,) Tj ( ) Tj (y) Tj (:) Tj ( ) Tj .729412 .129412 .129412 rg ('default argument') Tj .4 .4 .4 rg (=) Tj (1) Tj 0 0 0 rg (,) Tj ( ) Tj (z) Tj .4 .4 .4 rg (=) Tj (2) Tj 0 0 0 rg (,) Tj  T* .4 .4 .4 rg (...) Tj 0 0 0 rg (       ) Tj .4 .4 .4 rg (*) Tj 0 0 0 rg (args) Tj (:) Tj ( ) Tj .729412 .129412 .129412 rg ('varargs') Tj 0 0 0 rg (,) Tj ( ) Tj .4 .4 .4 rg (**) Tj 0 0 0 rg (kw) Tj (:) Tj ( ) Tj .729412 .129412 .129412 rg ('kwargs') Tj 0 0 0 rg (\):) Tj  T* .4 .4 .4 rg (...) Tj 0 0 0 rg (     ) Tj /F3 10 Tf 0 .501961 0 rg (pass) Tj T* ET
 Q
 Q
 Q
 Q
 Q
 q
-1 0 0 1 20 0 cm
+1 0 0 1 62.69291 391.778 cm
+q
+BT 1 0 0 1 0 16.82 Tm .596647 Tw 12 TL /F1 10 Tf 0 0 0 rg (In order to introspect functions with annotations, one needs the utility ) Tj /F4 10 Tf (inspect.getfullargspec) Tj /F1 10 Tf (, new) Tj T* 0 Tw (in Python 3:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 178.578 cm
 q
 q
-.984011 0 0 .984011 0 0 cm
+1 0 0 1 0 0 cm
 q
-1 0 0 1 6.6 6.707243 cm
+1 0 0 1 6.6 6.6 cm
 q
 .662745 .662745 .662745 RG
 .5 w
 .960784 .960784 .862745 rg
-n -6 -6 456 204 re B*
+n -6 -6 468.6898 204 re B*
 Q
 q
-BT 1 0 0 1 0 185.71 Tm 12 TL /F4 10 Tf 0 0 0 rg (>) Tj (>) Tj (>) Tj ( from inspect import getfullargspec) Tj T* (>) Tj (>) Tj (>) Tj ( argspec = getfullargspec\(f\)) Tj T* (>) Tj (>) Tj (>) Tj ( argspec.args) Tj T* (['x', 'y', 'z']) Tj T* (>) Tj (>) Tj (>) Tj ( argspec.varargs) Tj T* ('args') Tj T* (>) Tj (>) Tj (>) Tj ( argspec.varkw) Tj T* ('kw') Tj T* (>) Tj (>) Tj (>) Tj ( argspec.defaults) Tj T* (\(1, 2\)) Tj T* (>) Tj (>) Tj (>) Tj ( argspec.kwonlyargs) Tj T* ([]) Tj T* (>) Tj (>) Tj (>) Tj ( argspec.kwonlydefaults) Tj T* (>) Tj (>) Tj (>) Tj ( sorted\(argspec.annotations.items\(\)\)) Tj T* ([\('args', 'varargs'\), \('kw', 'kwargs'\), \('x', 'the first argument'\), \('y',) Tj T* ('default argument'\)]) Tj T* ET
+BT 1 0 0 1 0 185.71 Tm 12 TL /F4 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj /F3 10 Tf 0 .501961 0 rg (from) Tj /F4 10 Tf 0 0 0 rg ( ) Tj /F3 10 Tf 0 0 1 rg (inspect) Tj /F4 10 Tf 0 0 0 rg ( ) Tj /F3 10 Tf 0 .501961 0 rg (import) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (getfullargspec) Tj  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (argspec) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj (getfullargspec) Tj (\() Tj (f) Tj (\)) Tj  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (argspec) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (args) Tj  T* ([) Tj .729412 .129412 .129412 rg ('x') Tj 0 0 0 rg (,) Tj ( ) Tj .729412 .129412 .129412 rg ('y') Tj 0 0 0 rg (,) Tj ( ) Tj .729412 .129412 .129412 rg ('z') Tj 0 0 0 rg (]) Tj  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (argspec) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (varargs) Tj  T* .729412 .129412 .129412 rg ('args') Tj 0 0 0 rg  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (argspec) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (varkw) Tj  T* .729412 .129412 .129412 rg ('kw') Tj 0 0 0 rg  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (argspec) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (defaults) Tj  T* (\() Tj .4 .4 .4 rg (1) Tj 0 0 0 rg (,) Tj ( ) Tj .4 .4 .4 rg (2) Tj 0 0 0 rg (\)) Tj  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (argspec) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (kwonlyargs) Tj  T* ([]) Tj  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (argspec) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (kwonlydefaults) Tj  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (sorted) Tj (\() Tj (argspec) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (annotations) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (items) Tj (\(\)\)) Tj  T* ([\() Tj .729412 .129412 .129412 rg ('args') Tj 0 0 0 rg (,) Tj ( ) Tj .729412 .129412 .129412 rg ('varargs') Tj 0 0 0 rg (\),) Tj ( ) Tj (\() Tj .729412 .129412 .129412 rg ('kw') Tj 0 0 0 rg (,) Tj ( ) Tj .729412 .129412 .129412 rg ('kwargs') Tj 0 0 0 rg (\),) Tj ( ) Tj (\() Tj .729412 .129412 .129412 rg ('x') Tj 0 0 0 rg (,) Tj ( ) Tj .729412 .129412 .129412 rg ('the first argument') Tj 0 0 0 rg (\),) Tj ( ) Tj (\() Tj .729412 .129412 .129412 rg ('y') Tj 0 0 0 rg (,) Tj  T* .729412 .129412 .129412 rg ('default argument') Tj 0 0 0 rg (\)]) Tj T* ET
 Q
 Q
 Q
-Q
-Q
-q
 Q
 Q
 q
-1 0 0 1 62.69291 207.859 cm
-Q
-q
-1 0 0 1 62.69291 189.859 cm
+1 0 0 1 62.69291 158.578 cm
 q
 BT 1 0 0 1 0 4.82 Tm 12 TL /F1 10 Tf 0 0 0 rg (You can also check that the ) Tj /F4 10 Tf (__annotations__ ) Tj /F1 10 Tf (dictionary is preserved:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 183.859 cm
-Q
-q
-1 0 0 1 62.69291 146.659 cm
-0 0 0 rg
-BT /F1 10 Tf 12 TL ET
-BT 1 0 0 1 0 2 Tm  T* ET
-q
-1 0 0 1 20 0 cm
+1 0 0 1 62.69291 113.378 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -2543,61 +2527,21 @@ q
 .662745 .662745 .662745 RG
 .5 w
 .960784 .960784 .862745 rg
-n -6 -6 448.6898 36 re B*
+n -6 -6 468.6898 36 re B*
 Q
 q
-BT 1 0 0 1 0 17.71 Tm 12 TL /F4 10 Tf 0 0 0 rg (>) Tj (>) Tj (>) Tj ( f.__annotations__ == f.undecorated.__annotations__) Tj T* (True) Tj T* ET
+BT 1 0 0 1 0 17.71 Tm 12 TL /F4 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (__annotations__) Tj ( ) Tj .4 .4 .4 rg (==) Tj 0 0 0 rg ( ) Tj (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (undecorated) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (__annotations__) Tj  T* 0 .501961 0 rg (True) Tj T* ET
 Q
 Q
 Q
-Q
-Q
-q
 Q
 Q
 q
-1 0 0 1 62.69291 146.659 cm
-Q
-q
-1 0 0 1 62.69291 128.659 cm
+1 0 0 1 62.69291 93.378 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (The two dictionaries are different objects, though:) Tj T* ET
+BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (The two dictionaries are different objects, though) Tj T* ET
 Q
-Q
-q
-1 0 0 1 62.69291 122.659 cm
-Q
-q
-1 0 0 1 62.69291 85.45897 cm
-0 0 0 rg
-BT /F1 10 Tf 12 TL ET
-BT 1 0 0 1 0 2 Tm  T* ET
-q
-1 0 0 1 20 0 cm
-q
-q
-1 0 0 1 0 0 cm
-q
-1 0 0 1 6.6 6.6 cm
-q
-.662745 .662745 .662745 RG
-.5 w
-.960784 .960784 .862745 rg
-n -6 -6 448.6898 36 re B*
-Q
-q
-BT 1 0 0 1 0 17.71 Tm 12 TL /F4 10 Tf 0 0 0 rg (>) Tj (>) Tj (>) Tj ( id\(f.__annotations__\) != id\(f.undecorated.__annotations__\)) Tj T* (True) Tj T* ET
-Q
-Q
-Q
-Q
-Q
-q
-Q
-Q
-q
-1 0 0 1 62.69291 85.45897 cm
 Q
  
 endstream
@@ -2606,23 +2550,49 @@ endobj
 % 'R91': class PDFStream 
 91 0 obj
 % page stream
-<< /Length 8378 >>
+<< /Length 8400 >>
 stream
 1 0 0 1 0 0 cm BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 744.0236 cm
+1 0 0 1 62.69291 727.8236 cm
+q
+q
+1 0 0 1 0 0 cm
+q
+1 0 0 1 6.6 6.6 cm
+q
+.662745 .662745 .662745 RG
+.5 w
+.960784 .960784 .862745 rg
+n -6 -6 468.6898 36 re B*
+Q
+q
+BT 1 0 0 1 0 17.71 Tm 12 TL /F4 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj 0 .501961 0 rg (id) Tj 0 0 0 rg (\() Tj (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (__annotations__) Tj (\)) Tj ( ) Tj .4 .4 .4 rg (!=) Tj 0 0 0 rg ( ) Tj 0 .501961 0 rg (id) Tj 0 0 0 rg (\() Tj (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (undecorated) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (__annotations__) Tj (\)) Tj  T* 0 .501961 0 rg (True) Tj T* ET
+Q
+Q
+Q
+Q
+Q
+q
+1 0 0 1 62.69291 695.8236 cm
+q
+BT 1 0 0 1 0 16.82 Tm 1.758651 Tw 12 TL /F1 10 Tf 0 0 0 rg (since internally the decorator module creates an entirely new dictionary \(it is not simply attaching the) Tj T* 0 Tw /F4 10 Tf (__annotations__ ) Tj /F1 10 Tf (attribute to the new function\).) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 662.8236 cm
 q
 BT 1 0 0 1 0 8.435 Tm 21 TL /F3 17.5 Tf 0 0 0 rg (decorator ) Tj /F2 17.5 Tf (is a decorator) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 642.0236 cm
+1 0 0 1 62.69291 560.8236 cm
 q
 BT 1 0 0 1 0 88.82 Tm .643876 Tw 12 TL /F1 10 Tf 0 0 0 rg (It may be annoying to write a caller function \(like the ) Tj /F4 10 Tf (_trace ) Tj /F1 10 Tf (function above\) and then a trivial wrapper) Tj T* 0 Tw 1.803615 Tw (\() Tj /F4 10 Tf (def trace\(f\): return decorator\(_trace, f\)) Tj /F1 10 Tf (\) every time. For this reason, the ) Tj /F4 10 Tf (decorator) Tj T* 0 Tw .334269 Tw /F1 10 Tf (module provides an easy shortcut to convert the caller function into a signature-preserving decorator: you) Tj T* 0 Tw 3.443735 Tw (can just call ) Tj /F4 10 Tf (decorator ) Tj /F1 10 Tf (with a single argument. In our example you can just write ) Tj /F4 10 Tf (trace =) Tj T* 0 Tw 1.056342 Tw (decorator\(_trace\)) Tj /F1 10 Tf (. The ) Tj /F4 10 Tf (decorator ) Tj /F1 10 Tf (function can also be used as a signature-changing decorator,) Tj T* 0 Tw 3.177752 Tw (just as ) Tj /F4 10 Tf (classmethod ) Tj /F1 10 Tf (and ) Tj /F4 10 Tf (staticmethod) Tj /F1 10 Tf (. However, ) Tj /F4 10 Tf (classmethod ) Tj /F1 10 Tf (and ) Tj /F4 10 Tf (staticmethod ) Tj /F1 10 Tf (return) Tj T* 0 Tw 1.693615 Tw (generic objects which are not callable, while ) Tj /F4 10 Tf (decorator ) Tj /F1 10 Tf (returns signature-preserving decorators, i.e.) Tj T* 0 Tw (functions of a single argument. For instance, you can write directly) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 572.8236 cm
+1 0 0 1 62.69291 491.6236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -2642,13 +2612,13 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 540.8236 cm
+1 0 0 1 62.69291 459.6236 cm
 q
 BT 1 0 0 1 0 16.82 Tm 1.806654 Tw 12 TL /F1 10 Tf 0 0 0 rg (and now ) Tj /F4 10 Tf (trace ) Tj /F1 10 Tf (will be a decorator. Actually ) Tj /F4 10 Tf (trace ) Tj /F1 10 Tf (is a ) Tj /F4 10 Tf (partial ) Tj /F1 10 Tf (object which can be used as a) Tj T* 0 Tw (decorator:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 495.6236 cm
+1 0 0 1 62.69291 414.4236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -2668,14 +2638,14 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 475.6236 cm
+1 0 0 1 62.69291 394.4236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (Here is an example of usage:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 394.4236 cm
+1 0 0 1 62.69291 313.2236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -2695,25 +2665,25 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 362.4236 cm
+1 0 0 1 62.69291 281.2236 cm
 q
 BT 1 0 0 1 0 16.82 Tm 2.44686 Tw 12 TL /F1 10 Tf 0 0 0 rg (If you are using an old Python version \(Python 2.4\) the ) Tj /F4 10 Tf (decorator ) Tj /F1 10 Tf (module provides a poor man) Tj T* 0 Tw (replacement for ) Tj /F4 10 Tf (functools.partial) Tj /F1 10 Tf (.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 329.4236 cm
+1 0 0 1 62.69291 248.2236 cm
 q
 BT 1 0 0 1 0 8.435 Tm 21 TL /F3 17.5 Tf 0 0 0 rg (blocking) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 287.4236 cm
+1 0 0 1 62.69291 206.2236 cm
 q
 BT 1 0 0 1 0 28.82 Tm 1.224692 Tw 12 TL /F1 10 Tf 0 0 0 rg (Sometimes one has to deal with blocking resources, such as ) Tj /F4 10 Tf (stdin) Tj /F1 10 Tf (, and sometimes it is best to have) Tj T* 0 Tw .266235 Tw (back a "busy" message than to block everything. This behavior can be implemented with a suitable family) Tj T* 0 Tw (of decorators, where the parameter is the busy message:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 110.2236 cm
+1 0 0 1 62.69291 77.02362 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -2723,19 +2693,13 @@ q
 .662745 .662745 .662745 RG
 .5 w
 .960784 .960784 .862745 rg
-n -6 -6 468.6898 168 re B*
+n -6 -6 468.6898 120 re B*
 Q
 q
-BT 1 0 0 1 0 149.71 Tm 12 TL /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (blocking) Tj 0 0 0 rg (\() Tj (not_avail) Tj (\):) Tj  T* (    ) Tj /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (blocking) Tj 0 0 0 rg (\() Tj (f) Tj (,) Tj ( ) Tj .4 .4 .4 rg (*) Tj 0 0 0 rg (args) Tj (,) Tj ( ) Tj .4 .4 .4 rg (**) Tj 0 0 0 rg (kw) Tj (\):) Tj  T* (        ) Tj /F3 10 Tf 0 .501961 0 rg (if) Tj /F4 10 Tf 0 0 0 rg ( ) Tj /F3 10 Tf .666667 .133333 1 rg (not) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 .501961 0 rg (hasattr) Tj 0 0 0 rg (\() Tj (f) Tj (,) Tj ( ) Tj .729412 .129412 .129412 rg ("thread") Tj 0 0 0 rg (\):) Tj ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# no thread running) Tj /F4 10 Tf 0 0 0 rg  T* (            ) Tj /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (set_result) Tj 0 0 0 rg (\(\):) Tj ( ) Tj (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (result) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj (f) Tj (\() Tj .4 .4 .4 rg (*) Tj 0 0 0 rg (args) Tj (,) Tj ( ) Tj .4 .4 .4 rg (**) Tj 0 0 0 rg (kw) Tj (\)) Tj  T* (            ) Tj (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (thread) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj (threading) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (Thread) Tj (\() Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (,) Tj ( ) Tj (set_result) Tj (\)) Tj  T* (            ) Tj (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (thread) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (start) Tj (\(\)) Tj  T* (            ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (not_avail) Tj  T* (        ) Tj /F3 10 Tf 0 .501961 0 rg (elif) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (thread) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (isAlive) Tj (\(\):) Tj  T* (            ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (not_avail) Tj  T* (        ) Tj /F3 10 Tf 0 .501961 0 rg (else) Tj /F4 10 Tf 0 0 0 rg (:) Tj ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# the thread is ended, return the stored result) Tj /F4 10 Tf 0 0 0 rg  T* (            ) Tj /F3 10 Tf 0 .501961 0 rg (del) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (thread) Tj  T* (            ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (result) Tj  T* (    ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (decorator) Tj (\() Tj (blocking) Tj (\)) Tj T* ET
+BT 1 0 0 1 0 101.71 Tm 12 TL /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (blocking) Tj 0 0 0 rg (\() Tj (not_avail) Tj (\):) Tj  T* (    ) Tj /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (blocking) Tj 0 0 0 rg (\() Tj (f) Tj (,) Tj ( ) Tj .4 .4 .4 rg (*) Tj 0 0 0 rg (args) Tj (,) Tj ( ) Tj .4 .4 .4 rg (**) Tj 0 0 0 rg (kw) Tj (\):) Tj  T* (        ) Tj /F3 10 Tf 0 .501961 0 rg (if) Tj /F4 10 Tf 0 0 0 rg ( ) Tj /F3 10 Tf .666667 .133333 1 rg (not) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 .501961 0 rg (hasattr) Tj 0 0 0 rg (\() Tj (f) Tj (,) Tj ( ) Tj .729412 .129412 .129412 rg ("thread") Tj 0 0 0 rg (\):) Tj ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# no thread running) Tj /F4 10 Tf 0 0 0 rg  T* (            ) Tj /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (set_result) Tj 0 0 0 rg (\(\):) Tj ( ) Tj (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (result) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj (f) Tj (\() Tj .4 .4 .4 rg (*) Tj 0 0 0 rg (args) Tj (,) Tj ( ) Tj .4 .4 .4 rg (**) Tj 0 0 0 rg (kw) Tj (\)) Tj  T* (            ) Tj (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (thread) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj (threading) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (Thread) Tj (\() Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (,) Tj ( ) Tj (set_result) Tj (\)) Tj  T* (            ) Tj (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (thread) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (start) Tj (\(\)) Tj  T* (            ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (not_avail) Tj  T* (        ) Tj /F3 10 Tf 0 .501961 0 rg (elif) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (thread) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (isAlive) Tj (\(\):) Tj  T* (            ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (not_avail) Tj  T* ET
 Q
 Q
 Q
-Q
-Q
-q
-1 0 0 1 62.69291 78.22362 cm
-q
-BT 1 0 0 1 0 16.82 Tm 1.010651 Tw 12 TL /F1 10 Tf 0 0 0 rg (Functions decorated with ) Tj /F4 10 Tf (blocking ) Tj /F1 10 Tf (will return a busy message if the resource is unavailable, and the) Tj T* 0 Tw (intended result if the resource is available. For instance:) Tj T* ET
 Q
 Q
  
@@ -2745,11 +2709,37 @@ endobj
 % 'R92': class PDFStream 
 92 0 obj
 % page stream
-<< /Length 6607 >>
+<< /Length 6988 >>
 stream
 1 0 0 1 0 0 cm BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 523.8236 cm
+1 0 0 1 62.69291 703.8236 cm
+q
+q
+1 0 0 1 0 0 cm
+q
+1 0 0 1 6.6 6.6 cm
+q
+.662745 .662745 .662745 RG
+.5 w
+.960784 .960784 .862745 rg
+n -6 -6 468.6898 60 re B*
+Q
+q
+BT 1 0 0 1 0 41.71 Tm 12 TL /F4 10 Tf 0 0 0 rg (        ) Tj /F3 10 Tf 0 .501961 0 rg (else) Tj /F4 10 Tf 0 0 0 rg (:) Tj ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# the thread is ended, return the stored result) Tj /F4 10 Tf 0 0 0 rg  T* (            ) Tj /F3 10 Tf 0 .501961 0 rg (del) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (thread) Tj  T* (            ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (result) Tj  T* (    ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (decorator) Tj (\() Tj (blocking) Tj (\)) Tj T* ET
+Q
+Q
+Q
+Q
+Q
+q
+1 0 0 1 62.69291 671.8236 cm
+q
+BT 1 0 0 1 0 16.82 Tm 1.010651 Tw 12 TL /F1 10 Tf 0 0 0 rg (Functions decorated with ) Tj /F4 10 Tf (blocking ) Tj /F1 10 Tf (will return a busy message if the resource is unavailable, and the) Tj T* 0 Tw (intended result if the resource is available. For instance:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 422.6236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -2769,25 +2759,25 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 490.8236 cm
+1 0 0 1 62.69291 389.6236 cm
 q
 BT 1 0 0 1 0 8.435 Tm 21 TL /F3 17.5 Tf 0 0 0 rg (async) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 424.8236 cm
+1 0 0 1 62.69291 323.6236 cm
 q
 BT 1 0 0 1 0 52.82 Tm 1.647485 Tw 12 TL /F1 10 Tf 0 0 0 rg (We have just seen an examples of a simple decorator factory, implemented as a function returning a) Tj T* 0 Tw .29784 Tw (decorator. For more complex situations, it is more convenient to implement decorator factories as classes) Tj T* 0 Tw .657674 Tw (returning callable objects that can be used as signature-preserving decorators. The suggested pattern to) Tj T* 0 Tw 2.109398 Tw (do that is to introduce a helper method ) Tj /F4 10 Tf (call\(self, func, *args, **kw\) ) Tj /F1 10 Tf (and to call it in the) Tj T* 0 Tw /F4 10 Tf (__call__\(self, func\) ) Tj /F1 10 Tf (method.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 370.8236 cm
+1 0 0 1 62.69291 269.6236 cm
 q
 BT 1 0 0 1 0 40.82 Tm .166654 Tw 12 TL /F1 10 Tf 0 0 0 rg (As an example, here I show a decorator which is able to convert a blocking function into an asynchronous) Tj T* 0 Tw .437633 Tw (function. The function, when called, is executed in a separate thread. Moreover, it is possible to set three) Tj T* 0 Tw .074597 Tw (callbacks ) Tj /F4 10 Tf (on_success) Tj /F1 10 Tf (, ) Tj /F4 10 Tf (on_failure ) Tj /F1 10 Tf (and ) Tj /F4 10 Tf (on_closing) Tj /F1 10 Tf (, to specify how to manage the function call. The) Tj T* 0 Tw (implementation is the following:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 313.6236 cm
+1 0 0 1 62.69291 212.4236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -2807,7 +2797,7 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 256.4236 cm
+1 0 0 1 62.69291 155.2236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -2827,7 +2817,7 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 199.2236 cm
+1 0 0 1 62.69291 98.02362 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -2846,26 +2836,6 @@ Q
 Q
 Q
 Q
-q
-1 0 0 1 62.69291 82.02362 cm
-q
-q
-1 0 0 1 0 0 cm
-q
-1 0 0 1 6.6 6.6 cm
-q
-.662745 .662745 .662745 RG
-.5 w
-.960784 .960784 .862745 rg
-n -6 -6 468.6898 108 re B*
-Q
-q
-BT 1 0 0 1 0 89.71 Tm 12 TL /F3 10 Tf 0 .501961 0 rg (class) Tj /F4 10 Tf 0 0 0 rg ( ) Tj /F3 10 Tf 0 0 1 rg (Async) Tj /F4 10 Tf 0 0 0 rg (\() Tj 0 .501961 0 rg (object) Tj 0 0 0 rg (\):) Tj  T* (    ) Tj /F6 10 Tf .729412 .129412 .129412 rg (""") Tj T* (    A decorator converting blocking functions into asynchronous) Tj T* (    functions, by using threads or processes. Examples:) Tj T*  T* (    async_with_threads =  Async\(threading.Thread\)) Tj T* (    async_with_processes =  Async\(multiprocessing.Process\)) Tj T* (    """) Tj /F4 10 Tf 0 0 0 rg  T* ET
-Q
-Q
-Q
-Q
-Q
  
 endstream
 
@@ -2873,11 +2843,11 @@ endobj
 % 'R93': class PDFStream 
 93 0 obj
 % page stream
-<< /Length 7852 >>
+<< /Length 7222 >>
 stream
 1 0 0 1 0 0 cm BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 427.8236 cm
+1 0 0 1 62.69291 331.8236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -2887,30 +2857,30 @@ q
 .662745 .662745 .662745 RG
 .5 w
 .960784 .960784 .862745 rg
-n -6 -6 468.6898 336 re B*
+n -6 -6 468.6898 432 re B*
 Q
 q
-BT 1 0 0 1 0 317.71 Tm 12 TL /F4 10 Tf 0 0 0 rg  T* (    ) Tj /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (__init__) Tj 0 0 0 rg (\() Tj 0 .501961 0 rg (self) Tj 0 0 0 rg (,) Tj ( ) Tj (threadfactory) Tj (\):) Tj  T* (        ) Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (threadfactory) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj (threadfactory) Tj  T*  T* (    ) Tj /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (__call__) Tj 0 0 0 rg (\() Tj 0 .501961 0 rg (self) Tj 0 0 0 rg (,) Tj ( ) Tj (func) Tj (,) Tj ( ) Tj (on_success) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg (on_success) Tj (,) Tj  T* (                 ) Tj (on_failure) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg (on_failure) Tj (,) Tj ( ) Tj (on_closing) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg (on_closing) Tj (\):) Tj  T* (        ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# every decorated function has its own independent thread counter) Tj /F4 10 Tf 0 0 0 rg  T* (        ) Tj (func) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (counter) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj (itertools) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (count) Tj (\() Tj .4 .4 .4 rg (1) Tj 0 0 0 rg (\)) Tj  T* (        ) Tj (func) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (on_success) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj (on_success) Tj  T* (        ) Tj (func) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (on_failure) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj (on_failure) Tj  T* (        ) Tj (func) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (on_closing) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj (on_closing) Tj  T* (        ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (decorator) Tj (\() Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (call) Tj (,) Tj ( ) Tj (func) Tj (\)) Tj  T*  T* (    ) Tj /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (call) Tj 0 0 0 rg (\() Tj 0 .501961 0 rg (self) Tj 0 0 0 rg (,) Tj ( ) Tj (func) Tj (,) Tj ( ) Tj .4 .4 .4 rg (*) Tj 0 0 0 rg (args) Tj (,) Tj ( ) Tj .4 .4 .4 rg (**) Tj 0 0 0 rg (kw) Tj (\):) Tj  T* (        ) Tj /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (func_wrapper) Tj 0 0 0 rg (\(\):) Tj  T* (            ) Tj /F3 10 Tf 0 .501961 0 rg (try) Tj /F4 10 Tf 0 0 0 rg (:) Tj  T* (                ) Tj (result) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj (func) Tj (\() Tj .4 .4 .4 rg (*) Tj 0 0 0 rg (args) Tj (,) Tj ( ) Tj .4 .4 .4 rg (**) Tj 0 0 0 rg (kw) Tj (\)) Tj  T* (            ) Tj /F3 10 Tf 0 .501961 0 rg (except) Tj /F4 10 Tf 0 0 0 rg (:) Tj  T* (                ) Tj (func) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (on_failure) Tj (\() Tj (sys) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (exc_info) Tj (\(\)\)) Tj  T* (            ) Tj /F3 10 Tf 0 .501961 0 rg (else) Tj /F4 10 Tf 0 0 0 rg (:) Tj  T* (                ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (func) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (on_success) Tj (\() Tj (result) Tj (\)) Tj  T* (            ) Tj /F3 10 Tf 0 .501961 0 rg (finally) Tj /F4 10 Tf 0 0 0 rg (:) Tj  T* (                ) Tj (func) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (on_closing) Tj (\(\)) Tj  T* (        ) Tj (name) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg (') Tj /F3 10 Tf .733333 .4 .533333 rg (%s) Tj /F4 10 Tf .729412 .129412 .129412 rg (-) Tj /F3 10 Tf .733333 .4 .533333 rg (%s) Tj /F4 10 Tf .729412 .129412 .129412 rg (') Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (%) Tj 0 0 0 rg ( ) Tj (\() Tj (func) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (__name__) Tj (,) Tj ( ) Tj (next) Tj (\() Tj (func) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (counter) Tj (\)\)) Tj  T* (        ) Tj (thread) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (threadfactory) Tj (\() Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (,) Tj ( ) Tj (func_wrapper) Tj (,) Tj ( ) Tj (name) Tj (\)) Tj  T* (        ) Tj (thread) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (start) Tj (\(\)) Tj  T* (        ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (thread) Tj T* ET
+BT 1 0 0 1 0 413.71 Tm 12 TL /F3 10 Tf 0 .501961 0 rg (class) Tj /F4 10 Tf 0 0 0 rg ( ) Tj /F3 10 Tf 0 0 1 rg (Async) Tj /F4 10 Tf 0 0 0 rg (\() Tj 0 .501961 0 rg (object) Tj 0 0 0 rg (\):) Tj  T* (    ) Tj /F6 10 Tf .729412 .129412 .129412 rg (""") Tj T* (    A decorator converting blocking functions into asynchronous) Tj T* (    functions, by using threads or processes. Examples:) Tj T*  T* (    async_with_threads =  Async\(threading.Thread\)) Tj T* (    async_with_processes =  Async\(multiprocessing.Process\)) Tj T* (    """) Tj /F4 10 Tf 0 0 0 rg  T*  T* (    ) Tj /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (__init__) Tj 0 0 0 rg (\() Tj 0 .501961 0 rg (self) Tj 0 0 0 rg (,) Tj ( ) Tj (threadfactory) Tj (\):) Tj  T* (        ) Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (threadfactory) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj (threadfactory) Tj  T*  T* (    ) Tj /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (__call__) Tj 0 0 0 rg (\() Tj 0 .501961 0 rg (self) Tj 0 0 0 rg (,) Tj ( ) Tj (func) Tj (,) Tj ( ) Tj (on_success) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg (on_success) Tj (,) Tj  T* (                 ) Tj (on_failure) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg (on_failure) Tj (,) Tj ( ) Tj (on_closing) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg (on_closing) Tj (\):) Tj  T* (        ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# every decorated function has its own independent thread counter) Tj /F4 10 Tf 0 0 0 rg  T* (        ) Tj (func) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (counter) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj (itertools) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (count) Tj (\() Tj .4 .4 .4 rg (1) Tj 0 0 0 rg (\)) Tj  T* (        ) Tj (func) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (on_success) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj (on_success) Tj  T* (        ) Tj (func) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (on_failure) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj (on_failure) Tj  T* (        ) Tj (func) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (on_closing) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj (on_closing) Tj  T* (        ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (decorator) Tj (\() Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (call) Tj (,) Tj ( ) Tj (func) Tj (\)) Tj  T*  T* (    ) Tj /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (call) Tj 0 0 0 rg (\() Tj 0 .501961 0 rg (self) Tj 0 0 0 rg (,) Tj ( ) Tj (func) Tj (,) Tj ( ) Tj .4 .4 .4 rg (*) Tj 0 0 0 rg (args) Tj (,) Tj ( ) Tj .4 .4 .4 rg (**) Tj 0 0 0 rg (kw) Tj (\):) Tj  T* (        ) Tj /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (func_wrapper) Tj 0 0 0 rg (\(\):) Tj  T* (            ) Tj /F3 10 Tf 0 .501961 0 rg (try) Tj /F4 10 Tf 0 0 0 rg (:) Tj  T* (                ) Tj (result) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj (func) Tj (\() Tj .4 .4 .4 rg (*) Tj 0 0 0 rg (args) Tj (,) Tj ( ) Tj .4 .4 .4 rg (**) Tj 0 0 0 rg (kw) Tj (\)) Tj  T* (            ) Tj /F3 10 Tf 0 .501961 0 rg (except) Tj /F4 10 Tf 0 0 0 rg (:) Tj  T* (                ) Tj (func) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (on_failure) Tj (\() Tj (sys) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (exc_info) Tj (\(\)\)) Tj  T* (            ) Tj /F3 10 Tf 0 .501961 0 rg (else) Tj /F4 10 Tf 0 0 0 rg (:) Tj  T* (                ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (func) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (on_success) Tj (\() Tj (result) Tj (\)) Tj  T* (            ) Tj /F3 10 Tf 0 .501961 0 rg (finally) Tj /F4 10 Tf 0 0 0 rg (:) Tj  T* (                ) Tj (func) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (on_closing) Tj (\(\)) Tj  T* (        ) Tj (name) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg (') Tj /F3 10 Tf .733333 .4 .533333 rg (%s) Tj /F4 10 Tf .729412 .129412 .129412 rg (-) Tj /F3 10 Tf .733333 .4 .533333 rg (%s) Tj /F4 10 Tf .729412 .129412 .129412 rg (') Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (%) Tj 0 0 0 rg ( ) Tj (\() Tj (func) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (__name__) Tj (,) Tj ( ) Tj (next) Tj (\() Tj (func) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (counter) Tj (\)\)) Tj  T* (        ) Tj (thread) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (threadfactory) Tj (\() Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (,) Tj ( ) Tj (func_wrapper) Tj (,) Tj ( ) Tj (name) Tj (\)) Tj  T* (        ) Tj (thread) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (start) Tj (\(\)) Tj  T* (        ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (thread) Tj T* ET
 Q
 Q
 Q
 Q
 Q
 q
-1 0 0 1 62.69291 395.8236 cm
+1 0 0 1 62.69291 299.8236 cm
 q
 BT 1 0 0 1 0 16.82 Tm .865984 Tw 12 TL /F1 10 Tf 0 0 0 rg (The decorated function returns the current execution thread, which can be stored and checked later, for) Tj T* 0 Tw (instance to verify that the thread ) Tj /F4 10 Tf (.isAlive\(\)) Tj /F1 10 Tf (.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 353.8236 cm
+1 0 0 1 62.69291 257.8236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 28.82 Tm /F1 10 Tf 12 TL .691654 Tw (Here is an example of usage. Suppose one wants to write some data to an external resource which can) Tj T* 0 Tw .21683 Tw (be accessed by a single user at once \(for instance a printer\). Then the access to the writing function must) Tj T* 0 Tw (be locked. Here is a minimalistic example:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 200.6236 cm
+1 0 0 1 62.69291 104.6236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -2929,32 +2899,6 @@ Q
 Q
 Q
 Q
-q
-1 0 0 1 62.69291 168.6236 cm
-q
-BT 1 0 0 1 0 16.82 Tm .905868 Tw 12 TL /F1 10 Tf 0 0 0 rg (Each call to ) Tj /F4 10 Tf (write ) Tj /F1 10 Tf (will create a new writer thread, but there will be no synchronization problems since) Tj T* 0 Tw /F4 10 Tf (write ) Tj /F1 10 Tf (is locked.) Tj T* ET
-Q
-Q
-q
-1 0 0 1 62.69291 87.42362 cm
-q
-q
-1 0 0 1 0 0 cm
-q
-1 0 0 1 6.6 6.6 cm
-q
-.662745 .662745 .662745 RG
-.5 w
-.960784 .960784 .862745 rg
-n -6 -6 468.6898 72 re B*
-Q
-q
-BT 1 0 0 1 0 53.71 Tm 12 TL /F4 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (write) Tj (\() Tj .729412 .129412 .129412 rg ("data1") Tj 0 0 0 rg (\)) Tj  T* .4 .4 .4 rg (<) Tj 0 0 0 rg (Thread) Tj (\() Tj (write) Tj .4 .4 .4 rg (-) Tj (1) Tj 0 0 0 rg (,) Tj ( ) Tj (started) Tj .4 .4 .4 rg (...) Tj 0 0 0 rg (\)) Tj .4 .4 .4 rg (>) Tj 0 0 0 rg  T*  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (time) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (sleep) Tj (\() Tj .4 .4 .4 rg (.) Tj (1) Tj 0 0 0 rg (\)) Tj ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# wait a bit, so we are sure data2 is written after data1) Tj /F4 10 Tf 0 0 0 rg  T*  T* ET
-Q
-Q
-Q
-Q
-Q
  
 endstream
 
@@ -2962,11 +2906,17 @@ endobj
 % 'R94': class PDFStream 
 94 0 obj
 % page stream
-<< /Length 8123 >>
+<< /Length 7706 >>
 stream
 1 0 0 1 0 0 cm BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 667.8236 cm
+1 0 0 1 62.69291 741.0236 cm
+q
+BT 1 0 0 1 0 16.82 Tm .905868 Tw 12 TL /F1 10 Tf 0 0 0 rg (Each call to ) Tj /F4 10 Tf (write ) Tj /F1 10 Tf (will create a new writer thread, but there will be no synchronization problems since) Tj T* 0 Tw /F4 10 Tf (write ) Tj /F1 10 Tf (is locked.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 575.8236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -2976,35 +2926,35 @@ q
 .662745 .662745 .662745 RG
 .5 w
 .960784 .960784 .862745 rg
-n -6 -6 468.6898 96 re B*
+n -6 -6 468.6898 156 re B*
 Q
 q
-BT 1 0 0 1 0 77.71 Tm 12 TL /F4 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (write) Tj (\() Tj .729412 .129412 .129412 rg ("data2") Tj 0 0 0 rg (\)) Tj  T* .4 .4 .4 rg (<) Tj 0 0 0 rg (Thread) Tj (\() Tj (write) Tj .4 .4 .4 rg (-) Tj (2) Tj 0 0 0 rg (,) Tj ( ) Tj (started) Tj .4 .4 .4 rg (...) Tj 0 0 0 rg (\)) Tj .4 .4 .4 rg (>) Tj 0 0 0 rg  T*  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (time) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (sleep) Tj (\() Tj .4 .4 .4 rg (2) Tj 0 0 0 rg (\)) Tj ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# wait for the writers to complete) Tj /F4 10 Tf 0 0 0 rg  T*  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj /F3 10 Tf 0 .501961 0 rg (print) Tj /F4 10 Tf 0 0 0 rg (\() Tj (datalist) Tj (\)) Tj  T* ([) Tj .729412 .129412 .129412 rg ('data1') Tj 0 0 0 rg (,) Tj ( ) Tj .729412 .129412 .129412 rg ('data2') Tj 0 0 0 rg (]) Tj T* ET
+BT 1 0 0 1 0 137.71 Tm 12 TL /F4 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (write) Tj (\() Tj .729412 .129412 .129412 rg ("data1") Tj 0 0 0 rg (\)) Tj  T* .4 .4 .4 rg (<) Tj 0 0 0 rg (Thread) Tj (\() Tj (write) Tj .4 .4 .4 rg (-) Tj (1) Tj 0 0 0 rg (,) Tj ( ) Tj (started) Tj .4 .4 .4 rg (...) Tj 0 0 0 rg (\)) Tj .4 .4 .4 rg (>) Tj 0 0 0 rg  T*  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (time) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (sleep) Tj (\() Tj .4 .4 .4 rg (.) Tj (1) Tj 0 0 0 rg (\)) Tj ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# wait a bit, so we are sure data2 is written after data1) Tj /F4 10 Tf 0 0 0 rg  T*  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (write) Tj (\() Tj .729412 .129412 .129412 rg ("data2") Tj 0 0 0 rg (\)) Tj  T* .4 .4 .4 rg (<) Tj 0 0 0 rg (Thread) Tj (\() Tj (write) Tj .4 .4 .4 rg (-) Tj (2) Tj 0 0 0 rg (,) Tj ( ) Tj (started) Tj .4 .4 .4 rg (...) Tj 0 0 0 rg (\)) Tj .4 .4 .4 rg (>) Tj 0 0 0 rg  T*  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (time) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (sleep) Tj (\() Tj .4 .4 .4 rg (2) Tj 0 0 0 rg (\)) Tj ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# wait for the writers to complete) Tj /F4 10 Tf 0 0 0 rg  T*  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj /F3 10 Tf 0 .501961 0 rg (print) Tj /F4 10 Tf 0 0 0 rg (\() Tj (datalist) Tj (\)) Tj  T* ([) Tj .729412 .129412 .129412 rg ('data1') Tj 0 0 0 rg (,) Tj ( ) Tj .729412 .129412 .129412 rg ('data2') Tj 0 0 0 rg (]) Tj T* ET
 Q
 Q
 Q
 Q
 Q
 q
-1 0 0 1 62.69291 634.8236 cm
+1 0 0 1 62.69291 542.8236 cm
 q
 BT 1 0 0 1 0 8.435 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (The ) Tj /F3 17.5 Tf (FunctionMaker ) Tj /F2 17.5 Tf (class) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 568.8236 cm
+1 0 0 1 62.69291 476.8236 cm
 q
 BT 1 0 0 1 0 52.82 Tm 2.241412 Tw 12 TL /F1 10 Tf 0 0 0 rg (You may wonder about how the functionality of the ) Tj /F4 10 Tf (decorator ) Tj /F1 10 Tf (module is implemented. The basic) Tj T* 0 Tw 1.545868 Tw (building block is a ) Tj /F4 10 Tf (FunctionMaker ) Tj /F1 10 Tf (class which is able to generate on the fly functions with a given) Tj T* 0 Tw .047485 Tw (name and signature from a function template passed as a string. Generally speaking, you should not need) Tj T* 0 Tw 1.164983 Tw (to resort to ) Tj /F4 10 Tf (FunctionMaker ) Tj /F1 10 Tf (when writing ordinary decorators, but it is handy in some circumstances.) Tj T* 0 Tw (You will see an example shortly, in the implementation of a cool decorator utility \() Tj /F4 10 Tf (decorator_apply) Tj /F1 10 Tf (\).) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 526.8236 cm
+1 0 0 1 62.69291 434.8236 cm
 q
 BT 1 0 0 1 0 28.82 Tm .414597 Tw 12 TL /F4 10 Tf 0 0 0 rg (FunctionMaker ) Tj /F1 10 Tf (provides a ) Tj /F4 10 Tf (.create ) Tj /F1 10 Tf (classmethod which takes as input the name, signature, and body) Tj T* 0 Tw .632927 Tw (of the function we want to generate as well as the execution environment were the function is generated) Tj T* 0 Tw (by ) Tj /F4 10 Tf (exec) Tj /F1 10 Tf (. Here is an example:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 433.6236 cm
+1 0 0 1 62.69291 341.6236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -3024,25 +2974,25 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 401.6236 cm
+1 0 0 1 62.69291 309.6236 cm
 q
 BT 1 0 0 1 0 16.82 Tm .226654 Tw 12 TL /F1 10 Tf 0 0 0 rg (It is important to notice that the function body is interpolated before being executed, so be careful with the) Tj T* 0 Tw /F4 10 Tf (% ) Tj /F1 10 Tf (sign!) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 359.6236 cm
+1 0 0 1 62.69291 267.6236 cm
 q
 BT 1 0 0 1 0 28.82 Tm 1.995433 Tw 12 TL /F4 10 Tf 0 0 0 rg (FunctionMaker.create ) Tj /F1 10 Tf (also accepts keyword arguments and such arguments are attached to the) Tj T* 0 Tw 1.64686 Tw (resulting function. This is useful if you want to set some function attributes, for instance the docstring) Tj T* 0 Tw /F4 10 Tf (__doc__) Tj /F1 10 Tf (.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 317.6236 cm
+1 0 0 1 62.69291 225.6236 cm
 q
 BT 1 0 0 1 0 28.82 Tm .605318 Tw 12 TL /F1 10 Tf 0 0 0 rg (For debugging/introspection purposes it may be useful to see the source code of the generated function;) Tj T* 0 Tw 2.246235 Tw (to do that, just pass the flag ) Tj /F4 10 Tf (addsource=True ) Tj /F1 10 Tf (and a ) Tj /F4 10 Tf (__source__ ) Tj /F1 10 Tf (attribute will be added to the) Tj T* 0 Tw (generated function:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 224.4236 cm
+1 0 0 1 62.69291 132.4236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -3062,9 +3012,9 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 84.42362 cm
+1 0 0 1 62.69291 88.42362 cm
 q
-BT 1 0 0 1 0 124.82 Tm .870651 Tw 12 TL /F4 10 Tf 0 0 0 rg (FunctionMaker.create ) Tj /F1 10 Tf (can take as first argument a string, as in the examples before, or a function.) Tj T* 0 Tw .224985 Tw (This is the most common usage, since typically you want to decorate a pre-existing function. A framework) Tj T* 0 Tw 1.606136 Tw (author may want to use directly ) Tj /F4 10 Tf (FunctionMaker.create ) Tj /F1 10 Tf (instead of ) Tj /F4 10 Tf (decorator) Tj /F1 10 Tf (, since it gives you) Tj T* 0 Tw 1.36686 Tw (direct access to the body of the generated function. For instance, suppose you want to instrument the) Tj T* 0 Tw .372209 Tw /F4 10 Tf (__init__ ) Tj /F1 10 Tf (methods of a set of classes, by preserving their signature \(such use case is not made up; this) Tj T* 0 Tw .673828 Tw (is done in SQAlchemy and in other frameworks\). When the first argument of ) Tj /F4 10 Tf (FunctionMaker.create) Tj T* 0 Tw 3.405814 Tw /F1 10 Tf (is a function, a ) Tj /F4 10 Tf (FunctionMaker ) Tj /F1 10 Tf (object is instantiated internally, with attributes ) Tj /F4 10 Tf (args) Tj /F1 10 Tf (, ) Tj /F4 10 Tf (varargs) Tj /F1 10 Tf (,) Tj T* 0 Tw 5.509982 Tw /F4 10 Tf (keywords ) Tj /F1 10 Tf (and ) Tj /F4 10 Tf (defaults ) Tj /F1 10 Tf (which are the the return values of the standard library function) Tj T* 0 Tw .561318 Tw /F4 10 Tf (inspect.getargspec) Tj /F1 10 Tf (. For each argument in the ) Tj /F4 10 Tf (args ) Tj /F1 10 Tf (\(which is a list of strings containing the names) Tj T* 0 Tw 1.599985 Tw (of the mandatory arguments\) an attribute ) Tj /F4 10 Tf (arg0) Tj /F1 10 Tf (, ) Tj /F4 10 Tf (arg1) Tj /F1 10 Tf (, ..., ) Tj /F4 10 Tf (argN ) Tj /F1 10 Tf (is also generated. Finally, there is a) Tj T* 0 Tw /F4 10 Tf (signature ) Tj /F1 10 Tf (attribute, a string with the signature of the original function.) Tj T* ET
+BT 1 0 0 1 0 28.82 Tm .870651 Tw 12 TL /F4 10 Tf 0 0 0 rg (FunctionMaker.create ) Tj /F1 10 Tf (can take as first argument a string, as in the examples before, or a function. ) Tj T* 0 Tw .224985 Tw (This is the most common usage, since typically you want to decorate a pre-existing function. A framework ) Tj T* 0 Tw 1.606136 Tw (author may want to use directly ) Tj /F4 10 Tf (FunctionMaker.create ) Tj /F1 10 Tf (instead of ) Tj /F4 10 Tf (decorator) Tj /F1 10 Tf (, since it gives you) Tj T* 0 Tw ET
 Q
 Q
  
@@ -3074,29 +3024,35 @@ endobj
 % 'R95': class PDFStream 
 95 0 obj
 % page stream
-<< /Length 7210 >>
+<< /Length 7259 >>
 stream
 1 0 0 1 0 0 cm BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 693.0236 cm
+1 0 0 1 62.69291 669.0236 cm
+q
+BT 1 0 0 1 0 88.82 Tm 1.36686 Tw 12 TL /F1 10 Tf 0 0 0 rg (direct access to the body of the generated function. For instance, suppose you want to instrument the) Tj T* 0 Tw .372209 Tw /F4 10 Tf (__init__ ) Tj /F1 10 Tf (methods of a set of classes, by preserving their signature \(such use case is not made up; this) Tj T* 0 Tw .673828 Tw (is done in SQAlchemy and in other frameworks\). When the first argument of ) Tj /F4 10 Tf (FunctionMaker.create) Tj T* 0 Tw 3.405814 Tw /F1 10 Tf (is a function, a ) Tj /F4 10 Tf (FunctionMaker ) Tj /F1 10 Tf (object is instantiated internally, with attributes ) Tj /F4 10 Tf (args) Tj /F1 10 Tf (, ) Tj /F4 10 Tf (varargs) Tj /F1 10 Tf (,) Tj T* 0 Tw 5.509982 Tw /F4 10 Tf (keywords ) Tj /F1 10 Tf (and ) Tj /F4 10 Tf (defaults ) Tj /F1 10 Tf (which are the the return values of the standard library function) Tj T* 0 Tw .561318 Tw /F4 10 Tf (inspect.getargspec) Tj /F1 10 Tf (. For each argument in the ) Tj /F4 10 Tf (args ) Tj /F1 10 Tf (\(which is a list of strings containing the names) Tj T* 0 Tw 1.599985 Tw (of the mandatory arguments\) an attribute ) Tj /F4 10 Tf (arg0) Tj /F1 10 Tf (, ) Tj /F4 10 Tf (arg1) Tj /F1 10 Tf (, ..., ) Tj /F4 10 Tf (argN ) Tj /F1 10 Tf (is also generated. Finally, there is a) Tj T* 0 Tw /F4 10 Tf (signature ) Tj /F1 10 Tf (attribute, a string with the signature of the original function.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 591.0236 cm
 q
 BT 1 0 0 1 0 64.82 Tm 4.63311 Tw 12 TL /F1 10 Tf 0 0 0 rg (Notice that while I do not have plans to change or remove the functionality provided in the) Tj T* 0 Tw 1.00936 Tw /F4 10 Tf (FunctionMaker ) Tj /F1 10 Tf (class, I do not guarantee that it will stay unchanged forever. For instance, right now I) Tj T* 0 Tw .791318 Tw (am using the traditional string interpolation syntax for function templates, but Python 2.6 and Python 3.0) Tj T* 0 Tw .712093 Tw (provide a newer interpolation syntax and I may use the new syntax in the future. On the other hand, the) Tj T* 0 Tw .639985 Tw (functionality provided by ) Tj /F4 10 Tf (decorator ) Tj /F1 10 Tf (has been there from version 0.1 and it is guaranteed to stay there) Tj T* 0 Tw (forever.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 660.0236 cm
+1 0 0 1 62.69291 558.0236 cm
 q
 BT 1 0 0 1 0 8.435 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Getting the source code) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 582.0236 cm
+1 0 0 1 62.69291 480.0236 cm
 q
 BT 1 0 0 1 0 64.82 Tm 5.045529 Tw 12 TL /F1 10 Tf 0 0 0 rg (Internally ) Tj /F4 10 Tf (FunctionMaker.create ) Tj /F1 10 Tf (uses ) Tj /F4 10 Tf (exec ) Tj /F1 10 Tf (to generate the decorated function. Therefore) Tj T* 0 Tw 2.542126 Tw /F4 10 Tf (inspect.getsource ) Tj /F1 10 Tf (will not work for decorated functions. That means that the usual '??' trick in) Tj T* 0 Tw 2.163059 Tw (IPython will give you the \(right on the spot\) message ) Tj /F4 10 Tf (Dynamically generated function. No) Tj T* 0 Tw .563314 Tw (source code available) Tj /F1 10 Tf (. In the past I have considered this acceptable, since ) Tj /F4 10 Tf (inspect.getsource) Tj T* 0 Tw 1.790697 Tw /F1 10 Tf (does not really work even with regular decorators. In that case ) Tj /F4 10 Tf (inspect.getsource ) Tj /F1 10 Tf (gives you the) Tj T* 0 Tw (wrapper source code which is probably not what you want:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 512.8236 cm
+1 0 0 1 62.69291 410.8236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -3116,7 +3072,7 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 407.6236 cm
+1 0 0 1 62.69291 305.6236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -3136,13 +3092,13 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 351.6236 cm
+1 0 0 1 62.69291 249.6236 cm
 q
 BT 1 0 0 1 0 40.82 Tm 1.471235 Tw 12 TL /F1 10 Tf 0 0 0 rg (\(see bug report ) Tj 0 0 .501961 rg (1764286 ) Tj 0 0 0 rg (for an explanation of what is happening\). Unfortunately the bug is still there,) Tj T* 0 Tw 1.541235 Tw (even in Python 2.7 and 3.1. There is however a workaround. The decorator module adds an attribute) Tj T* 0 Tw .103984 Tw /F4 10 Tf (.undecorated ) Tj /F1 10 Tf (to the decorated function, containing a reference to the original function. The easy way to) Tj T* 0 Tw (get the source code is to call ) Tj /F4 10 Tf (inspect.getsource ) Tj /F1 10 Tf (on the undecorated function:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 246.4236 cm
+1 0 0 1 62.69291 144.4236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -3161,20 +3117,30 @@ Q
 Q
 Q
 Q
+ 
+endstream
+
+endobj
+% 'R96': class PDFStream 
+96 0 obj
+% page stream
+<< /Length 7398 >>
+stream
+1 0 0 1 0 0 cm BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 213.4236 cm
+1 0 0 1 62.69291 744.0236 cm
 q
 BT 1 0 0 1 0 8.435 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Dealing with third party decorators) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 159.4236 cm
+1 0 0 1 62.69291 690.0236 cm
 q
 BT 1 0 0 1 0 40.82 Tm .321654 Tw 12 TL /F1 10 Tf 0 0 0 rg (Sometimes you find on the net some cool decorator that you would like to include in your code. However,) Tj T* 0 Tw .50061 Tw (more often than not the cool decorator is not signature-preserving. Therefore you may want an easy way) Tj T* 0 Tw 1.814597 Tw (to upgrade third party decorators to signature-preserving decorators without having to rewrite them in) Tj T* 0 Tw (terms of ) Tj /F4 10 Tf (decorator) Tj /F1 10 Tf (. You can use a ) Tj /F4 10 Tf (FunctionMaker ) Tj /F1 10 Tf (to implement that functionality as follows:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 78.22362 cm
+1 0 0 1 62.69291 572.8236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -3184,10 +3150,48 @@ q
 .662745 .662745 .662745 RG
 .5 w
 .960784 .960784 .862745 rg
-n -6 -6 468.6898 72 re B*
+n -6 -6 468.6898 108 re B*
 Q
 q
-BT 1 0 0 1 0 53.71 Tm 12 TL /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (decorator_apply) Tj 0 0 0 rg (\() Tj (dec) Tj (,) Tj ( ) Tj (func) Tj (\):) Tj  T* (    ) Tj /F6 10 Tf .729412 .129412 .129412 rg (""") Tj T* (    Decorate a function by preserving the signature even if dec) Tj T* (    is not a signature-preserving decorator.) Tj T* (    """) Tj /F4 10 Tf 0 0 0 rg  T* ET
+BT 1 0 0 1 0 89.71 Tm 12 TL /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (decorator_apply) Tj 0 0 0 rg (\() Tj (dec) Tj (,) Tj ( ) Tj (func) Tj (\):) Tj  T* (    ) Tj /F6 10 Tf .729412 .129412 .129412 rg (""") Tj T* (    Decorate a function by preserving the signature even if dec) Tj T* (    is not a signature-preserving decorator.) Tj T* (    """) Tj /F4 10 Tf 0 0 0 rg  T* (    ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (FunctionMaker) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (create) Tj (\() Tj  T* (        ) Tj (func) Tj (,) Tj ( ) Tj .729412 .129412 .129412 rg ('return decorated\() Tj /F3 10 Tf .733333 .4 .533333 rg (%\(signature\)s) Tj /F4 10 Tf .729412 .129412 .129412 rg (\)') Tj 0 0 0 rg (,) Tj  T* (        ) Tj 0 .501961 0 rg (dict) Tj 0 0 0 rg (\() Tj (decorated) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg (dec) Tj (\() Tj (func) Tj (\)\),) Tj ( ) Tj (undecorated) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg (func) Tj (\)) Tj T* ET
+Q
+Q
+Q
+Q
+Q
+q
+1 0 0 1 62.69291 540.8236 cm
+q
+BT 1 0 0 1 0 16.82 Tm .698314 Tw 12 TL /F4 10 Tf 0 0 0 rg (decorator_apply ) Tj /F1 10 Tf (sets the attribute ) Tj /F4 10 Tf (.undecorated ) Tj /F1 10 Tf (of the generated function to the original function,) Tj T* 0 Tw (so that you can get the right source code.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 498.8236 cm
+q
+BT 1 0 0 1 0 28.82 Tm .13104 Tw 12 TL /F1 10 Tf 0 0 0 rg (Notice that I am not providing this functionality in the ) Tj /F4 10 Tf (decorator ) Tj /F1 10 Tf (module directly since I think it is best to) Tj T* 0 Tw 2.070751 Tw (rewrite the decorator rather than adding an additional level of indirection. However, practicality beats) Tj T* 0 Tw (purity, so you can add ) Tj /F4 10 Tf (decorator_apply ) Tj /F1 10 Tf (to your toolbox and use it if you need to.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 444.8236 cm
+q
+BT 1 0 0 1 0 40.82 Tm 1.74881 Tw 12 TL /F1 10 Tf 0 0 0 rg (In order to give an example of usage of ) Tj /F4 10 Tf (decorator_apply) Tj /F1 10 Tf (, I will show a pretty slick decorator that) Tj T* 0 Tw 1.276651 Tw (converts a tail-recursive function in an iterative function. I have shamelessly stolen the basic idea from) Tj T* 0 Tw 43.62829 Tw (Kay Schluehr's recipe in the Python Cookbook,) Tj T* 0 Tw 0 0 .501961 rg (http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691) Tj 0 0 0 rg (.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 87.62362 cm
+q
+q
+1 0 0 1 0 0 cm
+q
+1 0 0 1 6.6 6.6 cm
+q
+.662745 .662745 .662745 RG
+.5 w
+.960784 .960784 .862745 rg
+n -6 -6 468.6898 348 re B*
+Q
+q
+BT 1 0 0 1 0 329.71 Tm 12 TL /F3 10 Tf 0 .501961 0 rg (class) Tj /F4 10 Tf 0 0 0 rg ( ) Tj /F3 10 Tf 0 0 1 rg (TailRecursive) Tj /F4 10 Tf 0 0 0 rg (\() Tj 0 .501961 0 rg (object) Tj 0 0 0 rg (\):) Tj  T* (    ) Tj /F6 10 Tf .729412 .129412 .129412 rg (""") Tj T* (    tail_recursive decorator based on Kay Schluehr's recipe) Tj T* (    http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691) Tj T* (    with improvements by me and George Sakkis.) Tj T* (    """) Tj /F4 10 Tf 0 0 0 rg  T*  T* (    ) Tj /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (__init__) Tj 0 0 0 rg (\() Tj 0 .501961 0 rg (self) Tj 0 0 0 rg (,) Tj ( ) Tj (func) Tj (\):) Tj  T* (        ) Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (func) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj (func) Tj  T* (        ) Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (firstcall) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj 0 .501961 0 rg (True) Tj 0 0 0 rg  T* (        ) Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (CONTINUE) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj 0 .501961 0 rg (object) Tj 0 0 0 rg (\(\)) Tj ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# sentinel) Tj /F4 10 Tf 0 0 0 rg  T*  T* (    ) Tj /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (__call__) Tj 0 0 0 rg (\() Tj 0 .501961 0 rg (self) Tj 0 0 0 rg (,) Tj ( ) Tj .4 .4 .4 rg (*) Tj 0 0 0 rg (args) Tj (,) Tj ( ) Tj .4 .4 .4 rg (**) Tj 0 0 0 rg (kwd) Tj (\):) Tj  T* (        ) Tj (CONTINUE) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (CONTINUE) Tj  T* (        ) Tj /F3 10 Tf 0 .501961 0 rg (if) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (firstcall) Tj (:) Tj  T* (            ) Tj (func) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (func) Tj  T* (            ) Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (firstcall) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj 0 .501961 0 rg (False) Tj 0 0 0 rg  T* (            ) Tj /F3 10 Tf 0 .501961 0 rg (try) Tj /F4 10 Tf 0 0 0 rg (:) Tj  T* (                ) Tj /F3 10 Tf 0 .501961 0 rg (while) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 .501961 0 rg (True) Tj 0 0 0 rg (:) Tj  T* (                    ) Tj (result) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj (func) Tj (\() Tj .4 .4 .4 rg (*) Tj 0 0 0 rg (args) Tj (,) Tj ( ) Tj .4 .4 .4 rg (**) Tj 0 0 0 rg (kwd) Tj (\)) Tj  T* (                    ) Tj /F3 10 Tf 0 .501961 0 rg (if) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (result) Tj ( ) Tj /F3 10 Tf .666667 .133333 1 rg (is) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (CONTINUE) Tj (:) Tj ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# update arguments) Tj /F4 10 Tf 0 0 0 rg  T* (                        ) Tj (args) Tj (,) Tj ( ) Tj (kwd) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (argskwd) Tj  T* (                    ) Tj /F3 10 Tf 0 .501961 0 rg (else) Tj /F4 10 Tf 0 0 0 rg (:) Tj ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# last call) Tj /F4 10 Tf 0 0 0 rg  T* (                        ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (result) Tj  T* (            ) Tj /F3 10 Tf 0 .501961 0 rg (finally) Tj /F4 10 Tf 0 0 0 rg (:) Tj  T* (                ) Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (firstcall) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj 0 .501961 0 rg (True) Tj 0 0 0 rg  T* (        ) Tj /F3 10 Tf 0 .501961 0 rg (else) Tj /F4 10 Tf 0 0 0 rg (:) Tj ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# return the arguments of the tail call) Tj /F4 10 Tf 0 0 0 rg  T* (            ) Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (argskwd) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj (args) Tj (,) Tj ( ) Tj (kwd) Tj  T* ET
 Q
 Q
 Q
@@ -3197,14 +3201,14 @@ Q
 endstream
 
 endobj
-% 'R96': class PDFStream 
-96 0 obj
+% 'R97': class PDFStream 
+97 0 obj
 % page stream
-<< /Length 7685 >>
+<< /Length 5380 >>
 stream
 1 0 0 1 0 0 cm BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 715.8236 cm
+1 0 0 1 62.69291 739.8236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -3214,62 +3218,24 @@ q
 .662745 .662745 .662745 RG
 .5 w
 .960784 .960784 .862745 rg
-n -6 -6 468.6898 48 re B*
+n -6 -6 468.6898 24 re B*
 Q
 q
-BT 1 0 0 1 0 29.71 Tm 12 TL /F4 10 Tf 0 0 0 rg (    ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (FunctionMaker) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (create) Tj (\() Tj  T* (        ) Tj (func) Tj (,) Tj ( ) Tj .729412 .129412 .129412 rg ('return decorated\() Tj /F3 10 Tf .733333 .4 .533333 rg (%\(signature\)s) Tj /F4 10 Tf .729412 .129412 .129412 rg (\)') Tj 0 0 0 rg (,) Tj  T* (        ) Tj 0 .501961 0 rg (dict) Tj 0 0 0 rg (\() Tj (decorated) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg (dec) Tj (\() Tj (func) Tj (\)\),) Tj ( ) Tj (undecorated) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg (func) Tj (\)) Tj T* ET
-Q
-Q
-Q
-Q
-Q
-q
-1 0 0 1 62.69291 683.8236 cm
-q
-BT 1 0 0 1 0 16.82 Tm .698314 Tw 12 TL /F4 10 Tf 0 0 0 rg (decorator_apply ) Tj /F1 10 Tf (sets the attribute ) Tj /F4 10 Tf (.undecorated ) Tj /F1 10 Tf (of the generated function to the original function,) Tj T* 0 Tw (so that you can get the right source code.) Tj T* ET
-Q
-Q
-q
-1 0 0 1 62.69291 641.8236 cm
-q
-BT 1 0 0 1 0 28.82 Tm .13104 Tw 12 TL /F1 10 Tf 0 0 0 rg (Notice that I am not providing this functionality in the ) Tj /F4 10 Tf (decorator ) Tj /F1 10 Tf (module directly since I think it is best to) Tj T* 0 Tw 2.070751 Tw (rewrite the decorator rather than adding an additional level of indirection. However, practicality beats) Tj T* 0 Tw (purity, so you can add ) Tj /F4 10 Tf (decorator_apply ) Tj /F1 10 Tf (to your toolbox and use it if you need to.) Tj T* ET
-Q
-Q
-q
-1 0 0 1 62.69291 587.8236 cm
-q
-BT 1 0 0 1 0 40.82 Tm 1.74881 Tw 12 TL /F1 10 Tf 0 0 0 rg (In order to give an example of usage of ) Tj /F4 10 Tf (decorator_apply) Tj /F1 10 Tf (, I will show a pretty slick decorator that) Tj T* 0 Tw 1.276651 Tw (converts a tail-recursive function in an iterative function. I have shamelessly stolen the basic idea from) Tj T* 0 Tw 43.62829 Tw (Kay Schluehr's recipe in the Python Cookbook,) Tj T* 0 Tw 0 0 .501961 rg (http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691) Tj 0 0 0 rg (.) Tj T* ET
-Q
-Q
-q
-1 0 0 1 62.69291 218.6236 cm
-q
-q
-1 0 0 1 0 0 cm
-q
-1 0 0 1 6.6 6.6 cm
-q
-.662745 .662745 .662745 RG
-.5 w
-.960784 .960784 .862745 rg
-n -6 -6 468.6898 360 re B*
-Q
-q
-BT 1 0 0 1 0 341.71 Tm 12 TL /F3 10 Tf 0 .501961 0 rg (class) Tj /F4 10 Tf 0 0 0 rg ( ) Tj /F3 10 Tf 0 0 1 rg (TailRecursive) Tj /F4 10 Tf 0 0 0 rg (\() Tj 0 .501961 0 rg (object) Tj 0 0 0 rg (\):) Tj  T* (    ) Tj /F6 10 Tf .729412 .129412 .129412 rg (""") Tj T* (    tail_recursive decorator based on Kay Schluehr's recipe) Tj T* (    http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691) Tj T* (    with improvements by me and George Sakkis.) Tj T* (    """) Tj /F4 10 Tf 0 0 0 rg  T*  T* (    ) Tj /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (__init__) Tj 0 0 0 rg (\() Tj 0 .501961 0 rg (self) Tj 0 0 0 rg (,) Tj ( ) Tj (func) Tj (\):) Tj  T* (        ) Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (func) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj (func) Tj  T* (        ) Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (firstcall) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj 0 .501961 0 rg (True) Tj 0 0 0 rg  T* (        ) Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (CONTINUE) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj 0 .501961 0 rg (object) Tj 0 0 0 rg (\(\)) Tj ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# sentinel) Tj /F4 10 Tf 0 0 0 rg  T*  T* (    ) Tj /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (__call__) Tj 0 0 0 rg (\() Tj 0 .501961 0 rg (self) Tj 0 0 0 rg (,) Tj ( ) Tj .4 .4 .4 rg (*) Tj 0 0 0 rg (args) Tj (,) Tj ( ) Tj .4 .4 .4 rg (**) Tj 0 0 0 rg (kwd) Tj (\):) Tj  T* (        ) Tj (CONTINUE) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (CONTINUE) Tj  T* (        ) Tj /F3 10 Tf 0 .501961 0 rg (if) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (firstcall) Tj (:) Tj  T* (            ) Tj (func) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (func) Tj  T* (            ) Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (firstcall) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj 0 .501961 0 rg (False) Tj 0 0 0 rg  T* (            ) Tj /F3 10 Tf 0 .501961 0 rg (try) Tj /F4 10 Tf 0 0 0 rg (:) Tj  T* (                ) Tj /F3 10 Tf 0 .501961 0 rg (while) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 .501961 0 rg (True) Tj 0 0 0 rg (:) Tj  T* (                    ) Tj (result) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj (func) Tj (\() Tj .4 .4 .4 rg (*) Tj 0 0 0 rg (args) Tj (,) Tj ( ) Tj .4 .4 .4 rg (**) Tj 0 0 0 rg (kwd) Tj (\)) Tj  T* (                    ) Tj /F3 10 Tf 0 .501961 0 rg (if) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (result) Tj ( ) Tj /F3 10 Tf .666667 .133333 1 rg (is) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (CONTINUE) Tj (:) Tj ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# update arguments) Tj /F4 10 Tf 0 0 0 rg  T* (                        ) Tj (args) Tj (,) Tj ( ) Tj (kwd) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (argskwd) Tj  T* (                    ) Tj /F3 10 Tf 0 .501961 0 rg (else) Tj /F4 10 Tf 0 0 0 rg (:) Tj ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# last call) Tj /F4 10 Tf 0 0 0 rg  T* (                        ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (result) Tj  T* (            ) Tj /F3 10 Tf 0 .501961 0 rg (finally) Tj /F4 10 Tf 0 0 0 rg (:) Tj  T* (                ) Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (firstcall) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj 0 .501961 0 rg (True) Tj 0 0 0 rg  T* (        ) Tj /F3 10 Tf 0 .501961 0 rg (else) Tj /F4 10 Tf 0 0 0 rg (:) Tj ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# return the arguments of the tail call) Tj /F4 10 Tf 0 0 0 rg  T* (            ) Tj 0 .501961 0 rg (self) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (argskwd) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj (args) Tj (,) Tj ( ) Tj (kwd) Tj  T* (            ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (CONTINUE) Tj T* ET
+BT 1 0 0 1 0 5.71 Tm 12 TL /F4 10 Tf 0 0 0 rg (            ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (CONTINUE) Tj T* ET
 Q
 Q
 Q
 Q
 Q
 q
-1 0 0 1 62.69291 198.6236 cm
+1 0 0 1 62.69291 719.8236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (Here the decorator is implemented as a class returning callable objects.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 153.4236 cm
+1 0 0 1 62.69291 674.6236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -3289,14 +3255,14 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 133.4236 cm
+1 0 0 1 62.69291 654.6236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 4.82 Tm /F1 10 Tf 12 TL (Here is how you apply the upgraded decorator to the good old factorial:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 88.22362 cm
+1 0 0 1 62.69291 573.4236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -3306,47 +3272,17 @@ q
 .662745 .662745 .662745 RG
 .5 w
 .960784 .960784 .862745 rg
-n -6 -6 468.6898 36 re B*
+n -6 -6 468.6898 72 re B*
 Q
 q
-BT 1 0 0 1 0 17.71 Tm 12 TL /F4 10 Tf .666667 .133333 1 rg (@tail_recursive) Tj 0 0 0 rg  T* /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (factorial) Tj 0 0 0 rg (\() Tj (n) Tj (,) Tj ( ) Tj (acc) Tj .4 .4 .4 rg (=) Tj (1) Tj 0 0 0 rg (\):) Tj  T* ET
-Q
-Q
-Q
-Q
-Q
- 
-endstream
-
-endobj
-% 'R97': class PDFStream 
-97 0 obj
-% page stream
-<< /Length 5067 >>
-stream
-1 0 0 1 0 0 cm BT /F1 12 Tf 14.4 TL ET
-q
-1 0 0 1 62.69291 715.8236 cm
-q
-q
-1 0 0 1 0 0 cm
-q
-1 0 0 1 6.6 6.6 cm
-q
-.662745 .662745 .662745 RG
-.5 w
-.960784 .960784 .862745 rg
-n -6 -6 468.6898 48 re B*
-Q
-q
-BT 1 0 0 1 0 29.71 Tm 12 TL /F4 10 Tf 0 0 0 rg (    ) Tj .729412 .129412 .129412 rg ("The good old factorial") Tj 0 0 0 rg  T* (    ) Tj /F3 10 Tf 0 .501961 0 rg (if) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (n) Tj ( ) Tj .4 .4 .4 rg (==) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (0) Tj 0 0 0 rg (:) Tj ( ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (acc) Tj  T* (    ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (factorial) Tj (\() Tj (n) Tj .4 .4 .4 rg (-) Tj (1) Tj 0 0 0 rg (,) Tj ( ) Tj (n) Tj .4 .4 .4 rg (*) Tj 0 0 0 rg (acc) Tj (\)) Tj T* ET
+BT 1 0 0 1 0 53.71 Tm 12 TL /F4 10 Tf .666667 .133333 1 rg (@tail_recursive) Tj 0 0 0 rg  T* /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (factorial) Tj 0 0 0 rg (\() Tj (n) Tj (,) Tj ( ) Tj (acc) Tj .4 .4 .4 rg (=) Tj (1) Tj 0 0 0 rg (\):) Tj  T* (    ) Tj .729412 .129412 .129412 rg ("The good old factorial") Tj 0 0 0 rg  T* (    ) Tj /F3 10 Tf 0 .501961 0 rg (if) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (n) Tj ( ) Tj .4 .4 .4 rg (==) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (0) Tj 0 0 0 rg (:) Tj ( ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (acc) Tj  T* (    ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (factorial) Tj (\() Tj (n) Tj .4 .4 .4 rg (-) Tj (1) Tj 0 0 0 rg (,) Tj ( ) Tj (n) Tj .4 .4 .4 rg (*) Tj 0 0 0 rg (acc) Tj (\)) Tj T* ET
 Q
 Q
 Q
 Q
 Q
 q
-1 0 0 1 62.69291 670.6236 cm
+1 0 0 1 62.69291 528.2236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -3366,13 +3302,13 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 614.6236 cm
+1 0 0 1 62.69291 472.2236 cm
 q
 BT 1 0 0 1 0 40.82 Tm .188935 Tw 12 TL /F1 10 Tf 0 0 0 rg (This decorator is pretty impressive, and should give you some food for your mind ;\) Notice that there is no) Tj T* 0 Tw 1.339983 Tw (recursion limit now, and you can easily compute ) Tj /F4 10 Tf (factorial\(1001\) ) Tj /F1 10 Tf (or larger without filling the stack) Tj T* 0 Tw .909431 Tw (frame. Notice also that the decorator will not work on functions which are not tail recursive, such as the) Tj T* 0 Tw (following) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 557.4236 cm
+1 0 0 1 62.69291 415.0236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -3392,27 +3328,27 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 525.4236 cm
+1 0 0 1 62.69291 383.0236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 16.82 Tm /F1 10 Tf 12 TL .541098 Tw (\(reminder: a function is tail recursive if it either returns a value without making a recursive call, or returns) Tj T* 0 Tw (directly the result of a recursive call\).) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 492.4236 cm
+1 0 0 1 62.69291 350.0236 cm
 q
 BT 1 0 0 1 0 8.435 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Caveats and limitations) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 462.4236 cm
+1 0 0 1 62.69291 320.0236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 16.82 Tm /F1 10 Tf 12 TL .474987 Tw (The first thing you should be aware of, it the fact that decorators have a performance penalty. The worse) Tj T* 0 Tw (case is shown by the following example:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 237.2236 cm
+1 0 0 1 62.69291 94.82362 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -3432,14 +3368,24 @@ Q
 Q
 Q
 Q
+ 
+endstream
+
+endobj
+% 'R98': class PDFStream 
+98 0 obj
+% page stream
+<< /Length 7598 >>
+stream
+1 0 0 1 0 0 cm BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 205.2236 cm
+1 0 0 1 62.69291 741.0236 cm
 q
 BT 1 0 0 1 0 16.82 Tm .266235 Tw 12 TL /F1 10 Tf 0 0 0 rg (On my MacBook, using the ) Tj /F4 10 Tf (do_nothing ) Tj /F1 10 Tf (decorator instead of the plain function is more than three times) Tj T* 0 Tw (slower:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 148.0236 cm
+1 0 0 1 62.69291 683.8236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -3460,30 +3406,20 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 104.0236 cm
+1 0 0 1 62.69291 639.8236 cm
 q
 BT 1 0 0 1 0 28.82 Tm 1.25832 Tw 12 TL /F1 10 Tf 0 0 0 rg (It should be noted that a real life function would probably do something more useful than ) Tj /F4 10 Tf (f ) Tj /F1 10 Tf (here, and) Tj T* 0 Tw .91811 Tw (therefore in real life the performance penalty could be completely negligible. As always, the only way to) Tj T* 0 Tw (know if there is a penalty in your specific use case is to measure it.) Tj T* ET
 Q
 Q
- 
-endstream
-
-endobj
-% 'R98': class PDFStream 
-98 0 obj
-% page stream
-<< /Length 8217 >>
-stream
-1 0 0 1 0 0 cm BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 741.0236 cm
+1 0 0 1 62.69291 609.8236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 16.82 Tm /F1 10 Tf 12 TL .867984 Tw (You should be aware that decorators will make your tracebacks longer and more difficult to understand.) Tj T* 0 Tw (Consider this example:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 683.8236 cm
+1 0 0 1 62.69291 552.6236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -3503,13 +3439,13 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 651.8236 cm
+1 0 0 1 62.69291 520.6236 cm
 q
 BT 1 0 0 1 0 16.82 Tm .583318 Tw 12 TL /F1 10 Tf 0 0 0 rg (Calling ) Tj /F4 10 Tf (f\(\) ) Tj /F1 10 Tf (will give you a ) Tj /F4 10 Tf (ZeroDivisionError) Tj /F1 10 Tf (, but since the function is decorated the traceback will) Tj T* 0 Tw (be longer:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 522.6236 cm
+1 0 0 1 62.69291 391.4236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -3529,31 +3465,31 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 454.6236 cm
+1 0 0 1 62.69291 323.4236 cm
 q
 BT 1 0 0 1 0 52.82 Tm 1.05528 Tw 12 TL /F1 10 Tf 0 0 0 rg (You see here the inner call to the decorator ) Tj /F4 10 Tf (trace) Tj /F1 10 Tf (, which calls ) Tj /F4 10 Tf (f\(*args, **kw\)) Tj /F1 10 Tf (, and a reference to) Tj T* 0 Tw .265868 Tw /F4 10 Tf (File ") Tj (<) Tj (string) Tj (>) Tj (", line 2, in f) Tj /F1 10 Tf (. This latter reference is due to the fact that internally the decorator) Tj T* 0 Tw 2.053318 Tw (module uses ) Tj /F4 10 Tf (exec ) Tj /F1 10 Tf (to generate the decorated function. Notice that ) Tj /F4 10 Tf (exec ) Tj /F1 10 Tf (is ) Tj /F5 10 Tf (not ) Tj /F1 10 Tf (responsibile for the) Tj T* 0 Tw 1.507485 Tw (performance penalty, since is the called ) Tj /F5 10 Tf (only once ) Tj /F1 10 Tf (at function decoration time, and not every time the) Tj T* 0 Tw (decorated function is called.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 376.6236 cm
+1 0 0 1 62.69291 245.4236 cm
 q
 BT 1 0 0 1 0 64.82 Tm .932209 Tw 12 TL /F1 10 Tf 0 0 0 rg (At present, there is no clean way to avoid ) Tj /F4 10 Tf (exec) Tj /F1 10 Tf (. A clean solution would require to change the CPython) Tj T* 0 Tw .777485 Tw (implementation of functions and add an hook to make it possible to change their signature directly. That) Tj T* 0 Tw .74186 Tw (could happen in future versions of Python \(see PEP ) Tj 0 0 .501961 rg (362) Tj 0 0 0 rg (\) and then the decorator module would become) Tj T* 0 Tw 2.385318 Tw (obsolete. However, at present, even in Python 3.1 it is impossible to change the function signature) Tj T* 0 Tw .931751 Tw (directly, therefore the ) Tj /F4 10 Tf (decorator ) Tj /F1 10 Tf (module is still useful. Actually, this is one of the main reasons why I) Tj T* 0 Tw (keep maintaining the module and releasing new versions.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 334.6236 cm
+1 0 0 1 62.69291 203.4236 cm
 q
 BT 1 0 0 1 0 28.82 Tm 1.043828 Tw 12 TL /F1 10 Tf 0 0 0 rg (In the present implementation, decorators generated by ) Tj /F4 10 Tf (decorator ) Tj /F1 10 Tf (can only be used on user-defined) Tj T* 0 Tw .152485 Tw (Python functions or methods, not on generic callable objects, nor on built-in functions, due to limitations of) Tj T* 0 Tw (the ) Tj /F4 10 Tf (inspect ) Tj /F1 10 Tf (module in the standard library.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 304.6236 cm
+1 0 0 1 62.69291 173.4236 cm
 q
 BT 1 0 0 1 0 16.82 Tm .785777 Tw 12 TL /F1 10 Tf 0 0 0 rg (There is a restriction on the names of the arguments: for instance, if try to call an argument ) Tj /F4 10 Tf (_call_ ) Tj /F1 10 Tf (or) Tj T* 0 Tw /F4 10 Tf (_func_ ) Tj /F1 10 Tf (you will get a ) Tj /F4 10 Tf (NameError) Tj /F1 10 Tf (:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 187.4236 cm
+1 0 0 1 62.69291 80.22362 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -3563,36 +3499,10 @@ q
 .662745 .662745 .662745 RG
 .5 w
 .960784 .960784 .862745 rg
-n -6 -6 468.6898 108 re B*
+n -6 -6 468.6898 84 re B*
 Q
 q
-BT 1 0 0 1 0 89.71 Tm 12 TL /F4 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj .666667 .133333 1 rg (@trace) Tj 0 0 0 rg  T* .4 .4 .4 rg (...) Tj 0 0 0 rg ( ) Tj /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (f) Tj 0 0 0 rg (\() Tj (_func_) Tj (\):) Tj ( ) Tj /F3 10 Tf 0 .501961 0 rg (print) Tj /F4 10 Tf 0 0 0 rg (\() Tj (f) Tj (\)) Tj  T* .4 .4 .4 rg (...) Tj 0 0 0 rg  T* (Traceback) Tj ( ) Tj (\() Tj (most) Tj ( ) Tj (recent) Tj ( ) Tj (call) Tj ( ) Tj (last) Tj (\):) Tj  T* (  ) Tj .4 .4 .4 rg (...) Tj 0 0 0 rg  T* /F3 10 Tf .823529 .254902 .227451 rg (NameError) Tj /F4 10 Tf 0 0 0 rg (:) Tj ( ) Tj (_func_) Tj ( ) Tj /F3 10 Tf .666667 .133333 1 rg (is) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (overridden) Tj ( ) Tj /F3 10 Tf .666667 .133333 1 rg (in) Tj /F4 10 Tf 0 0 0 rg  T* /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (f) Tj 0 0 0 rg (\() Tj (_func_) Tj (\):) Tj  T* (    ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (_call_) Tj (\() Tj (_func_) Tj (,) Tj ( ) Tj (_func_) Tj (\)) Tj T* ET
-Q
-Q
-Q
-Q
-Q
-q
-1 0 0 1 62.69291 155.4236 cm
-q
-BT 1 0 0 1 0 16.82 Tm 1.533318 Tw 12 TL /F1 10 Tf 0 0 0 rg (Finally, the implementation is such that the decorated function contains a ) Tj /F5 10 Tf (copy ) Tj /F1 10 Tf (of the original function) Tj T* 0 Tw (dictionary \() Tj /F4 10 Tf (vars\(decorated_f\) is not vars\(f\)) Tj /F1 10 Tf (\):) Tj T* ET
-Q
-Q
-q
-1 0 0 1 62.69291 86.22362 cm
-q
-q
-1 0 0 1 0 0 cm
-q
-1 0 0 1 6.6 6.6 cm
-q
-.662745 .662745 .662745 RG
-.5 w
-.960784 .960784 .862745 rg
-n -6 -6 468.6898 60 re B*
-Q
-q
-BT 1 0 0 1 0 41.71 Tm 12 TL /F4 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (f) Tj 0 0 0 rg (\(\):) Tj ( ) Tj /F3 10 Tf 0 .501961 0 rg (pass) Tj /F4 10 Tf 0 0 0 rg ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# the original function) Tj /F4 10 Tf 0 0 0 rg  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (attr1) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ("something") Tj 0 0 0 rg ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# setting an attribute) Tj /F4 10 Tf 0 0 0 rg  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (attr2) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ("something else") Tj 0 0 0 rg ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# setting another attribute) Tj /F4 10 Tf 0 0 0 rg  T*  T* ET
+BT 1 0 0 1 0 65.71 Tm 12 TL /F4 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj .666667 .133333 1 rg (@trace) Tj 0 0 0 rg  T* .4 .4 .4 rg (...) Tj 0 0 0 rg ( ) Tj /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (f) Tj 0 0 0 rg (\() Tj (_func_) Tj (\):) Tj ( ) Tj /F3 10 Tf 0 .501961 0 rg (print) Tj /F4 10 Tf 0 0 0 rg (\() Tj (f) Tj (\)) Tj  T* .4 .4 .4 rg (...) Tj 0 0 0 rg  T* (Traceback) Tj ( ) Tj (\() Tj (most) Tj ( ) Tj (recent) Tj ( ) Tj (call) Tj ( ) Tj (last) Tj (\):) Tj  T* (  ) Tj .4 .4 .4 rg (...) Tj 0 0 0 rg  T* /F3 10 Tf .823529 .254902 .227451 rg (NameError) Tj /F4 10 Tf 0 0 0 rg (:) Tj ( ) Tj (_func_) Tj ( ) Tj /F3 10 Tf .666667 .133333 1 rg (is) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (overridden) Tj ( ) Tj /F3 10 Tf .666667 .133333 1 rg (in) Tj /F4 10 Tf 0 0 0 rg  T* ET
 Q
 Q
 Q
@@ -3605,11 +3515,11 @@ endobj
 % 'R99': class PDFStream 
 99 0 obj
 % page stream
-<< /Length 6391 >>
+<< /Length 7569 >>
 stream
 1 0 0 1 0 0 cm BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 667.8236 cm
+1 0 0 1 62.69291 727.8236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -3619,66 +3529,92 @@ q
 .662745 .662745 .662745 RG
 .5 w
 .960784 .960784 .862745 rg
-n -6 -6 468.6898 96 re B*
+n -6 -6 468.6898 36 re B*
 Q
 q
-BT 1 0 0 1 0 77.71 Tm 12 TL /F4 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (traced_f) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj (trace) Tj (\() Tj (f) Tj (\)) Tj ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# the decorated function) Tj /F4 10 Tf 0 0 0 rg  T*  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (traced_f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (attr1) Tj  T* .729412 .129412 .129412 rg ('something') Tj 0 0 0 rg  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (traced_f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (attr2) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ("something different") Tj 0 0 0 rg ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# setting attr) Tj /F4 10 Tf 0 0 0 rg  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (attr2) Tj ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# the original attribute did not change) Tj /F4 10 Tf 0 0 0 rg  T* .729412 .129412 .129412 rg ('something else') Tj T* ET
+BT 1 0 0 1 0 17.71 Tm 12 TL /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (f) Tj 0 0 0 rg (\() Tj (_func_) Tj (\):) Tj  T* (    ) Tj /F3 10 Tf 0 .501961 0 rg (return) Tj /F4 10 Tf 0 0 0 rg ( ) Tj (_call_) Tj (\() Tj (_func_) Tj (,) Tj ( ) Tj (_func_) Tj (\)) Tj T* ET
 Q
 Q
 Q
 Q
 Q
 q
-1 0 0 1 62.69291 634.8236 cm
+1 0 0 1 62.69291 695.8236 cm
+q
+BT 1 0 0 1 0 16.82 Tm 1.533318 Tw 12 TL /F1 10 Tf 0 0 0 rg (Finally, the implementation is such that the decorated function contains a ) Tj /F5 10 Tf (copy ) Tj /F1 10 Tf (of the original function) Tj T* 0 Tw (dictionary \() Tj /F4 10 Tf (vars\(decorated_f\) is not vars\(f\)) Tj /F1 10 Tf (\):) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 542.6236 cm
+q
+q
+1 0 0 1 0 0 cm
+q
+1 0 0 1 6.6 6.6 cm
+q
+.662745 .662745 .662745 RG
+.5 w
+.960784 .960784 .862745 rg
+n -6 -6 468.6898 144 re B*
+Q
+q
+BT 1 0 0 1 0 125.71 Tm 12 TL /F4 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (f) Tj 0 0 0 rg (\(\):) Tj ( ) Tj /F3 10 Tf 0 .501961 0 rg (pass) Tj /F4 10 Tf 0 0 0 rg ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# the original function) Tj /F4 10 Tf 0 0 0 rg  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (attr1) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ("something") Tj 0 0 0 rg ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# setting an attribute) Tj /F4 10 Tf 0 0 0 rg  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (attr2) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ("something else") Tj 0 0 0 rg ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# setting another attribute) Tj /F4 10 Tf 0 0 0 rg  T*  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (traced_f) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj (trace) Tj (\() Tj (f) Tj (\)) Tj ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# the decorated function) Tj /F4 10 Tf 0 0 0 rg  T*  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (traced_f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (attr1) Tj  T* .729412 .129412 .129412 rg ('something') Tj 0 0 0 rg  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (traced_f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (attr2) Tj ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ("something different") Tj 0 0 0 rg ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# setting attr) Tj /F4 10 Tf 0 0 0 rg  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (attr2) Tj ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# the original attribute did not change) Tj /F4 10 Tf 0 0 0 rg  T* .729412 .129412 .129412 rg ('something else') Tj T* ET
+Q
+Q
+Q
+Q
+Q
+q
+1 0 0 1 62.69291 509.6236 cm
 q
 BT 1 0 0 1 0 8.435 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Compatibility notes) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 568.8236 cm
+1 0 0 1 62.69291 443.6236 cm
 q
 BT 1 0 0 1 0 52.82 Tm 1.404985 Tw 12 TL /F1 10 Tf 0 0 0 rg (Version 3.3 is the first version of the ) Tj /F4 10 Tf (decorator ) Tj /F1 10 Tf (module to fully support Python 3, including ) Tj 0 0 .501961 rg (function) Tj T* 0 Tw .07881 Tw (annotations) Tj 0 0 0 rg (. Version 3.2 was the first version to support Python 3 via the ) Tj /F4 10 Tf (2to3 ) Tj /F1 10 Tf (conversion tool invoked in) Tj T* 0 Tw .373555 Tw (the build process by the ) Tj 0 0 .501961 rg (distribute ) Tj 0 0 0 rg (project, the Python 3-compatible replacement of easy_install. The hard) Tj T* 0 Tw .326235 Tw (work \(for me\) has been converting the documentation and the doctests. This has been possible only after) Tj T* 0 Tw (that ) Tj 0 0 .501961 rg (docutils ) Tj 0 0 0 rg (and ) Tj 0 0 .501961 rg (pygments ) Tj 0 0 0 rg (have been ported to Python 3.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 490.8236 cm
+1 0 0 1 62.69291 365.6236 cm
 q
 BT 1 0 0 1 0 64.82 Tm .793984 Tw 12 TL /F1 10 Tf 0 0 0 rg (Version 3 of the ) Tj /F4 10 Tf (decorator ) Tj /F1 10 Tf (module do not contain any backward incompatible change, apart from the) Tj T* 0 Tw 3.63498 Tw (removal of the functions ) Tj /F4 10 Tf (get_info ) Tj /F1 10 Tf (and ) Tj /F4 10 Tf (new_wrapper) Tj /F1 10 Tf (, which have been deprecated for years.) Tj T* 0 Tw .293672 Tw /F4 10 Tf (get_info ) Tj /F1 10 Tf (has been removed since it was little used and since it had to be changed anyway to work with) Tj T* 0 Tw 2.298555 Tw (Python 3.0; ) Tj /F4 10 Tf (new_wrapper ) Tj /F1 10 Tf (has been removed since it was useless: its major use case \(converting) Tj T* 0 Tw 7.136976 Tw (signature changing decorators to signature preserving decorators\) has been subsumed by) Tj T* 0 Tw /F4 10 Tf (decorator_apply) Tj /F1 10 Tf (, whereas the other use case can be managed with the ) Tj /F4 10 Tf (FunctionMaker) Tj /F1 10 Tf (.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 448.8236 cm
+1 0 0 1 62.69291 323.6236 cm
 q
 BT 1 0 0 1 0 28.82 Tm 1.329213 Tw 12 TL /F1 10 Tf 0 0 0 rg (There are a few changes in the documentation: I removed the ) Tj /F4 10 Tf (decorator_factory ) Tj /F1 10 Tf (example, which) Tj T* 0 Tw 2.562927 Tw (was confusing some of my users, and I removed the part about exotic signatures in the Python 3) Tj T* 0 Tw (documentation, since Python 3 does not support them.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 382.8236 cm
+1 0 0 1 62.69291 257.6236 cm
 q
 BT 1 0 0 1 0 52.82 Tm .942651 Tw 12 TL /F1 10 Tf 0 0 0 rg (Finally ) Tj /F4 10 Tf (decorator ) Tj /F1 10 Tf (cannot be used as a class decorator and the ) Tj 0 0 .501961 rg (functionality introduced in version 2.3) Tj T* 0 Tw .241163 Tw 0 0 0 rg (has been removed. That means that in order to define decorator factories with classes you need to define) Tj T* 0 Tw 1.122126 Tw (the ) Tj /F4 10 Tf (__call__ ) Tj /F1 10 Tf (method explicitly \(no magic anymore\). All these changes should not cause any trouble,) Tj T* 0 Tw .601163 Tw (since they were all rarely used features. Should you have any trouble, you can always downgrade to the) Tj T* 0 Tw (2.3 version.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 316.8236 cm
+1 0 0 1 62.69291 191.6236 cm
 q
 BT 1 0 0 1 0 52.82 Tm .196098 Tw 12 TL /F1 10 Tf 0 0 0 rg (The examples shown here have been tested with Python 2.6. Python 2.4 is also supported - of course the) Tj T* 0 Tw 1.649398 Tw (examples requiring the ) Tj /F4 10 Tf (with ) Tj /F1 10 Tf (statement will not work there. Python 2.5 works fine, but if you run the) Tj T* 0 Tw 1.41784 Tw (examples in the interactive interpreter you will notice a few differences since ) Tj /F4 10 Tf (getargspec ) Tj /F1 10 Tf (returns an) Tj T* 0 Tw .909982 Tw /F4 10 Tf (ArgSpec ) Tj /F1 10 Tf (namedtuple instead of a regular tuple. That means that running the file ) Tj /F4 10 Tf (documentation.py) Tj T* 0 Tw /F1 10 Tf (under Python 2.5 will print a few errors, but they are not serious.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 283.8236 cm
+1 0 0 1 62.69291 158.6236 cm
 q
 BT 1 0 0 1 0 8.435 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (LICENCE) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 253.8236 cm
+1 0 0 1 62.69291 128.6236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 16.82 Tm /F1 10 Tf 12 TL 1.328555 Tw (Redistribution and use in source and binary forms, with or without modification, are permitted provided) Tj T* 0 Tw (that the following conditions are met:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 88.62362 cm
+1 0 0 1 62.69291 83.42362 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -3688,11 +3624,11 @@ q
 .662745 .662745 .662745 RG
 .5 w
 .960784 .960784 .862745 rg
-n -6 -6 468.6898 156 re B*
+n -6 -6 468.6898 36 re B*
 Q
 q
 0 0 0 rg
-BT 1 0 0 1 0 137.71 Tm /F4 10 Tf 12 TL (Copyright \(c\) 2005, Michele Simionato) Tj T* (All rights reserved.) Tj T*  T* (Redistributions of source code must retain the above copyright) Tj T* (notice, this list of conditions and the following disclaimer.) Tj T* (Redistributions in bytecode form must reproduce the above copyright) Tj T* (notice, this list of conditions and the following disclaimer in) Tj T* (the documentation and/or other materials provided with the) Tj T* (distribution.) Tj T*  T* (THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS) Tj T* ("AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT) Tj T* ET
+BT 1 0 0 1 0 17.71 Tm /F4 10 Tf 12 TL (Copyright \(c\) 2005, Michele Simionato) Tj T* (All rights reserved.) Tj T* ET
 Q
 Q
 Q
@@ -3705,11 +3641,11 @@ endobj
 % 'R100': class PDFStream 
 100 0 obj
 % page stream
-<< /Length 1315 >>
+<< /Length 1851 >>
 stream
 1 0 0 1 0 0 cm BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 631.8236 cm
+1 0 0 1 62.69291 511.8236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -3719,18 +3655,18 @@ q
 .662745 .662745 .662745 RG
 .5 w
 .960784 .960784 .862745 rg
-n -6 -6 468.6898 132 re B*
+n -6 -6 468.6898 252 re B*
 Q
 q
 0 0 0 rg
-BT 1 0 0 1 0 113.71 Tm /F4 10 Tf 12 TL (LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR) Tj T* (A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT) Tj T* (HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,) Tj T* (INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES \(INCLUDING,) Tj T* (BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS) Tj T* (OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION\) HOWEVER CAUSED AND) Tj T* (ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR) Tj T* (TORT \(INCLUDING NEGLIGENCE OR OTHERWISE\) ARISING IN ANY WAY OUT OF THE) Tj T* (USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH) Tj T* (DAMAGE.) Tj T* ET
+BT 1 0 0 1 0 233.71 Tm /F4 10 Tf 12 TL  T* (Redistributions of source code must retain the above copyright) Tj T* (notice, this list of conditions and the following disclaimer.) Tj T* (Redistributions in bytecode form must reproduce the above copyright) Tj T* (notice, this list of conditions and the following disclaimer in) Tj T* (the documentation and/or other materials provided with the) Tj T* (distribution.) Tj T*  T* (THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS) Tj T* ("AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT) Tj T* (LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR) Tj T* (A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT) Tj T* (HOLDERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,) Tj T* (INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES \(INCLUDING,) Tj T* (BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS) Tj T* (OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION\) HOWEVER CAUSED AND) Tj T* (ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR) Tj T* (TORT \(INCLUDING NEGLIGENCE OR OTHERWISE\) ARISING IN ANY WAY OUT OF THE) Tj T* (USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH) Tj T* (DAMAGE.) Tj T* ET
 Q
 Q
 Q
 Q
 Q
 q
-1 0 0 1 62.69291 599.8236 cm
+1 0 0 1 62.69291 479.8236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 16.82 Tm /F1 10 Tf 12 TL .407132 Tw (If you use this software and you are happy with it, consider sending me a note, just to gratify my ego. On) Tj T* 0 Tw (the other hand, if you use this software and you are unhappy with it, send me a patch!) Tj T* ET
@@ -3957,40 +3893,40 @@ xref
 0000037780 00000 n
 0000045861 00000 n
 0000053132 00000 n
-0000059660 00000 n
-0000068139 00000 n
-0000074847 00000 n
-0000082800 00000 n
-0000091024 00000 n
-0000098335 00000 n
-0000106121 00000 n
-0000111289 00000 n
-0000119607 00000 n
-0000126100 00000 n
-0000127522 00000 n
-0000127819 00000 n
-0000127898 00000 n
-0000127977 00000 n
-0000128056 00000 n
-0000128135 00000 n
-0000128214 00000 n
-0000128293 00000 n
-0000128372 00000 n
-0000128451 00000 n
-0000128530 00000 n
-0000128610 00000 n
-0000128690 00000 n
-0000128770 00000 n
-0000128850 00000 n
-0000128930 00000 n
+0000061430 00000 n
+0000069931 00000 n
+0000077020 00000 n
+0000084343 00000 n
+0000092150 00000 n
+0000099510 00000 n
+0000107009 00000 n
+0000112490 00000 n
+0000120189 00000 n
+0000127860 00000 n
+0000129818 00000 n
+0000130115 00000 n
+0000130194 00000 n
+0000130273 00000 n
+0000130352 00000 n
+0000130431 00000 n
+0000130510 00000 n
+0000130589 00000 n
+0000130668 00000 n
+0000130747 00000 n
+0000130826 00000 n
+0000130906 00000 n
+0000130986 00000 n
+0000131066 00000 n
+0000131146 00000 n
+0000131226 00000 n
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com) 
- [(w\251\336\031\017\223\301p\304o\236F\353b\375\003) (w\251\336\031\017\223\301p\304o\236F\353b\375\003)] 
+ [(\020\337\006#z\262\020\230\037C<x\347\360W\210) (\020\337\006#z\262\020\230\037C<x\347\360W\210)] 
 
  /Info 68 0 R
  /Root 67 0 R
  /Size 117 >>
 startxref
-128979
+131275
 %%EOF
