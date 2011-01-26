@@ -34,6 +34,7 @@ if __name__ == '__main__':
                        'Natural Language :: English',
                        'Operating System :: OS Independent',
                        'Programming Language :: Python',
+                       'Programming Language :: Python :: 3',
                        'Topic :: Software Development :: Libraries',
                        'Topic :: Utilities'],
           use_2to3=True,

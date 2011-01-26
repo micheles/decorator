@@ -392,6 +392,8 @@ three callbacks ``on_success``, ``on_failure`` and ``on_closing``,
 to specify how to manage the function call.
 The implementation is the following:
 
+.. code-block:: python
+
 $$on_success
 $$on_failure
 $$on_closing
