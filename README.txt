@@ -70,3 +70,11 @@ There are various versions of the documentation:
 .. _PDF version (Python 2): http://micheles.googlecode.com/hg/decorator/documentation.pdf
 .. _HTML version (Python 3): http://micheles.googlecode.com/hg/decorator/documentation3.html
 .. _PDF version (Python 3): http://micheles.googlecode.com/hg/decorator/documentation3.pdf
+
+Repository
+---------------
+
+The project is hosted on GoogleCode as a Mercurial repository. You
+can look at the source here:
+
+ http://code.google.com/p/micheles/source/browse/#hg%2Fdecorator
