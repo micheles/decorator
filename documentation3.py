@@ -670,7 +670,7 @@ function is decorated the traceback will be longer:
 
 .. code-block:: python
 
- >>> f()
+ >>> f() # doctest: +ELLIPSIS
  Traceback (most recent call last):
    ...
       File "<string>", line 2, in f
@@ -678,7 +678,7 @@ function is decorated the traceback will be longer:
         return f(*args, **kw)
       File "<doctest __main__[51]>", line 3, in f
         1/0
- ZeroDivisionError: int division or modulo by zero
+ ZeroDivisionError: ...
 
 You see here the inner call to the decorator ``trace``, which calls 
 ``f(*args, **kw)``, and a reference to  ``File "<string>", line 2, in f``. 

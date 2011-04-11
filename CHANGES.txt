@@ -1,6 +1,8 @@
 HISTORY
 ----------
 
+3.3.1 Fixed a doctest broken for Python 3.2, as noted by
+     Arfrever Frehtes Taifersar Arahesis (11/04/2011)
 3.3. Added support for function annotations (1/1/2011)
 3.2.1. Now the .func_globals of the decorated function are the same of
      the undecorated function, as requested by Paul Ollis (28/12/2010)
