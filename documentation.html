@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.5: http://docutils.sourceforge.net/" />
+<meta name="generator" content="Docutils 0.7: http://docutils.sourceforge.net/" />
 <title>The decorator module</title>
 <meta name="author" content="Michele Simionato" />
 <style type="text/css">
@@ -73,7 +73,7 @@
 </head>
 <body>
 <div class="document" id="the-decorator-module">
-<h1 class="title">The <tt class="docutils literal"><span class="pre">decorator</span></tt> module</h1>
+<h1 class="title">The <tt class="docutils literal">decorator</tt> module</h1>
 <table class="docinfo" frame="void" rules="none">
 <col class="docinfo-name" />
 <col class="docinfo-content" />
@@ -83,12 +83,12 @@
 <tr class="field"><th class="docinfo-name">E-mail:</th><td class="field-body"><a class="reference external" href="mailto:michele.simionato&#64;gmail.com">michele.simionato&#64;gmail.com</a></td>
 </tr>
 <tr><th class="docinfo-name">Version:</th>
-<td>3.3.0 (2011-01-01)</td></tr>
+<td>3.3.1 (2011-04-22)</td></tr>
 <tr class="field"><th class="docinfo-name">Requires:</th><td class="field-body">Python 2.4+</td>
 </tr>
-<tr class="field"><th class="docinfo-name">Download page:</th><td class="field-body"><a class="reference external" href="http://pypi.python.org/pypi/decorator/3.3.0">http://pypi.python.org/pypi/decorator/3.3.0</a></td>
+<tr class="field"><th class="docinfo-name">Download page:</th><td class="field-body"><a class="reference external" href="http://pypi.python.org/pypi/decorator/3.3.1">http://pypi.python.org/pypi/decorator/3.3.1</a></td>
 </tr>
-<tr class="field"><th class="docinfo-name">Installation:</th><td class="field-body"><tt class="docutils literal"><span class="pre">easy_install</span> <span class="pre">decorator</span></tt></td>
+<tr class="field"><th class="docinfo-name">Installation:</th><td class="field-body"><tt class="docutils literal">easy_install decorator</tt></td>
 </tr>
 <tr class="field"><th class="docinfo-name">License:</th><td class="field-body">BSD license</td>
 </tr>
@@ -101,11 +101,11 @@
 <li><a class="reference internal" href="#definitions" id="id4">Definitions</a></li>
 <li><a class="reference internal" href="#statement-of-the-problem" id="id5">Statement of the problem</a></li>
 <li><a class="reference internal" href="#the-solution" id="id6">The solution</a></li>
-<li><a class="reference internal" href="#a-trace-decorator" id="id7">A <tt class="docutils literal"><span class="pre">trace</span></tt> decorator</a></li>
-<li><a class="reference internal" href="#decorator-is-a-decorator" id="id8"><tt class="docutils literal"><span class="pre">decorator</span></tt> is a decorator</a></li>
-<li><a class="reference internal" href="#blocking" id="id9"><tt class="docutils literal"><span class="pre">blocking</span></tt></a></li>
-<li><a class="reference internal" href="#async" id="id10"><tt class="docutils literal"><span class="pre">async</span></tt></a></li>
-<li><a class="reference internal" href="#the-functionmaker-class" id="id11">The <tt class="docutils literal"><span class="pre">FunctionMaker</span></tt> class</a></li>
+<li><a class="reference internal" href="#a-trace-decorator" id="id7">A <tt class="docutils literal">trace</tt> decorator</a></li>
+<li><a class="reference internal" href="#decorator-is-a-decorator" id="id8"><tt class="docutils literal">decorator</tt> is a decorator</a></li>
+<li><a class="reference internal" href="#blocking" id="id9"><tt class="docutils literal">blocking</tt></a></li>
+<li><a class="reference internal" href="#async" id="id10"><tt class="docutils literal">async</tt></a></li>
+<li><a class="reference internal" href="#the-functionmaker-class" id="id11">The <tt class="docutils literal">FunctionMaker</tt> class</a></li>
 <li><a class="reference internal" href="#getting-the-source-code" id="id12">Getting the source code</a></li>
 <li><a class="reference internal" href="#dealing-with-third-party-decorators" id="id13">Dealing with third party decorators</a></li>
 <li><a class="reference internal" href="#caveats-and-limitations" id="id14">Caveats and limitations</a></li>
@@ -132,13 +132,13 @@ idea since:</p>
 some experience and it is not as easy as it could be. For instance,
 typical implementations of decorators involve nested functions, and
 we all know that flat is better than nested.</p>
-<p>The aim of the <tt class="docutils literal"><span class="pre">decorator</span></tt> module it to simplify the usage of
+<p>The aim of the <tt class="docutils literal">decorator</tt> module it to simplify the usage of
 decorators for the average programmer, and to popularize decorators by
 showing various non-trivial examples. Of course, as all techniques,
 decorators can be abused (I have seen that) and you should not try to
 solve every problem with a decorator, just because you can.</p>
 <p>You may find the source code for all the examples
-discussed here in the <tt class="docutils literal"><span class="pre">documentation.py</span></tt> file, which contains
+discussed here in the <tt class="docutils literal">documentation.py</tt> file, which contains
 this documentation in the form of doctests.</p>
 </div>
 <div class="section" id="definitions">
@@ -156,7 +156,7 @@ the signature of their input function, or decorators returning
 non-callable objects.</li>
 </ul>
 <p>Signature-changing decorators have their use: for instance the
-builtin classes <tt class="docutils literal"><span class="pre">staticmethod</span></tt> and <tt class="docutils literal"><span class="pre">classmethod</span></tt> are in this
+builtin classes <tt class="docutils literal">staticmethod</tt> and <tt class="docutils literal">classmethod</tt> are in this
 group, since they take functions and return descriptor objects which
 are not functions, nor callables.</p>
 <p>However, signature-preserving decorators are more common and easier to
@@ -170,11 +170,11 @@ the issue.</p>
 <div class="section" id="statement-of-the-problem">
 <h1><a class="toc-backref" href="#id5">Statement of the problem</a></h1>
 <p>A very common use case for decorators is the memoization of functions.
-A <tt class="docutils literal"><span class="pre">memoize</span></tt> decorator works by caching
+A <tt class="docutils literal">memoize</tt> decorator works by caching
 the result of the function call in a dictionary, so that the next time
 the function is called with the same input parameters the result is retrieved
 from the cache and not recomputed. There are many implementations of
-<tt class="docutils literal"><span class="pre">memoize</span></tt> in <a class="reference external" href="http://www.python.org/moin/PythonDecoratorLibrary">http://www.python.org/moin/PythonDecoratorLibrary</a>,
+<tt class="docutils literal">memoize</tt> in <a class="reference external" href="http://www.python.org/moin/PythonDecoratorLibrary">http://www.python.org/moin/PythonDecoratorLibrary</a>,
 but they do not preserve the signature.
 A simple implementation could be the following (notice
 that in general it is impossible to memoize correctly something
@@ -198,23 +198,23 @@ def memoize_uw(func):
 <p>Here we used the <a class="reference external" href="http://www.python.org/doc/2.5.2/lib/module-functools.html">functools.update_wrapper</a> utility, which has
 been added in Python 2.5 expressly to simplify the definition of decorators
 (in older versions of Python you need to copy the function attributes
-<tt class="docutils literal"><span class="pre">__name__</span></tt>, <tt class="docutils literal"><span class="pre">__doc__</span></tt>, <tt class="docutils literal"><span class="pre">__module__</span></tt> and <tt class="docutils literal"><span class="pre">__dict__</span></tt>
+<tt class="docutils literal">__name__</tt>, <tt class="docutils literal">__doc__</tt>, <tt class="docutils literal">__module__</tt> and <tt class="docutils literal">__dict__</tt>
 from the original function to the decorated function by hand).</p>
 <p>The implementation above works in the sense that the decorator
 can accept functions with generic signatures; unfortunately this
 implementation does <em>not</em> define a signature-preserving decorator, since in
-general <tt class="docutils literal"><span class="pre">memoize_uw</span></tt> returns a function with a
+general <tt class="docutils literal">memoize_uw</tt> returns a function with a
 <em>different signature</em> from the original function.</p>
 <p>Consider for instance the following case:</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nd">@memoize_uw</span>
 <span class="o">...</span> <span class="k">def</span> <span class="nf">f1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
-<span class="o">...</span>     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span> <span class="c"># simulate some long computation</span>
+<span class="o">...</span>     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c"># simulate some long computation</span>
 <span class="o">...</span>     <span class="k">return</span> <span class="n">x</span>
 </pre></div>
 
 </div>
-<p>Here the original function takes a single argument named <tt class="docutils literal"><span class="pre">x</span></tt>,
+<p>Here the original function takes a single argument named <tt class="docutils literal">x</tt>,
 but the decorated function takes any number of arguments and
 keyword arguments:</p>
 <div class="codeblock python">
@@ -225,15 +225,15 @@ keyword arguments:</p>
 
 </div>
 <p>This means that introspection tools such as pydoc will give
-wrong informations about the signature of <tt class="docutils literal"><span class="pre">f1</span></tt>. This is pretty bad:
+wrong informations about the signature of <tt class="docutils literal">f1</tt>. This is pretty bad:
 pydoc will tell you that the function accepts a generic signature
-<tt class="docutils literal"><span class="pre">*args</span></tt>, <tt class="docutils literal"><span class="pre">**kw</span></tt>, but when you try to call the function with more than an
+<tt class="docutils literal">*args</tt>, <tt class="docutils literal">**kw</tt>, but when you try to call the function with more than an
 argument, you will get an error:</p>
 <div class="codeblock python">
-<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">f1</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="mf">1</span><span class="p">)</span>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">f1</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
    <span class="o">...</span>
-<span class="ne">TypeError</span><span class="p">:</span> <span class="n">f1</span><span class="p">()</span> <span class="n">takes</span> <span class="n">exactly</span> <span class="mf">1</span> <span class="n">argument</span> <span class="p">(</span><span class="mf">2</span> <span class="n">given</span><span class="p">)</span>
+<span class="ne">TypeError</span><span class="p">:</span> <span class="n">f1</span><span class="p">()</span> <span class="n">takes</span> <span class="n">exactly</span> <span class="mi">1</span> <span class="n">argument</span> <span class="p">(</span><span class="mi">2</span> <span class="n">given</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -242,18 +242,18 @@ argument, you will get an error:</p>
 <h1><a class="toc-backref" href="#id6">The solution</a></h1>
 <p>The solution is to provide a generic factory of generators, which
 hides the complexity of making signature-preserving decorators
-from the application programmer. The <tt class="docutils literal"><span class="pre">decorator</span></tt> function in
-the <tt class="docutils literal"><span class="pre">decorator</span></tt> module is such a factory:</p>
+from the application programmer. The <tt class="docutils literal">decorator</tt> function in
+the <tt class="docutils literal">decorator</tt> module is such a factory:</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">decorator</span> <span class="kn">import</span> <span class="n">decorator</span>
 </pre></div>
 
 </div>
-<p><tt class="docutils literal"><span class="pre">decorator</span></tt> takes two arguments, a caller function describing the
+<p><tt class="docutils literal">decorator</tt> takes two arguments, a caller function describing the
 functionality of the decorator and a function to be decorated; it
 returns the decorated function. The caller function must have
-signature <tt class="docutils literal"><span class="pre">(f,</span> <span class="pre">*args,</span> <span class="pre">**kw)</span></tt> and it must call the original function <tt class="docutils literal"><span class="pre">f</span></tt>
-with arguments <tt class="docutils literal"><span class="pre">args</span></tt> and <tt class="docutils literal"><span class="pre">kw</span></tt>, implementing the wanted capability,
+signature <tt class="docutils literal">(f, *args, **kw)</tt> and it must call the original function <tt class="docutils literal">f</tt>
+with arguments <tt class="docutils literal">args</tt> and <tt class="docutils literal">kw</tt>, implementing the wanted capability,
 i.e. memoization in this case:</p>
 <pre class="literal-block">
 def _memoize(func, *args, **kw):
@@ -274,7 +274,7 @@ def memoize(f):
     f.cache = {}
     return decorator(_memoize, f)
 </pre>
-<p>The difference with respect to the <tt class="docutils literal"><span class="pre">memoize_uw</span></tt> approach, which is based
+<p>The difference with respect to the <tt class="docutils literal">memoize_uw</tt> approach, which is based
 on nested functions, is that the decorator module forces you to lift
 the inner function at the outer level (<em>flat is better than nested</em>).
 Moreover, you are forced to pass explicitly the function you want to
@@ -283,7 +283,7 @@ decorate to the caller function.</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nd">@memoize</span>
 <span class="o">...</span> <span class="k">def</span> <span class="nf">heavy_computation</span><span class="p">():</span>
-<span class="o">...</span>     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">2</span><span class="p">)</span>
+<span class="o">...</span>     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="o">...</span>     <span class="k">return</span> <span class="s">&quot;done&quot;</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">heavy_computation</span><span class="p">()</span> <span class="c"># the first time it will take 2 seconds</span>
@@ -294,7 +294,7 @@ decorate to the caller function.</p>
 </pre></div>
 
 </div>
-<p>The signature of <tt class="docutils literal"><span class="pre">heavy_computation</span></tt> is the one you would expect:</p>
+<p>The signature of <tt class="docutils literal">heavy_computation</tt> is the one you would expect:</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">getargspec</span><span class="p">(</span><span class="n">heavy_computation</span><span class="p">)</span>
 <span class="n">ArgSpec</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="p">[],</span> <span class="n">varargs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">keywords</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
@@ -303,9 +303,9 @@ decorate to the caller function.</p>
 </div>
 </div>
 <div class="section" id="a-trace-decorator">
-<h1><a class="toc-backref" href="#id7">A <tt class="docutils literal"><span class="pre">trace</span></tt> decorator</a></h1>
+<h1><a class="toc-backref" href="#id7">A <tt class="docutils literal">trace</tt> decorator</a></h1>
 <p>As an additional example, here is how you can define a trivial
-<tt class="docutils literal"><span class="pre">trace</span></tt> decorator, which prints a message everytime the traced
+<tt class="docutils literal">trace</tt> decorator, which prints a message everytime the traced
 function is called:</p>
 <pre class="literal-block">
 def _trace(f, *args, **kw):
@@ -324,10 +324,10 @@ def trace(f):
 </pre></div>
 
 </div>
-<p>It is immediate to verify that <tt class="docutils literal"><span class="pre">f1</span></tt> works</p>
+<p>It is immediate to verify that <tt class="docutils literal">f1</tt> works</p>
 <div class="codeblock python">
-<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">f1</span><span class="p">(</span><span class="mf">0</span><span class="p">)</span>
-<span class="n">calling</span> <span class="n">f1</span> <span class="k">with</span> <span class="n">args</span> <span class="p">(</span><span class="mf">0</span><span class="p">,),</span> <span class="p">{}</span>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">f1</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">calling</span> <span class="n">f1</span> <span class="k">with</span> <span class="n">args</span> <span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="p">{}</span>
 </pre></div>
 
 </div>
@@ -341,27 +341,27 @@ def trace(f):
 <p>The same decorator works with functions of any signature:</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nd">@trace</span>
-<span class="o">...</span> <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mf">2</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<span class="o">...</span> <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
 <span class="o">...</span>     <span class="k">pass</span>
 
-<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="mf">3</span><span class="p">)</span>
-<span class="n">calling</span> <span class="n">f</span> <span class="k">with</span> <span class="n">args</span> <span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="mf">3</span><span class="p">,</span> <span class="mf">2</span><span class="p">),</span> <span class="p">{}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">calling</span> <span class="n">f</span> <span class="k">with</span> <span class="n">args</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">{}</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">getargspec</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-<span class="n">ArgSpec</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">,</span> <span class="s">&#39;z&#39;</span><span class="p">],</span> <span class="n">varargs</span><span class="o">=</span><span class="s">&#39;args&#39;</span><span class="p">,</span> <span class="n">keywords</span><span class="o">=</span><span class="s">&#39;kw&#39;</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">))</span>
+<span class="n">ArgSpec</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;x&#39;</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">,</span> <span class="s">&#39;z&#39;</span><span class="p">],</span> <span class="n">varargs</span><span class="o">=</span><span class="s">&#39;args&#39;</span><span class="p">,</span> <span class="n">keywords</span><span class="o">=</span><span class="s">&#39;kw&#39;</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 </pre></div>
 
 </div>
 <p>That includes even functions with exotic signatures like the following:</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nd">@trace</span>
-<span class="o">...</span> <span class="k">def</span> <span class="nf">exotic_signature</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">=</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="mf">2</span><span class="p">)):</span> <span class="k">return</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
+<span class="o">...</span> <span class="k">def</span> <span class="nf">exotic_signature</span><span class="p">((</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)):</span> <span class="k">return</span> <span class="n">x</span><span class="o">+</span><span class="n">y</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">getargspec</span><span class="p">(</span><span class="n">exotic_signature</span><span class="p">)</span>
-<span class="n">ArgSpec</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="p">[[</span><span class="s">&#39;x&#39;</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">]],</span> <span class="n">varargs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">keywords</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">((</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">),))</span>
+<span class="n">ArgSpec</span><span class="p">(</span><span class="n">args</span><span class="o">=</span><span class="p">[[</span><span class="s">&#39;x&#39;</span><span class="p">,</span> <span class="s">&#39;y&#39;</span><span class="p">]],</span> <span class="n">varargs</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">keywords</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">defaults</span><span class="o">=</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),))</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">exotic_signature</span><span class="p">()</span>
-<span class="n">calling</span> <span class="n">exotic_signature</span> <span class="k">with</span> <span class="n">args</span> <span class="p">((</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">),),</span> <span class="p">{}</span>
-<span class="mf">3</span>
+<span class="n">calling</span> <span class="n">exotic_signature</span> <span class="k">with</span> <span class="n">args</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),),</span> <span class="p">{}</span>
+<span class="mi">3</span>
 </pre></div>
 
 </div>
@@ -369,18 +369,18 @@ def trace(f):
 in Python 2.6 and removed in Python 3.0.</p>
 </div>
 <div class="section" id="decorator-is-a-decorator">
-<h1><a class="toc-backref" href="#id8"><tt class="docutils literal"><span class="pre">decorator</span></tt> is a decorator</a></h1>
-<p>It may be annoying to write a caller function (like the <tt class="docutils literal"><span class="pre">_trace</span></tt>
+<h1><a class="toc-backref" href="#id8"><tt class="docutils literal">decorator</tt> is a decorator</a></h1>
+<p>It may be annoying to write a caller function (like the <tt class="docutils literal">_trace</tt>
 function above) and then a trivial wrapper
-(<tt class="docutils literal"><span class="pre">def</span> <span class="pre">trace(f):</span> <span class="pre">return</span> <span class="pre">decorator(_trace,</span> <span class="pre">f)</span></tt>) every time. For this reason,
-the <tt class="docutils literal"><span class="pre">decorator</span></tt> module provides an easy shortcut to convert
+(<tt class="docutils literal">def trace(f): return decorator(_trace, f)</tt>) every time. For this reason,
+the <tt class="docutils literal">decorator</tt> module provides an easy shortcut to convert
 the caller function into a signature-preserving decorator:
-you can just call <tt class="docutils literal"><span class="pre">decorator</span></tt> with a single argument.
-In our example you can just write <tt class="docutils literal"><span class="pre">trace</span> <span class="pre">=</span> <span class="pre">decorator(_trace)</span></tt>.
-The <tt class="docutils literal"><span class="pre">decorator</span></tt> function can also be used as a signature-changing
-decorator, just as <tt class="docutils literal"><span class="pre">classmethod</span></tt> and <tt class="docutils literal"><span class="pre">staticmethod</span></tt>.
-However, <tt class="docutils literal"><span class="pre">classmethod</span></tt> and <tt class="docutils literal"><span class="pre">staticmethod</span></tt> return generic
-objects which are not callable, while <tt class="docutils literal"><span class="pre">decorator</span></tt> returns
+you can just call <tt class="docutils literal">decorator</tt> with a single argument.
+In our example you can just write <tt class="docutils literal">trace = decorator(_trace)</tt>.
+The <tt class="docutils literal">decorator</tt> function can also be used as a signature-changing
+decorator, just as <tt class="docutils literal">classmethod</tt> and <tt class="docutils literal">staticmethod</tt>.
+However, <tt class="docutils literal">classmethod</tt> and <tt class="docutils literal">staticmethod</tt> return generic
+objects which are not callable, while <tt class="docutils literal">decorator</tt> returns
 signature-preserving decorators, i.e. functions of a single argument.
 For instance, you can write directly</p>
 <div class="codeblock python">
@@ -391,11 +391,11 @@ For instance, you can write directly</p>
 </pre></div>
 
 </div>
-<p>and now <tt class="docutils literal"><span class="pre">trace</span></tt> will be a decorator. Actually <tt class="docutils literal"><span class="pre">trace</span></tt> is a <tt class="docutils literal"><span class="pre">partial</span></tt>
+<p>and now <tt class="docutils literal">trace</tt> will be a decorator. Actually <tt class="docutils literal">trace</tt> is a <tt class="docutils literal">partial</tt>
 object which can be used as a decorator:</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">trace</span>
-<span class="o">&lt;</span><span class="n">function</span> <span class="n">trace</span> <span class="n">at</span> <span class="mf">0</span><span class="n">x</span><span class="o">...&gt;</span>
+<span class="o">&lt;</span><span class="n">function</span> <span class="n">trace</span> <span class="n">at</span> <span class="mi">0</span><span class="n">x</span><span class="o">...&gt;</span>
 </pre></div>
 
 </div>
@@ -410,12 +410,12 @@ object which can be used as a decorator:</p>
 
 </div>
 <p>If you are using an old Python version (Python 2.4) the
-<tt class="docutils literal"><span class="pre">decorator</span></tt> module provides a poor man replacement for
-<tt class="docutils literal"><span class="pre">functools.partial</span></tt>.</p>
+<tt class="docutils literal">decorator</tt> module provides a poor man replacement for
+<tt class="docutils literal">functools.partial</tt>.</p>
 </div>
 <div class="section" id="blocking">
-<h1><a class="toc-backref" href="#id9"><tt class="docutils literal"><span class="pre">blocking</span></tt></a></h1>
-<p>Sometimes one has to deal with blocking resources, such as <tt class="docutils literal"><span class="pre">stdin</span></tt>, and
+<h1><a class="toc-backref" href="#id9"><tt class="docutils literal">blocking</tt></a></h1>
+<p>Sometimes one has to deal with blocking resources, such as <tt class="docutils literal">stdin</tt>, and
 sometimes it is best to have back a &quot;busy&quot; message than to block everything.
 This behavior can be implemented with a suitable family of decorators,
 where the parameter is the busy message:</p>
@@ -434,23 +434,23 @@ def blocking(not_avail):
             return f.result
     return decorator(blocking)
 </pre>
-<p>Functions decorated with <tt class="docutils literal"><span class="pre">blocking</span></tt> will return a busy message if
+<p>Functions decorated with <tt class="docutils literal">blocking</tt> will return a busy message if
 the resource is unavailable, and the intended result if the resource is
 available. For instance:</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nd">@blocking</span><span class="p">(</span><span class="s">&quot;Please wait ...&quot;</span><span class="p">)</span>
 <span class="o">...</span> <span class="k">def</span> <span class="nf">read_data</span><span class="p">():</span>
-<span class="o">...</span>     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">3</span><span class="p">)</span> <span class="c"># simulate a blocking resource</span>
+<span class="o">...</span>     <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="c"># simulate a blocking resource</span>
 <span class="o">...</span>     <span class="k">return</span> <span class="s">&quot;some data&quot;</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">read_data</span><span class="p">()</span> <span class="c"># data is not available yet</span>
 <span class="n">Please</span> <span class="n">wait</span> <span class="o">...</span>
 
-<span class="o">&gt;&gt;&gt;</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">read_data</span><span class="p">()</span> <span class="c"># data is not available yet</span>
 <span class="n">Please</span> <span class="n">wait</span> <span class="o">...</span>
 
-<span class="o">&gt;&gt;&gt;</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">read_data</span><span class="p">()</span> <span class="c"># data is not available yet</span>
 <span class="n">Please</span> <span class="n">wait</span> <span class="o">...</span>
 
@@ -462,20 +462,20 @@ available. For instance:</p>
 </div>
 </div>
 <div class="section" id="async">
-<h1><a class="toc-backref" href="#id10"><tt class="docutils literal"><span class="pre">async</span></tt></a></h1>
+<h1><a class="toc-backref" href="#id10"><tt class="docutils literal">async</tt></a></h1>
 <p>We have just seen an examples of a simple decorator factory,
 implemented as a function returning a decorator.
 For more complex situations, it is more
 convenient to implement decorator factories as classes returning
 callable objects that can be used as signature-preserving
 decorators. The suggested pattern to do that is to introduce
-a helper method <tt class="docutils literal"><span class="pre">call(self,</span> <span class="pre">func,</span> <span class="pre">*args,</span> <span class="pre">**kw)</span></tt> and to call
-it in the <tt class="docutils literal"><span class="pre">__call__(self,</span> <span class="pre">func)</span></tt> method.</p>
+a helper method <tt class="docutils literal">call(self, func, *args, **kw)</tt> and to call
+it in the <tt class="docutils literal">__call__(self, func)</tt> method.</p>
 <p>As an example, here I show a decorator
 which is able to convert a blocking function into an asynchronous
 function. The function, when called,
 is executed in a separate thread. Moreover, it is possible to set
-three callbacks <tt class="docutils literal"><span class="pre">on_success</span></tt>, <tt class="docutils literal"><span class="pre">on_failure</span></tt> and <tt class="docutils literal"><span class="pre">on_closing</span></tt>,
+three callbacks <tt class="docutils literal">on_success</tt>, <tt class="docutils literal">on_failure</tt> and <tt class="docutils literal">on_closing</tt>,
 to specify how to manage the function call.
 The implementation is the following:</p>
 <pre class="literal-block">
@@ -532,7 +532,7 @@ class Async(object):
 </pre>
 <p>The decorated function returns
 the current execution thread, which can be stored and checked later, for
-instance to verify that the thread <tt class="docutils literal"><span class="pre">.isAlive()</span></tt>.</p>
+instance to verify that the thread <tt class="docutils literal">.isAlive()</tt>.</p>
 <p>Here is an example of usage. Suppose one wants to write some data to
 an external resource which can be accessed by a single user at once
 (for instance a printer). Then the access to the writing function must
@@ -546,24 +546,24 @@ be locked. Here is a minimalistic example:</p>
 <span class="o">...</span> <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
 <span class="o">...</span>     <span class="c"># append data to the datalist by locking</span>
 <span class="o">...</span>     <span class="k">with</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">():</span>
-<span class="o">...</span>         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span> <span class="c"># emulate some long running operation</span>
+<span class="o">...</span>         <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c"># emulate some long running operation</span>
 <span class="o">...</span>         <span class="n">datalist</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="o">...</span>     <span class="c"># other operations not requiring a lock here</span>
 </pre></div>
 
 </div>
-<p>Each call to <tt class="docutils literal"><span class="pre">write</span></tt> will create a new writer thread, but there will
-be no synchronization problems since <tt class="docutils literal"><span class="pre">write</span></tt> is locked.</p>
+<p>Each call to <tt class="docutils literal">write</tt> will create a new writer thread, but there will
+be no synchronization problems since <tt class="docutils literal">write</tt> is locked.</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">write</span><span class="p">(</span><span class="s">&quot;data1&quot;</span><span class="p">)</span>
-<span class="o">&lt;</span><span class="n">Thread</span><span class="p">(</span><span class="n">write</span><span class="o">-</span><span class="mf">1</span><span class="p">,</span> <span class="n">started</span><span class="o">...</span><span class="p">)</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">Thread</span><span class="p">(</span><span class="n">write</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">started</span><span class="o">...</span><span class="p">)</span><span class="o">&gt;</span>
 
-<span class="o">&gt;&gt;&gt;</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="o">.</span><span class="mf">1</span><span class="p">)</span> <span class="c"># wait a bit, so we are sure data2 is written after data1</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="o">.</span><span class="mi">1</span><span class="p">)</span> <span class="c"># wait a bit, so we are sure data2 is written after data1</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="n">write</span><span class="p">(</span><span class="s">&quot;data2&quot;</span><span class="p">)</span>
-<span class="o">&lt;</span><span class="n">Thread</span><span class="p">(</span><span class="n">write</span><span class="o">-</span><span class="mf">2</span><span class="p">,</span> <span class="n">started</span><span class="o">...</span><span class="p">)</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">Thread</span><span class="p">(</span><span class="n">write</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">started</span><span class="o">...</span><span class="p">)</span><span class="o">&gt;</span>
 
-<span class="o">&gt;&gt;&gt;</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">2</span><span class="p">)</span> <span class="c"># wait for the writers to complete</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c"># wait for the writers to complete</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">datalist</span>
 <span class="p">[</span><span class="s">&#39;data1&#39;</span><span class="p">,</span> <span class="s">&#39;data2&#39;</span><span class="p">]</span>
@@ -572,38 +572,38 @@ be no synchronization problems since <tt class="docutils literal"><span class="p
 </div>
 </div>
 <div class="section" id="the-functionmaker-class">
-<h1><a class="toc-backref" href="#id11">The <tt class="docutils literal"><span class="pre">FunctionMaker</span></tt> class</a></h1>
-<p>You may wonder about how the functionality of the <tt class="docutils literal"><span class="pre">decorator</span></tt> module
+<h1><a class="toc-backref" href="#id11">The <tt class="docutils literal">FunctionMaker</tt> class</a></h1>
+<p>You may wonder about how the functionality of the <tt class="docutils literal">decorator</tt> module
 is implemented. The basic building block is
-a <tt class="docutils literal"><span class="pre">FunctionMaker</span></tt> class which is able to generate on the fly
+a <tt class="docutils literal">FunctionMaker</tt> class which is able to generate on the fly
 functions with a given name and signature from a function template
 passed as a string. Generally speaking, you should not need to
-resort to <tt class="docutils literal"><span class="pre">FunctionMaker</span></tt> when writing ordinary decorators, but
+resort to <tt class="docutils literal">FunctionMaker</tt> when writing ordinary decorators, but
 it is handy in some circumstances. You will see an example shortly, in
-the implementation of a cool decorator utility (<tt class="docutils literal"><span class="pre">decorator_apply</span></tt>).</p>
-<p><tt class="docutils literal"><span class="pre">FunctionMaker</span></tt> provides a <tt class="docutils literal"><span class="pre">.create</span></tt> classmethod which
+the implementation of a cool decorator utility (<tt class="docutils literal">decorator_apply</tt>).</p>
+<p><tt class="docutils literal">FunctionMaker</tt> provides a <tt class="docutils literal">.create</tt> classmethod which
 takes as input the name, signature, and body of the function
 we want to generate as well as the execution environment
-were the function is generated by <tt class="docutils literal"><span class="pre">exec</span></tt>. Here is an example:</p>
+were the function is generated by <tt class="docutils literal">exec</tt>. Here is an example:</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span> <span class="c"># a function with a generic signature</span>
 <span class="o">...</span>     <span class="k">print</span> <span class="n">args</span><span class="p">,</span> <span class="n">kw</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="n">f1</span> <span class="o">=</span> <span class="n">FunctionMaker</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s">&#39;f1(a, b)&#39;</span><span class="p">,</span> <span class="s">&#39;f(a, b)&#39;</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">f</span><span class="p">))</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">f1</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span><span class="mf">2</span><span class="p">)</span>
-<span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">)</span> <span class="p">{}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">f1</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{}</span>
 </pre></div>
 
 </div>
 <p>It is important to notice that the function body is interpolated
-before being executed, so be careful with the <tt class="docutils literal"><span class="pre">%</span></tt> sign!</p>
-<p><tt class="docutils literal"><span class="pre">FunctionMaker.create</span></tt> also accepts keyword arguments and such
+before being executed, so be careful with the <tt class="docutils literal">%</tt> sign!</p>
+<p><tt class="docutils literal">FunctionMaker.create</tt> also accepts keyword arguments and such
 arguments are attached to the resulting function. This is useful
 if you want to set some function attributes, for instance the
-docstring <tt class="docutils literal"><span class="pre">__doc__</span></tt>.</p>
+docstring <tt class="docutils literal">__doc__</tt>.</p>
 <p>For debugging/introspection purposes it may be useful to see
 the source code of the generated function; to do that, just
-pass the flag <tt class="docutils literal"><span class="pre">addsource=True</span></tt> and a <tt class="docutils literal"><span class="pre">__source__</span></tt> attribute will
+pass the flag <tt class="docutils literal">addsource=True</tt> and a <tt class="docutils literal">__source__</tt> attribute will
 be added to the generated function:</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">f1</span> <span class="o">=</span> <span class="n">FunctionMaker</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
@@ -615,44 +615,44 @@ be added to the generated function:</p>
 </pre></div>
 
 </div>
-<p><tt class="docutils literal"><span class="pre">FunctionMaker.create</span></tt> can take as first argument a string,
+<p><tt class="docutils literal">FunctionMaker.create</tt> can take as first argument a string,
 as in the examples before, or a function. This is the most common
 usage, since typically you want to decorate a pre-existing
-function. A framework author may want to use directly <tt class="docutils literal"><span class="pre">FunctionMaker.create</span></tt>
-instead of <tt class="docutils literal"><span class="pre">decorator</span></tt>, since it gives you direct access to the body
+function. A framework author may want to use directly <tt class="docutils literal">FunctionMaker.create</tt>
+instead of <tt class="docutils literal">decorator</tt>, since it gives you direct access to the body
 of the generated function. For instance, suppose you want to instrument
-the <tt class="docutils literal"><span class="pre">__init__</span></tt> methods of a set of classes, by preserving their
+the <tt class="docutils literal">__init__</tt> methods of a set of classes, by preserving their
 signature (such use case is not made up; this is done in SQAlchemy
-and in other frameworks). When the first argument of <tt class="docutils literal"><span class="pre">FunctionMaker.create</span></tt>
-is a function, a <tt class="docutils literal"><span class="pre">FunctionMaker</span></tt> object is instantiated internally,
-with attributes <tt class="docutils literal"><span class="pre">args</span></tt>, <tt class="docutils literal"><span class="pre">varargs</span></tt>,
-<tt class="docutils literal"><span class="pre">keywords</span></tt> and <tt class="docutils literal"><span class="pre">defaults</span></tt> which are the
-the return values of the standard library function <tt class="docutils literal"><span class="pre">inspect.getargspec</span></tt>.
-For each argument in the <tt class="docutils literal"><span class="pre">args</span></tt> (which is a list of strings containing
-the names of the mandatory arguments) an attribute <tt class="docutils literal"><span class="pre">arg0</span></tt>, <tt class="docutils literal"><span class="pre">arg1</span></tt>,
-..., <tt class="docutils literal"><span class="pre">argN</span></tt> is also generated. Finally, there is a <tt class="docutils literal"><span class="pre">signature</span></tt>
+and in other frameworks). When the first argument of <tt class="docutils literal">FunctionMaker.create</tt>
+is a function, a <tt class="docutils literal">FunctionMaker</tt> object is instantiated internally,
+with attributes <tt class="docutils literal">args</tt>, <tt class="docutils literal">varargs</tt>,
+<tt class="docutils literal">keywords</tt> and <tt class="docutils literal">defaults</tt> which are the
+the return values of the standard library function <tt class="docutils literal">inspect.getargspec</tt>.
+For each argument in the <tt class="docutils literal">args</tt> (which is a list of strings containing
+the names of the mandatory arguments) an attribute <tt class="docutils literal">arg0</tt>, <tt class="docutils literal">arg1</tt>,
+..., <tt class="docutils literal">argN</tt> is also generated. Finally, there is a <tt class="docutils literal">signature</tt>
 attribute, a string with the signature of the original function.</p>
 <p>Notice that while I do not have plans
 to change or remove the functionality provided in the
-<tt class="docutils literal"><span class="pre">FunctionMaker</span></tt> class, I do not guarantee that it will stay
+<tt class="docutils literal">FunctionMaker</tt> class, I do not guarantee that it will stay
 unchanged forever. For instance, right now I am using the traditional
 string interpolation syntax for function templates, but Python 2.6
 and Python 3.0 provide a newer interpolation syntax and I may use
 the new syntax in the future.
 On the other hand, the functionality provided by
-<tt class="docutils literal"><span class="pre">decorator</span></tt> has been there from version 0.1 and it is guaranteed to
+<tt class="docutils literal">decorator</tt> has been there from version 0.1 and it is guaranteed to
 stay there forever.</p>
 </div>
 <div class="section" id="getting-the-source-code">
 <h1><a class="toc-backref" href="#id12">Getting the source code</a></h1>
-<p>Internally <tt class="docutils literal"><span class="pre">FunctionMaker.create</span></tt> uses <tt class="docutils literal"><span class="pre">exec</span></tt> to generate the
+<p>Internally <tt class="docutils literal">FunctionMaker.create</tt> uses <tt class="docutils literal">exec</tt> to generate the
 decorated function. Therefore
-<tt class="docutils literal"><span class="pre">inspect.getsource</span></tt> will not work for decorated functions. That
+<tt class="docutils literal">inspect.getsource</tt> will not work for decorated functions. That
 means that the usual '??' trick in IPython will give you the (right on
-the spot) message <tt class="docutils literal"><span class="pre">Dynamically</span> <span class="pre">generated</span> <span class="pre">function.</span> <span class="pre">No</span> <span class="pre">source</span> <span class="pre">code</span>
-<span class="pre">available</span></tt>.  In the past I have considered this acceptable, since
-<tt class="docutils literal"><span class="pre">inspect.getsource</span></tt> does not really work even with regular
-decorators. In that case <tt class="docutils literal"><span class="pre">inspect.getsource</span></tt> gives you the wrapper
+the spot) message <tt class="docutils literal">Dynamically generated function. No source code
+available</tt>.  In the past I have considered this acceptable, since
+<tt class="docutils literal">inspect.getsource</tt> does not really work even with regular
+decorators. In that case <tt class="docutils literal">inspect.getsource</tt> gives you the wrapper
 source code which is probably not what you want:</p>
 <pre class="literal-block">
 def identity_dec(func):
@@ -674,17 +674,17 @@ def identity_dec(func):
 <p>(see bug report <a class="reference external" href="http://bugs.python.org/issue1764286">1764286</a> for an explanation of what is happening).
 Unfortunately the bug is still there, even in Python 2.7 and 3.1.
 There is however a workaround. The decorator module adds an
-attribute <tt class="docutils literal"><span class="pre">.undecorated</span></tt> to the decorated function, containing
+attribute <tt class="docutils literal">.__wrapped__</tt> to the decorated function, containing
 a reference to the original function. The easy way to get
-the source code is to call <tt class="docutils literal"><span class="pre">inspect.getsource</span></tt> on the
+the source code is to call <tt class="docutils literal">inspect.getsource</tt> on the
 undecorated function:</p>
 <div class="codeblock python">
-<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">factorial</span><span class="o">.</span><span class="n">undecorated</span><span class="p">)</span>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">factorial</span><span class="o">.</span><span class="n">__wrapped__</span><span class="p">)</span>
 <span class="nd">@tail_recursive</span>
-<span class="k">def</span> <span class="nf">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">acc</span><span class="o">=</span><span class="mf">1</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">acc</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
     <span class="s">&quot;The good old factorial&quot;</span>
-    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mf">0</span><span class="p">:</span> <span class="k">return</span> <span class="n">acc</span>
-    <span class="k">return</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mf">1</span><span class="p">,</span> <span class="n">n</span><span class="o">*</span><span class="n">acc</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="n">acc</span>
+    <span class="k">return</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">*</span><span class="n">acc</span><span class="p">)</span>
 <span class="o">&lt;</span><span class="n">BLANKLINE</span><span class="o">&gt;</span>
 </pre></div>
 
@@ -696,8 +696,8 @@ undecorated function:</p>
 like to include in your code. However, more often than not the cool
 decorator is not signature-preserving. Therefore you may want an easy way to
 upgrade third party decorators to signature-preserving decorators without
-having to rewrite them in terms of <tt class="docutils literal"><span class="pre">decorator</span></tt>. You can use a
-<tt class="docutils literal"><span class="pre">FunctionMaker</span></tt> to implement that functionality as follows:</p>
+having to rewrite them in terms of <tt class="docutils literal">decorator</tt>. You can use a
+<tt class="docutils literal">FunctionMaker</tt> to implement that functionality as follows:</p>
 <pre class="literal-block">
 def decorator_apply(dec, func):
     &quot;&quot;&quot;
@@ -706,17 +706,17 @@ def decorator_apply(dec, func):
     &quot;&quot;&quot;
     return FunctionMaker.create(
         func, 'return decorated(%(signature)s)',
-        dict(decorated=dec(func)), undecorated=func)
+        dict(decorated=dec(func)), __wrapped__=func)
 </pre>
-<p><tt class="docutils literal"><span class="pre">decorator_apply</span></tt> sets the attribute <tt class="docutils literal"><span class="pre">.undecorated</span></tt> of the generated
+<p><tt class="docutils literal">decorator_apply</tt> sets the attribute <tt class="docutils literal">.__wrapped__</tt> of the generated
 function to the original function, so that you can get the right
 source code.</p>
-<p>Notice that I am not providing this functionality in the <tt class="docutils literal"><span class="pre">decorator</span></tt>
+<p>Notice that I am not providing this functionality in the <tt class="docutils literal">decorator</tt>
 module directly since I think it is best to rewrite the decorator rather
 than adding an additional level of indirection. However, practicality
-beats purity, so you can add <tt class="docutils literal"><span class="pre">decorator_apply</span></tt> to your toolbox and
+beats purity, so you can add <tt class="docutils literal">decorator_apply</tt> to your toolbox and
 use it if you need to.</p>
-<p>In order to give an example of usage of <tt class="docutils literal"><span class="pre">decorator_apply</span></tt>, I will show a
+<p>In order to give an example of usage of <tt class="docutils literal">decorator_apply</tt>, I will show a
 pretty slick decorator that converts a tail-recursive function in an iterative
 function. I have shamelessly stolen the basic idea from Kay Schluehr's recipe
 in the Python Cookbook,
@@ -767,14 +767,14 @@ def factorial(n, acc=1):
     return factorial(n-1, n*acc)
 </pre>
 <div class="codeblock python">
-<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">factorial</span><span class="p">(</span><span class="mf">4</span><span class="p">)</span>
-<span class="mf">24</span>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">factorial</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="mi">24</span>
 </pre></div>
 
 </div>
 <p>This decorator is pretty impressive, and should give you some food for
 your mind ;) Notice that there is no recursion limit now, and you can
-easily compute <tt class="docutils literal"><span class="pre">factorial(1001)</span></tt> or larger without filling the stack
+easily compute <tt class="docutils literal">factorial(1001)</tt> or larger without filling the stack
 frame. Notice also that the decorator will not work on functions which
 are not tail recursive, such as the following</p>
 <pre class="literal-block">
@@ -810,7 +810,7 @@ def f():
     pass
 &quot; &quot;f()&quot;
 </pre>
-<p>On my MacBook, using the <tt class="docutils literal"><span class="pre">do_nothing</span></tt> decorator instead of the
+<p>On my MacBook, using the <tt class="docutils literal">do_nothing</tt> decorator instead of the
 plain function is more than three times slower:</p>
 <pre class="literal-block">
 $ bash performance.sh
@@ -818,7 +818,7 @@ $ bash performance.sh
 1000000 loops, best of 3: 0.273 usec per loop
 </pre>
 <p>It should be noted that a real life function would probably do
-something more useful than <tt class="docutils literal"><span class="pre">f</span></tt> here, and therefore in real life the
+something more useful than <tt class="docutils literal">f</tt> here, and therefore in real life the
 performance penalty could be completely negligible.  As always, the
 only way to know if there is
 a penalty in your specific use case is to measure it.</p>
@@ -827,45 +827,45 @@ longer and more difficult to understand. Consider this example:</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nd">@trace</span>
 <span class="o">...</span> <span class="k">def</span> <span class="nf">f</span><span class="p">():</span>
-<span class="o">...</span>     <span class="mf">1</span><span class="o">/</span><span class="mf">0</span>
+<span class="o">...</span>     <span class="mi">1</span><span class="o">/</span><span class="mi">0</span>
 </pre></div>
 
 </div>
-<p>Calling <tt class="docutils literal"><span class="pre">f()</span></tt> will give you a <tt class="docutils literal"><span class="pre">ZeroDivisionError</span></tt>, but since the
+<p>Calling <tt class="docutils literal">f()</tt> will give you a <tt class="docutils literal">ZeroDivisionError</tt>, but since the
 function is decorated the traceback will be longer:</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="p">()</span>
 <span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
   <span class="o">...</span>
-     <span class="n">File</span> <span class="s">&quot;&lt;string&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mf">2</span><span class="p">,</span> <span class="ow">in</span> <span class="n">f</span>
-     <span class="n">File</span> <span class="s">&quot;&lt;doctest __main__[18]&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mf">4</span><span class="p">,</span> <span class="ow">in</span> <span class="n">trace</span>
+     <span class="n">File</span> <span class="s">&quot;&lt;string&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">2</span><span class="p">,</span> <span class="ow">in</span> <span class="n">f</span>
+     <span class="n">File</span> <span class="s">&quot;&lt;doctest __main__[18]&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">4</span><span class="p">,</span> <span class="ow">in</span> <span class="n">trace</span>
        <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
-     <span class="n">File</span> <span class="s">&quot;&lt;doctest __main__[47]&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mf">3</span><span class="p">,</span> <span class="ow">in</span> <span class="n">f</span>
-       <span class="mf">1</span><span class="o">/</span><span class="mf">0</span>
+     <span class="n">File</span> <span class="s">&quot;&lt;doctest __main__[47]&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">3</span><span class="p">,</span> <span class="ow">in</span> <span class="n">f</span>
+       <span class="mi">1</span><span class="o">/</span><span class="mi">0</span>
 <span class="ne">ZeroDivisionError</span><span class="p">:</span> <span class="n">integer</span> <span class="n">division</span> <span class="ow">or</span> <span class="n">modulo</span> <span class="n">by</span> <span class="n">zero</span>
 </pre></div>
 
 </div>
-<p>You see here the inner call to the decorator <tt class="docutils literal"><span class="pre">trace</span></tt>, which calls
-<tt class="docutils literal"><span class="pre">f(*args,</span> <span class="pre">**kw)</span></tt>, and a reference to  <tt class="docutils literal"><span class="pre">File</span> <span class="pre">&quot;&lt;string&gt;&quot;,</span> <span class="pre">line</span> <span class="pre">2,</span> <span class="pre">in</span> <span class="pre">f</span></tt>.
+<p>You see here the inner call to the decorator <tt class="docutils literal">trace</tt>, which calls
+<tt class="docutils literal"><span class="pre">f(*args,</span> **kw)</tt>, and a reference to  <tt class="docutils literal">File <span class="pre">&quot;&lt;string&gt;&quot;,</span> line 2, in f</tt>.
 This latter reference is due to the fact that internally the decorator
-module uses <tt class="docutils literal"><span class="pre">exec</span></tt> to generate the decorated function. Notice that
-<tt class="docutils literal"><span class="pre">exec</span></tt> is <em>not</em> responsibile for the performance penalty, since is the
+module uses <tt class="docutils literal">exec</tt> to generate the decorated function. Notice that
+<tt class="docutils literal">exec</tt> is <em>not</em> responsibile for the performance penalty, since is the
 called <em>only once</em> at function decoration time, and not every time
 the decorated function is called.</p>
-<p>At present, there is no clean way to avoid <tt class="docutils literal"><span class="pre">exec</span></tt>. A clean solution
+<p>At present, there is no clean way to avoid <tt class="docutils literal">exec</tt>. A clean solution
 would require to change the CPython implementation of functions and
 add an hook to make it possible to change their signature directly.
 That could happen in future versions of Python (see PEP <a class="reference external" href="http://www.python.org/dev/peps/pep-0362">362</a>) and
 then the decorator module would become obsolete. However, at present,
 even in Python 3.1 it is impossible to change the function signature
-directly, therefore the <tt class="docutils literal"><span class="pre">decorator</span></tt> module is still useful.
+directly, therefore the <tt class="docutils literal">decorator</tt> module is still useful.
 Actually, this is one of the main reasons why I keep maintaining
 the module and releasing new versions.</p>
-<p>In the present implementation, decorators generated by <tt class="docutils literal"><span class="pre">decorator</span></tt>
+<p>In the present implementation, decorators generated by <tt class="docutils literal">decorator</tt>
 can only be used on user-defined Python functions or methods, not on generic
 callable objects, nor on built-in functions, due to limitations of the
-<tt class="docutils literal"><span class="pre">inspect</span></tt> module in the standard library. Moreover, notice
+<tt class="docutils literal">inspect</tt> module in the standard library. Moreover, notice
 that you can decorate a method, but only before if becomes a bound or unbound
 method, i.e. inside the class.
 Here is an example of valid decoration:</p>
@@ -894,13 +894,13 @@ called too late:</p>
 <p>The solution is to extract the inner function from the unbound method:</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">trace</span><span class="p">(</span><span class="n">C</span><span class="o">.</span><span class="n">meth</span><span class="o">.</span><span class="n">im_func</span><span class="p">)</span>
-<span class="o">&lt;</span><span class="n">function</span> <span class="n">meth</span> <span class="n">at</span> <span class="mf">0</span><span class="n">x</span><span class="o">...&gt;</span>
+<span class="o">&lt;</span><span class="n">function</span> <span class="n">meth</span> <span class="n">at</span> <span class="mi">0</span><span class="n">x</span><span class="o">...&gt;</span>
 </pre></div>
 
 </div>
 <p>There is a restriction on the names of the arguments: for instance,
-if try to call an argument <tt class="docutils literal"><span class="pre">_call_</span></tt> or <tt class="docutils literal"><span class="pre">_func_</span></tt>
-you will get a <tt class="docutils literal"><span class="pre">NameError</span></tt>:</p>
+if try to call an argument <tt class="docutils literal">_call_</tt> or <tt class="docutils literal">_func_</tt>
+you will get a <tt class="docutils literal">NameError</tt>:</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nd">@trace</span>
 <span class="o">...</span> <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">_func_</span><span class="p">):</span> <span class="k">print</span> <span class="n">f</span>
@@ -914,10 +914,10 @@ you will get a <tt class="docutils literal"><span class="pre">NameError</span></
 
 </div>
 <p>Finally, the implementation is such that the decorated function
-attribute <tt class="docutils literal"><span class="pre">.func_globals</span></tt> is a <em>copy</em> of the original function
+attribute <tt class="docutils literal">.func_globals</tt> is a <em>copy</em> of the original function
 attribute. Moreover the decorated function contains
 a <em>copy</em> of the original function dictionary
-(<tt class="docutils literal"><span class="pre">vars(decorated_f)</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">vars(f)</span></tt>):</p>
+(<tt class="docutils literal">vars(decorated_f) is not vars(f)</tt>):</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">f</span><span class="p">():</span> <span class="k">pass</span> <span class="c"># the original function</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">f</span><span class="o">.</span><span class="n">attr1</span> <span class="o">=</span> <span class="s">&quot;something&quot;</span> <span class="c"># setting an attribute</span>
@@ -936,42 +936,42 @@ a <em>copy</em> of the original function dictionary
 </div>
 <div class="section" id="compatibility-notes">
 <h1><a class="toc-backref" href="#id15">Compatibility notes</a></h1>
-<p>Version 3.3 is the first version of the <tt class="docutils literal"><span class="pre">decorator</span></tt> module to fully
+<p>Version 3.3 is the first version of the <tt class="docutils literal">decorator</tt> module to fully
 support Python 3, including <a class="reference external" href="http://www.python.org/dev/peps/pep-3107/">function annotations</a>. Version 3.2 was the
-first version to support Python 3 via the <tt class="docutils literal"><span class="pre">2to3</span></tt> conversion tool
+first version to support Python 3 via the <tt class="docutils literal">2to3</tt> conversion tool
 invoked in the build process by the <a class="reference external" href="http://packages.python.org/distribute/">distribute</a> project, the Python
 3-compatible replacement of easy_install.  The hard work (for me) has
 been converting the documentation and the doctests.  This has been
 possible only after that <a class="reference external" href="http://docutils.sourceforge.net/">docutils</a> and <a class="reference external" href="http://pygments.org/">pygments</a> have been ported to
 Python 3.</p>
-<p>Version 3 of the <tt class="docutils literal"><span class="pre">decorator</span></tt> module do not contain any backward
+<p>Version 3 of the <tt class="docutils literal">decorator</tt> module do not contain any backward
 incompatible change, apart from the removal of the functions
-<tt class="docutils literal"><span class="pre">get_info</span></tt> and <tt class="docutils literal"><span class="pre">new_wrapper</span></tt>, which have been deprecated for
-years. <tt class="docutils literal"><span class="pre">get_info</span></tt> has been removed since it was little used and
+<tt class="docutils literal">get_info</tt> and <tt class="docutils literal">new_wrapper</tt>, which have been deprecated for
+years. <tt class="docutils literal">get_info</tt> has been removed since it was little used and
 since it had to be changed anyway to work with Python 3.0;
-<tt class="docutils literal"><span class="pre">new_wrapper</span></tt> has been removed since it was useless: its major use
+<tt class="docutils literal">new_wrapper</tt> has been removed since it was useless: its major use
 case (converting signature changing decorators to signature preserving
-decorators) has been subsumed by <tt class="docutils literal"><span class="pre">decorator_apply</span></tt>, whereas the other use
-case can be managed with the <tt class="docutils literal"><span class="pre">FunctionMaker</span></tt>.</p>
+decorators) has been subsumed by <tt class="docutils literal">decorator_apply</tt>, whereas the other use
+case can be managed with the <tt class="docutils literal">FunctionMaker</tt>.</p>
 <p>There are a few changes in the documentation: I removed the
-<tt class="docutils literal"><span class="pre">decorator_factory</span></tt> example, which was confusing some of my users,
+<tt class="docutils literal">decorator_factory</tt> example, which was confusing some of my users,
 and I removed the part about exotic signatures in the Python 3
 documentation, since Python 3 does not support them.</p>
-<p>Finally <tt class="docutils literal"><span class="pre">decorator</span></tt> cannot be used as a class decorator and the
+<p>Finally <tt class="docutils literal">decorator</tt> cannot be used as a class decorator and the
 <a class="reference external" href="http://www.phyast.pitt.edu/~micheles/python/documentation.html#class-decorators-and-decorator-factories">functionality introduced in version 2.3</a> has been removed. That
 means that in order to define decorator factories with classes you
-need to define the <tt class="docutils literal"><span class="pre">__call__</span></tt> method explicitly (no magic anymore).
+need to define the <tt class="docutils literal">__call__</tt> method explicitly (no magic anymore).
 All these changes should not cause any trouble, since they were
 all rarely used features. Should you have any trouble, you can always
 downgrade to the 2.3 version.</p>
 <p>The examples shown here have been tested with Python 2.6. Python 2.4
-is also supported - of course the examples requiring the <tt class="docutils literal"><span class="pre">with</span></tt>
+is also supported - of course the examples requiring the <tt class="docutils literal">with</tt>
 statement will not work there. Python 2.5 works fine, but if you
 run the examples in the interactive interpreter
 you will notice a few differences since
-<tt class="docutils literal"><span class="pre">getargspec</span></tt> returns an <tt class="docutils literal"><span class="pre">ArgSpec</span></tt> namedtuple instead of a regular
+<tt class="docutils literal">getargspec</tt> returns an <tt class="docutils literal">ArgSpec</tt> namedtuple instead of a regular
 tuple. That means that running the file
-<tt class="docutils literal"><span class="pre">documentation.py</span></tt> under Python 2.5 will print a few errors, but
+<tt class="docutils literal">documentation.py</tt> under Python 2.5 will print a few errors, but
 they are not serious.</p>
 </div>
 <div class="section" id="licence">

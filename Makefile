@@ -1,4 +1,4 @@
-RST=python /home/micheles/trunk/ROnline/RCommon/Python/ms/tools/rst.py
+RST=python $(HOME)/trunk/ROnline/RCommon/Python/ms/tools/rst.py
 
 rst: documentation.py documentation3.py
 	python $(HOME)/trunk/ROnline/RCommon/Python/ms/tools/minidoc.py -d documentation.py

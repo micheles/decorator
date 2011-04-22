@@ -3,14 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.5: http://docutils.sourceforge.net/" />
+<meta name="generator" content="Docutils 0.7: http://docutils.sourceforge.net/" />
 <title>Decorator module</title>
 <meta name="author" content="Michele Simionato" />
 <style type="text/css">
 
 /*
 :Author: David Goodger (goodger@python.org)
-:Id: $Id: html4css1.css 5196 2007-06-03 20:25:28Z wiemann $
+:Id: $Id: html4css1.css 6253 2010-03-02 00:24:53Z milde $
 :Copyright: This stylesheet has been placed in the public domain.
 
 Default cascading style sheet for the HTML output of Docutils.
@@ -158,11 +158,38 @@ h2.subtitle {
 hr.docutils {
   width: 75% }
 
-img.align-left {
-  clear: left }
+img.align-left, .figure.align-left, object.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
 
-img.align-right {
-  clear: right }
+img.align-right, .figure.align-right, object.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: left }
+
+/* div.align-center * { */
+/*   text-align: left } */
 
 ol.simple, ul.simple {
   margin-bottom: 1em }
@@ -217,8 +244,7 @@ p.topic-title {
 pre.address {
   margin-bottom: 0 ;
   margin-top: 0 ;
-  font-family: serif ;
-  font-size: 100% }
+  font: inherit }
 
 pre.literal-block, pre.doctest-block {
   margin-left: 2em ;
@@ -299,7 +325,7 @@ ul.auto-toc {
 </tr>
 <tr class="field"><th class="docinfo-name">Download page:</th><td class="field-body"><a class="reference external" href="http://pypi.python.org/pypi/decorator">http://pypi.python.org/pypi/decorator</a></td>
 </tr>
-<tr class="field"><th class="docinfo-name">Installation:</th><td class="field-body"><tt class="docutils literal"><span class="pre">easy_install</span> <span class="pre">decorator</span></tt></td>
+<tr class="field"><th class="docinfo-name">Installation:</th><td class="field-body"><tt class="docutils literal">easy_install decorator</tt></td>
 </tr>
 <tr class="field"><th class="docinfo-name">License:</th><td class="field-body">BSD license</td>
 </tr>
@@ -344,6 +370,13 @@ old version.</p>
 <li><a class="reference external" href="http://micheles.googlecode.com/hg/decorator/documentation3.html">HTML version (Python 3)</a></li>
 <li><a class="reference external" href="http://micheles.googlecode.com/hg/decorator/documentation3.pdf">PDF version (Python 3)</a></li>
 </ul>
+</div>
+<div class="section" id="repository">
+<h1>Repository</h1>
+<p>The project is hosted on GoogleCode as a Mercurial repository. You
+can look at the source here:</p>
+<blockquote>
+<a class="reference external" href="http://code.google.com/p/micheles/source/browse/#hg%2Fdecorator">http://code.google.com/p/micheles/source/browse/#hg%2Fdecorator</a></blockquote>
 </div>
 </div>
 </body>

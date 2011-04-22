@@ -276,14 +276,14 @@ You can also check that the ``__annotations__`` dictionary is preserved:
 
 .. code-block:: python
 
-  >>> f.__annotations__ == f.undecorated.__annotations__
+  >>> f.__annotations__ == f.__wrapped__.__annotations__
   True
 
 The two dictionaries are different objects, though
 
 .. code-block:: python
 
-  >>> id(f.__annotations__) != id(f.undecorated.__annotations__)
+  >>> id(f.__annotations__) != id(f.__wrapped__.__annotations__)
   True
 
 since internally the decorator module creates an entirely new dictionary
@@ -391,8 +391,6 @@ is executed in a separate thread. Moreover, it is possible to set
 three callbacks ``on_success``, ``on_failure`` and ``on_closing``,
 to specify how to manage the function call.
 The implementation is the following:
-
-.. code-block:: python
 
 $$on_success
 $$on_failure
@@ -545,14 +543,14 @@ $$identity_dec
 (see bug report 1764286_ for an explanation of what is happening).
 Unfortunately the bug is still there, even in Python 2.7 and 3.1.
 There is however a workaround. The decorator module adds an
-attribute ``.undecorated`` to the decorated function, containing
+attribute ``.__wrapped__`` to the decorated function, containing
 a reference to the original function. The easy way to get
 the source code is to call ``inspect.getsource`` on the
 undecorated function:
 
 .. code-block:: python
 
- >>> print(inspect.getsource(factorial.undecorated))
+ >>> print(inspect.getsource(factorial.__wrapped__))
  @tail_recursive
  def factorial(n, acc=1):
      "The good old factorial"
@@ -574,7 +572,7 @@ having to rewrite them in terms of ``decorator``. You can use a
 
 $$decorator_apply
 
-``decorator_apply`` sets the attribute ``.undecorated`` of the generated
+``decorator_apply`` sets the attribute ``.__wrapped__`` of the generated
 function to the original function, so that you can get the right
 source code.
 
@@ -840,7 +838,7 @@ def decorator_apply(dec, func):
     """
     return FunctionMaker.create(
         func, 'return decorated(%(signature)s)',
-        dict(decorated=dec(func)), undecorated=func)
+        dict(decorated=dec(func)), __wrapped__=func)
 
 def _trace(f, *args, **kw):
     print("calling %s with args %s, %s" % (f.__name__, args, kw))
