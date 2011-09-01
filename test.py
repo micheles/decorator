@@ -14,11 +14,16 @@ def identity(f, *a, **k):
 def f1():
     "f1"
 
+def getfname(func):
+    fname = os.path.basename(func.func_globals['__file__'])
+    return os.path.splitext(fname)[0] + '.py'
+
 def test0():
-    assert os.path.basename(identity.func_globals['__file__']) == 'test.py'
+    this = getfname(identity)
+    assert this == 'test.py', this
     print(identity.__doc__)
 
 def test1():
-    assert os.path.basename(f1.func_globals['__file__']) == 'test.py'
+    this = getfname(f1)
+    assert this == 'test.py', this
     print(f1.__doc__)
-

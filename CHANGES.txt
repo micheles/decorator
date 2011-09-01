@@ -1,6 +1,8 @@
 HISTORY
 ----------
 
+3.3.2 Fixed a bug with __kwdefaults__ for Python 3, submitted by Chris
+     Ellison (01/09/2011)
 3.3.1 Fixed a doctest broken for Python 3.2, as noted by
      Arfrever Frehtes Taifersar Arahesis; changed the name of
      the attribute ``undecorated`` to ``__wrapped__`` following the
