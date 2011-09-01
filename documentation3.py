@@ -1054,5 +1054,14 @@ def a_test_for_pylons():
     'The good old factorial'
     """
 
+def test_kwonlydefaults():
+    """
+    >>> @trace
+    ... def f(arg, defarg=1, *args, kwonly=2): pass
+    ...
+    >>> f.__kwdefaults__ 
+    {'kwonly': 2}
+    """
+
 if __name__ == '__main__':
     import doctest; doctest.testmod()
