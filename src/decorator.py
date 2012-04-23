@@ -32,7 +32,7 @@ Decorator module, see http://pypi.python.org/pypi/decorator
 for the documentation.
 """
 
-__version__ = '3.3.2'
+__version__ = '3.3.3'
 
 __all__ = ["decorator", "FunctionMaker", "partial"]
 
@@ -62,7 +62,6 @@ else:
                 inspect.getargspec(f)
             self.kwonlyargs = []
             self.kwonlydefaults = None
-            self.annotations = getattr(f, '__annotations__', {})
         def __iter__(self):
             yield self.args
             yield self.varargs
@@ -90,22 +89,28 @@ class FunctionMaker(object):
             self.module = func.__module__
             if inspect.isfunction(func):
                 argspec = getfullargspec(func)
+                self.annotations = getattr(func, '__annotations__', {})
                 for a in ('args', 'varargs', 'varkw', 'defaults', 'kwonlyargs',
-                          'kwonlydefaults', 'annotations'):
+                          'kwonlydefaults'):
                     setattr(self, a, getattr(argspec, a))
                 for i, arg in enumerate(self.args):
                     setattr(self, 'arg%d' % i, arg)
-                self.signature = inspect.formatargspec(
-                    formatvalue=lambda val: "", *argspec)[1:-1]
-                allargs = list(self.args)
-                if self.varargs:
-                    allargs.append('*' + self.varargs)
-                if self.varkw:
-                    allargs.append('**' + self.varkw)
-                try:
-                    self.shortsignature = ', '.join(allargs)
-                except TypeError: # exotic signature, valid only in Python 2.X
-                    self.shortsignature = self.signature
+                if sys.version < '3': # easy way
+                    self.shortsignature = self.signature = \
+                        inspect.formatargspec(
+                        formatvalue=lambda val: "", *argspec)[1:-1]
+                else: # Python 3 way
+                    self.signature = self.shortsignature = ', '.join(self.args)
+                    if self.varargs:
+                        self.signature += ', *' + self.varargs
+                        self.shortsignature += ', *' + self.varargs
+                    if self.kwonlyargs:
+                        for a in self.kwonlyargs:
+                            self.signature += ', %s=None' % a
+                            self.shortsignature += ', %s=%s' % (a, a)
+                    if self.varkw:
+                        self.signature += ', **' + self.varkw
+                        self.shortsignature += ', **' + self.varkw
                 self.dict = func.__dict__.copy()
         # func=None happens when decorating a caller
         if name:
@@ -132,6 +137,7 @@ class FunctionMaker(object):
         func.__dict__ = getattr(self, 'dict', {})
         func.func_defaults = getattr(self, 'defaults', ())
         func.__kwdefaults__ = getattr(self, 'kwonlydefaults', None)
+        func.__annotations__ = getattr(self, 'annotations', None)
         callermodule = sys._getframe(3).f_globals.get('__name__', '?')
         func.__module__ = getattr(self, 'module', callermodule)
         func.__dict__.update(kw)

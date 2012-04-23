@@ -269,8 +269,6 @@ utility ``inspect.getfullargspec``, new in Python 3:
  >>> argspec.kwonlyargs
  []
  >>> argspec.kwonlydefaults
- >>> sorted(argspec.annotations.items())
- [('args', 'varargs'), ('kw', 'kwargs'), ('x', 'the first argument'), ('y', 'default argument')]
 
 You can also check that the ``__annotations__`` dictionary is preserved:
 
@@ -279,16 +277,9 @@ You can also check that the ``__annotations__`` dictionary is preserved:
   >>> f.__annotations__ == f.__wrapped__.__annotations__
   True
 
-The two dictionaries are different objects, though
-
-.. code-block:: python
-
-  >>> id(f.__annotations__) != id(f.__wrapped__.__annotations__)
-  True
-
-since internally the decorator module creates an entirely new dictionary
-(it is not simply attaching the ``__annotations__`` attribute to the new
-function).
+Depending on the version of the decorator module, the two dictionaries can
+be the same object or not: you cannot rely on object identity, but you can
+rely on the content being the same.
 
 ``decorator`` is a decorator
 ---------------------------------------------
@@ -691,7 +682,7 @@ would require to change the CPython implementation of functions and
 add an hook to make it possible to change their signature directly. 
 That could happen in future versions of Python (see PEP 362_) and 
 then the decorator module would become obsolete. However, at present,
-even in Python 3.1 it is impossible to change the function signature
+even in Python 3.2 it is impossible to change the function signature
 directly, therefore the ``decorator`` module is still useful.
 Actually, this is one of the main reasons why I keep maintaining
 the module and releasing new versions.
@@ -1061,6 +1052,17 @@ def test_kwonlydefaults():
     ...
     >>> f.__kwdefaults__ 
     {'kwonly': 2}
+    """
+
+def test_kwonlyargs():
+    """
+    >>> @trace
+    ... def func(a, b, *args, y=2, z=3, **kwargs):
+    ...     return y, z
+    ...
+    >>> func('a', 'b', 'c', 'd', 'e', y='y', z='z', cat='dog')
+    calling func with args ('a', 'b', 'c', 'd', 'e'), {'y': 'y', 'z': 'z', 'cat': 'dog'}
+    ('y', 'z')
     """
 
 if __name__ == '__main__':
