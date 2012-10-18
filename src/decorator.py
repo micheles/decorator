@@ -32,28 +32,15 @@ Decorator module, see http://pypi.python.org/pypi/decorator
 for the documentation.
 """
 
-__version__ = '3.3.3'
+__version__ = '3.4.0'
 
-__all__ = ["decorator", "FunctionMaker", "partial"]
+__all__ = ["decorator", "FunctionMaker", "contextmanager"]
 
 import sys, re, inspect
-
-try:
-    from functools import partial
-except ImportError: # for Python version < 2.5
-    class partial(object):
-        "A simple replacement of functools.partial"
-        def __init__(self, func, *args, **kw):
-            self.func = func
-            self.args = args                
-            self.keywords = kw
-        def __call__(self, *otherargs, **otherkw):
-            kw = self.keywords.copy()
-            kw.update(otherkw)
-            return self.func(*(self.args + otherargs), **kw)
-
 if sys.version >= '3':
     from inspect import getfullargspec
+    def get_init(cls):
+        return cls.__init__
 else:
     class getfullargspec(object):
         "A quick and dirty replacement for getfullargspec for Python 2.X"
@@ -67,6 +54,8 @@ else:
             yield self.varargs
             yield self.varkw
             yield self.defaults
+    def get_init(cls):
+        return cls.__init__.im_func
 
 DEF = re.compile('\s*def\s*([_\w][_\w\d]*)\s*\(')
 
@@ -100,17 +89,21 @@ class FunctionMaker(object):
                         inspect.formatargspec(
                         formatvalue=lambda val: "", *argspec)[1:-1]
                 else: # Python 3 way
-                    self.signature = self.shortsignature = ', '.join(self.args)
+                    allargs = list(self.args)
+                    allshortargs = list(self.args)
                     if self.varargs:
-                        self.signature += ', *' + self.varargs
-                        self.shortsignature += ', *' + self.varargs
-                    if self.kwonlyargs:
-                        for a in self.kwonlyargs:
-                            self.signature += ', %s=None' % a
-                            self.shortsignature += ', %s=%s' % (a, a)
+                        allargs.append('*' + self.varargs)
+                        allshortargs.append('*' + self.varargs)
+                    elif self.kwonlyargs:
+                        allargs.append('*') # single star syntax
+                    for a in self.kwonlyargs:
+                        allargs.append('%s=None' % a)
+                        allshortargs.append('%s=%s' % (a, a))
                     if self.varkw:
-                        self.signature += ', **' + self.varkw
-                        self.shortsignature += ', **' + self.varkw
+                        allargs.append('**' + self.varkw)
+                        allshortargs.append('**' + self.varkw)
+                    self.signature = ', '.join(allargs)
+                    self.shortsignature = ', '.join(allshortargs)
                 self.dict = func.__dict__.copy()
         # func=None happens when decorating a caller
         if name:
@@ -206,15 +199,53 @@ def decorator(caller, func=None):
             func, "return _call_(_func_, %(shortsignature)s)",
             evaldict, undecorated=func, __wrapped__=func)
     else: # returns a decorator
-        if isinstance(caller, partial):
-            return partial(decorator, caller)
-        # otherwise assume caller is a function
-        first = inspect.getargspec(caller)[0][0] # first arg
-        evaldict = caller.func_globals.copy()
+        if inspect.isclass(caller):
+            name = caller.__name__.lower()
+            callerfunc = get_init(caller)
+            doc = 'decorator(%s) converts functions/generators into ' \
+                'factories of %s objects' % (caller.__name__, caller.__name__)
+            fun = getfullargspec(callerfunc).args[1] # second arg
+        elif inspect.isfunction(caller):
+            name = '_lambda_' if caller.__name__ == '<lambda>' \
+                else caller.__name__
+            callerfunc = caller
+            doc = caller.__doc__
+            fun = getfullargspec(callerfunc).args[0] # first arg
+        else: # assume caller is an object with a __call__ method
+            name = caller.__class__.__name__.lower()
+            callerfunc = caller.__call__.im_func
+            doc = caller.__call__.__doc__
+            fun = getfullargspec(callerfunc).args[1] # second arg
+        evaldict = callerfunc.func_globals.copy()
         evaldict['_call_'] = caller
         evaldict['decorator'] = decorator
         return FunctionMaker.create(
-            '%s(%s)' % (caller.__name__, first), 
-            'return decorator(_call_, %s)' % first,
+            '%s(%s)' % (name, fun), 
+            'return decorator(_call_, %s)' % fun,
             evaldict, undecorated=caller, __wrapped__=caller,
-            doc=caller.__doc__, module=caller.__module__)
+            doc=doc, module=caller.__module__)
+
+######################### contextmanager ########################
+
+def __call__(self, func):
+    'Context manager decorator'
+    return FunctionMaker.create(
+        func, "with _self_: return _func_(%(shortsignature)s)",
+        dict(_self_=self, _func_=func), __wrapped__=func)
+
+try: # Python >= 3.2
+
+    from contextlib import _GeneratorContextManager 
+    ContextManager = type(
+        'ContextManager', (_GeneratorContextManager,), dict(__call__=__call__))
+
+except ImportError: # Python >= 2.5
+
+    from contextlib import GeneratorContextManager
+    def __init__(self, f, *a, **k):
+        return GeneratorContextManager.__init__(self, f(*a, **k))
+    ContextManager = type(
+        'ContextManager', (GeneratorContextManager,), 
+        dict(__call__=__call__, __init__=__init__))
+    
+contextmanager = decorator(ContextManager)

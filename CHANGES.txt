@@ -1,6 +1,10 @@
 HISTORY
 ----------
 
+3.4.0 Added the ability to use classes and generic callables as callers and
+     implemented a signature-preserving contexmanager decorator. Fixed a bug
+     with the signature f(**kw) in Python 3 and fixed a couple of doctests
+     broken by Python 3.3, both issues pointed out by Dominic Sacré (18/10/2012)
 3.3.3 Fixed a bug with kwonlyargs for Python 3, submitted by Chris
      Ellison (23/04/2012)
 3.3.2 Fixed a bug with __kwdefaults__ for Python 3, submitted by Chris

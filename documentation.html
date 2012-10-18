@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.7: http://docutils.sourceforge.net/" />
+<meta name="generator" content="Docutils 0.8.1: http://docutils.sourceforge.net/" />
 <title>The decorator module</title>
 <meta name="author" content="Michele Simionato" />
 <style type="text/css">
@@ -83,10 +83,10 @@
 <tr class="field"><th class="docinfo-name">E-mail:</th><td class="field-body"><a class="reference external" href="mailto:michele.simionato&#64;gmail.com">michele.simionato&#64;gmail.com</a></td>
 </tr>
 <tr><th class="docinfo-name">Version:</th>
-<td>3.3.2 (2011-09-01)</td></tr>
+<td>3.4.0 (2012-10-18)</td></tr>
 <tr class="field"><th class="docinfo-name">Requires:</th><td class="field-body">Python 2.4+</td>
 </tr>
-<tr class="field"><th class="docinfo-name">Download page:</th><td class="field-body"><a class="reference external" href="http://pypi.python.org/pypi/decorator/3.3.2">http://pypi.python.org/pypi/decorator/3.3.2</a></td>
+<tr class="field"><th class="docinfo-name">Download page:</th><td class="field-body"><a class="reference external" href="http://pypi.python.org/pypi/decorator/3.4.0">http://pypi.python.org/pypi/decorator/3.4.0</a></td>
 </tr>
 <tr class="field"><th class="docinfo-name">Installation:</th><td class="field-body"><tt class="docutils literal">easy_install decorator</tt></td>
 </tr>
@@ -105,12 +105,13 @@
 <li><a class="reference internal" href="#decorator-is-a-decorator" id="id8"><tt class="docutils literal">decorator</tt> is a decorator</a></li>
 <li><a class="reference internal" href="#blocking" id="id9"><tt class="docutils literal">blocking</tt></a></li>
 <li><a class="reference internal" href="#async" id="id10"><tt class="docutils literal">async</tt></a></li>
-<li><a class="reference internal" href="#the-functionmaker-class" id="id11">The <tt class="docutils literal">FunctionMaker</tt> class</a></li>
-<li><a class="reference internal" href="#getting-the-source-code" id="id12">Getting the source code</a></li>
-<li><a class="reference internal" href="#dealing-with-third-party-decorators" id="id13">Dealing with third party decorators</a></li>
-<li><a class="reference internal" href="#caveats-and-limitations" id="id14">Caveats and limitations</a></li>
-<li><a class="reference internal" href="#compatibility-notes" id="id15">Compatibility notes</a></li>
-<li><a class="reference internal" href="#licence" id="id16">LICENCE</a></li>
+<li><a class="reference internal" href="#contextmanager" id="id11">contextmanager</a></li>
+<li><a class="reference internal" href="#the-functionmaker-class" id="id12">The <tt class="docutils literal">FunctionMaker</tt> class</a></li>
+<li><a class="reference internal" href="#getting-the-source-code" id="id13">Getting the source code</a></li>
+<li><a class="reference internal" href="#dealing-with-third-party-decorators" id="id14">Dealing with third party decorators</a></li>
+<li><a class="reference internal" href="#caveats-and-limitations" id="id15">Caveats and limitations</a></li>
+<li><a class="reference internal" href="#compatibility-notes" id="id16">Compatibility notes</a></li>
+<li><a class="reference internal" href="#licence" id="id17">LICENCE</a></li>
 </ul>
 </div>
 <div class="section" id="introduction">
@@ -179,22 +180,24 @@ but they do not preserve the signature.
 A simple implementation could be the following (notice
 that in general it is impossible to memoize correctly something
 that depends on non-hashable arguments):</p>
-<pre class="literal-block">
-def memoize_uw(func):
-    func.cache = {}
-    def memoize(*args, **kw):
-        if kw: # frozenset is used to ensure hashability
-            key = args, frozenset(kw.iteritems())
-        else:
-            key = args
-        cache = func.cache
-        if key in cache:
-            return cache[key]
-        else:
-            cache[key] = result = func(*args, **kw)
-            return result
-    return functools.update_wrapper(memoize, func)
-</pre>
+<div class="codeblock python">
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">memoize_uw</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="n">func</span><span class="o">.</span><span class="n">cache</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">def</span> <span class="nf">memoize</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">kw</span><span class="p">:</span> <span class="c"># frozenset is used to ensure hashability</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">args</span><span class="p">,</span> <span class="nb">frozenset</span><span class="p">(</span><span class="n">kw</span><span class="o">.</span><span class="n">iteritems</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">args</span>
+        <span class="n">cache</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">cache</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">result</span>
+    <span class="k">return</span> <span class="n">functools</span><span class="o">.</span><span class="n">update_wrapper</span><span class="p">(</span><span class="n">memoize</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
+</pre></div>
+
+</div>
 <p>Here we used the <a class="reference external" href="http://www.python.org/doc/2.5.2/lib/module-functools.html">functools.update_wrapper</a> utility, which has
 been added in Python 2.5 expressly to simplify the definition of decorators
 (in older versions of Python you need to copy the function attributes
@@ -255,25 +258,29 @@ returns the decorated function. The caller function must have
 signature <tt class="docutils literal">(f, *args, **kw)</tt> and it must call the original function <tt class="docutils literal">f</tt>
 with arguments <tt class="docutils literal">args</tt> and <tt class="docutils literal">kw</tt>, implementing the wanted capability,
 i.e. memoization in this case:</p>
-<pre class="literal-block">
-def _memoize(func, *args, **kw):
-    if kw: # frozenset is used to ensure hashability
-        key = args, frozenset(kw.iteritems())
-    else:
-        key = args
-    cache = func.cache # attributed added by memoize
-    if key in cache:
-        return cache[key]
-    else:
-        cache[key] = result = func(*args, **kw)
-        return result
-</pre>
+<div class="codeblock python">
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">_memoize</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">kw</span><span class="p">:</span> <span class="c"># frozenset is used to ensure hashability</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">args</span><span class="p">,</span> <span class="nb">frozenset</span><span class="p">(</span><span class="n">kw</span><span class="o">.</span><span class="n">iteritems</span><span class="p">())</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">args</span>
+    <span class="n">cache</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">cache</span> <span class="c"># attributed added by memoize</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">cache</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cache</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+
+</div>
 <p>At this point you can define your decorator as follows:</p>
-<pre class="literal-block">
-def memoize(f):
-    f.cache = {}
-    return decorator(_memoize, f)
-</pre>
+<div class="codeblock python">
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">memoize</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">cache</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">return</span> <span class="n">decorator</span><span class="p">(</span><span class="n">_memoize</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+</pre></div>
+
+</div>
 <p>The difference with respect to the <tt class="docutils literal">memoize_uw</tt> approach, which is based
 on nested functions, is that the decorator module forces you to lift
 the inner function at the outer level (<em>flat is better than nested</em>).
@@ -307,15 +314,19 @@ decorate to the caller function.</p>
 <p>As an additional example, here is how you can define a trivial
 <tt class="docutils literal">trace</tt> decorator, which prints a message everytime the traced
 function is called:</p>
-<pre class="literal-block">
-def _trace(f, *args, **kw):
-    print &quot;calling %s with args %s, %s&quot; % (f.__name__, args, kw)
-    return f(*args, **kw)
-</pre>
-<pre class="literal-block">
-def trace(f):
-    return decorator(_trace, f)
-</pre>
+<div class="codeblock python">
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">_trace</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">&quot;calling </span><span class="si">%s</span><span class="s"> with args </span><span class="si">%s</span><span class="s">, </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kw</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+</pre></div>
+
+</div>
+<div class="codeblock python">
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">trace</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">decorator</span><span class="p">(</span><span class="n">_trace</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+</pre></div>
+
+</div>
 <p>Here is an example of usage:</p>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nd">@trace</span>
@@ -419,21 +430,23 @@ object which can be used as a decorator:</p>
 sometimes it is best to have back a &quot;busy&quot; message than to block everything.
 This behavior can be implemented with a suitable family of decorators,
 where the parameter is the busy message:</p>
-<pre class="literal-block">
-def blocking(not_avail):
-    def blocking(f, *args, **kw):
-        if not hasattr(f, &quot;thread&quot;): # no thread running
-            def set_result(): f.result = f(*args, **kw)
-            f.thread = threading.Thread(None, set_result)
-            f.thread.start()
-            return not_avail
-        elif f.thread.isAlive():
-            return not_avail
-        else: # the thread is ended, return the stored result
-            del f.thread
-            return f.result
-    return decorator(blocking)
-</pre>
+<div class="codeblock python">
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">blocking</span><span class="p">(</span><span class="n">not_avail</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">blocking</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s">&quot;thread&quot;</span><span class="p">):</span> <span class="c"># no thread running</span>
+            <span class="k">def</span> <span class="nf">set_result</span><span class="p">():</span> <span class="n">f</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">set_result</span><span class="p">)</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">not_avail</span>
+        <span class="k">elif</span> <span class="n">f</span><span class="o">.</span><span class="n">thread</span><span class="o">.</span><span class="n">isAlive</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">not_avail</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c"># the thread is ended, return the stored result</span>
+            <span class="k">del</span> <span class="n">f</span><span class="o">.</span><span class="n">thread</span>
+            <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="n">result</span>
+    <span class="k">return</span> <span class="n">decorator</span><span class="p">(</span><span class="n">blocking</span><span class="p">)</span>
+</pre></div>
+
+</div>
 <p>Functions decorated with <tt class="docutils literal">blocking</tt> will return a busy message if
 the resource is unavailable, and the intended result if the resource is
 available. For instance:</p>
@@ -467,69 +480,74 @@ available. For instance:</p>
 implemented as a function returning a decorator.
 For more complex situations, it is more
 convenient to implement decorator factories as classes returning
-callable objects that can be used as signature-preserving
-decorators. The suggested pattern to do that is to introduce
-a helper method <tt class="docutils literal">call(self, func, *args, **kw)</tt> and to call
-it in the <tt class="docutils literal">__call__(self, func)</tt> method.</p>
-<p>As an example, here I show a decorator
+callable objects that can be converted into decorators.</p>
+<p>As an example, here will I show a decorator
 which is able to convert a blocking function into an asynchronous
 function. The function, when called,
 is executed in a separate thread. Moreover, it is possible to set
 three callbacks <tt class="docutils literal">on_success</tt>, <tt class="docutils literal">on_failure</tt> and <tt class="docutils literal">on_closing</tt>,
-to specify how to manage the function call.
-The implementation is the following:</p>
-<pre class="literal-block">
-def on_success(result): # default implementation
-    &quot;Called on the result of the function&quot;
-    return result
-</pre>
-<pre class="literal-block">
-def on_failure(exc_info): # default implementation
-    &quot;Called if the function fails&quot;
-    pass
-</pre>
-<pre class="literal-block">
-def on_closing(): # default implementation
-    &quot;Called at the end, both in case of success and failure&quot;
-    pass
-</pre>
-<pre class="literal-block">
-class Async(object):
-    &quot;&quot;&quot;
-    A decorator converting blocking functions into asynchronous
-    functions, by using threads or processes. Examples:
+to specify how to manage the function call (of course the code here
+is just an example, it is not a recommended way of doing multi-threaded
+programming). The implementation is the following:</p>
+<div class="codeblock python">
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">on_success</span><span class="p">(</span><span class="n">result</span><span class="p">):</span> <span class="c"># default implementation</span>
+    <span class="s">&quot;Called on the result of the function&quot;</span>
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
 
-    async_with_threads =  Async(threading.Thread)
-    async_with_processes =  Async(multiprocessing.Process)
-    &quot;&quot;&quot;
+</div>
+<div class="codeblock python">
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">on_failure</span><span class="p">(</span><span class="n">exc_info</span><span class="p">):</span> <span class="c"># default implementation</span>
+    <span class="s">&quot;Called if the function fails&quot;</span>
+    <span class="k">pass</span>
+</pre></div>
 
-    def __init__(self, threadfactory):
-        self.threadfactory = threadfactory
+</div>
+<div class="codeblock python">
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">on_closing</span><span class="p">():</span> <span class="c"># default implementation</span>
+    <span class="s">&quot;Called at the end, both in case of success and failure&quot;</span>
+    <span class="k">pass</span>
+</pre></div>
 
-    def __call__(self, func, on_success=on_success,
-                 on_failure=on_failure, on_closing=on_closing):
-        # every decorated function has its own independent thread counter
-        func.counter = itertools.count(1)
-        func.on_success = on_success
-        func.on_failure = on_failure
-        func.on_closing = on_closing
-        return decorator(self.call, func)
+</div>
+<div class="codeblock python">
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">Async</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A decorator converting blocking functions into asynchronous</span>
+<span class="sd">    functions, by using threads or processes. Examples:</span>
 
-    def call(self, func, *args, **kw):
-        def func_wrapper():
-            try:
-                result = func(*args, **kw)
-            except:
-                func.on_failure(sys.exc_info())
-            else:
-                return func.on_success(result)
-            finally:
-                func.on_closing()
-        name = '%s-%s' % (func.__name__, func.counter.next())
-        thread = self.threadfactory(None, func_wrapper, name)
-        thread.start()
-        return thread
-</pre>
+<span class="sd">    async_with_threads =  Async(threading.Thread)</span>
+<span class="sd">    async_with_processes =  Async(multiprocessing.Process)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">threadfactory</span><span class="p">,</span> <span class="n">on_success</span><span class="o">=</span><span class="n">on_success</span><span class="p">,</span>
+                 <span class="n">on_failure</span><span class="o">=</span><span class="n">on_failure</span><span class="p">,</span> <span class="n">on_closing</span><span class="o">=</span><span class="n">on_closing</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">threadfactory</span> <span class="o">=</span> <span class="n">threadfactory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on_success</span> <span class="o">=</span> <span class="n">on_success</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on_failure</span> <span class="o">=</span> <span class="n">on_failure</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on_closing</span> <span class="o">=</span> <span class="n">on_closing</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">counter</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">counter</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span> <span class="c"># instantiate the counter at the first call</span>
+            <span class="n">counter</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="n">itertools</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">-</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">counter</span><span class="o">.</span><span class="n">next</span><span class="p">())</span>
+        <span class="k">def</span> <span class="nf">func_wrapper</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">on_failure</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">())</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">on_success</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">on_closing</span><span class="p">()</span>
+        <span class="n">thread</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">threadfactory</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">func_wrapper</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">thread</span>
+</pre></div>
+
+</div>
 <p>The decorated function returns
 the current execution thread, which can be stored and checked later, for
 instance to verify that the thread <tt class="docutils literal">.isAlive()</tt>.</p>
@@ -538,7 +556,7 @@ an external resource which can be accessed by a single user at once
 (for instance a printer). Then the access to the writing function must
 be locked. Here is a minimalistic example:</p>
 <div class="codeblock python">
-<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">async</span> <span class="o">=</span> <span class="n">Async</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">)</span>
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">async</span> <span class="o">=</span> <span class="n">decorator</span><span class="p">(</span><span class="n">Async</span><span class="p">(</span><span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">))</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="n">datalist</span> <span class="o">=</span> <span class="p">[]</span> <span class="c"># for simplicity the written data are stored into a list.</span>
 
@@ -571,8 +589,71 @@ be no synchronization problems since <tt class="docutils literal">write</tt> is 
 
 </div>
 </div>
+<div class="section" id="contextmanager">
+<h1><a class="toc-backref" href="#id11">contextmanager</a></h1>
+<p>For a long time Python had in its standard library a <tt class="docutils literal">contextmanager</tt>
+decorator, able to convert generator functions into <tt class="docutils literal">GeneratorContextManager</tt>
+factories. For instance if you write</p>
+<div class="codeblock python">
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nd">@contextmanager</span>
+<span class="o">...</span> <span class="k">def</span> <span class="nf">before_after</span><span class="p">(</span><span class="n">before</span><span class="p">,</span> <span class="n">after</span><span class="p">):</span>
+<span class="o">...</span>     <span class="k">print</span><span class="p">(</span><span class="n">before</span><span class="p">)</span>
+<span class="o">...</span>     <span class="k">yield</span>
+<span class="o">...</span>     <span class="k">print</span><span class="p">(</span><span class="n">after</span><span class="p">)</span>
+</pre></div>
+
+</div>
+<p>then <tt class="docutils literal">before_after</tt> is a factory function returning
+<tt class="docutils literal">GeneratorContextManager</tt> objects which can be used with
+the <tt class="docutils literal">with</tt> statement:</p>
+<div class="codeblock python">
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">ba</span> <span class="o">=</span> <span class="n">before_after</span><span class="p">(</span><span class="s">&#39;BEFORE&#39;</span><span class="p">,</span> <span class="s">&#39;AFTER&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">ba</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">contextlib</span><span class="o">.</span><span class="n">GeneratorContextManager</span><span class="s">&#39;&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">with</span> <span class="n">ba</span><span class="p">:</span>
+<span class="o">...</span>     <span class="k">print</span> <span class="s">&#39;hello&#39;</span>
+<span class="n">BEFORE</span>
+<span class="n">hello</span>
+<span class="n">AFTER</span>
+</pre></div>
+
+</div>
+<p>Basically, it is as if the content of the <tt class="docutils literal">with</tt> block was executed
+in the place of the <tt class="docutils literal">yield</tt> expression in the generator function.
+In Python 3.2 <tt class="docutils literal">GeneratorContextManager</tt>
+objects were enhanced with a <tt class="docutils literal">__call__</tt>
+method, so that they can be used as decorators as in this example:</p>
+<div class="codeblock python">
+<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="nd">@ba</span>
+<span class="o">...</span> <span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
+<span class="o">...</span>     <span class="k">print</span> <span class="s">&#39;hello&#39;</span>
+<span class="o">...</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">hello</span><span class="p">()</span>
+<span class="n">BEFORE</span>
+<span class="n">hello</span>
+<span class="n">AFTER</span>
+</pre></div>
+
+</div>
+<p>The <tt class="docutils literal">ba</tt> decorator is basically inserting a <tt class="docutils literal">with ba:</tt>
+block inside the function.
+However there two issues: the first is that <tt class="docutils literal">GeneratorContextManager</tt>
+objects are callable only in Python 3.2, so the previous example will break
+in older versions of Python; the second is that
+<tt class="docutils literal">GeneratorContextManager</tt> objects do not preserve the signature
+of the decorated functions: the decorated <tt class="docutils literal">hello</tt> function here will have
+a generic signature <tt class="docutils literal"><span class="pre">hello(*args,</span> **kwargs)</tt> but will break when
+called with more than zero arguments. For such reasons the decorator
+module, starting with release 3.4, offers a <tt class="docutils literal">decorator.contextmanager</tt>
+decorator that solves both problems and works even in Python 2.5.
+The usage is the same and factories decorated with <tt class="docutils literal">decorator.contextmanager</tt>
+will returns instances of <tt class="docutils literal">ContextManager</tt>, a subclass of
+<tt class="docutils literal">contextlib.GeneratorContextManager</tt> with a <tt class="docutils literal">__call__</tt> method
+acting as a signature-preserving decorator.</p>
+</div>
 <div class="section" id="the-functionmaker-class">
-<h1><a class="toc-backref" href="#id11">The <tt class="docutils literal">FunctionMaker</tt> class</a></h1>
+<h1><a class="toc-backref" href="#id12">The <tt class="docutils literal">FunctionMaker</tt> class</a></h1>
 <p>You may wonder about how the functionality of the <tt class="docutils literal">decorator</tt> module
 is implemented. The basic building block is
 a <tt class="docutils literal">FunctionMaker</tt> class which is able to generate on the fly
@@ -644,7 +725,7 @@ On the other hand, the functionality provided by
 stay there forever.</p>
 </div>
 <div class="section" id="getting-the-source-code">
-<h1><a class="toc-backref" href="#id12">Getting the source code</a></h1>
+<h1><a class="toc-backref" href="#id13">Getting the source code</a></h1>
 <p>Internally <tt class="docutils literal">FunctionMaker.create</tt> uses <tt class="docutils literal">exec</tt> to generate the
 decorated function. Therefore
 <tt class="docutils literal">inspect.getsource</tt> will not work for decorated functions. That
@@ -654,12 +735,14 @@ available</tt>.  In the past I have considered this acceptable, since
 <tt class="docutils literal">inspect.getsource</tt> does not really work even with regular
 decorators. In that case <tt class="docutils literal">inspect.getsource</tt> gives you the wrapper
 source code which is probably not what you want:</p>
-<pre class="literal-block">
-def identity_dec(func):
-    def wrapper(*args, **kw):
-        return func(*args, **kw)
-    return wrapper
-</pre>
+<div class="codeblock python">
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">identity_dec</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">wrapper</span>
+</pre></div>
+
+</div>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="nd">@identity_dec</span>
 <span class="k">def</span> <span class="nf">example</span><span class="p">():</span> <span class="k">pass</span>
@@ -691,23 +774,25 @@ undecorated function:</p>
 </div>
 </div>
 <div class="section" id="dealing-with-third-party-decorators">
-<h1><a class="toc-backref" href="#id13">Dealing with third party decorators</a></h1>
+<h1><a class="toc-backref" href="#id14">Dealing with third party decorators</a></h1>
 <p>Sometimes you find on the net some cool decorator that you would
 like to include in your code. However, more often than not the cool
 decorator is not signature-preserving. Therefore you may want an easy way to
 upgrade third party decorators to signature-preserving decorators without
 having to rewrite them in terms of <tt class="docutils literal">decorator</tt>. You can use a
 <tt class="docutils literal">FunctionMaker</tt> to implement that functionality as follows:</p>
-<pre class="literal-block">
-def decorator_apply(dec, func):
-    &quot;&quot;&quot;
-    Decorate a function by preserving the signature even if dec
-    is not a signature-preserving decorator.
-    &quot;&quot;&quot;
-    return FunctionMaker.create(
-        func, 'return decorated(%(signature)s)',
-        dict(decorated=dec(func)), __wrapped__=func)
-</pre>
+<div class="codeblock python">
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">decorator_apply</span><span class="p">(</span><span class="n">dec</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Decorate a function by preserving the signature even if dec</span>
+<span class="sd">    is not a signature-preserving decorator.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">FunctionMaker</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+        <span class="n">func</span><span class="p">,</span> <span class="s">&#39;return decorated(</span><span class="si">%(signature)s</span><span class="s">)&#39;</span><span class="p">,</span>
+        <span class="nb">dict</span><span class="p">(</span><span class="n">decorated</span><span class="o">=</span><span class="n">dec</span><span class="p">(</span><span class="n">func</span><span class="p">)),</span> <span class="n">__wrapped__</span><span class="o">=</span><span class="n">func</span><span class="p">)</span>
+</pre></div>
+
+</div>
 <p><tt class="docutils literal">decorator_apply</tt> sets the attribute <tt class="docutils literal">.__wrapped__</tt> of the generated
 function to the original function, so that you can get the right
 source code.</p>
@@ -721,51 +806,57 @@ pretty slick decorator that converts a tail-recursive function in an iterative
 function. I have shamelessly stolen the basic idea from Kay Schluehr's recipe
 in the Python Cookbook,
 <a class="reference external" href="http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691">http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691</a>.</p>
-<pre class="literal-block">
-class TailRecursive(object):
-    &quot;&quot;&quot;
-    tail_recursive decorator based on Kay Schluehr's recipe
-    http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691
-    with improvements by me and George Sakkis.
-    &quot;&quot;&quot;
+<div class="codeblock python">
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">TailRecursive</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    tail_recursive decorator based on Kay Schluehr&#39;s recipe</span>
+<span class="sd">    http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691</span>
+<span class="sd">    with improvements by me and George Sakkis.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    def __init__(self, func):
-        self.func = func
-        self.firstcall = True
-        self.CONTINUE = object() # sentinel
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">func</span> <span class="o">=</span> <span class="n">func</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">firstcall</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">CONTINUE</span> <span class="o">=</span> <span class="nb">object</span><span class="p">()</span> <span class="c"># sentinel</span>
 
-    def __call__(self, *args, **kwd):
-        CONTINUE = self.CONTINUE
-        if self.firstcall:
-            func = self.func
-            self.firstcall = False
-            try:
-                while True:
-                    result = func(*args, **kwd)
-                    if result is CONTINUE: # update arguments
-                        args, kwd = self.argskwd
-                    else: # last call
-                        return result
-            finally:
-                self.firstcall = True
-        else: # return the arguments of the tail call
-            self.argskwd = args, kwd
-            return CONTINUE
-</pre>
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwd</span><span class="p">):</span>
+        <span class="n">CONTINUE</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CONTINUE</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">firstcall</span><span class="p">:</span>
+            <span class="n">func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">func</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">firstcall</span> <span class="o">=</span> <span class="bp">False</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwd</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="n">CONTINUE</span><span class="p">:</span> <span class="c"># update arguments</span>
+                        <span class="n">args</span><span class="p">,</span> <span class="n">kwd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">argskwd</span>
+                    <span class="k">else</span><span class="p">:</span> <span class="c"># last call</span>
+                        <span class="k">return</span> <span class="n">result</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">firstcall</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">else</span><span class="p">:</span> <span class="c"># return the arguments of the tail call</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">argskwd</span> <span class="o">=</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwd</span>
+            <span class="k">return</span> <span class="n">CONTINUE</span>
+</pre></div>
+
+</div>
 <p>Here the decorator is implemented as a class returning callable
 objects.</p>
-<pre class="literal-block">
-def tail_recursive(func):
-    return decorator_apply(TailRecursive, func)
-</pre>
+<div class="codeblock python">
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">tail_recursive</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">decorator_apply</span><span class="p">(</span><span class="n">TailRecursive</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
+</pre></div>
+
+</div>
 <p>Here is how you apply the upgraded decorator to the good old factorial:</p>
-<pre class="literal-block">
-&#64;tail_recursive
-def factorial(n, acc=1):
-    &quot;The good old factorial&quot;
-    if n == 0: return acc
-    return factorial(n-1, n*acc)
-</pre>
+<div class="codeblock python">
+<div class="highlight"><pre><span class="nd">@tail_recursive</span>
+<span class="k">def</span> <span class="nf">factorial</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">acc</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="s">&quot;The good old factorial&quot;</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="n">acc</span>
+    <span class="k">return</span> <span class="n">factorial</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">n</span><span class="o">*</span><span class="n">acc</span><span class="p">)</span>
+</pre></div>
+
+</div>
 <div class="codeblock python">
 <div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">factorial</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 <span class="mi">24</span>
@@ -777,17 +868,19 @@ your mind ;) Notice that there is no recursion limit now, and you can
 easily compute <tt class="docutils literal">factorial(1001)</tt> or larger without filling the stack
 frame. Notice also that the decorator will not work on functions which
 are not tail recursive, such as the following</p>
-<pre class="literal-block">
-def fact(n): # this is not tail-recursive
-    if n == 0: return 1
-    return n * fact(n-1)
-</pre>
+<div class="codeblock python">
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">fact</span><span class="p">(</span><span class="n">n</span><span class="p">):</span> <span class="c"># this is not tail-recursive</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">n</span> <span class="o">*</span> <span class="n">fact</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+</div>
 <p>(reminder: a function is tail recursive if it either returns a value without
 making a recursive call, or returns directly the result of a recursive
 call).</p>
 </div>
 <div class="section" id="caveats-and-limitations">
-<h1><a class="toc-backref" href="#id14">Caveats and limitations</a></h1>
+<h1><a class="toc-backref" href="#id15">Caveats and limitations</a></h1>
 <p>The first thing you should be aware of, it the fact that decorators
 have a performance penalty.
 The worse case is shown by the following example:</p>
@@ -935,7 +1028,7 @@ a <em>copy</em> of the original function dictionary
 </div>
 </div>
 <div class="section" id="compatibility-notes">
-<h1><a class="toc-backref" href="#id15">Compatibility notes</a></h1>
+<h1><a class="toc-backref" href="#id16">Compatibility notes</a></h1>
 <p>Version 3.3 is the first version of the <tt class="docutils literal">decorator</tt> module to fully
 support Python 3, including <a class="reference external" href="http://www.python.org/dev/peps/pep-3107/">function annotations</a>. Version 3.2 was the
 first version to support Python 3 via the <tt class="docutils literal">2to3</tt> conversion tool
@@ -975,22 +1068,20 @@ tuple. That means that running the file
 they are not serious.</p>
 </div>
 <div class="section" id="licence">
-<h1><a class="toc-backref" href="#id16">LICENCE</a></h1>
+<h1><a class="toc-backref" href="#id17">LICENCE</a></h1>
+<p>Copyright (c) 2005-2012, Michele Simionato
+All rights reserved.</p>
 <p>Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
 met:</p>
-<pre class="literal-block">
-Copyright (c) 2005, Michele Simionato
-All rights reserved.
-
+<blockquote>
 Redistributions of source code must retain the above copyright
 notice, this list of conditions and the following disclaimer.
 Redistributions in bytecode form must reproduce the above copyright
 notice, this list of conditions and the following disclaimer in
 the documentation and/or other materials provided with the
-distribution.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+distribution.</blockquote>
+<p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
 A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
@@ -1001,8 +1092,7 @@ OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
 ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
 TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
-DAMAGE.
-</pre>
+DAMAGE.</p>
 <p>If you use this software and you are happy with it, consider sending me a
 note, just to gratify my ego. On the other hand, if you use this software and
 you are unhappy with it, send me a patch!</p>

@@ -1,8 +1,8 @@
-RST=python $(HOME)/trunk/ROnline/RCommon/Python/ms/tools/rst.py
+RST=python $(S)/ms/tools/rst.py
 
 rst: documentation.py documentation3.py
-	python $(HOME)/trunk/ROnline/RCommon/Python/ms/tools/minidoc.py -d documentation.py
-	python3 $(S)/minidoc3.py -d documentation3.py
+	python $(S)/ms/tools/minidoc.py -d documentation.py
+	python3.3 $(S)/minidoc3.py -d documentation3.py
 
 html: /tmp/documentation.rst /tmp/documentation3.rst
 	$(RST) /tmp/documentation.rst
@@ -15,4 +15,4 @@ pdf: /tmp/documentation.rst /tmp/documentation3.rst
 	cp /tmp/documentation.html /tmp/documentation3.html .
 
 upload: documentation.pdf documentation3.pdf
-	python3 setup.py register sdist upload 
+	python3.3 setup.py register sdist upload 

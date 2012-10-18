@@ -130,7 +130,7 @@ argument, you will get an error:
 
 .. code-block:: python
 
- >>> f1(0, 1)
+ >>> f1(0, 1) # doctest: +IGNORE_EXCEPTION_DETAIL
  Traceback (most recent call last):
     ...
  TypeError: f1() takes exactly 1 positional argument (2 given)
@@ -302,7 +302,8 @@ For instance, you can write directly
 
  >>> @decorator
  ... def trace(f, *args, **kw):
- ...     print("calling %s with args %s, %s" % (f.__name__, args, kw))
+ ...     kwstr = ', '.join('%r: %r' % (k, kw[k]) for k in sorted(kw))
+ ...     print("calling %s with args %s, {%s}" % (f.__name__, args, kwstr))
  ...     return f(*args, **kw)
 
 and now ``trace`` will be a decorator. Actually ``trace`` is a ``partial``
@@ -370,18 +371,16 @@ We have just seen an examples of a simple decorator factory,
 implemented as a function returning a decorator.
 For more complex situations, it is more
 convenient to implement decorator factories as classes returning
-callable objects that can be used as signature-preserving
-decorators. The suggested pattern to do that is to introduce
-a helper method ``call(self, func, *args, **kw)`` and to call
-it in the ``__call__(self, func)`` method.
+callable objects that can be converted into decorators. 
 
-As an example, here I show a decorator
+As an example, here will I show a decorator
 which is able to convert a blocking function into an asynchronous
 function. The function, when called, 
 is executed in a separate thread. Moreover, it is possible to set
 three callbacks ``on_success``, ``on_failure`` and ``on_closing``,
-to specify how to manage the function call.
-The implementation is the following:
+to specify how to manage the function call (of course the code here
+is just an example, it is not a recommended way of doing multi-threaded
+programming). The implementation is the following:
 
 $$on_success
 $$on_failure
@@ -399,7 +398,7 @@ be locked. Here is a minimalistic example:
 
 .. code-block:: python
 
- >>> async = Async(threading.Thread)
+ >>> async = decorator(Async(threading.Thread))
 
  >>> datalist = [] # for simplicity the written data are stored into a list.
 
@@ -428,6 +427,71 @@ be no synchronization problems since ``write`` is locked.
  
  >>> print(datalist)
  ['data1', 'data2']
+
+contextmanager
+-------------------------------------
+
+For a long time Python had in its standard library a ``contextmanager``
+decorator, able to convert generator functions into ``_GeneratorContextManager``
+factories. For instance if you write
+
+.. code-block:: python
+
+ >>> from contextlib import contextmanager
+ >>> @contextmanager
+ ... def before_after(before, after):
+ ...     print(before)
+ ...     yield
+ ...     print(after)
+
+
+then ``before_after`` is a factory function returning
+``_GeneratorContextManager`` objects which can be used with 
+the ``with`` statement:
+
+.. code-block:: python
+
+ >>> ba = before_after('BEFORE', 'AFTER')
+ >>> type(ba)
+ <class 'contextlib._GeneratorContextManager'>
+ >>> with ba:
+ ...     print('hello')
+ BEFORE
+ hello
+ AFTER
+
+Basically, it is as if the content of the ``with`` block was executed
+in the place of the ``yield`` expression in the generator function.
+In Python 3.2 ``_GeneratorContextManager`` 
+objects were enhanced with a ``__call__``
+method, so that they can be used as decorators as in this example:
+
+.. code-block:: python
+
+ >>> @ba # doctest: +SKIP
+ ... def hello():
+ ...     print('hello')
+ ...
+ >>> hello() # doctest: +SKIP
+ BEFORE
+ hello
+ AFTER
+
+The ``ba`` decorator is basically inserting a ``with ba:`` 
+block inside the function.
+However there two issues: the first is that ``_GeneratorContextManager`` 
+objects are callable only in Python 3.2, so the previous example will break
+in older versions of Python; the second is that 
+``_GeneratorContextManager`` objects do not preserve the signature
+of the decorated functions: the decorated ``hello`` function here will have
+a generic signature ``hello(*args, **kwargs)`` but will break when
+called with more than zero arguments. For such reasons the decorator
+module, starting with release 3.4, offers a ``decorator.contextmanager``
+decorator that solves both problems and works even in Python 2.5.
+The usage is the same and factories decorated with ``decorator.contextmanager``
+will returns instances of ``ContextManager``, a subclass of 
+``contextlib._GeneratorContextManager`` with a ``__call__`` method
+acting as a signature-preserving decorator.
 
 The ``FunctionMaker`` class
 ---------------------------------------------------------------
@@ -832,7 +896,8 @@ def decorator_apply(dec, func):
         dict(decorated=dec(func)), __wrapped__=func)
 
 def _trace(f, *args, **kw):
-    print("calling %s with args %s, %s" % (f.__name__, args, kw))
+    kwstr = ', '.join('%r: %r' % (k, kw[k]) for k in sorted(kw))
+    print("calling %s with args %s, {%s}" % (f.__name__, args, kwstr))
     return f(*args, **kw)
 
 def trace(f):
@@ -859,29 +924,28 @@ class Async(object):
     async_with_processes =  Async(multiprocessing.Process)
     """
 
-    def __init__(self, threadfactory):
-        self.threadfactory = threadfactory
-
-    def __call__(self, func, on_success=on_success,
+    def __init__(self, threadfactory, on_success=on_success,
                  on_failure=on_failure, on_closing=on_closing):
-        # every decorated function has its own independent thread counter
-        func.counter = itertools.count(1)
-        func.on_success = on_success
-        func.on_failure = on_failure
-        func.on_closing = on_closing
-        return decorator(self.call, func)
+        self.threadfactory = threadfactory
+        self.on_success = on_success
+        self.on_failure = on_failure
+        self.on_closing = on_closing
 
-    def call(self, func, *args, **kw):
+    def __call__(self, func, *args, **kw):
+        try:
+            counter = func.counter
+        except AttributeError: # instantiate the counter at the first call
+            counter = func.counter = itertools.count(1)
+        name = '%s-%s' % (func.__name__, next(counter))
         def func_wrapper():
             try:
                 result = func(*args, **kw)
             except:
-                func.on_failure(sys.exc_info())
+                self.on_failure(sys.exc_info())
             else:
-                return func.on_success(result)
+                return self.on_success(result)
             finally:
-                func.on_closing()
-        name = '%s-%s' % (func.__name__, next(func.counter))
+                self.on_closing()
         thread = self.threadfactory(None, func_wrapper, name)
         thread.start()
         return thread
@@ -1039,7 +1103,7 @@ def a_test_for_pylons():
     >>> decorator(_memoize).__name__
     '_memoize'
 
-    Here is another bug of version 3.1.1 missing the docstring to avoid:
+    Here is another bug of version 3.1.1 missing the docstring:
 
     >>> factorial.__doc__
     'The good old factorial'
@@ -1061,9 +1125,46 @@ def test_kwonlyargs():
     ...     return y, z
     ...
     >>> func('a', 'b', 'c', 'd', 'e', y='y', z='z', cat='dog')
-    calling func with args ('a', 'b', 'c', 'd', 'e'), {'y': 'y', 'z': 'z', 'cat': 'dog'}
+    calling func with args ('a', 'b', 'c', 'd', 'e'), {'cat': 'dog', 'y': 'y', 'z': 'z'}
     ('y', 'z')
     """
+
+def test_kwonly_no_args():
+    """# this was broken with decorator 3.3.3
+    >>> @trace
+    ... def f(**kw): pass
+    ...
+    >>> f()
+    calling f with args (), {}
+    """
+def test_kwonly_star_notation():
+    """
+    >>> @trace
+    ... def f(*, a=1, **kw): pass
+    ...
+    >>> inspect.getfullargspec(f)
+    FullArgSpec(args=[], varargs=None, varkw='kw', defaults=None, kwonlyargs=['a'], kwonlydefaults={'a': 1}, annotations={})
+    """
+
+@contextmanager
+def before_after(before, after):
+    print(before)
+    yield
+    print(after)
+
+ba = before_after('BEFORE', 'AFTER') # ContextManager instance
+
+@ba
+def hello(user):
+    """
+    >>> ba.__class__.__name__
+    'ContextManager'
+    >>> hello('michele')
+    BEFORE
+    hello michele
+    AFTER
+    """
+    print('hello %s' % user)
 
 if __name__ == '__main__':
     import doctest; doctest.testmod()
