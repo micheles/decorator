@@ -1,2 +1,0 @@
-include documentation.py documentation3.py
-exclude Makefile

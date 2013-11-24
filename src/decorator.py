@@ -32,7 +32,7 @@ Decorator module, see http://pypi.python.org/pypi/decorator
 for the documentation.
 """
 
-__version__ = '3.4.0'
+__version__ = '3.4.1'
 
 __all__ = ["decorator", "FunctionMaker", "contextmanager"]
 
@@ -104,7 +104,7 @@ class FunctionMaker(object):
                         allshortargs.append('**' + self.varkw)
                     self.signature = ', '.join(allargs)
                     self.shortsignature = ', '.join(allshortargs)
-                self.dict = func.__dict__.copy()
+                self.dict = func.__dict__
         # func=None happens when decorating a caller
         if name:
             self.name = name
@@ -197,7 +197,7 @@ def decorator(caller, func=None):
         evaldict['_func_'] = func
         return FunctionMaker.create(
             func, "return _call_(_func_, %(shortsignature)s)",
-            evaldict, undecorated=func, __wrapped__=func)
+            evaldict, __wrapped__=func)
     else: # returns a decorator
         if inspect.isclass(caller):
             name = caller.__name__.lower()
@@ -206,8 +206,10 @@ def decorator(caller, func=None):
                 'factories of %s objects' % (caller.__name__, caller.__name__)
             fun = getfullargspec(callerfunc).args[1] # second arg
         elif inspect.isfunction(caller):
-            name = '_lambda_' if caller.__name__ == '<lambda>' \
-                else caller.__name__
+            if caller.__name__ == '<lambda>':
+                name = '_lambda_'
+            else:
+                name = caller.__name__
             callerfunc = caller
             doc = caller.__doc__
             fun = getfullargspec(callerfunc).args[0] # first arg
@@ -222,8 +224,7 @@ def decorator(caller, func=None):
         return FunctionMaker.create(
             '%s(%s)' % (name, fun), 
             'return decorator(_call_, %s)' % fun,
-            evaldict, undecorated=caller, __wrapped__=caller,
-            doc=doc, module=caller.__module__)
+            evaldict, call=caller, doc=doc, module=caller.__module__)
 
 ######################### contextmanager ########################
 
@@ -236,16 +237,22 @@ def __call__(self, func):
 try: # Python >= 3.2
 
     from contextlib import _GeneratorContextManager 
-    ContextManager = type(
-        'ContextManager', (_GeneratorContextManager,), dict(__call__=__call__))
+    class ContextManager(_GeneratorContextManager):
+        __call__=__call__
 
 except ImportError: # Python >= 2.5
 
-    from contextlib import GeneratorContextManager
-    def __init__(self, f, *a, **k):
-        return GeneratorContextManager.__init__(self, f(*a, **k))
-    ContextManager = type(
-        'ContextManager', (GeneratorContextManager,), 
-        dict(__call__=__call__, __init__=__init__))
-    
+    try:
+        from contextlib import GeneratorContextManager
+    except ImportError: # Python 2.4
+        class ContextManager(object):
+            def __init__(self, g, *a, **k):
+                raise RuntimeError(
+                    'You cannot used contextmanager in Python 2.4!')
+    else:
+        class ContextManager(GeneratorContextManager):
+            def __init__(self, g, *a, **k):
+                return GeneratorContextManager.__init__(self, g(*a, **k))
+            __call__ = __call__
+
 contextmanager = decorator(ContextManager)

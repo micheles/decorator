@@ -462,6 +462,10 @@ will returns instances of ``ContextManager``, a subclass of
 ``contextlib.GeneratorContextManager`` with a ``__call__`` method
 acting as a signature-preserving decorator.
 
+**Disclaimer**: the ``contextmanager`` decorator is an *experimental* feature:
+it may go away in future versions of the decorator module. Use it at your
+own risk.
+
 The ``FunctionMaker`` class
 ---------------------------------------------------------------
 
@@ -775,9 +779,9 @@ you will get a ``NameError``:
 
 Finally, the implementation is such that the decorated function
 attribute ``.func_globals`` is a *copy* of the original function
-attribute. Moreover the decorated function contains
-a *copy* of the original function dictionary
-(``vars(decorated_f) is not vars(f)``):
+attribute. On the other hand the function attribute dictionary
+of the decorated function is just a reference to the
+original function dictionary, i.e. ``vars(decorated_f) is vars(f)``:
 
 .. code-block:: python
 
@@ -790,45 +794,22 @@ a *copy* of the original function dictionary
  >>> traced_f.attr1
  'something'
  >>> traced_f.attr2 = "something different" # setting attr
- >>> f.attr2 # the original attribute did not change
- 'something else'
+ >>> f.attr2 # the original attribute did change
+ 'something different'
 
 Compatibility notes
 ---------------------------------------------------------------
 
-Version 3.3 is the first version of the ``decorator`` module to fully
-support Python 3, including `function annotations`_. Version 3.2 was the
-first version to support Python 3 via the ``2to3`` conversion tool
-invoked in the build process by the distribute_ project, the Python
-3-compatible replacement of easy_install.  The hard work (for me) has
-been converting the documentation and the doctests.  This has been
-possible only after that docutils_ and pygments_ have been ported to
-Python 3.
+This version fully supports Python 3, including `function
+annotations`_. Moreover it is the first version to support
+generic callers, i.e. callable objects with the right
+signature, not necessarily functions. ``contextmanager``
+will not work in Python 2.4. The decorated function
+dictionary is now the same of the original function
+dictionary, wheread in past versions they were
+different objects.
 
-Version 3 of the ``decorator`` module do not contain any backward
-incompatible change, apart from the removal of the functions
-``get_info`` and ``new_wrapper``, which have been deprecated for
-years. ``get_info`` has been removed since it was little used and
-since it had to be changed anyway to work with Python 3.0;
-``new_wrapper`` has been removed since it was useless: its major use
-case (converting signature changing decorators to signature preserving
-decorators) has been subsumed by ``decorator_apply``, whereas the other use
-case can be managed with the ``FunctionMaker``.
-
-There are a few changes in the documentation: I removed the 
-``decorator_factory`` example, which was confusing some of my users,
-and I removed the part about exotic signatures in the Python 3
-documentation, since Python 3 does not support them.
-
-Finally ``decorator`` cannot be used as a class decorator and the
-`functionality introduced in version 2.3`_ has been removed. That
-means that in order to define decorator factories with classes you
-need to define the ``__call__`` method explicitly (no magic anymore).
-All these changes should not cause any trouble, since they were
-all rarely used features. Should you have any trouble, you can always
-downgrade to the 2.3 version.
-
-The examples shown here have been tested with Python 2.6. Python 2.4
+The examples shown here have been tested with Python 2.7 and 3.3. Python 2.4
 is also supported - of course the examples requiring the ``with``
 statement will not work there. Python 2.5 works fine, but if you
 run the examples in the interactive interpreter
@@ -838,7 +819,6 @@ tuple. That means that running the file
 ``documentation.py`` under Python 2.5 will print a few errors, but
 they are not serious. 
 
-.. _functionality introduced in version 2.3: http://www.phyast.pitt.edu/~micheles/python/documentation.html#class-decorators-and-decorator-factories
 .. _function annotations: http://www.python.org/dev/peps/pep-3107/
 .. _distribute: http://packages.python.org/distribute/
 .. _docutils: http://docutils.sourceforge.net/
