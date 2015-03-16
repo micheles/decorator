@@ -780,9 +780,8 @@ you will get a ``NameError``:
 
 Finally, the implementation is such that the decorated function
 attribute ``.func_globals`` is a *copy* of the original function
-attribute. On the other hand the function attribute dictionary
-of the decorated function is just a reference to the
-original function dictionary, i.e. ``vars(decorated_f) is vars(f)``:
+attribute, just as thee attribute dictionary
+of the decorated function.
 
 .. code-block:: python
 
@@ -795,8 +794,8 @@ original function dictionary, i.e. ``vars(decorated_f) is vars(f)``:
  >>> traced_f.attr1
  'something'
  >>> traced_f.attr2 = "something different"  # setting attr
- >>> f.attr2  # the original attribute did change
- 'something different'
+ >>> f.attr2  # the original attribute did not change
+ 'something else'
 
 Compatibility notes
 ---------------------------------------------------------------

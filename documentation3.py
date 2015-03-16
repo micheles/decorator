@@ -788,8 +788,8 @@ the original function dictionary:
  >>> traced_f.attr1
  'something'
  >>> traced_f.attr2 = "something different" # setting attr
- >>> f.attr2 # the original attribute did change, works in Python 3.4
- 'something different'
+ >>> f.attr2 # the original attribute did not change
+ 'something else'
 
 Compatibility notes
 ---------------------------------------------------------------
