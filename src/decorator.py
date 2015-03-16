@@ -111,7 +111,7 @@ class FunctionMaker(object):
                         allshortargs.append('**' + self.varkw)
                     self.signature = ', '.join(allargs)
                     self.shortsignature = ', '.join(allshortargs)
-                self.dict = func.__dict__
+                self.dict = func.__dict__.copy()
         # func=None happens when decorating a caller
         if name:
             self.name = name

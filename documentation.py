@@ -780,9 +780,7 @@ you will get a ``NameError``:
 
 Finally, the implementation is such that the decorated function
 attribute ``.func_globals`` is a *copy* of the original function
-attribute. On the other hand the function attribute dictionary
-of the decorated function is just a reference to the
-original function dictionary, i.e. ``vars(decorated_f) is vars(f)``:
+attribute, just as the attribute dictionary of the decorated function.
 
 .. code-block:: python
 
@@ -795,8 +793,8 @@ original function dictionary, i.e. ``vars(decorated_f) is vars(f)``:
  >>> traced_f.attr1
  'something'
  >>> traced_f.attr2 = "something different"  # setting attr
- >>> f.attr2  # the original attribute did change
- 'something different'
+ >>> f.attr2  # the original attribute did not change
+ 'something else'
 
 Compatibility notes
 ---------------------------------------------------------------
@@ -1044,7 +1042,7 @@ class Action(object):
     """
     >>> a = Action()
     >>> a.view() # ok
-    >>> a.insert() # err
+    >>> a.insert() # doctest: +IGNORE_EXCEPTION_DETAIL
     Traceback (most recent call last):
        ...
     PermissionError: User does not have the permission to run insert!
@@ -1147,8 +1145,3 @@ def hello(user):
     AFTER
     """
     print('hello %s' % user)
-
-if __name__ == '__main__':
-    import doctest
-    err = doctest.testmod()[0]
-    sys.exit(err)

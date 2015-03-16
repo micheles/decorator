@@ -30,13 +30,9 @@ in the main directory, possibly as superuser.
 Testing
 --------
 
-For Python 2.5, 2.6, 2.7 run
+Run
 
- `$ python documentation.py`
-
-for Python 3.X run
-
- `$ python3 documentation3.py`
+ `$ python test.py`
 
 You will see a few innocuous errors with Python 2.5, because some
 inner details such as the introduction of the ArgSpec namedtuple and

@@ -788,8 +788,8 @@ the original function dictionary:
  >>> traced_f.attr1
  'something'
  >>> traced_f.attr2 = "something different" # setting attr
- >>> f.attr2 # the original attribute did change, works in Python 3.4
- 'something different'
+ >>> f.attr2 # the original attribute did not change
+ 'something else'
 
 Compatibility notes
 ---------------------------------------------------------------
@@ -1062,11 +1062,10 @@ class Action(object):
     """
     >>> a = Action()
     >>> a.view() # ok
-    >>> a.insert() # err
+    >>> a.insert() # doctest: +IGNORE_EXCEPTION_DETAIL
     Traceback (most recent call last):
        ...
     PermissionError: User does not have the permission to run insert!
-
     """
     @restricted(User)
     def view(self):
@@ -1207,8 +1206,3 @@ def hello(user):
     AFTER
     """
     print('hello %s' % user)
-
-if __name__ == '__main__':
-    import doctest
-    err = doctest.testmod()[0]
-    sys.exit(err)
