@@ -1,12 +1,12 @@
-r"""
+
 The ``decorator`` module
 =============================================================
 
 :Author: Michele Simionato
 :E-mail: michele.simionato@gmail.com
-:Version: $VERSION ($DATE)
+:Version: 3.4.1 (2015-03-16)
 :Requires: Python 2.4+
-:Download page: http://pypi.python.org/pypi/decorator/$VERSION
+:Download page: http://pypi.python.org/pypi/decorator/3.4.1
 :Installation: ``easy_install decorator``
 :License: BSD license
 
@@ -87,7 +87,24 @@ A simple implementation could be the following (notice
 that in general it is impossible to memoize correctly something
 that depends on non-hashable arguments):
 
-$$memoize_uw
+.. code-block:: python
+
+ def memoize_uw(func):
+     func.cache = {}
+ 
+     def memoize(*args, **kw):
+         if kw:  # frozenset is used to ensure hashability
+             key = args, frozenset(kw.iteritems())
+         else:
+             key = args
+         cache = func.cache
+         if key in cache:
+             return cache[key]
+         else:
+             cache[key] = result = func(*args, **kw)
+             return result
+     return functools.update_wrapper(memoize, func)
+
 
 Here we used the functools.update_wrapper_ utility, which has
 been added in Python 2.5 expressly to simplify the definition of decorators
@@ -95,7 +112,7 @@ been added in Python 2.5 expressly to simplify the definition of decorators
 ``__name__``, ``__doc__``, ``__module__`` and ``__dict__``
 from the original function to the decorated function by hand).
 
-.. _functools.update_wrapper: https://docs.python.org/2/library/functools.html#functools.update_wrapper
+.. _functools.update_wrapper: https://docs.python.org/3/library/functools.html#functools.update_wrapper
 
 The implementation above works in the sense that the decorator
 can accept functions with generic signatures; unfortunately this
@@ -119,7 +136,7 @@ keyword arguments:
 .. code-block:: python
 
  >>> from inspect import getargspec
- >>> print getargspec(f1) # I am using Python 2.6+ here
+ >>> print(getargspec(f1))
  ArgSpec(args=[], varargs='args', keywords='kw', defaults=None)
 
 This means that introspection tools such as pydoc will give
@@ -130,10 +147,10 @@ argument, you will get an error:
 
 .. code-block:: python
 
- >>> f1(0, 1)
+ >>> f1(0, 1) 
  Traceback (most recent call last):
     ...
- TypeError: f1() takes exactly 1 argument (2 given)
+ TypeError: f1() takes exactly 1 positional argument (2 given)
 
 The solution
 -----------------------------------------
@@ -154,11 +171,29 @@ signature ``(f, *args, **kw)`` and it must call the original function ``f``
 with arguments ``args`` and ``kw``, implementing the wanted capability,
 i.e. memoization in this case:
 
-$$_memoize
+.. code-block:: python
+
+ def _memoize(func, *args, **kw):
+     if kw:  # frozenset is used to ensure hashability
+         key = args, frozenset(kw.iteritems())
+     else:
+         key = args
+     cache = func.cache  # attributed added by memoize
+     if key in cache:
+         return cache[key]
+     else:
+         cache[key] = result = func(*args, **kw)
+         return result
+
 
 At this point you can define your decorator as follows:
 
-$$memoize
+.. code-block:: python
+
+ def memoize(f):
+     f.cache = {}
+     return decorator(_memoize, f)
+
 
 The difference with respect to the ``memoize_uw`` approach, which is based
 on nested functions, is that the decorator module forces you to lift
@@ -175,17 +210,17 @@ Here is a test of usage:
  ...     time.sleep(2)
  ...     return "done"
 
- >>> print heavy_computation() # the first time it will take 2 seconds
+ >>> print(heavy_computation()) # the first time it will take 2 seconds
  done
 
- >>> print heavy_computation() # the second time it will be instantaneous
+ >>> print(heavy_computation()) # the second time it will be instantaneous
  done
 
 The signature of ``heavy_computation`` is the one you would expect:
 
 .. code-block:: python
 
- >>> print getargspec(heavy_computation)
+ >>> print(getargspec(heavy_computation))
  ArgSpec(args=[], varargs=None, keywords=None, defaults=None)
 
 A ``trace`` decorator
@@ -195,9 +230,19 @@ As an additional example, here is how you can define a trivial
 ``trace`` decorator, which prints a message everytime the traced
 function is called:
 
-$$_trace
+.. code-block:: python
 
-$$trace
+ def _trace(f, *args, **kw):
+     kwstr = ', '.join('%r: %r' % (k, kw[k]) for k in sorted(kw))
+     print("calling %s with args %s, {%s}" % (f.__name__, args, kwstr))
+     return f(*args, **kw)
+
+
+.. code-block:: python
+
+ def trace(f):
+     return decorator(_trace, f)
+
 
 Here is an example of usage:
 
@@ -218,7 +263,7 @@ and it that it has the correct signature:
 
 .. code-block:: python
 
- >>> print getargspec(f1)
+ >>> print(getargspec(f1))
  ArgSpec(args=['x'], varargs=None, keywords=None, defaults=None)
 
 The same decorator works with functions of any signature:
@@ -232,24 +277,54 @@ The same decorator works with functions of any signature:
  >>> f(0, 3)
  calling f with args (0, 3, 2), {}
 
- >>> print getargspec(f)
+ >>> print(getargspec(f))
  ArgSpec(args=['x', 'y', 'z'], varargs='args', keywords='kw', defaults=(1, 2))
 
-That includes even functions with exotic signatures like the following:
+Function annotations
+---------------------------------------------
+
+Python 3 introduced the concept of `function annotations`_,i.e. the ability
+to annotate the signature of a function with additional information,
+stored in a dictionary named ``__annotations__``. The decorator module,
+starting from release 3.3, is able to understand and to preserve the
+annotations. Here is an example:
 
 .. code-block:: python
 
  >>> @trace
- ... def exotic_signature((x, y)=(1,2)): return x+y
+ ... def f(x: 'the first argument', y: 'default argument'=1, z=2,
+ ...       *args: 'varargs', **kw: 'kwargs'):
+ ...     pass
+ 
+In order to introspect functions with annotations, one needs the
+utility ``inspect.getfullargspec``, new in Python 3:
 
- >>> print getargspec(exotic_signature)
- ArgSpec(args=[['x', 'y']], varargs=None, keywords=None, defaults=((1, 2),))
- >>> exotic_signature()
- calling exotic_signature with args ((1, 2),), {}
- 3
+.. code-block:: python
 
-Notice that the support for exotic signatures has been deprecated
-in Python 2.6 and removed in Python 3.0.
+ >>> from inspect import getfullargspec
+ >>> argspec = getfullargspec(f)
+ >>> argspec.args
+ ['x', 'y', 'z']
+ >>> argspec.varargs
+ 'args'
+ >>> argspec.varkw
+ 'kw'
+ >>> argspec.defaults
+ (1, 2)
+ >>> argspec.kwonlyargs
+ []
+ >>> argspec.kwonlydefaults
+
+You can also check that the ``__annotations__`` dictionary is preserved:
+
+.. code-block:: python
+
+  >>> f.__annotations__ == f.__wrapped__.__annotations__
+  True
+
+Depending on the version of the decorator module, the two dictionaries can
+be the same object or not: you cannot rely on object identity, but you can
+rely on the content being the same.
 
 ``decorator`` is a decorator
 ---------------------------------------------
@@ -272,7 +347,8 @@ For instance, you can write directly
 
  >>> @decorator
  ... def trace(f, *args, **kw):
- ...     print "calling %s with args %s, %s" % (f.func_name, args, kw)
+ ...     kwstr = ', '.join('%r: %r' % (k, kw[k]) for k in sorted(kw))
+ ...     print("calling %s with args %s, {%s}" % (f.__name__, args, kwstr))
  ...     return f(*args, **kw)
 
 and now ``trace`` will be a decorator. Actually ``trace`` is a ``partial``
@@ -280,7 +356,7 @@ object which can be used as a decorator:
 
 .. code-block:: python
 
- >>> trace # doctest: +ELLIPSIS
+ >>> trace 
  <function trace at 0x...>
 
 Here is an example of usage:
@@ -305,8 +381,24 @@ sometimes it is best to have back a "busy" message than to block everything.
 This behavior can be implemented with a suitable family of decorators,
 where the parameter is the busy message:
 
-$$blocking
+.. code-block:: python
 
+ def blocking(not_avail):
+     def blocking(f, *args, **kw):
+         if not hasattr(f, "thread"):  # no thread running
+             def set_result():
+                 f.result = f(*args, **kw)
+             f.thread = threading.Thread(None, set_result)
+             f.thread.start()
+             return not_avail
+         elif f.thread.isAlive():
+             return not_avail
+         else:  # the thread is ended, return the stored result
+             del f.thread
+             return f.result
+     return decorator(blocking)
+
+   
 Functions decorated with ``blocking`` will return a busy message if
 the resource is unavailable, and the intended result if the resource is
 available. For instance:
@@ -318,19 +410,19 @@ available. For instance:
  ...     time.sleep(3) # simulate a blocking resource
  ...     return "some data"
 
- >>> print read_data() # data is not available yet
+ >>> print(read_data())  # data is not available yet
  Please wait ...
 
  >>> time.sleep(1)
- >>> print read_data() # data is not available yet
+ >>> print(read_data())  # data is not available yet
  Please wait ...
 
  >>> time.sleep(1)
- >>> print read_data() # data is not available yet
+ >>> print(read_data())  # data is not available yet
  Please wait ...
 
- >>> time.sleep(1.1) # after 3.1 seconds, data is available
- >>> print read_data()
+ >>> time.sleep(1.1)  # after 3.1 seconds, data is available
+ >>> print(read_data())
  some data
 
 ``async``
@@ -351,14 +443,66 @@ to specify how to manage the function call (of course the code here
 is just an example, it is not a recommended way of doing multi-threaded
 programming). The implementation is the following:
 
-$$on_success
-$$on_failure
-$$on_closing
-$$Async
+.. code-block:: python
 
-The decorated function returns the current execution thread, which can
-be stored and checked later, for  instance to verify that the
-thread ``.isAlive()``.
+ def on_success(result):  # default implementation
+     "Called on the result of the function"
+     return result
+
+.. code-block:: python
+
+ def on_failure(exc_info):  # default implementation
+     "Called if the function fails"
+     pass
+
+.. code-block:: python
+
+ def on_closing():  # default implementation
+     "Called at the end, both in case of success and failure"
+     pass
+
+.. code-block:: python
+
+ class Async(object):
+     """
+     A decorator converting blocking functions into asynchronous
+     functions, by using threads or processes. Examples:
+ 
+     async_with_threads =  Async(threading.Thread)
+     async_with_processes =  Async(multiprocessing.Process)
+     """
+ 
+     def __init__(self, threadfactory, on_success=on_success,
+                  on_failure=on_failure, on_closing=on_closing):
+         self.threadfactory = threadfactory
+         self.on_success = on_success
+         self.on_failure = on_failure
+         self.on_closing = on_closing
+ 
+     def __call__(self, func, *args, **kw):
+         try:
+             counter = func.counter
+         except AttributeError:  # instantiate the counter at the first call
+             counter = func.counter = itertools.count(1)
+         name = '%s-%s' % (func.__name__, next(counter))
+ 
+         def func_wrapper():
+             try:
+                 result = func(*args, **kw)
+             except:
+                 self.on_failure(sys.exc_info())
+             else:
+                 return self.on_success(result)
+             finally:
+                 self.on_closing()
+         thread = self.threadfactory(None, func_wrapper, name)
+         thread.start()
+         return thread
+
+
+The decorated function returns
+the current execution thread, which can be stored and checked later, for
+instance to verify that the thread ``.isAlive()``.
 
 Here is an example of usage. Suppose one wants to write some data to
 an external resource which can be accessed by a single user at once
@@ -384,25 +528,25 @@ be no synchronization problems since ``write`` is locked.
 
 .. code-block:: python
 
- >>> write("data1") # doctest: +ELLIPSIS
+ >>> write("data1") 
  <Thread(write-1, started...)>
  
  >>> time.sleep(.1) # wait a bit, so we are sure data2 is written after data1
  
- >>> write("data2") # doctest: +ELLIPSIS
+ >>> write("data2") 
  <Thread(write-2, started...)>
  
  >>> time.sleep(2) # wait for the writers to complete
  
- >>> print datalist
+ >>> print(datalist)
  ['data1', 'data2']
 
 contextmanager
 -------------------------------------
 
 For a long time Python had in its standard library a ``contextmanager``
-decorator, able to convert generator functions into ``GeneratorContextManager``
-factories. For instance if you write
+decorator, able to convert generator functions into
+``_GeneratorContextManager`` factories. For instance if you write
 
 .. code-block:: python
 
@@ -415,43 +559,43 @@ factories. For instance if you write
 
 
 then ``before_after`` is a factory function returning
-``GeneratorContextManager`` objects which can be used with
+``_GeneratorContextManager`` objects which can be used with
 the ``with`` statement:
 
 .. code-block:: python
 
  >>> ba = before_after('BEFORE', 'AFTER')
  >>> type(ba)
- <class 'contextlib.GeneratorContextManager'>
+ <class 'contextlib._GeneratorContextManager'>
  >>> with ba:
- ...     print 'hello'
+ ...     print('hello')
  BEFORE
  hello
  AFTER
 
 Basically, it is as if the content of the ``with`` block was executed
 in the place of the ``yield`` expression in the generator function.
-In Python 3.2 ``GeneratorContextManager``
+In Python 3.2 ``_GeneratorContextManager``
 objects were enhanced with a ``__call__``
 method, so that they can be used as decorators as in this example:
 
 .. code-block:: python
 
- >>> @ba # doctest: +SKIP
+ >>> @ba 
  ... def hello():
- ...     print 'hello'
+ ...     print('hello')
  ...
- >>> hello() # doctest: +SKIP
+ >>> hello() 
  BEFORE
  hello
  AFTER
 
 The ``ba`` decorator is basically inserting a ``with ba:``
 block inside the function.
-However there two issues: the first is that ``GeneratorContextManager``
+However there two issues: the first is that ``_GeneratorContextManager``
 objects are callable only in Python 3.2, so the previous example will break
 in older versions of Python; the second is that
-``GeneratorContextManager`` objects do not preserve the signature
+``_GeneratorContextManager`` objects do not preserve the signature
 of the decorated functions: the decorated ``hello`` function here will have
 a generic signature ``hello(*args, **kwargs)`` but will break when
 called with more than zero arguments. For such reasons the decorator
@@ -459,12 +603,8 @@ module, starting with release 3.4, offers a ``decorator.contextmanager``
 decorator that solves both problems and works even in Python 2.5.
 The usage is the same and factories decorated with ``decorator.contextmanager``
 will returns instances of ``ContextManager``, a subclass of
-``contextlib.GeneratorContextManager`` with a ``__call__`` method
+``contextlib._GeneratorContextManager`` with a ``__call__`` method
 acting as a signature-preserving decorator.
-
-**Disclaimer**: the ``contextmanager`` decorator is an *experimental* feature:
-it may go away in future versions of the decorator module. Use it at your
-own risk.
 
 The ``FunctionMaker`` class
 ---------------------------------------------------------------
@@ -486,7 +626,7 @@ were the function is generated by ``exec``. Here is an example:
 .. code-block:: python
 
  >>> def f(*args, **kw): # a function with a generic signature
- ...     print args, kw
+ ...     print(args, kw)
 
  >>> f1 = FunctionMaker.create('f1(a, b)', 'f(a, b)', dict(f=f))
  >>> f1(1,2)
@@ -509,7 +649,7 @@ be added to the generated function:
 
  >>> f1 = FunctionMaker.create(
  ...     'f1(a, b)', 'f(a, b)', dict(f=f), addsource=True)
- >>> print f1.__source__
+ >>> print(f1.__source__)
  def f1(a, b):
      f(a, b)
  <BLANKLINE>
@@ -556,14 +696,20 @@ available``.  In the past I have considered this acceptable, since
 decorators. In that case ``inspect.getsource`` gives you the wrapper
 source code which is probably not what you want:
 
-$$identity_dec
+.. code-block:: python
+
+ def identity_dec(func):
+     def wrapper(*args, **kw):
+         return func(*args, **kw)
+     return wrapper
+
 
 .. code-block:: python
 
  @identity_dec
  def example(): pass
 
- >>> print inspect.getsource(example)
+ >>> print(inspect.getsource(example))
      def wrapper(*args, **kw):
          return func(*args, **kw)
  <BLANKLINE>
@@ -578,7 +724,7 @@ undecorated function:
 
 .. code-block:: python
 
- >>> print inspect.getsource(factorial.__wrapped__)
+ >>> print(inspect.getsource(factorial.__wrapped__))
  @tail_recursive
  def factorial(n, acc=1):
      "The good old factorial"
@@ -599,7 +745,17 @@ upgrade third party decorators to signature-preserving decorators without
 having to rewrite them in terms of ``decorator``. You can use a
 ``FunctionMaker`` to implement that functionality as follows:
 
-$$decorator_apply
+.. code-block:: python
+
+ def decorator_apply(dec, func):
+     """
+     Decorate a function by preserving the signature even if dec
+     is not a signature-preserving decorator.
+     """
+     return FunctionMaker.create(
+         func, 'return decorated(%(signature)s)',
+         dict(decorated=dec(func)), __wrapped__=func)
+
 
 ``decorator_apply`` sets the attribute ``.__wrapped__`` of the generated
 function to the original function, so that you can get the right
@@ -617,20 +773,63 @@ function. I have shamelessly stolen the basic idea from Kay Schluehr's recipe
 in the Python Cookbook,
 http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691.
 
-$$TailRecursive
+.. code-block:: python
+
+ class TailRecursive(object):
+     """
+     tail_recursive decorator based on Kay Schluehr's recipe
+     http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691
+     with improvements by me and George Sakkis.
+     """
+ 
+     def __init__(self, func):
+         self.func = func
+         self.firstcall = True
+         self.CONTINUE = object()  # sentinel
+ 
+     def __call__(self, *args, **kwd):
+         CONTINUE = self.CONTINUE
+         if self.firstcall:
+             func = self.func
+             self.firstcall = False
+             try:
+                 while True:
+                     result = func(*args, **kwd)
+                     if result is CONTINUE:  # update arguments
+                         args, kwd = self.argskwd
+                     else:  # last call
+                         return result
+             finally:
+                 self.firstcall = True
+         else:  # return the arguments of the tail call
+             self.argskwd = args, kwd
+             return CONTINUE
+
 
 Here the decorator is implemented as a class returning callable
 objects.
 
-$$tail_recursive
+.. code-block:: python
+
+ def tail_recursive(func):
+     return decorator_apply(TailRecursive, func)
+
 
 Here is how you apply the upgraded decorator to the good old factorial:
 
-$$factorial
+.. code-block:: python
+
+ @tail_recursive
+ def factorial(n, acc=1):
+     "The good old factorial"
+     if n == 0:
+         return acc
+     return factorial(n-1, n*acc)
+
 
 .. code-block:: python
 
- >>> print factorial(4)
+ >>> print(factorial(4))
  24
 
 This decorator is pretty impressive, and should give you some food for
@@ -639,7 +838,13 @@ easily compute ``factorial(1001)`` or larger without filling the stack
 frame. Notice also that the decorator will not work on functions which
 are not tail recursive, such as the following
 
-$$fact
+.. code-block:: python
+
+ def fact(n):  # this is not tail-recursive
+     if n == 0:
+         return 1
+     return n * fact(n-1)
+
 
 (reminder: a function is tail recursive if it either returns a value without
 making a recursive call, or returns directly the result of a recursive
@@ -653,7 +858,7 @@ have a performance penalty.
 The worse case is shown by the following example::
 
  $ cat performance.sh
- python -m timeit -s "
+ python3 -m timeit -s "
  from decorator import decorator
 
  @decorator
@@ -665,7 +870,7 @@ The worse case is shown by the following example::
      pass
  " "f()"
 
- python -m timeit -s "
+ python3 -m timeit -s "
  def f():
      pass
  " "f()"
@@ -674,8 +879,8 @@ On my MacBook, using the ``do_nothing`` decorator instead of the
 plain function is more than three times slower::
 
  $ bash performance.sh
- 1000000 loops, best of 3: 0.995 usec per loop
- 1000000 loops, best of 3: 0.273 usec per loop
+ 1000000 loops, best of 3: 0.669 usec per loop
+ 1000000 loops, best of 3: 0.181 usec per loop
 
 It should be noted that a real life function would probably do
 something more useful than ``f`` here, and therefore in real life the
@@ -697,15 +902,15 @@ function is decorated the traceback will be longer:
 
 .. code-block:: python
 
- >>> f()
+ >>> f() 
  Traceback (most recent call last):
    ...
       File "<string>", line 2, in f
-      File "<doctest __main__[18]>", line 4, in trace
+      File "<doctest __main__[22]>", line 4, in trace
         return f(*args, **kw)
-      File "<doctest __main__[47]>", line 3, in f
+      File "<doctest __main__[51]>", line 3, in f
         1/0
- ZeroDivisionError: integer division or modulo by zero
+ ZeroDivisionError: ...
 
 You see here the inner call to the decorator ``trace``, which calls
 ``f(*args, **kw)``, and a reference to  ``File "<string>", line 2, in f``.
@@ -720,7 +925,7 @@ would require to change the CPython implementation of functions and
 add an hook to make it possible to change their signature directly.
 That could happen in future versions of Python (see PEP 362_) and
 then the decorator module would become obsolete. However, at present,
-even in Python 3.1 it is impossible to change the function signature
+even in Python 3.2 it is impossible to change the function signature
 directly, therefore the ``decorator`` module is still useful.
 Actually, this is one of the main reasons why I keep maintaining
 the module and releasing new versions.
@@ -730,38 +935,7 @@ the module and releasing new versions.
 In the present implementation, decorators generated by ``decorator``
 can only be used on user-defined Python functions or methods, not on generic
 callable objects, nor on built-in functions, due to limitations of the
-``inspect`` module in the standard library. Moreover, notice
-that you can decorate a method, but only before if becomes a bound or unbound
-method, i.e. inside the class.
-Here is an example of valid decoration:
-
-.. code-block:: python
-
- >>> class C(object):
- ...      @trace
- ...      def meth(self):
- ...          pass
-
-Here is an example of invalid decoration, when the decorator in
-called too late:
-
-.. code-block:: python
-
- >>> class C(object):
- ...      def meth(self):
- ...          pass
- ...
- >>> trace(C.meth)
- Traceback (most recent call last):
-   ...
- TypeError: You are decorating a non function: <unbound method C.meth>
-
-The solution is to extract the inner function from the unbound method:
-
-.. code-block:: python
-
- >>> trace(C.meth.im_func) # doctest: +ELLIPSIS
- <function meth at 0x...>
+``inspect`` module in the standard library.
 
 There is a restriction on the names of the arguments: for instance,
 if try to call an argument ``_call_`` or ``_func_``
@@ -770,7 +944,7 @@ you will get a ``NameError``:
 .. code-block:: python
 
  >>> @trace
- ... def f(_func_): print f
+ ... def f(_func_): print(f)
  ... 
  Traceback (most recent call last):
    ...
@@ -778,11 +952,9 @@ you will get a ``NameError``:
  def f(_func_):
      return _call_(_func_, _func_)
 
-Finally, the implementation is such that the decorated function
-attribute ``.func_globals`` is a *copy* of the original function
-attribute. On the other hand the function attribute dictionary
-of the decorated function is just a reference to the
-original function dictionary, i.e. ``vars(decorated_f) is vars(f)``:
+Finally, the implementation is such that the decorated function contains
+a *copy* of the original function dictionary
+(``vars(decorated_f) is not vars(f)``):
 
 .. code-block:: python
 
@@ -794,23 +966,45 @@ original function dictionary, i.e. ``vars(decorated_f) is vars(f)``:
 
  >>> traced_f.attr1
  'something'
- >>> traced_f.attr2 = "something different"  # setting attr
- >>> f.attr2  # the original attribute did change
- 'something different'
+ >>> traced_f.attr2 = "something different" # setting attr
+ >>> f.attr2 # the original attribute did not change
+ 'something else'
 
 Compatibility notes
 ---------------------------------------------------------------
 
-This version fully supports Python 3, including `function
-annotations`_. Moreover it is the first version to support
-generic callers, i.e. callable objects with the right
-signature, not necessarily functions. ``contextmanager``
-will not work in Python 2.4. The decorated function
-dictionary is now the same of the original function
-dictionary, wheread in past versions they were
-different objects.
+Version 3.4 fixes some bugs in the support of recent versions of
+Python 3.  Version 3.3 was the first version of the ``decorator``
+module to fully support Python 3, including `function
+annotations`_. Version 3.2 was the first version to support Python 3
+via the ``2to3`` conversion tool.  The hard work (for me) has been
+converting the documentation and the doctests.  This has been possible
+only after that docutils_ and pygments_ have been ported to Python 3.
 
-The examples shown here have been tested with Python 2.7 and 3.4. Python 2.4
+Version 3 of the ``decorator`` module do not contain any backward
+incompatible change, apart from the removal of the functions
+``get_info`` and ``new_wrapper``, which have been deprecated for
+years. ``get_info`` has been removed since it was little used and
+since it had to be changed anyway to work with Python 3.0;
+``new_wrapper`` has been removed since it was useless: its major use
+case (converting signature changing decorators to signature preserving
+decorators) has been subsumed by ``decorator_apply``, whereas the other use
+case can be managed with the ``FunctionMaker``.
+
+There are a few changes in the documentation: I removed the
+``decorator_factory`` example, which was confusing some of my users,
+and I removed the part about exotic signatures in the Python 3
+documentation, since Python 3 does not support them.
+
+Finally ``decorator`` cannot be used as a class decorator and the
+`functionality introduced in version 2.3`_ has been removed. That
+means that in order to define decorator factories with classes you
+need to define the ``__call__`` method explicitly (no magic anymore).
+All these changes should not cause any trouble, since they were
+all rarely used features. Should you have any trouble, you can always
+downgrade to the 2.3 version.
+
+The examples shown here have been tested with Python 2.6. Python 2.4
 is also supported - of course the examples requiring the ``with``
 statement will not work there. Python 2.5 works fine, but if you
 run the examples in the interactive interpreter
@@ -820,6 +1014,7 @@ tuple. That means that running the file
 ``documentation.py`` under Python 2.5 will print a few errors, but
 they are not serious.
 
+.. _functionality introduced in version 2.3: http://www.phyast.pitt.edu/~micheles/python/documentation.html#class-decorators-and-decorator-factories
 .. _function annotations: http://www.python.org/dev/peps/pep-3107/
 .. _distribute: http://packages.python.org/distribute/
 .. _docutils: http://docutils.sourceforge.net/
@@ -858,297 +1053,3 @@ DAMAGE.
 If you use this software and you are happy with it, consider sending me a
 note, just to gratify my ego. On the other hand, if you use this software and
 you are unhappy with it, send me a patch!
-"""
-from __future__ import with_statement
-import sys
-import threading
-import time
-import functools
-import inspect
-import itertools  
-from decorator import *
-from functools import partial
-from setup import VERSION
-
-today = time.strftime('%Y-%m-%d')
-
-__doc__ = __doc__.replace('$VERSION', VERSION).replace('$DATE', today)
-
-
-def decorator_apply(dec, func):
-    """
-    Decorate a function by preserving the signature even if dec
-    is not a signature-preserving decorator.
-    """
-    return FunctionMaker.create(
-        func, 'return decorated(%(signature)s)',
-        dict(decorated=dec(func)), __wrapped__=func)
-
-
-def _trace(f, *args, **kw):
-    print "calling %s with args %s, %s" % (f.__name__, args, kw)
-    return f(*args, **kw)
-
-
-def trace(f):
-    return decorator(_trace, f)
-
-
-def on_success(result):  # default implementation
-    "Called on the result of the function"
-    return result
-
-
-def on_failure(exc_info):  # default implementation
-    "Called if the function fails"
-    pass
-
-
-def on_closing():  # default implementation
-    "Called at the end, both in case of success and failure"
-    pass
-
-
-class Async(object):
-    """
-    A decorator converting blocking functions into asynchronous
-    functions, by using threads or processes. Examples:
-
-    async_with_threads =  Async(threading.Thread)
-    async_with_processes =  Async(multiprocessing.Process)
-    """
-
-    def __init__(self, threadfactory, on_success=on_success,
-                 on_failure=on_failure, on_closing=on_closing):
-        self.threadfactory = threadfactory
-        self.on_success = on_success
-        self.on_failure = on_failure
-        self.on_closing = on_closing
-
-    def __call__(self, func, *args, **kw):
-        try:
-            counter = func.counter
-        except AttributeError:  # instantiate the counter at the first call
-            counter = func.counter = itertools.count(1)
-        name = '%s-%s' % (func.__name__, counter.next())
-
-        def func_wrapper():
-            try:
-                result = func(*args, **kw)
-            except:
-                self.on_failure(sys.exc_info())
-            else:
-                return self.on_success(result)
-            finally:
-                self.on_closing()
-        thread = self.threadfactory(None, func_wrapper, name)
-        thread.start()
-        return thread
-
-
-def identity_dec(func):
-    def wrapper(*args, **kw):
-        return func(*args, **kw)
-    return wrapper
-
-
-@identity_dec
-def example(): pass
-
-
-def memoize_uw(func):
-    func.cache = {}
-
-    def memoize(*args, **kw):
-        if kw:  # frozenset is used to ensure hashability
-            key = args, frozenset(kw.iteritems())
-        else:
-            key = args
-        cache = func.cache
-        if key in cache:
-            return cache[key]
-        else:
-            cache[key] = result = func(*args, **kw)
-            return result
-    return functools.update_wrapper(memoize, func)
-
-
-def _memoize(func, *args, **kw):
-    if kw:  # frozenset is used to ensure hashability
-        key = args, frozenset(kw.iteritems())
-    else:
-        key = args
-    cache = func.cache  # attributed added by memoize
-    if key in cache:
-        return cache[key]
-    else:
-        cache[key] = result = func(*args, **kw)
-        return result
-
-
-def memoize(f):
-    f.cache = {}
-    return decorator(_memoize, f)
-
-
-def blocking(not_avail):
-    def blocking(f, *args, **kw):
-        if not hasattr(f, "thread"):  # no thread running
-            def set_result():
-                f.result = f(*args, **kw)
-            f.thread = threading.Thread(None, set_result)
-            f.thread.start()
-            return not_avail
-        elif f.thread.isAlive():
-            return not_avail
-        else:  # the thread is ended, return the stored result
-            del f.thread
-            return f.result
-    return decorator(blocking)
-
-
-class User(object):
-    "Will just be able to see a page"
-
-
-class PowerUser(User):
-    "Will be able to add new pages too"
-
-
-class Admin(PowerUser):
-    "Will be able to delete pages too"
-
-
-def get_userclass():
-    return User
-
-
-class PermissionError(Exception):
-    pass
-
-
-def restricted(user_class):
-    def restricted(func, *args, **kw):
-        "Restrict access to a given class of users"
-        userclass = get_userclass()
-        if issubclass(userclass, user_class):
-            return func(*args, **kw)
-        else:
-            raise PermissionError(
-                '%s does not have the permission to run %s!'
-                % (userclass.__name__, func.__name__))
-    return decorator(restricted)
-
-
-class Action(object):
-    """
-    >>> a = Action()
-    >>> a.view() # ok
-    >>> a.insert() # err
-    Traceback (most recent call last):
-       ...
-    PermissionError: User does not have the permission to run insert!
-
-    """
-    @restricted(User)
-    def view(self):
-        pass
-
-    @restricted(PowerUser)
-    def insert(self):
-        pass
-
-    @restricted(Admin)
-    def delete(self):
-        pass
-
-
-class TailRecursive(object):
-    """
-    tail_recursive decorator based on Kay Schluehr's recipe
-    http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691
-    with improvements by me and George Sakkis.
-    """
-
-    def __init__(self, func):
-        self.func = func
-        self.firstcall = True
-        self.CONTINUE = object()  # sentinel
-
-    def __call__(self, *args, **kwd):
-        CONTINUE = self.CONTINUE
-        if self.firstcall:
-            func = self.func
-            self.firstcall = False
-            try:
-                while True:
-                    result = func(*args, **kwd)
-                    if result is CONTINUE:  # update arguments
-                        args, kwd = self.argskwd
-                    else:  # last call
-                        return result
-            finally:
-                self.firstcall = True
-        else:  # return the arguments of the tail call
-            self.argskwd = args, kwd
-            return CONTINUE
-
-
-def tail_recursive(func):
-    return decorator_apply(TailRecursive, func)
-
-
-@tail_recursive
-def factorial(n, acc=1):
-    "The good old factorial"
-    if n == 0:
-        return acc
-    return factorial(n-1, n*acc)
-
-
-def fact(n):  # this is not tail-recursive
-    if n == 0:
-        return 1
-    return n * fact(n-1)
-
-
-def a_test_for_pylons():
-    """
-    In version 3.1.0 decorator(caller) returned a nameless partial
-    object, thus breaking Pylons. That must not happen again.
-
-    >>> decorator(_memoize).__name__
-    '_memoize'
-
-    Here is another bug of version 3.1.1 missing the docstring to avoid:
-
-    >>> factorial.__doc__
-    'The good old factorial'
-    """
-
-
-@contextmanager
-def before_after(before, after):
-    print(before)
-    yield
-    print(after)
-
-ba = before_after('BEFORE', 'AFTER')  # ContextManager instance
-
-
-@ba
-def hello(user):
-    """
-    >>> ba.__class__.__name__
-    'ContextManager'
-    >>> hello('michele')
-    BEFORE
-    hello michele
-    AFTER
-    """
-    print('hello %s' % user)
-
-if __name__ == '__main__':
-    import doctest
-    err = doctest.testmod()[0]
-    sys.exit(err)
