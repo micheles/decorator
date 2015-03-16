@@ -32,7 +32,7 @@ Testing
 
 Run
 
- `$ python test.py`
+ `$ python test.py -v`
 
 You will see a few innocuous errors with Python 2.5, because some
 inner details such as the introduction of the ArgSpec namedtuple and

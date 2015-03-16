@@ -121,16 +121,16 @@ endobj
 << /Border [ 0 0 0 ] /Contents () /Dest [ 64 0 R /XYZ 62.69291 465.4236 0 ] /Rect [ 521.4627 326.7736 532.5827 338.7736 ] /Subtype /Link /Type /Annot >>
 endobj
 41 0 obj
-<< /Border [ 0 0 0 ] /Contents () /Dest [ 71 0 R /XYZ 62.69291 607.8236 0 ] /Rect [ 62.69291 308.7736 155.4829 320.7736 ] /Subtype /Link /Type /Annot >>
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 71 0 R /XYZ 62.69291 631.8236 0 ] /Rect [ 62.69291 308.7736 155.4829 320.7736 ] /Subtype /Link /Type /Annot >>
 endobj
 42 0 obj
-<< /Border [ 0 0 0 ] /Contents () /Dest [ 71 0 R /XYZ 62.69291 607.8236 0 ] /Rect [ 521.4627 308.7736 532.5827 320.7736 ] /Subtype /Link /Type /Annot >>
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 71 0 R /XYZ 62.69291 631.8236 0 ] /Rect [ 521.4627 308.7736 532.5827 320.7736 ] /Subtype /Link /Type /Annot >>
 endobj
 43 0 obj
-<< /Border [ 0 0 0 ] /Contents () /Dest [ 71 0 R /XYZ 62.69291 256.8236 0 ] /Rect [ 62.69291 290.7736 106.5829 302.7736 ] /Subtype /Link /Type /Annot >>
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 71 0 R /XYZ 62.69291 280.8236 0 ] /Rect [ 62.69291 290.7736 106.5829 302.7736 ] /Subtype /Link /Type /Annot >>
 endobj
 44 0 obj
-<< /Border [ 0 0 0 ] /Contents () /Dest [ 71 0 R /XYZ 62.69291 256.8236 0 ] /Rect [ 521.4627 290.7736 532.5827 302.7736 ] /Subtype /Link /Type /Annot >>
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 71 0 R /XYZ 62.69291 280.8236 0 ] /Rect [ 521.4627 290.7736 532.5827 302.7736 ] /Subtype /Link /Type /Annot >>
 endobj
 45 0 obj
 << /Annots [ 5 0 R 6 0 R 8 0 R 9 0 R 10 0 R 11 0 R 12 0 R 13 0 R 14 0 R 15 0 R 
@@ -216,16 +216,16 @@ endobj
   /Trans <<  >> /Type /Page >>
 endobj
 67 0 obj
-<< /A << /S /URI /Type /Action /URI (http://www.python.org/dev/peps/pep-3107/) >> /Border [ 0 0 0 ] /Rect [ 384.6306 557.5736 474.9013 569.5736 ] /Subtype /Link /Type /Annot >>
+<< /A << /S /URI /Type /Action /URI (http://www.python.org/dev/peps/pep-3107/) >> /Border [ 0 0 0 ] /Rect [ 384.6306 581.5736 474.9013 593.5736 ] /Subtype /Link /Type /Annot >>
 endobj
 68 0 obj
-<< /A << /S /URI /Type /Action /URI (http://docutils.sourceforge.net/) >> /Border [ 0 0 0 ] /Rect [ 476.7077 533.5736 515.9027 545.5736 ] /Subtype /Link /Type /Annot >>
+<< /A << /S /URI /Type /Action /URI (http://docutils.sourceforge.net/) >> /Border [ 0 0 0 ] /Rect [ 476.7077 557.5736 515.9027 569.5736 ] /Subtype /Link /Type /Annot >>
 endobj
 69 0 obj
-<< /A << /S /URI /Type /Action /URI (http://pygments.org/) >> /Border [ 0 0 0 ] /Rect [ 62.69291 521.5736 108.8229 533.5736 ] /Subtype /Link /Type /Annot >>
+<< /A << /S /URI /Type /Action /URI (http://pygments.org/) >> /Border [ 0 0 0 ] /Rect [ 62.69291 545.5736 108.8229 557.5736 ] /Subtype /Link /Type /Annot >>
 endobj
 70 0 obj
-<< /A << /S /URI /Type /Action /URI (http://www.phyast.pitt.edu/~micheles/python/documentation.html#class-decorators-and-decorator-factories) >> /Border [ 0 0 0 ] /Rect [ 364.2921 383.5736 531.64 395.5736 ] /Subtype /Link /Type /Annot >>
+<< /A << /S /URI /Type /Action /URI (http://www.phyast.pitt.edu/~micheles/python/documentation.html#class-decorators-and-decorator-factories) >> /Border [ 0 0 0 ] /Rect [ 364.2921 407.5736 531.64 419.5736 ] /Subtype /Link /Type /Annot >>
 endobj
 71 0 obj
 << /Annots [ 67 0 R 68 0 R 69 0 R 70 0 R ] /Contents 107 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 92 0 R /Resources << /Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ] >> /Rotate 0 
@@ -239,7 +239,7 @@ endobj
 << /Outlines 75 0 R /PageLabels 109 0 R /PageMode /UseNone /Pages 92 0 R /Type /Catalog >>
 endobj
 74 0 obj
-<< /Author (Michele Simionato) /CreationDate (D:20150316121853-01'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
+<< /Author (Michele Simionato) /CreationDate (D:20150316162017-01'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
   /Title (The decorator module) >>
 endobj
 75 0 obj
@@ -288,10 +288,10 @@ endobj
 << /Dest [ 64 0 R /XYZ 62.69291 465.4236 0 ] /Next 90 0 R /Parent 75 0 R /Prev 88 0 R /Title (Caveats and limitations) >>
 endobj
 90 0 obj
-<< /Dest [ 71 0 R /XYZ 62.69291 607.8236 0 ] /Next 91 0 R /Parent 75 0 R /Prev 89 0 R /Title (Compatibility notes) >>
+<< /Dest [ 71 0 R /XYZ 62.69291 631.8236 0 ] /Next 91 0 R /Parent 75 0 R /Prev 89 0 R /Title (Compatibility notes) >>
 endobj
 91 0 obj
-<< /Dest [ 71 0 R /XYZ 62.69291 256.8236 0 ] /Parent 75 0 R /Prev 90 0 R /Title (LICENCE) >>
+<< /Dest [ 71 0 R /XYZ 62.69291 280.8236 0 ] /Parent 75 0 R /Prev 90 0 R /Title (LICENCE) >>
 endobj
 92 0 obj
 << /Count 16 /Kids [ 45 0 R 49 0 R 51 0 R 52 0 R 54 0 R 55 0 R 56 0 R 57 0 R 58 0 R 59 0 R 
@@ -5907,7 +5907,7 @@ Q
 endstream
 endobj
 106 0 obj
-<< /Length 14576 >>
+<< /Length 16078 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -6248,20 +6248,14 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 113.4236 cm
+1 0 0 1 62.69291 125.4236 cm
 q
-BT 1 0 0 1 0 14 Tm 1.533318 Tw 12 TL /F1 10 Tf 0 0 0 rg (Finally, the implementation is such that the decorated function contains a ) Tj /F5 10 Tf (copy ) Tj /F1 10 Tf (of the original function) Tj T* 0 Tw (dictionary \() Tj /F4 10 Tf 0 0 0 rg (vars\(decorated_f\)) Tj ( ) Tj (is) Tj ( ) Tj (not) Tj ( ) Tj (vars\(f\)) Tj /F1 10 Tf 0 0 0 rg (\):) Tj T* ET
+0 0 0 rg
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Finally, the implementation is such that the decorated function shares the original function dictionary:) Tj T* ET
 Q
 Q
- 
-endstream
-endobj
-107 0 obj
-<< /Length 11192 >>
-stream
-1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 619.8236 cm
+1 0 0 1 62.69291 80.22362 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -6271,43 +6265,70 @@ q
 .662745 .662745 .662745 RG
 .5 w
 .960784 .960784 .862745 rg
-n -6 -6 468.6898 144 re B*
+n -6 -6 468.6898 36 re B*
 Q
 q
 .960784 .960784 .862745 rg
-n 0 120.75 6 12 re f*
+n 0 12.75 6 12 re f*
 .960784 .960784 .862745 rg
-n 6 120.75 6 12 re f*
+n 6 12.75 6 12 re f*
 .960784 .960784 .862745 rg
-n 12 120.75 6 12 re f*
+n 12 12.75 6 12 re f*
 .960784 .960784 .862745 rg
-n 24 120.75 18 12 re f*
+n 24 12.75 18 12 re f*
 .960784 .960784 .862745 rg
-n 48 120.75 6 12 re f*
+n 48 12.75 6 12 re f*
 .960784 .960784 .862745 rg
-n 54 120.75 18 12 re f*
+n 54 12.75 18 12 re f*
 .960784 .960784 .862745 rg
-n 78 120.75 24 12 re f*
+n 78 12.75 24 12 re f*
 .960784 .960784 .862745 rg
-n 108 120.75 138 12 re f*
+n 108 12.75 138 12 re f*
 .960784 .960784 .862745 rg
-n 0 108.75 6 12 re f*
+n 0 .75 6 12 re f*
 .960784 .960784 .862745 rg
-n 6 108.75 6 12 re f*
+n 6 .75 6 12 re f*
 .960784 .960784 .862745 rg
-n 12 108.75 6 12 re f*
+n 12 .75 6 12 re f*
 .960784 .960784 .862745 rg
-n 24 108.75 6 12 re f*
+n 24 .75 6 12 re f*
 .960784 .960784 .862745 rg
-n 30 108.75 6 12 re f*
+n 30 .75 6 12 re f*
 .960784 .960784 .862745 rg
-n 36 108.75 30 12 re f*
+n 36 .75 30 12 re f*
 .960784 .960784 .862745 rg
-n 72 108.75 6 12 re f*
+n 72 .75 6 12 re f*
 .960784 .960784 .862745 rg
-n 84 108.75 66 12 re f*
+n 84 .75 66 12 re f*
 .960784 .960784 .862745 rg
-n 156 108.75 132 12 re f*
+n 156 .75 132 12 re f*
+BT 1 0 0 1 0 14 Tm 12 TL /F4 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (f) Tj 0 0 0 rg (\(\):) Tj 0 0 0 rg ( ) Tj /F3 10 Tf 0 .501961 0 rg (pass) Tj /F4 10 Tf 0 0 0 rg ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# the original function) Tj /F4 10 Tf 0 0 0 rg  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (attr1) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ("something") Tj 0 0 0 rg ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# setting an attribute) Tj /F4 10 Tf 0 0 0 rg  T* ET
+Q
+Q
+Q
+Q
+Q
+ 
+endstream
+endobj
+107 0 obj
+<< /Length 9888 >>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 62.69291 643.8236 cm
+q
+q
+1 0 0 1 0 0 cm
+q
+1 0 0 1 6.6 6.6 cm
+q
+.662745 .662745 .662745 RG
+.5 w
+.960784 .960784 .862745 rg
+n -6 -6 468.6898 120 re B*
+Q
+q
 .960784 .960784 .862745 rg
 n 0 96.75 6 12 re f*
 .960784 .960784 .862745 rg
@@ -6394,73 +6415,73 @@ n 36 12.75 30 12 re f*
 n 72 12.75 234 12 re f*
 .960784 .960784 .862745 rg
 n 0 .75 96 12 re f*
-BT 1 0 0 1 0 122 Tm 12 TL /F4 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj /F3 10 Tf 0 .501961 0 rg (def) Tj /F4 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (f) Tj 0 0 0 rg (\(\):) Tj 0 0 0 rg ( ) Tj /F3 10 Tf 0 .501961 0 rg (pass) Tj /F4 10 Tf 0 0 0 rg ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# the original function) Tj /F4 10 Tf 0 0 0 rg  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (attr1) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ("something") Tj 0 0 0 rg ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# setting an attribute) Tj /F4 10 Tf 0 0 0 rg  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (attr2) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ("something else") Tj 0 0 0 rg ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# setting another attribute) Tj /F4 10 Tf 0 0 0 rg  T*  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (traced_f) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (trace) Tj 0 0 0 rg (\() Tj 0 0 0 rg (f) Tj 0 0 0 rg (\)) Tj 0 0 0 rg ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# the decorated function) Tj /F4 10 Tf 0 0 0 rg  T*  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (traced_f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (attr1) Tj 0 0 0 rg  T* .729412 .129412 .129412 rg ('something') Tj 0 0 0 rg  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (traced_f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (attr2) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ("something different") Tj 0 0 0 rg ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# setting attr) Tj /F4 10 Tf 0 0 0 rg  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (attr2) Tj 0 0 0 rg ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# the original attribute did not change) Tj /F4 10 Tf 0 0 0 rg  T* .729412 .129412 .129412 rg ('something else') Tj T* ET
+BT 1 0 0 1 0 98 Tm 12 TL /F4 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (attr2) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ("something else") Tj 0 0 0 rg ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# setting another attribute) Tj /F4 10 Tf 0 0 0 rg  T*  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (traced_f) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (trace) Tj 0 0 0 rg (\() Tj 0 0 0 rg (f) Tj 0 0 0 rg (\)) Tj 0 0 0 rg ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# the decorated function) Tj /F4 10 Tf 0 0 0 rg  T*  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (traced_f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (attr1) Tj 0 0 0 rg  T* .729412 .129412 .129412 rg ('something') Tj 0 0 0 rg  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (traced_f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (attr2) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ("something different") Tj 0 0 0 rg ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# setting attr) Tj /F4 10 Tf 0 0 0 rg  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (f) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (attr2) Tj 0 0 0 rg ( ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# the original attribute did not change) Tj /F4 10 Tf 0 0 0 rg  T* .729412 .129412 .129412 rg ('something else') Tj T* ET
 Q
 Q
 Q
 Q
 Q
 q
-1 0 0 1 62.69291 586.8236 cm
+1 0 0 1 62.69291 610.8236 cm
 q
 BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Compatibility notes) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 520.8236 cm
+1 0 0 1 62.69291 544.8236 cm
 q
 BT 1 0 0 1 0 50 Tm 1.864987 Tw 12 TL /F1 10 Tf 0 0 0 rg (Version 3.4 fixes some bugs in the support of recent versions of Python 3. Version 3.3 was the first) Tj T* 0 Tw .770697 Tw (version of the ) Tj /F4 10 Tf 0 0 0 rg (decorator ) Tj /F1 10 Tf 0 0 0 rg (module to fully support Python 3, including ) Tj 0 0 .501961 rg (function annotations) Tj 0 0 0 rg (. Version 3.2) Tj T* 0 Tw .452093 Tw (was the first version to support Python 3 via the ) Tj /F4 10 Tf 0 0 0 rg (2to3 ) Tj /F1 10 Tf 0 0 0 rg (conversion tool. The hard work \(for me\) has been) Tj T* 0 Tw 2.514983 Tw (converting the documentation and the doctests. This has been possible only after that ) Tj 0 0 .501961 rg (docutils ) Tj 0 0 0 rg (and) Tj T* 0 Tw 0 0 .501961 rg (pygments ) Tj 0 0 0 rg (have been ported to Python 3.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 442.8236 cm
+1 0 0 1 62.69291 466.8236 cm
 q
 BT 1 0 0 1 0 62 Tm .793984 Tw 12 TL /F1 10 Tf 0 0 0 rg (Version 3 of the ) Tj /F4 10 Tf 0 0 0 rg (decorator ) Tj /F1 10 Tf 0 0 0 rg (module do not contain any backward incompatible change, apart from the) Tj T* 0 Tw 3.63498 Tw (removal of the functions ) Tj /F4 10 Tf 0 0 0 rg (get_info ) Tj /F1 10 Tf 0 0 0 rg (and ) Tj /F4 10 Tf 0 0 0 rg (new_wrapper) Tj /F1 10 Tf 0 0 0 rg (, which have been deprecated for years.) Tj T* 0 Tw .293672 Tw /F4 10 Tf 0 0 0 rg (get_info ) Tj /F1 10 Tf 0 0 0 rg (has been removed since it was little used and since it had to be changed anyway to work with) Tj T* 0 Tw 2.298555 Tw (Python 3.0; ) Tj /F4 10 Tf 0 0 0 rg (new_wrapper ) Tj /F1 10 Tf 0 0 0 rg (has been removed since it was useless: its major use case \(converting) Tj T* 0 Tw 7.136976 Tw (signature changing decorators to signature preserving decorators\) has been subsumed by) Tj T* 0 Tw /F4 10 Tf 0 0 0 rg (decorator_apply) Tj /F1 10 Tf 0 0 0 rg (, whereas the other use case can be managed with the ) Tj /F4 10 Tf 0 0 0 rg (FunctionMaker) Tj /F1 10 Tf 0 0 0 rg (.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 400.8236 cm
+1 0 0 1 62.69291 424.8236 cm
 q
 BT 1 0 0 1 0 26 Tm 1.329213 Tw 12 TL /F1 10 Tf 0 0 0 rg (There are a few changes in the documentation: I removed the ) Tj /F4 10 Tf 0 0 0 rg (decorator_factory ) Tj /F1 10 Tf 0 0 0 rg (example, which) Tj T* 0 Tw 2.562927 Tw (was confusing some of my users, and I removed the part about exotic signatures in the Python 3) Tj T* 0 Tw (documentation, since Python 3 does not support them.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 334.8236 cm
+1 0 0 1 62.69291 358.8236 cm
 q
 BT 1 0 0 1 0 50 Tm .942651 Tw 12 TL /F1 10 Tf 0 0 0 rg (Finally ) Tj /F4 10 Tf 0 0 0 rg (decorator ) Tj /F1 10 Tf 0 0 0 rg (cannot be used as a class decorator and the ) Tj 0 0 .501961 rg (functionality introduced in version 2.3) Tj T* 0 Tw .241163 Tw 0 0 0 rg (has been removed. That means that in order to define decorator factories with classes you need to define) Tj T* 0 Tw 1.122126 Tw (the ) Tj /F4 10 Tf 0 0 0 rg (__call__ ) Tj /F1 10 Tf 0 0 0 rg (method explicitly \(no magic anymore\). All these changes should not cause any trouble,) Tj T* 0 Tw .601163 Tw (since they were all rarely used features. Should you have any trouble, you can always downgrade to the) Tj T* 0 Tw (2.3 version.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 268.8236 cm
+1 0 0 1 62.69291 292.8236 cm
 q
 BT 1 0 0 1 0 50 Tm .196098 Tw 12 TL /F1 10 Tf 0 0 0 rg (The examples shown here have been tested with Python 2.6. Python 2.4 is also supported - of course the) Tj T* 0 Tw 1.649398 Tw (examples requiring the ) Tj /F4 10 Tf 0 0 0 rg (with ) Tj /F1 10 Tf 0 0 0 rg (statement will not work there. Python 2.5 works fine, but if you run the) Tj T* 0 Tw 1.41784 Tw (examples in the interactive interpreter you will notice a few differences since ) Tj /F4 10 Tf 0 0 0 rg (getargspec ) Tj /F1 10 Tf 0 0 0 rg (returns an) Tj T* 0 Tw .909982 Tw /F4 10 Tf 0 0 0 rg (ArgSpec ) Tj /F1 10 Tf 0 0 0 rg (namedtuple instead of a regular tuple. That means that running the file ) Tj /F4 10 Tf 0 0 0 rg (documentation.py) Tj T* 0 Tw /F1 10 Tf 0 0 0 rg (under Python 2.5 will print a few errors, but they are not serious.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 235.8236 cm
+1 0 0 1 62.69291 259.8236 cm
 q
 BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (LICENCE) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 217.8236 cm
+1 0 0 1 62.69291 241.8236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Copyright \(c\) 2005-2015, Michele Simionato All rights reserved.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 187.8236 cm
+1 0 0 1 62.69291 211.8236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL 1.328555 Tw (Redistribution and use in source and binary forms, with or without modification, are permitted provided) Tj T* 0 Tw (that the following conditions are met:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 181.8236 cm
+1 0 0 1 62.69291 205.8236 cm
 Q
 q
-1 0 0 1 62.69291 133.8236 cm
+1 0 0 1 62.69291 157.8236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 BT 1 0 0 1 0 2 Tm  T* ET
@@ -6475,31 +6496,31 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 133.8236 cm
+1 0 0 1 62.69291 157.8236 cm
 Q
 q
 1 0 0 1 62.69291 79.82362 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 38 Tm /F1 10 Tf 12 TL .17998 Tw (THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND) Tj T* 0 Tw 2.911797 Tw (ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED) Tj T* 0 Tw 5.165529 Tw (WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE) Tj T* 0 Tw 1.395433 Tw (DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE LIABLE) Tj T* 0 Tw ET
+BT 1 0 0 1 0 62 Tm /F1 10 Tf 12 TL .17998 Tw (THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND) Tj T* 0 Tw 2.911797 Tw (ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED) Tj T* 0 Tw 5.165529 Tw (WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE) Tj T* 0 Tw 1.395433 Tw (DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE LIABLE) Tj T* 0 Tw 5.53122 Tw (FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL) Tj T* 0 Tw 2.705976 Tw (DAMAGES \(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR) Tj T* 0 Tw ET
 Q
 Q
  
 endstream
 endobj
 108 0 obj
-<< /Length 1038 >>
+<< /Length 838 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 693.0236 cm
+1 0 0 1 62.69291 717.0236 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 62 Tm /F1 10 Tf 12 TL 5.53122 Tw (FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL) Tj T* 0 Tw 2.705976 Tw (DAMAGES \(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR) Tj T* 0 Tw 3.868976 Tw (SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION\) HOWEVER) Tj T* 0 Tw 1.326647 Tw (CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR) Tj T* 0 Tw 1.525366 Tw (TORT \(INCLUDING NEGLIGENCE OR OTHERWISE\) ARISING IN ANY WAY OUT OF THE USE OF) Tj T* 0 Tw (THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.) Tj T* ET
+BT 1 0 0 1 0 38 Tm /F1 10 Tf 12 TL 3.868976 Tw (SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION\) HOWEVER) Tj T* 0 Tw 1.326647 Tw (CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR) Tj T* 0 Tw 1.525366 Tw (TORT \(INCLUDING NEGLIGENCE OR OTHERWISE\) ARISING IN ANY WAY OUT OF THE USE OF) Tj T* 0 Tw (THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 663.0236 cm
+1 0 0 1 62.69291 687.0236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL .407132 Tw (If you use this software and you are happy with it, consider sending me a note, just to gratify my ego. On) Tj T* 0 Tw (the other hand, if you use this software and you are unhappy with it, send me a patch!) Tj T* ET
@@ -6671,30 +6692,30 @@ xref
 0000192010 00000 n
 0000208189 00000 n
 0000216529 00000 n
-0000231164 00000 n
-0000242415 00000 n
-0000243511 00000 n
-0000243725 00000 n
-0000243763 00000 n
-0000243801 00000 n
-0000243839 00000 n
-0000243877 00000 n
-0000243915 00000 n
-0000243953 00000 n
-0000243991 00000 n
-0000244029 00000 n
-0000244067 00000 n
-0000244106 00000 n
-0000244145 00000 n
-0000244184 00000 n
-0000244223 00000 n
-0000244262 00000 n
-0000244301 00000 n
+0000232666 00000 n
+0000242612 00000 n
+0000243507 00000 n
+0000243721 00000 n
+0000243759 00000 n
+0000243797 00000 n
+0000243835 00000 n
+0000243873 00000 n
+0000243911 00000 n
+0000243949 00000 n
+0000243987 00000 n
+0000244025 00000 n
+0000244063 00000 n
+0000244102 00000 n
+0000244141 00000 n
+0000244180 00000 n
+0000244219 00000 n
+0000244258 00000 n
+0000244297 00000 n
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com)
- [(}\272\001\2746\273\037\210\371B\317\326\372\306p\251) (}\272\001\2746\273\037\210\371B\317\326\372\306p\251)]
+ [(\332:\210,\011\256\334I\352\235\026\321\241\263\032\277) (\332:\210,\011\256\334I\352\235\026\321\241\263\032\277)]
  /Info 74 0 R /Root 73 0 R /Size 126 >>
 startxref
-244340
+244336
 %%EOF
