@@ -4,6 +4,7 @@ except ImportError:
     from distutils.core import setup
 import os.path
 
+
 def getversion(fname):
     """Get the __version__ reading the file: works both in Python 2.X and 3.X,
     whereas direct importing would break in Python 3.X with a syntax error"""
@@ -19,13 +20,13 @@ if __name__ == '__main__':
     setup(name='decorator',
           version=VERSION,
           description='Better living through Python with decorators',
-          long_description=open('README.txt').read(),
+          long_description=open('README.rst').read(),
           author='Michele Simionato',
           author_email='michele.simionato@gmail.com',
           url='http://pypi.python.org/pypi/decorator',
           license="BSD License",
-          package_dir = {'': 'src'},
-          py_modules = ['decorator'],
+          package_dir={'': 'src'},
+          py_modules=['decorator'],
           keywords="decorators generic utility",
           platforms=["All"],
           classifiers=['Development Status :: 5 - Production/Stable',

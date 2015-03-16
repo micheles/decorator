@@ -1,12 +1,12 @@
-r"""
+
 The ``decorator`` module
 =============================================================
 
 :Author: Michele Simionato
 :E-mail: michele.simionato@gmail.com
-:Version: $VERSION ($DATE)
+:Version: 3.4.1 (2015-03-16)
 :Requires: Python 2.4+
-:Download page: http://pypi.python.org/pypi/decorator/$VERSION
+:Download page: http://pypi.python.org/pypi/decorator/3.4.1
 :Installation: ``easy_install decorator``
 :License: BSD license
 
@@ -87,7 +87,24 @@ A simple implementation could be the following (notice
 that in general it is impossible to memoize correctly something
 that depends on non-hashable arguments):
 
-$$memoize_uw
+.. code-block:: python
+
+ def memoize_uw(func):
+     func.cache = {}
+ 
+     def memoize(*args, **kw):
+         if kw:  # frozenset is used to ensure hashability
+             key = args, frozenset(kw.iteritems())
+         else:
+             key = args
+         cache = func.cache
+         if key in cache:
+             return cache[key]
+         else:
+             cache[key] = result = func(*args, **kw)
+             return result
+     return functools.update_wrapper(memoize, func)
+
 
 Here we used the functools.update_wrapper_ utility, which has
 been added in Python 2.5 expressly to simplify the definition of decorators
@@ -130,7 +147,7 @@ argument, you will get an error:
 
 .. code-block:: python
 
- >>> f1(0, 1) # doctest: +IGNORE_EXCEPTION_DETAIL
+ >>> f1(0, 1) 
  Traceback (most recent call last):
     ...
  TypeError: f1() takes exactly 1 positional argument (2 given)
@@ -154,11 +171,29 @@ signature ``(f, *args, **kw)`` and it must call the original function ``f``
 with arguments ``args`` and ``kw``, implementing the wanted capability,
 i.e. memoization in this case:
 
-$$_memoize
+.. code-block:: python
+
+ def _memoize(func, *args, **kw):
+     if kw:  # frozenset is used to ensure hashability
+         key = args, frozenset(kw.iteritems())
+     else:
+         key = args
+     cache = func.cache  # attributed added by memoize
+     if key in cache:
+         return cache[key]
+     else:
+         cache[key] = result = func(*args, **kw)
+         return result
+
 
 At this point you can define your decorator as follows:
 
-$$memoize
+.. code-block:: python
+
+ def memoize(f):
+     f.cache = {}
+     return decorator(_memoize, f)
+
 
 The difference with respect to the ``memoize_uw`` approach, which is based
 on nested functions, is that the decorator module forces you to lift
@@ -195,9 +230,19 @@ As an additional example, here is how you can define a trivial
 ``trace`` decorator, which prints a message everytime the traced
 function is called:
 
-$$_trace
+.. code-block:: python
 
-$$trace
+ def _trace(f, *args, **kw):
+     kwstr = ', '.join('%r: %r' % (k, kw[k]) for k in sorted(kw))
+     print("calling %s with args %s, {%s}" % (f.__name__, args, kwstr))
+     return f(*args, **kw)
+
+
+.. code-block:: python
+
+ def trace(f):
+     return decorator(_trace, f)
+
 
 Here is an example of usage:
 
@@ -311,7 +356,7 @@ object which can be used as a decorator:
 
 .. code-block:: python
 
- >>> trace # doctest: +ELLIPSIS
+ >>> trace 
  <function trace at 0x...>
 
 Here is an example of usage:
@@ -336,7 +381,23 @@ sometimes it is best to have back a "busy" message than to block everything.
 This behavior can be implemented with a suitable family of decorators,
 where the parameter is the busy message:
 
-$$blocking
+.. code-block:: python
+
+ def blocking(not_avail):
+     def blocking(f, *args, **kw):
+         if not hasattr(f, "thread"):  # no thread running
+             def set_result():
+                 f.result = f(*args, **kw)
+             f.thread = threading.Thread(None, set_result)
+             f.thread.start()
+             return not_avail
+         elif f.thread.isAlive():
+             return not_avail
+         else:  # the thread is ended, return the stored result
+             del f.thread
+             return f.result
+     return decorator(blocking)
+
    
 Functions decorated with ``blocking`` will return a busy message if
 the resource is unavailable, and the intended result if the resource is
@@ -382,10 +443,62 @@ to specify how to manage the function call (of course the code here
 is just an example, it is not a recommended way of doing multi-threaded
 programming). The implementation is the following:
 
-$$on_success
-$$on_failure
-$$on_closing
-$$Async
+.. code-block:: python
+
+ def on_success(result):  # default implementation
+     "Called on the result of the function"
+     return result
+
+.. code-block:: python
+
+ def on_failure(exc_info):  # default implementation
+     "Called if the function fails"
+     pass
+
+.. code-block:: python
+
+ def on_closing():  # default implementation
+     "Called at the end, both in case of success and failure"
+     pass
+
+.. code-block:: python
+
+ class Async(object):
+     """
+     A decorator converting blocking functions into asynchronous
+     functions, by using threads or processes. Examples:
+ 
+     async_with_threads =  Async(threading.Thread)
+     async_with_processes =  Async(multiprocessing.Process)
+     """
+ 
+     def __init__(self, threadfactory, on_success=on_success,
+                  on_failure=on_failure, on_closing=on_closing):
+         self.threadfactory = threadfactory
+         self.on_success = on_success
+         self.on_failure = on_failure
+         self.on_closing = on_closing
+ 
+     def __call__(self, func, *args, **kw):
+         try:
+             counter = func.counter
+         except AttributeError:  # instantiate the counter at the first call
+             counter = func.counter = itertools.count(1)
+         name = '%s-%s' % (func.__name__, next(counter))
+ 
+         def func_wrapper():
+             try:
+                 result = func(*args, **kw)
+             except:
+                 self.on_failure(sys.exc_info())
+             else:
+                 return self.on_success(result)
+             finally:
+                 self.on_closing()
+         thread = self.threadfactory(None, func_wrapper, name)
+         thread.start()
+         return thread
+
 
 The decorated function returns
 the current execution thread, which can be stored and checked later, for
@@ -415,12 +528,12 @@ be no synchronization problems since ``write`` is locked.
 
 .. code-block:: python
 
- >>> write("data1") # doctest: +ELLIPSIS
+ >>> write("data1") 
  <Thread(write-1, started...)>
  
  >>> time.sleep(.1) # wait a bit, so we are sure data2 is written after data1
  
- >>> write("data2") # doctest: +ELLIPSIS
+ >>> write("data2") 
  <Thread(write-2, started...)>
  
  >>> time.sleep(2) # wait for the writers to complete
@@ -468,11 +581,11 @@ method, so that they can be used as decorators as in this example:
 
 .. code-block:: python
 
- >>> @ba # doctest: +SKIP
+ >>> @ba 
  ... def hello():
  ...     print('hello')
  ...
- >>> hello() # doctest: +SKIP
+ >>> hello() 
  BEFORE
  hello
  AFTER
@@ -583,7 +696,13 @@ available``.  In the past I have considered this acceptable, since
 decorators. In that case ``inspect.getsource`` gives you the wrapper
 source code which is probably not what you want:
 
-$$identity_dec
+.. code-block:: python
+
+ def identity_dec(func):
+     def wrapper(*args, **kw):
+         return func(*args, **kw)
+     return wrapper
+
 
 .. code-block:: python
 
@@ -625,7 +744,17 @@ upgrade third party decorators to signature-preserving decorators without
 having to rewrite them in terms of ``decorator``. You can use a
 ``FunctionMaker`` to implement that functionality as follows:
 
-$$decorator_apply
+.. code-block:: python
+
+ def decorator_apply(dec, func):
+     """
+     Decorate a function by preserving the signature even if dec
+     is not a signature-preserving decorator.
+     """
+     return FunctionMaker.create(
+         func, 'return decorated(%(signature)s)',
+         dict(decorated=dec(func)), __wrapped__=func)
+
 
 ``decorator_apply`` sets the attribute ``.__wrapped__`` of the generated
 function to the original function, so that you can get the right
@@ -643,16 +772,59 @@ function. I have shamelessly stolen the basic idea from Kay Schluehr's recipe
 in the Python Cookbook,
 http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691.
 
-$$TailRecursive
+.. code-block:: python
+
+ class TailRecursive(object):
+     """
+     tail_recursive decorator based on Kay Schluehr's recipe
+     http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691
+     with improvements by me and George Sakkis.
+     """
+ 
+     def __init__(self, func):
+         self.func = func
+         self.firstcall = True
+         self.CONTINUE = object()  # sentinel
+ 
+     def __call__(self, *args, **kwd):
+         CONTINUE = self.CONTINUE
+         if self.firstcall:
+             func = self.func
+             self.firstcall = False
+             try:
+                 while True:
+                     result = func(*args, **kwd)
+                     if result is CONTINUE:  # update arguments
+                         args, kwd = self.argskwd
+                     else:  # last call
+                         return result
+             finally:
+                 self.firstcall = True
+         else:  # return the arguments of the tail call
+             self.argskwd = args, kwd
+             return CONTINUE
+
 
 Here the decorator is implemented as a class returning callable
 objects.
 
-$$tail_recursive
+.. code-block:: python
+
+ def tail_recursive(func):
+     return decorator_apply(TailRecursive, func)
+
 
 Here is how you apply the upgraded decorator to the good old factorial:
 
-$$factorial
+.. code-block:: python
+
+ @tail_recursive
+ def factorial(n, acc=1):
+     "The good old factorial"
+     if n == 0:
+         return acc
+     return factorial(n-1, n*acc)
+
 
 .. code-block:: python
 
@@ -665,7 +837,13 @@ easily compute ``factorial(1001)`` or larger without filling the stack
 frame. Notice also that the decorator will not work on functions which
 are not tail recursive, such as the following
 
-$$fact
+.. code-block:: python
+
+ def fact(n):  # this is not tail-recursive
+     if n == 0:
+         return 1
+     return n * fact(n-1)
+
 
 (reminder: a function is tail recursive if it either returns a value without
 making a recursive call, or returns directly the result of a recursive
@@ -723,7 +901,7 @@ function is decorated the traceback will be longer:
 
 .. code-block:: python
 
- >>> f() # doctest: +ELLIPSIS
+ >>> f() 
  Traceback (most recent call last):
    ...
       File "<string>", line 2, in f
@@ -876,340 +1054,3 @@ DAMAGE.
 If you use this software and you are happy with it, consider sending me a
 note, just to gratify my ego. On the other hand, if you use this software and
 you are unhappy with it, send me a patch!
-"""
-from __future__ import with_statement
-import sys
-import threading
-import time
-import functools
-import inspect
-import itertools  
-from decorator import *
-from functools import partial
-from setup import VERSION
-
-today = time.strftime('%Y-%m-%d')
-
-__doc__ = __doc__.replace('$VERSION', VERSION).replace('$DATE', today)
-
-
-def decorator_apply(dec, func):
-    """
-    Decorate a function by preserving the signature even if dec
-    is not a signature-preserving decorator.
-    """
-    return FunctionMaker.create(
-        func, 'return decorated(%(signature)s)',
-        dict(decorated=dec(func)), __wrapped__=func)
-
-
-def _trace(f, *args, **kw):
-    kwstr = ', '.join('%r: %r' % (k, kw[k]) for k in sorted(kw))
-    print("calling %s with args %s, {%s}" % (f.__name__, args, kwstr))
-    return f(*args, **kw)
-
-
-def trace(f):
-    return decorator(_trace, f)
-
-
-def on_success(result):  # default implementation
-    "Called on the result of the function"
-    return result
-
-
-def on_failure(exc_info):  # default implementation
-    "Called if the function fails"
-    pass
-
-
-def on_closing():  # default implementation
-    "Called at the end, both in case of success and failure"
-    pass
-
-
-class Async(object):
-    """
-    A decorator converting blocking functions into asynchronous
-    functions, by using threads or processes. Examples:
-
-    async_with_threads =  Async(threading.Thread)
-    async_with_processes =  Async(multiprocessing.Process)
-    """
-
-    def __init__(self, threadfactory, on_success=on_success,
-                 on_failure=on_failure, on_closing=on_closing):
-        self.threadfactory = threadfactory
-        self.on_success = on_success
-        self.on_failure = on_failure
-        self.on_closing = on_closing
-
-    def __call__(self, func, *args, **kw):
-        try:
-            counter = func.counter
-        except AttributeError:  # instantiate the counter at the first call
-            counter = func.counter = itertools.count(1)
-        name = '%s-%s' % (func.__name__, next(counter))
-
-        def func_wrapper():
-            try:
-                result = func(*args, **kw)
-            except:
-                self.on_failure(sys.exc_info())
-            else:
-                return self.on_success(result)
-            finally:
-                self.on_closing()
-        thread = self.threadfactory(None, func_wrapper, name)
-        thread.start()
-        return thread
-
-
-def identity_dec(func):
-    def wrapper(*args, **kw):
-        return func(*args, **kw)
-    return wrapper
-
-
-@identity_dec
-def example():
-    pass
-
-
-def memoize_uw(func):
-    func.cache = {}
-
-    def memoize(*args, **kw):
-        if kw:  # frozenset is used to ensure hashability
-            key = args, frozenset(kw.iteritems())
-        else:
-            key = args
-        cache = func.cache
-        if key in cache:
-            return cache[key]
-        else:
-            cache[key] = result = func(*args, **kw)
-            return result
-    return functools.update_wrapper(memoize, func)
-
-
-def _memoize(func, *args, **kw):
-    if kw:  # frozenset is used to ensure hashability
-        key = args, frozenset(kw.iteritems())
-    else:
-        key = args
-    cache = func.cache  # attributed added by memoize
-    if key in cache:
-        return cache[key]
-    else:
-        cache[key] = result = func(*args, **kw)
-        return result
-
-
-def memoize(f):
-    f.cache = {}
-    return decorator(_memoize, f)
-
-
-def blocking(not_avail):
-    def blocking(f, *args, **kw):
-        if not hasattr(f, "thread"):  # no thread running
-            def set_result():
-                f.result = f(*args, **kw)
-            f.thread = threading.Thread(None, set_result)
-            f.thread.start()
-            return not_avail
-        elif f.thread.isAlive():
-            return not_avail
-        else:  # the thread is ended, return the stored result
-            del f.thread
-            return f.result
-    return decorator(blocking)
-
-
-class User(object):
-    "Will just be able to see a page"
-
-
-class PowerUser(User):
-    "Will be able to add new pages too"
-
-
-class Admin(PowerUser):
-    "Will be able to delete pages too"
-
-
-def get_userclass():
-    return User
-
-
-class PermissionError(Exception):
-    pass
-
-
-def restricted(user_class):
-    def restricted(func, *args, **kw):
-        "Restrict access to a given class of users"
-        userclass = get_userclass()
-        if issubclass(userclass, user_class):
-            return func(*args, **kw)
-        else:
-            raise PermissionError(
-                '%s does not have the permission to run %s!'
-                % (userclass.__name__, func.__name__))
-    return decorator(restricted)
-
-
-class Action(object):
-    """
-    >>> a = Action()
-    >>> a.view() # ok
-    >>> a.insert() # err
-    Traceback (most recent call last):
-       ...
-    PermissionError: User does not have the permission to run insert!
-
-    """
-    @restricted(User)
-    def view(self):
-        pass
-
-    @restricted(PowerUser)
-    def insert(self):
-        pass
-
-    @restricted(Admin)
-    def delete(self):
-        pass
-
-
-class TailRecursive(object):
-    """
-    tail_recursive decorator based on Kay Schluehr's recipe
-    http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691
-    with improvements by me and George Sakkis.
-    """
-
-    def __init__(self, func):
-        self.func = func
-        self.firstcall = True
-        self.CONTINUE = object()  # sentinel
-
-    def __call__(self, *args, **kwd):
-        CONTINUE = self.CONTINUE
-        if self.firstcall:
-            func = self.func
-            self.firstcall = False
-            try:
-                while True:
-                    result = func(*args, **kwd)
-                    if result is CONTINUE:  # update arguments
-                        args, kwd = self.argskwd
-                    else:  # last call
-                        return result
-            finally:
-                self.firstcall = True
-        else:  # return the arguments of the tail call
-            self.argskwd = args, kwd
-            return CONTINUE
-
-
-def tail_recursive(func):
-    return decorator_apply(TailRecursive, func)
-
-
-@tail_recursive
-def factorial(n, acc=1):
-    "The good old factorial"
-    if n == 0:
-        return acc
-    return factorial(n-1, n*acc)
-
-
-def fact(n):  # this is not tail-recursive
-    if n == 0:
-        return 1
-    return n * fact(n-1)
-
-
-def a_test_for_pylons():
-    """
-    In version 3.1.0 decorator(caller) returned a nameless partial
-    object, thus breaking Pylons. That must not happen again.
-
-    >>> decorator(_memoize).__name__
-    '_memoize'
-
-    Here is another bug of version 3.1.1 missing the docstring:
-
-    >>> factorial.__doc__
-    'The good old factorial'
-    """
-
-
-def test_kwonlydefaults():
-    """
-    >>> @trace
-    ... def f(arg, defarg=1, *args, kwonly=2): pass
-    ...
-    >>> f.__kwdefaults__
-    {'kwonly': 2}
-    """
-
-
-def test_kwonlyargs():
-    """
-    >>> @trace
-    ... def func(a, b, *args, y=2, z=3, **kwargs):
-    ...     return y, z
-    ...
-    >>> func('a', 'b', 'c', 'd', 'e', y='y', z='z', cat='dog')
-    calling func with args ('a', 'b', 'c', 'd', 'e'), {'cat': 'dog', 'y': 'y', 'z': 'z'}
-    ('y', 'z')
-    """
-
-
-def test_kwonly_no_args():
-    """# this was broken with decorator 3.3.3
-    >>> @trace
-    ... def f(**kw): pass
-    ...
-    >>> f()
-    calling f with args (), {}
-    """
-
-
-def test_kwonly_star_notation():
-    """
-    >>> @trace
-    ... def f(*, a=1, **kw): pass
-    ...
-    >>> inspect.getfullargspec(f)
-    FullArgSpec(args=[], varargs=None, varkw='kw', defaults=None, kwonlyargs=['a'], kwonlydefaults={'a': 1}, annotations={})
-    """
-
-
-@contextmanager
-def before_after(before, after):
-    print(before)
-    yield
-    print(after)
-
-ba = before_after('BEFORE', 'AFTER')  # ContextManager instance
-
-
-@ba
-def hello(user):
-    """
-    >>> ba.__class__.__name__
-    'ContextManager'
-    >>> hello('michele')
-    BEFORE
-    hello michele
-    AFTER
-    """
-    print('hello %s' % user)
-
-if __name__ == '__main__':
-    import doctest
-    doctest.testmod()

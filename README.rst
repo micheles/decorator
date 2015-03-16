@@ -14,10 +14,9 @@ Installation
 
 If you are lazy, just perform
 
-$ easy_install decorator
+$ pip install decorator
 
-which will install just the module on your system. Notice that
-Python 3 requires the easy_install version of the distribute_ project.
+which will install just the module on your system.
 
 If you prefer to install the full distribution from source, including
 the documentation, download the tarball_, unpack it and run
@@ -74,7 +73,6 @@ There are various versions of the documentation:
 Repository
 ---------------
 
-The project is hosted on GoogleCode as a Mercurial repository. You
-can look at the source here:
+The project is hosted on GitHub. You can look at the source here:
 
- http://code.google.com/p/micheles/source/browse/#hg%2Fdecorator
+ https://github.com/micheles/decorator
