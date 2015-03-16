@@ -2,7 +2,10 @@ HISTORY
 ----------
 
 3.4.1 Ported the repository from GoogleCode to GitHub.
-     setuptools is made mandatory in Python 3.
+     setuptools is made mandatory in Python 3, and now the suggested
+     installation tool is pip, not easy_install. Supported IronPython
+     and other Python implementations without sys._getframe, as requested by
+     Doug Blank (2015/03/16)
 3.4.0 Added the ability to use classes and generic callables as callers and
      implemented a signature-preserving contexmanager decorator. Fixed a bug
      with the signature f(**kw) in Python 3 and fixed a couple of doctests

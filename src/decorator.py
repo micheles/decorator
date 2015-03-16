@@ -138,7 +138,12 @@ class FunctionMaker(object):
         func.func_defaults = getattr(self, 'defaults', ())
         func.__kwdefaults__ = getattr(self, 'kwonlydefaults', None)
         func.__annotations__ = getattr(self, 'annotations', None)
-        callermodule = sys._getframe(3).f_globals.get('__name__', '?')
+        try:
+            frame = sys._getframe(3)
+        except AttributeError:  # for IronPython and similar implementations
+            callermodule = '?'
+        else:
+            callermodule = frame.f_globals.get('__name__', '?')
         func.__module__ = getattr(self, 'module', callermodule)
         func.__dict__.update(kw)
 
