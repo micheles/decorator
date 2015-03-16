@@ -780,8 +780,7 @@ you will get a ``NameError``:
 
 Finally, the implementation is such that the decorated function
 attribute ``.func_globals`` is a *copy* of the original function
-attribute, just as thee attribute dictionary
-of the decorated function.
+attribute, just as the attribute dictionary of the decorated function.
 
 .. code-block:: python
 
