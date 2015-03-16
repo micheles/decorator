@@ -1,7 +1,6 @@
 Decorator module
 =================
 
-
 :Author: Michele Simionato
 :E-mail: michele.simionato@gmail.com
 :Requires: Python 2.4+
@@ -37,7 +36,7 @@ $ python documentation.py
 
 for Python 3.X run
 
-$ python documentation3.py
+$ python3 documentation3.py
 
 You will see a few innocuous errors with Python 2.5, because some
 inner details such as the introduction of the ArgSpec namedtuple and
@@ -65,10 +64,10 @@ There are various versions of the documentation:
 -  `HTML version (Python 3)`_ 
 -  `PDF version (Python 3)`_ 
 
-.. _HTML version (Python 2): http://micheles.googlecode.com/hg/decorator/documentation.html
-.. _PDF version (Python 2): http://micheles.googlecode.com/hg/decorator/documentation.pdf
-.. _HTML version (Python 3): http://micheles.googlecode.com/hg/decorator/documentation3.html
-.. _PDF version (Python 3): http://micheles.googlecode.com/hg/decorator/documentation3.pdf
+.. _HTML version (Python 2): https://github.com/micheles/decorator/blob/3.4.1/documentation.rst
+.. _PDF version (Python 2): https://github.com/micheles/decorator/blob/3.4.1/documentation.pdf
+.. _HTML version (Python 3): https://github.com/micheles/decorator/blob/3.4.1/documentation3.rst
+.. _PDF version (Python 3): https://github.com/micheles/decorator/blob/3.4.1/documentation3.pdf
 
 Repository
 ---------------

@@ -1,8 +1,9 @@
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
+import sys
 import os.path
+if sys.version >= '3':
+    from setuptools import setup  # needed for the flag use_2to3
+else:
+    from distutils.core import setup
 
 
 def getversion(fname):

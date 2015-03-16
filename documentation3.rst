@@ -728,7 +728,8 @@ undecorated function:
  @tail_recursive
  def factorial(n, acc=1):
      "The good old factorial"
-     if n == 0: return acc
+     if n == 0:
+         return acc
      return factorial(n-1, n*acc)
  <BLANKLINE>
 
@@ -972,15 +973,13 @@ a *copy* of the original function dictionary
 Compatibility notes
 ---------------------------------------------------------------
 
-Version 3.4 fixes some bugs in the support of recent versions of Python 3.
-Version 3.3 was the first version of the ``decorator`` module to fully
-support Python 3, including `function annotations`_. Version 3.2 was the
-first version to support Python 3 via the ``2to3`` conversion tool
-invoked in the build process by the distribute_ project, the Python
-3-compatible replacement of easy_install.  The hard work (for me) has
-been converting the documentation and the doctests.  This has been
-possible only after that docutils_ and pygments_ have been ported to
-Python 3.
+Version 3.4 fixes some bugs in the support of recent versions of
+Python 3.  Version 3.3 was the first version of the ``decorator``
+module to fully support Python 3, including `function
+annotations`_. Version 3.2 was the first version to support Python 3
+via the ``2to3`` conversion tool.  The hard work (for me) has been
+converting the documentation and the doctests.  This has been possible
+only after that docutils_ and pygments_ have been ported to Python 3.
 
 Version 3 of the ``decorator`` module do not contain any backward
 incompatible change, apart from the removal of the functions

@@ -1,6 +1,8 @@
 HISTORY
 ----------
 
+3.4.1 Ported the repository from GoogleCode to GitHub.
+     setuptools is made mandatory in Python 3.
 3.4.0 Added the ability to use classes and generic callables as callers and
      implemented a signature-preserving contexmanager decorator. Fixed a bug
      with the signature f(**kw) in Python 3 and fixed a couple of doctests
