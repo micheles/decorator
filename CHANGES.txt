@@ -1,8 +1,9 @@
 HISTORY
 ----------
 
-3.4.1 Ported the repository from GoogleCode to GitHub.
-     setuptools is made mandatory in Python 3, and now the suggested
+3.4.1 Ported the repository from GoogleCode to GitHub and added Travis CI
+     support. Tests are now run with the command python test.py -v.
+     setuptools is now mandatory in Python 3. The suggested
      installation tool is pip, not easy_install. Supported IronPython
      and other Python implementations without sys._getframe, as requested by
      Doug Blank (2015/03/16)

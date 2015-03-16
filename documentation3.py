@@ -1062,11 +1062,10 @@ class Action(object):
     """
     >>> a = Action()
     >>> a.view() # ok
-    >>> a.insert() # err
+    >>> a.insert() # doctest: +IGNORE_EXCEPTION_DETAIL
     Traceback (most recent call last):
        ...
     PermissionError: User does not have the permission to run insert!
-
     """
     @restricted(User)
     def view(self):
@@ -1207,8 +1206,3 @@ def hello(user):
     AFTER
     """
     print('hello %s' % user)
-
-if __name__ == '__main__':
-    import doctest
-    err = doctest.testmod()[0]
-    sys.exit(err)
