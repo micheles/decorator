@@ -5,7 +5,7 @@ rst: documentation.py documentation3.py
 	python3 $(S)/minidoc3.py -d documentation3.py
 	cp /tmp/documentation.rst /tmp/documentation3.rst .
 
-html: /tmp/documentation.rst /tmp/documentation3.rst
+html: /tmp/documentation.rst /tmp/documentation3.rst README.rst
 	$(RST) /tmp/documentation.rst
 	$(RST) /tmp/documentation3.rst
 	rst2html README.rst index.html
