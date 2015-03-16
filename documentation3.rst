@@ -952,9 +952,8 @@ you will get a ``NameError``:
  def f(_func_):
      return _call_(_func_, _func_)
 
-Finally, the implementation is such that the decorated function contains
-a *copy* of the original function dictionary
-(``vars(decorated_f) is not vars(f)``):
+Finally, the implementation is such that the decorated function shares
+the original function dictionary:
 
 .. code-block:: python
 
