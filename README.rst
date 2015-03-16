@@ -1,7 +1,6 @@
 Decorator module
 =================
 
-
 :Author: Michele Simionato
 :E-mail: michele.simionato@gmail.com
 :Requires: Python 2.4+
@@ -14,10 +13,9 @@ Installation
 
 If you are lazy, just perform
 
-$ easy_install decorator
+$ pip install decorator
 
-which will install just the module on your system. Notice that
-Python 3 requires the easy_install version of the distribute_ project.
+which will install just the module on your system.
 
 If you prefer to install the full distribution from source, including
 the documentation, download the tarball_, unpack it and run
@@ -38,7 +36,7 @@ $ python documentation.py
 
 for Python 3.X run
 
-$ python documentation3.py
+$ python3 documentation3.py
 
 You will see a few innocuous errors with Python 2.5, because some
 inner details such as the introduction of the ArgSpec namedtuple and
@@ -66,15 +64,14 @@ There are various versions of the documentation:
 -  `HTML version (Python 3)`_ 
 -  `PDF version (Python 3)`_ 
 
-.. _HTML version (Python 2): http://micheles.googlecode.com/hg/decorator/documentation.html
-.. _PDF version (Python 2): http://micheles.googlecode.com/hg/decorator/documentation.pdf
-.. _HTML version (Python 3): http://micheles.googlecode.com/hg/decorator/documentation3.html
-.. _PDF version (Python 3): http://micheles.googlecode.com/hg/decorator/documentation3.pdf
+.. _HTML version (Python 2): https://github.com/micheles/decorator/blob/3.4.1/documentation.rst
+.. _PDF version (Python 2): https://github.com/micheles/decorator/blob/3.4.1/documentation.pdf
+.. _HTML version (Python 3): https://github.com/micheles/decorator/blob/3.4.1/documentation3.rst
+.. _PDF version (Python 3): https://github.com/micheles/decorator/blob/3.4.1/documentation3.pdf
 
 Repository
 ---------------
 
-The project is hosted on GoogleCode as a Mercurial repository. You
-can look at the source here:
+The project is hosted on GitHub. You can look at the source here:
 
- http://code.google.com/p/micheles/source/browse/#hg%2Fdecorator
+ https://github.com/micheles/decorator

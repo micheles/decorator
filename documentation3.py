@@ -24,7 +24,7 @@ believe the change is for the best, and that decorators are a great
 idea since:
 
 * decorators help reducing boilerplate code;
-* decorators help separation of concerns; 
+* decorators help separation of concerns;
 * decorators enhance readability and maintenability;
 * decorators are explicit.
 
@@ -47,8 +47,8 @@ Definitions
 ------------------------------------
 
 Technically speaking, any Python object which can be called with one argument
-can be used as  a decorator. However, this definition is somewhat too large 
-to be really useful. It is more convenient to split the generic class of 
+can be used as  a decorator. However, this definition is somewhat too large
+to be really useful. It is more convenient to split the generic class of
 decorators in two subclasses:
 
 + *signature-preserving* decorators, i.e. callable objects taking a
@@ -61,7 +61,7 @@ decorators in two subclasses:
 
 Signature-changing decorators have their use: for instance the
 builtin classes ``staticmethod`` and ``classmethod`` are in this
-group, since they take functions and return descriptor objects which 
+group, since they take functions and return descriptor objects which
 are not functions, nor callables.
 
 However, signature-preserving decorators are more common and easier to
@@ -69,8 +69,8 @@ reason about; in particular signature-preserving decorators can be
 composed together whereas other decorators in general cannot.
 
 Writing signature-preserving decorators from scratch is not that
-obvious, especially if one wants to define proper decorators that 
-can accept functions with any signature. A simple example will clarify 
+obvious, especially if one wants to define proper decorators that
+can accept functions with any signature. A simple example will clarify
 the issue.
 
 Statement of the problem
@@ -80,8 +80,8 @@ A very common use case for decorators is the memoization of functions.
 A ``memoize`` decorator works by caching
 the result of the function call in a dictionary, so that the next time
 the function is called with the same input parameters the result is retrieved
-from the cache and not recomputed. There are many implementations of 
-``memoize`` in http://www.python.org/moin/PythonDecoratorLibrary, 
+from the cache and not recomputed. There are many implementations of
+``memoize`` in http://www.python.org/moin/PythonDecoratorLibrary,
 but they do not preserve the signature.
 A simple implementation could be the following (notice
 that in general it is impossible to memoize correctly something
@@ -95,9 +95,9 @@ been added in Python 2.5 expressly to simplify the definition of decorators
 ``__name__``, ``__doc__``, ``__module__`` and ``__dict__``
 from the original function to the decorated function by hand).
 
-.. _functools.update_wrapper: http://www.python.org/doc/2.5.2/lib/module-functools.html
+.. _functools.update_wrapper: https://docs.python.org/3/library/functools.html#functools.update_wrapper
 
-The implementation above works in the sense that the decorator 
+The implementation above works in the sense that the decorator
 can accept functions with generic signatures; unfortunately this
 implementation does *not* define a signature-preserving decorator, since in
 general ``memoize_uw`` returns a function with a
@@ -118,14 +118,14 @@ keyword arguments:
 
 .. code-block:: python
 
- >>> from inspect import getargspec 
+ >>> from inspect import getargspec
  >>> print(getargspec(f1))
  ArgSpec(args=[], varargs='args', keywords='kw', defaults=None)
 
 This means that introspection tools such as pydoc will give
 wrong informations about the signature of ``f1``. This is pretty bad:
-pydoc will tell you that the function accepts a generic signature 
-``*args``, ``**kw``, but when you try to call the function with more than an 
+pydoc will tell you that the function accepts a generic signature
+``*args``, ``**kw``, but when you try to call the function with more than an
 argument, you will get an error:
 
 .. code-block:: python
@@ -185,7 +185,7 @@ The signature of ``heavy_computation`` is the one you would expect:
 
 .. code-block:: python
 
- >>> print(getargspec(heavy_computation)) 
+ >>> print(getargspec(heavy_computation))
  ArgSpec(args=[], varargs=None, keywords=None, defaults=None)
 
 A ``trace`` decorator
@@ -218,21 +218,21 @@ and it that it has the correct signature:
 
 .. code-block:: python
 
- >>> print(getargspec(f1)) 
+ >>> print(getargspec(f1))
  ArgSpec(args=['x'], varargs=None, keywords=None, defaults=None)
 
 The same decorator works with functions of any signature:
 
 .. code-block:: python
- 
+
  >>> @trace
  ... def f(x, y=1, z=2, *args, **kw):
  ...     pass
 
  >>> f(0, 3)
  calling f with args (0, 3, 2), {}
- 
- >>> print(getargspec(f)) 
+
+ >>> print(getargspec(f))
  ArgSpec(args=['x', 'y', 'z'], varargs='args', keywords='kw', defaults=(1, 2))
 
 Function annotations
@@ -241,7 +241,7 @@ Function annotations
 Python 3 introduced the concept of `function annotations`_,i.e. the ability
 to annotate the signature of a function with additional information,
 stored in a dictionary named ``__annotations__``. The decorator module,
-starting from release 3.3, is able to understand and to preserve the 
+starting from release 3.3, is able to understand and to preserve the
 annotations. Here is an example:
 
 .. code-block:: python
@@ -256,7 +256,7 @@ utility ``inspect.getfullargspec``, new in Python 3:
 
 .. code-block:: python
 
- >>> from inspect import getfullargspec 
+ >>> from inspect import getfullargspec
  >>> argspec = getfullargspec(f)
  >>> argspec.args
  ['x', 'y', 'z']
@@ -332,14 +332,14 @@ If you are using an old Python version (Python 2.4) the
 -------------------------------------------
 
 Sometimes one has to deal with blocking resources, such as ``stdin``, and
-sometimes it is best to have back a "busy" message than to block everything. 
+sometimes it is best to have back a "busy" message than to block everything.
 This behavior can be implemented with a suitable family of decorators,
 where the parameter is the busy message:
 
 $$blocking
    
 Functions decorated with ``blocking`` will return a busy message if
-the resource is unavailable, and the intended result if the resource is 
+the resource is unavailable, and the intended result if the resource is
 available. For instance:
 
 .. code-block:: python
@@ -349,18 +349,18 @@ available. For instance:
  ...     time.sleep(3) # simulate a blocking resource
  ...     return "some data"
 
- >>> print(read_data()) # data is not available yet
- Please wait ...
-
- >>> time.sleep(1)  
- >>> print(read_data()) # data is not available yet
+ >>> print(read_data())  # data is not available yet
  Please wait ...
 
  >>> time.sleep(1)
- >>> print(read_data()) # data is not available yet
+ >>> print(read_data())  # data is not available yet
  Please wait ...
 
- >>> time.sleep(1.1) # after 3.1 seconds, data is available
+ >>> time.sleep(1)
+ >>> print(read_data())  # data is not available yet
+ Please wait ...
+
+ >>> time.sleep(1.1)  # after 3.1 seconds, data is available
  >>> print(read_data())
  some data
 
@@ -371,11 +371,11 @@ We have just seen an examples of a simple decorator factory,
 implemented as a function returning a decorator.
 For more complex situations, it is more
 convenient to implement decorator factories as classes returning
-callable objects that can be converted into decorators. 
+callable objects that can be converted into decorators.
 
 As an example, here will I show a decorator
 which is able to convert a blocking function into an asynchronous
-function. The function, when called, 
+function. The function, when called,
 is executed in a separate thread. Moreover, it is possible to set
 three callbacks ``on_success``, ``on_failure`` and ``on_closing``,
 to specify how to manage the function call (of course the code here
@@ -387,13 +387,13 @@ $$on_failure
 $$on_closing
 $$Async
 
-The decorated function returns 
-the current execution thread, which can be stored and checked later, for 
+The decorated function returns
+the current execution thread, which can be stored and checked later, for
 instance to verify that the thread ``.isAlive()``.
 
 Here is an example of usage. Suppose one wants to write some data to
 an external resource which can be accessed by a single user at once
-(for instance a printer). Then the access to the writing function must 
+(for instance a printer). Then the access to the writing function must
 be locked. Here is a minimalistic example:
 
 .. code-block:: python
@@ -410,7 +410,7 @@ be locked. Here is a minimalistic example:
  ...         datalist.append(data)
  ...     # other operations not requiring a lock here
 
-Each call to ``write`` will create a new writer thread, but there will 
+Each call to ``write`` will create a new writer thread, but there will
 be no synchronization problems since ``write`` is locked.
 
 .. code-block:: python
@@ -432,8 +432,8 @@ contextmanager
 -------------------------------------
 
 For a long time Python had in its standard library a ``contextmanager``
-decorator, able to convert generator functions into ``_GeneratorContextManager``
-factories. For instance if you write
+decorator, able to convert generator functions into
+``_GeneratorContextManager`` factories. For instance if you write
 
 .. code-block:: python
 
@@ -446,7 +446,7 @@ factories. For instance if you write
 
 
 then ``before_after`` is a factory function returning
-``_GeneratorContextManager`` objects which can be used with 
+``_GeneratorContextManager`` objects which can be used with
 the ``with`` statement:
 
 .. code-block:: python
@@ -462,7 +462,7 @@ the ``with`` statement:
 
 Basically, it is as if the content of the ``with`` block was executed
 in the place of the ``yield`` expression in the generator function.
-In Python 3.2 ``_GeneratorContextManager`` 
+In Python 3.2 ``_GeneratorContextManager``
 objects were enhanced with a ``__call__``
 method, so that they can be used as decorators as in this example:
 
@@ -477,11 +477,11 @@ method, so that they can be used as decorators as in this example:
  hello
  AFTER
 
-The ``ba`` decorator is basically inserting a ``with ba:`` 
+The ``ba`` decorator is basically inserting a ``with ba:``
 block inside the function.
-However there two issues: the first is that ``_GeneratorContextManager`` 
+However there two issues: the first is that ``_GeneratorContextManager``
 objects are callable only in Python 3.2, so the previous example will break
-in older versions of Python; the second is that 
+in older versions of Python; the second is that
 ``_GeneratorContextManager`` objects do not preserve the signature
 of the decorated functions: the decorated ``hello`` function here will have
 a generic signature ``hello(*args, **kwargs)`` but will break when
@@ -489,7 +489,7 @@ called with more than zero arguments. For such reasons the decorator
 module, starting with release 3.4, offers a ``decorator.contextmanager``
 decorator that solves both problems and works even in Python 2.5.
 The usage is the same and factories decorated with ``decorator.contextmanager``
-will returns instances of ``ContextManager``, a subclass of 
+will returns instances of ``ContextManager``, a subclass of
 ``contextlib._GeneratorContextManager`` with a ``__call__`` method
 acting as a signature-preserving decorator.
 
@@ -556,7 +556,7 @@ with attributes ``args``, ``varargs``,
 the return values of the standard library function ``inspect.getargspec``.
 For each argument in the ``args`` (which is a list of strings containing
 the names of the mandatory arguments) an attribute ``arg0``, ``arg1``,
-..., ``argN`` is also generated. Finally, there is a ``signature`` 
+..., ``argN`` is also generated. Finally, there is a ``signature``
 attribute, a string with the signature of the original function.
 
 Notice that while I do not have plans
@@ -609,7 +609,8 @@ undecorated function:
  @tail_recursive
  def factorial(n, acc=1):
      "The good old factorial"
-     if n == 0: return acc
+     if n == 0:
+         return acc
      return factorial(n-1, n*acc)
  <BLANKLINE>
 
@@ -619,8 +620,8 @@ Dealing with third party decorators
 -----------------------------------------------------------------
 
 Sometimes you find on the net some cool decorator that you would
-like to include in your code. However, more often than not the cool 
-decorator is not signature-preserving. Therefore you may want an easy way to 
+like to include in your code. However, more often than not the cool
+decorator is not signature-preserving. Therefore you may want an easy way to
 upgrade third party decorators to signature-preserving decorators without
 having to rewrite them in terms of ``decorator``. You can use a
 ``FunctionMaker`` to implement that functionality as follows:
@@ -637,10 +638,10 @@ than adding an additional level of indirection. However, practicality
 beats purity, so you can add ``decorator_apply`` to your toolbox and
 use it if you need to.
 
-In order to give an example of usage of ``decorator_apply``, I will show a 
+In order to give an example of usage of ``decorator_apply``, I will show a
 pretty slick decorator that converts a tail-recursive function in an iterative
 function. I have shamelessly stolen the basic idea from Kay Schluehr's recipe
-in the Python Cookbook, 
+in the Python Cookbook,
 http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691.
 
 $$TailRecursive
@@ -660,7 +661,7 @@ $$factorial
  24
 
 This decorator is pretty impressive, and should give you some food for
-your mind ;) Notice that there is no recursion limit now, and you can 
+your mind ;) Notice that there is no recursion limit now, and you can
 easily compute ``factorial(1001)`` or larger without filling the stack
 frame. Notice also that the decorator will not work on functions which
 are not tail recursive, such as the following
@@ -674,8 +675,8 @@ call).
 Caveats and limitations
 -------------------------------------------
 
-The first thing you should be aware of, it the fact that decorators 
-have a performance penalty. 
+The first thing you should be aware of, it the fact that decorators
+have a performance penalty.
 The worse case is shown by the following example::
 
  $ cat performance.sh
@@ -684,7 +685,7 @@ The worse case is shown by the following example::
 
  @decorator
  def do_nothing(func, *args, **kw):
-     return func(*args, **kw) 
+     return func(*args, **kw)
 
  @do_nothing
  def f():
@@ -703,10 +704,10 @@ plain function is more than three times slower::
  1000000 loops, best of 3: 0.669 usec per loop
  1000000 loops, best of 3: 0.181 usec per loop
 
-It should be noted that a real life function would probably do 
+It should be noted that a real life function would probably do
 something more useful than ``f`` here, and therefore in real life the
 performance penalty could be completely negligible.  As always, the
-only way to know if there is 
+only way to know if there is
 a penalty in your specific use case is to measure it.
 
 You should be aware that decorators will make your tracebacks
@@ -733,8 +734,8 @@ function is decorated the traceback will be longer:
         1/0
  ZeroDivisionError: ...
 
-You see here the inner call to the decorator ``trace``, which calls 
-``f(*args, **kw)``, and a reference to  ``File "<string>", line 2, in f``. 
+You see here the inner call to the decorator ``trace``, which calls
+``f(*args, **kw)``, and a reference to  ``File "<string>", line 2, in f``.
 This latter reference is due to the fact that internally the decorator
 module uses ``exec`` to generate the decorated function. Notice that
 ``exec`` is *not* responsibile for the performance penalty, since is the
@@ -743,8 +744,8 @@ the decorated function is called.
 
 At present, there is no clean way to avoid ``exec``. A clean solution
 would require to change the CPython implementation of functions and
-add an hook to make it possible to change their signature directly. 
-That could happen in future versions of Python (see PEP 362_) and 
+add an hook to make it possible to change their signature directly.
+That could happen in future versions of Python (see PEP 362_) and
 then the decorator module would become obsolete. However, at present,
 even in Python 3.2 it is impossible to change the function signature
 directly, therefore the ``decorator`` module is still useful.
@@ -754,7 +755,7 @@ the module and releasing new versions.
 .. _362: http://www.python.org/dev/peps/pep-0362
 
 In the present implementation, decorators generated by ``decorator``
-can only be used on user-defined Python functions or methods, not on generic 
+can only be used on user-defined Python functions or methods, not on generic
 callable objects, nor on built-in functions, due to limitations of the
 ``inspect`` module in the standard library.
 
@@ -794,14 +795,13 @@ a *copy* of the original function dictionary
 Compatibility notes
 ---------------------------------------------------------------
 
-Version 3.3 is the first version of the ``decorator`` module to fully
-support Python 3, including `function annotations`_. Version 3.2 was the
-first version to support Python 3 via the ``2to3`` conversion tool
-invoked in the build process by the distribute_ project, the Python
-3-compatible replacement of easy_install.  The hard work (for me) has
-been converting the documentation and the doctests.  This has been
-possible only after that docutils_ and pygments_ have been ported to
-Python 3.
+Version 3.4 fixes some bugs in the support of recent versions of
+Python 3.  Version 3.3 was the first version of the ``decorator``
+module to fully support Python 3, including `function
+annotations`_. Version 3.2 was the first version to support Python 3
+via the ``2to3`` conversion tool.  The hard work (for me) has been
+converting the documentation and the doctests.  This has been possible
+only after that docutils_ and pygments_ have been ported to Python 3.
 
 Version 3 of the ``decorator`` module do not contain any backward
 incompatible change, apart from the removal of the functions
@@ -813,7 +813,7 @@ case (converting signature changing decorators to signature preserving
 decorators) has been subsumed by ``decorator_apply``, whereas the other use
 case can be managed with the ``FunctionMaker``.
 
-There are a few changes in the documentation: I removed the 
+There are a few changes in the documentation: I removed the
 ``decorator_factory`` example, which was confusing some of my users,
 and I removed the part about exotic signatures in the Python 3
 documentation, since Python 3 does not support them.
@@ -834,7 +834,7 @@ you will notice a few differences since
 ``getargspec`` returns an ``ArgSpec`` namedtuple instead of a regular
 tuple. That means that running the file
 ``documentation.py`` under Python 2.5 will print a few errors, but
-they are not serious. 
+they are not serious.
 
 .. _functionality introduced in version 2.3: http://www.phyast.pitt.edu/~micheles/python/documentation.html#class-decorators-and-decorator-factories
 .. _function annotations: http://www.python.org/dev/peps/pep-3107/
@@ -845,19 +845,19 @@ they are not serious.
 LICENCE
 ---------------------------------------------
 
-Copyright (c) 2005-2012, Michele Simionato
+Copyright (c) 2005-2015, Michele Simionato
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
 met:
 
-  Redistributions of source code must retain the above copyright 
+  Redistributions of source code must retain the above copyright
   notice, this list of conditions and the following disclaimer.
   Redistributions in bytecode form must reproduce the above copyright
   notice, this list of conditions and the following disclaimer in
   the documentation and/or other materials provided with the
-  distribution. 
+  distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -872,12 +872,17 @@ TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE
 USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH
 DAMAGE.
 
-If you use this software and you are happy with it, consider sending me a 
+If you use this software and you are happy with it, consider sending me a
 note, just to gratify my ego. On the other hand, if you use this software and
 you are unhappy with it, send me a patch!
 """
 from __future__ import with_statement
-import sys, threading, time, functools, inspect, itertools  
+import sys
+import threading
+import time
+import functools
+import inspect
+import itertools  
 from decorator import *
 from functools import partial
 from setup import VERSION
@@ -886,34 +891,41 @@ today = time.strftime('%Y-%m-%d')
 
 __doc__ = __doc__.replace('$VERSION', VERSION).replace('$DATE', today)
 
+
 def decorator_apply(dec, func):
     """
-    Decorate a function by preserving the signature even if dec 
+    Decorate a function by preserving the signature even if dec
     is not a signature-preserving decorator.
     """
     return FunctionMaker.create(
         func, 'return decorated(%(signature)s)',
         dict(decorated=dec(func)), __wrapped__=func)
 
+
 def _trace(f, *args, **kw):
     kwstr = ', '.join('%r: %r' % (k, kw[k]) for k in sorted(kw))
     print("calling %s with args %s, {%s}" % (f.__name__, args, kwstr))
     return f(*args, **kw)
 
+
 def trace(f):
     return decorator(_trace, f)
 
-def on_success(result): # default implementation
+
+def on_success(result):  # default implementation
     "Called on the result of the function"
     return result
 
-def on_failure(exc_info): # default implementation
+
+def on_failure(exc_info):  # default implementation
     "Called if the function fails"
     pass
 
-def on_closing(): # default implementation
+
+def on_closing():  # default implementation
     "Called at the end, both in case of success and failure"
     pass
+
 
 class Async(object):
     """
@@ -934,9 +946,10 @@ class Async(object):
     def __call__(self, func, *args, **kw):
         try:
             counter = func.counter
-        except AttributeError: # instantiate the counter at the first call
+        except AttributeError:  # instantiate the counter at the first call
             counter = func.counter = itertools.count(1)
         name = '%s-%s' % (func.__name__, next(counter))
+
         def func_wrapper():
             try:
                 result = func(*args, **kw)
@@ -950,18 +963,23 @@ class Async(object):
         thread.start()
         return thread
 
+
 def identity_dec(func):
     def wrapper(*args, **kw):
         return func(*args, **kw)
     return wrapper
 
+
 @identity_dec
-def example(): pass
+def example():
+    pass
+
 
 def memoize_uw(func):
     func.cache = {}
+
     def memoize(*args, **kw):
-        if kw: # frozenset is used to ensure hashability
+        if kw:  # frozenset is used to ensure hashability
             key = args, frozenset(kw.iteritems())
         else:
             key = args
@@ -973,50 +991,60 @@ def memoize_uw(func):
             return result
     return functools.update_wrapper(memoize, func)
 
+
 def _memoize(func, *args, **kw):
-    if kw: # frozenset is used to ensure hashability
+    if kw:  # frozenset is used to ensure hashability
         key = args, frozenset(kw.iteritems())
     else:
         key = args
-    cache = func.cache # attributed added by memoize
+    cache = func.cache  # attributed added by memoize
     if key in cache:
         return cache[key]
     else:
         cache[key] = result = func(*args, **kw)
         return result
 
+
 def memoize(f):
     f.cache = {}
     return decorator(_memoize, f)
 
+
 def blocking(not_avail):
     def blocking(f, *args, **kw):
-        if not hasattr(f, "thread"): # no thread running
-            def set_result(): f.result = f(*args, **kw)
+        if not hasattr(f, "thread"):  # no thread running
+            def set_result():
+                f.result = f(*args, **kw)
             f.thread = threading.Thread(None, set_result)
             f.thread.start()
             return not_avail
         elif f.thread.isAlive():
             return not_avail
-        else: # the thread is ended, return the stored result
+        else:  # the thread is ended, return the stored result
             del f.thread
             return f.result
     return decorator(blocking)
 
+
 class User(object):
     "Will just be able to see a page"
+
 
 class PowerUser(User):
     "Will be able to add new pages too"
 
+
 class Admin(PowerUser):
     "Will be able to delete pages too"
+
 
 def get_userclass():
     return User
 
+
 class PermissionError(Exception):
     pass
+
 
 def restricted(user_class):
     def restricted(func, *args, **kw):
@@ -1029,6 +1057,7 @@ def restricted(user_class):
                 '%s does not have the permission to run %s!'
                 % (userclass.__name__, func.__name__))
     return decorator(restricted)
+
 
 class Action(object):
     """
@@ -1052,6 +1081,7 @@ class Action(object):
     def delete(self):
         pass
 
+
 class TailRecursive(object):
     """
     tail_recursive decorator based on Kay Schluehr's recipe
@@ -1062,7 +1092,7 @@ class TailRecursive(object):
     def __init__(self, func):
         self.func = func
         self.firstcall = True
-        self.CONTINUE = object() # sentinel
+        self.CONTINUE = object()  # sentinel
 
     def __call__(self, *args, **kwd):
         CONTINUE = self.CONTINUE
@@ -1072,28 +1102,34 @@ class TailRecursive(object):
             try:
                 while True:
                     result = func(*args, **kwd)
-                    if result is CONTINUE: # update arguments
+                    if result is CONTINUE:  # update arguments
                         args, kwd = self.argskwd
-                    else: # last call
+                    else:  # last call
                         return result
             finally:
                 self.firstcall = True
-        else: # return the arguments of the tail call
+        else:  # return the arguments of the tail call
             self.argskwd = args, kwd
             return CONTINUE
+
 
 def tail_recursive(func):
     return decorator_apply(TailRecursive, func)
 
+
 @tail_recursive
 def factorial(n, acc=1):
     "The good old factorial"
-    if n == 0: return acc
+    if n == 0:
+        return acc
     return factorial(n-1, n*acc)
 
-def fact(n): # this is not tail-recursive
-    if n == 0: return 1
+
+def fact(n):  # this is not tail-recursive
+    if n == 0:
+        return 1
     return n * fact(n-1)
+
 
 def a_test_for_pylons():
     """
@@ -1109,14 +1145,16 @@ def a_test_for_pylons():
     'The good old factorial'
     """
 
+
 def test_kwonlydefaults():
     """
     >>> @trace
     ... def f(arg, defarg=1, *args, kwonly=2): pass
     ...
-    >>> f.__kwdefaults__ 
+    >>> f.__kwdefaults__
     {'kwonly': 2}
     """
+
 
 def test_kwonlyargs():
     """
@@ -1129,6 +1167,7 @@ def test_kwonlyargs():
     ('y', 'z')
     """
 
+
 def test_kwonly_no_args():
     """# this was broken with decorator 3.3.3
     >>> @trace
@@ -1137,6 +1176,8 @@ def test_kwonly_no_args():
     >>> f()
     calling f with args (), {}
     """
+
+
 def test_kwonly_star_notation():
     """
     >>> @trace
@@ -1146,13 +1187,15 @@ def test_kwonly_star_notation():
     FullArgSpec(args=[], varargs=None, varkw='kw', defaults=None, kwonlyargs=['a'], kwonlydefaults={'a': 1}, annotations={})
     """
 
+
 @contextmanager
 def before_after(before, after):
     print(before)
     yield
     print(after)
 
-ba = before_after('BEFORE', 'AFTER') # ContextManager instance
+ba = before_after('BEFORE', 'AFTER')  # ContextManager instance
+
 
 @ba
 def hello(user):
@@ -1167,4 +1210,5 @@ def hello(user):
     print('hello %s' % user)
 
 if __name__ == '__main__':
-    import doctest; doctest.testmod()
+    import doctest
+    doctest.testmod()
