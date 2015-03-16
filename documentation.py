@@ -1150,4 +1150,5 @@ def hello(user):
 
 if __name__ == '__main__':
     import doctest
-    doctest.testmod()
+    err = doctest.testmod()[0]
+    sys.exit(err)

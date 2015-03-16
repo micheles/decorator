@@ -5,7 +5,7 @@ Decorator module
 :E-mail: michele.simionato@gmail.com
 :Requires: Python 2.4+
 :Download page: http://pypi.python.org/pypi/decorator
-:Installation: ``easy_install decorator``
+:Installation: ``pip install decorator``
 :License: BSD license
 
 Installation
@@ -13,14 +13,14 @@ Installation
 
 If you are lazy, just perform
 
-$ pip install decorator
+ `$ pip install decorator`
 
 which will install just the module on your system.
 
 If you prefer to install the full distribution from source, including
 the documentation, download the tarball_, unpack it and run
 
-$ python setup.py install
+ `$ python setup.py install`
 
 in the main directory, possibly as superuser.
 
@@ -32,11 +32,11 @@ Testing
 
 For Python 2.5, 2.6, 2.7 run
 
-$ python documentation.py
+ `$ python documentation.py`
 
 for Python 3.X run
 
-$ python3 documentation3.py
+ `$ python3 documentation3.py`
 
 You will see a few innocuous errors with Python 2.5, because some
 inner details such as the introduction of the ArgSpec namedtuple and
