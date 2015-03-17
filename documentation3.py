@@ -7,7 +7,7 @@ The ``decorator`` module
 :Version: $VERSION ($DATE)
 :Requires: Python 2.4+
 :Download page: http://pypi.python.org/pypi/decorator/$VERSION
-:Installation: ``easy_install decorator``
+:Installation: ``pip install decorator``
 :License: BSD license
 
 .. contents::
