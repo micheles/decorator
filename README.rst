@@ -60,10 +60,10 @@ There are various versions of the documentation:
 -  `HTML version (Python 3)`_ 
 -  `PDF version (Python 3)`_ 
 
-.. _HTML version (Python 2): https://github.com/micheles/decorator/blob/3.4.1/documentation.rst
-.. _PDF version (Python 2): https://github.com/micheles/decorator/blob/3.4.1/documentation.pdf
-.. _HTML version (Python 3): https://github.com/micheles/decorator/blob/3.4.1/documentation3.rst
-.. _PDF version (Python 3): https://github.com/micheles/decorator/blob/3.4.1/documentation3.pdf
+.. _HTML version (Python 2): https://github.com/micheles/decorator/blob/3.4.2/documentation.rst
+.. _PDF version (Python 2): https://github.com/micheles/decorator/blob/3.4.2/documentation.pdf
+.. _HTML version (Python 3): https://github.com/micheles/decorator/blob/3.4.2/documentation3.rst
+.. _PDF version (Python 3): https://github.com/micheles/decorator/blob/3.4.2/documentation3.pdf
 
 Repository
 ---------------

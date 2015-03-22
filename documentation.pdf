@@ -16,7 +16,7 @@ endobj
 << /A << /S /URI /Type /Action /URI (mailto:michele.simionato@gmail.com) >> /Border [ 0 0 0 ] /Rect [ 153.7323 704.7736 289.4623 716.7736 ] /Subtype /Link /Type /Annot >>
 endobj
 6 0 obj
-<< /A << /S /URI /Type /Action /URI (http://pypi.python.org/pypi/decorator/3.4.1) >> /Border [ 0 0 0 ] /Rect [ 153.7323 659.7736 526.5827 671.7736 ] /Subtype /Link /Type /Annot >>
+<< /A << /S /URI /Type /Action /URI (http://pypi.python.org/pypi/decorator/3.4.2) >> /Border [ 0 0 0 ] /Rect [ 153.7323 659.7736 526.5827 671.7736 ] /Subtype /Link /Type /Annot >>
 endobj
 7 0 obj
 << /BaseFont /Courier /Encoding /WinAnsiEncoding /Name /F4 /Subtype /Type1 /Type /Font >>
@@ -338,7 +338,7 @@ q
 1 0 0 1 91.03937 3 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (3.4.1 \(2015-03-17\)) Tj T* ET
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (3.4.2 \(2015-03-17\)) Tj T* ET
 Q
 Q
 q
@@ -381,7 +381,7 @@ q
 q
 0 0 .501961 rg
 0 0 .501961 RG
-BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (http://pypi.python.org/pypi/decorator/3.4.1) Tj T* ET
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (http://pypi.python.org/pypi/decorator/3.4.2) Tj T* ET
 Q
 Q
 q
@@ -1861,7 +1861,7 @@ n 318 12.75 6 12 re f*
 .960784 .960784 .862745 rg
 n 330 12.75 24 12 re f*
 .960784 .960784 .862745 rg
-n 354 12.75 6 12 re f*
+n 3.4.22.75 6 12 re f*
 .960784 .960784 .862745 rg
 n 366 12.75 12 12 re f*
 .960784 .960784 .862745 rg
@@ -2583,7 +2583,7 @@ n 348 12.75 6 12 re f*
 .960784 .960784 .862745 rg
 n 360 12.75 24 12 re f*
 .960784 .960784 .862745 rg
-n 384 12.75 6 12 re f*
+n 3.4.22.75 6 12 re f*
 .960784 .960784 .862745 rg
 n 396 12.75 12 12 re f*
 .960784 .960784 .862745 rg
@@ -3467,7 +3467,7 @@ n 312 108.75 6 12 re f*
 .960784 .960784 .862745 rg
 n 318 108.75 6 12 re f*
 .960784 .960784 .862745 rg
-n 324 108.75 6 12 re f*
+n 3.4.208.75 6 12 re f*
 .960784 .960784 .862745 rg
 n 48 96.75 24 12 re f*
 .960784 .960784 .862745 rg
@@ -4988,7 +4988,7 @@ n 156 108.75 12 12 re f*
 .960784 .960784 .862745 rg
 n 24 96.75 18 12 re f*
 .960784 .960784 .862745 rg
-n 0 84.75 354 12 re f*
+n 0 84.75 3.4.22 re f*
 .960784 .960784 .862745 rg
 n 0 72.75 396 12 re f*
 .960784 .960784 .862745 rg
@@ -6559,7 +6559,7 @@ xref
 0000185687 00000 n
 0000202665 00000 n
 0000213140 00000 n
-0000230491 00000 n
+000023.4.2 00000 n
 0000237048 00000 n
 0000237247 00000 n
 0000237285 00000 n
