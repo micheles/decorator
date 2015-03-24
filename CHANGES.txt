@@ -1,6 +1,7 @@
 HISTORY
 ----------
 
+3.4.2 Same as 3.4.1, re-uploaded to PyPI (2015-03-22)
 3.4.1 Ported the repository from GoogleCode to GitHub and added Travis CI
      support. Tests are executed with the new command `python test.py -v`.
      setuptools is now mandatory in Python 3. The suggested

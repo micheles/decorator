@@ -16,7 +16,7 @@ endobj
 << /A << /S /URI /Type /Action /URI (mailto:michele.simionato@gmail.com) >> /Border [ 0 0 0 ] /Rect [ 153.7323 704.7736 289.4623 716.7736 ] /Subtype /Link /Type /Annot >>
 endobj
 6 0 obj
-<< /A << /S /URI /Type /Action /URI (http://pypi.python.org/pypi/decorator/3.4.1) >> /Border [ 0 0 0 ] /Rect [ 153.7323 659.7736 526.5827 671.7736 ] /Subtype /Link /Type /Annot >>
+<< /A << /S /URI /Type /Action /URI (http://pypi.python.org/pypi/decorator/3.4.2) >> /Border [ 0 0 0 ] /Rect [ 153.7323 659.7736 526.5827 671.7736 ] /Subtype /Link /Type /Annot >>
 endobj
 7 0 obj
 << /BaseFont /Courier /Encoding /WinAnsiEncoding /Name /F4 /Subtype /Type1 /Type /Font >>
@@ -239,7 +239,7 @@ endobj
 << /Outlines 75 0 R /PageLabels 109 0 R /PageMode /UseNone /Pages 92 0 R /Type /Catalog >>
 endobj
 74 0 obj
-<< /Author (Michele Simionato) /CreationDate (D:20150316162017-01'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
+<< /Author (Michele Simionato) /CreationDate (D:20150317194853-01'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
   /Title (The decorator module) >>
 endobj
 75 0 obj
@@ -298,7 +298,7 @@ endobj
   61 0 R 63 0 R 64 0 R 66 0 R 71 0 R 72 0 R ] /Type /Pages >>
 endobj
 93 0 obj
-<< /Length 8970 >>
+<< /Length 8981 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -363,7 +363,7 @@ q
 1 0 0 1 91.03937 3 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (3.4.1 \(2015-03-16\)) Tj T* ET
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (3.4.2 \(2015-03-17\)) Tj T* ET
 Q
 Q
 q
@@ -406,7 +406,7 @@ q
 q
 0 0 .501961 rg
 0 0 .501961 RG
-BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (http://pypi.python.org/pypi/decorator/3.4.1) Tj T* ET
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (http://pypi.python.org/pypi/decorator/3.4.2) Tj T* ET
 Q
 Q
 q
@@ -426,7 +426,7 @@ Q
 q
 1 0 0 1 91.03937 3 cm
 q
-BT 1 0 0 1 0 2 Tm 12 TL /F4 10 Tf 0 0 0 rg (easy_install) Tj ( ) Tj (decorator) Tj T* ET
+BT 1 0 0 1 0 2 Tm 12 TL /F4 10 Tf 0 0 0 rg (pip) Tj ( ) Tj (install) Tj ( ) Tj (decorator) Tj T* ET
 Q
 Q
 q
@@ -2914,7 +2914,7 @@ n 300 12.75 6 12 re f*
 .960784 .960784 .862745 rg
 n 306 12.75 48 12 re f*
 .960784 .960784 .862745 rg
-n 354 12.75 6 12 re f*
+n 3.4.22.75 6 12 re f*
 .960784 .960784 .862745 rg
 n 366 12.75 24 12 re f*
 .960784 .960784 .862745 rg
@@ -3830,7 +3830,7 @@ n 312 168.75 6 12 re f*
 .960784 .960784 .862745 rg
 n 318 168.75 6 12 re f*
 .960784 .960784 .862745 rg
-n 324 168.75 6 12 re f*
+n 3.4.268.75 6 12 re f*
 .960784 .960784 .862745 rg
 n 48 156.75 24 12 re f*
 .960784 .960784 .862745 rg
@@ -5355,7 +5355,7 @@ n 156 336.75 12 12 re f*
 .960784 .960784 .862745 rg
 n 24 324.75 18 12 re f*
 .960784 .960784 .862745 rg
-n 0 312.75 354 12 re f*
+n 0 312.75 3.4.22 re f*
 .960784 .960784 .862745 rg
 n 0 300.75 396 12 re f*
 .960784 .960784 .862745 rg
@@ -6679,43 +6679,43 @@ xref
 0000015920 00000 n
 0000016032 00000 n
 0000016206 00000 n
-0000025233 00000 n
-0000037517 00000 n
-0000053936 00000 n
-0000072471 00000 n
-0000093910 00000 n
-0000113111 00000 n
-0000127049 00000 n
-0000146974 00000 n
-0000163187 00000 n
-0000177912 00000 n
-0000192010 00000 n
-0000208189 00000 n
-0000216529 00000 n
-0000232666 00000 n
-0000242612 00000 n
-0000243507 00000 n
-0000243721 00000 n
-0000243759 00000 n
-0000243797 00000 n
-0000243835 00000 n
-0000243873 00000 n
-0000243911 00000 n
-0000243949 00000 n
-0000243987 00000 n
-0000244025 00000 n
-0000244063 00000 n
-0000244102 00000 n
-0000244141 00000 n
-0000244180 00000 n
-0000244219 00000 n
-0000244258 00000 n
-0000244297 00000 n
+0000025244 00000 n
+0000037528 00000 n
+0000053947 00000 n
+0000072482 00000 n
+0000093921 00000 n
+0000113122 00000 n
+0000127060 00000 n
+0000146985 00000 n
+0000163198 00000 n
+0000177923 00000 n
+0000192021 00000 n
+0000208200 00000 n
+0000216540 00000 n
+0000232677 00000 n
+0000242623 00000 n
+0000243518 00000 n
+0000243732 00000 n
+0000243770 00000 n
+0000243808 00000 n
+0000243846 00000 n
+0000243884 00000 n
+0000243922 00000 n
+0000243960 00000 n
+0000243998 00000 n
+0000244036 00000 n
+0000244074 00000 n
+0000244113 00000 n
+0000244152 00000 n
+0000244191 00000 n
+0000244230 00000 n
+0000244269 00000 n
+0000244308 00000 n
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com)
- [(\332:\210,\011\256\334I\352\235\026\321\241\263\032\277) (\332:\210,\011\256\334I\352\235\026\321\241\263\032\277)]
+ [(\300\216\371\014\004\314`\307\362'5s\012\323\373\037) (\300\216\371\014\004\314`\307\362'5s\012\323\373\037)]
  /Info 74 0 R /Root 73 0 R /Size 126 >>
 startxref
-244336
+244347
 %%EOF

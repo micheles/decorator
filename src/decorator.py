@@ -32,7 +32,7 @@ Decorator module, see http://pypi.python.org/pypi/decorator
 for the documentation.
 """
 
-__version__ = '3.4.1'
+__version__ = '3.4.2'
 
 __all__ = ["decorator", "FunctionMaker", "contextmanager"]
 
