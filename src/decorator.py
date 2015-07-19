@@ -217,7 +217,7 @@ def decorator(caller, _func=None):
     if _func is not None:  # return a decorated function
         # this is obsolete behavior; you should use decorate instead
         return decorate(caller, _func)
-    # else return a decorator
+    # else return a decorator function
     if inspect.isclass(caller):
         name = caller.__name__.lower()
         callerfunc = get_init(caller)

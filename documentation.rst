@@ -422,58 +422,24 @@ available. For instance:
 ``async``
 --------------------------------------------
 
-We have just seen an examples of a simple decorator factory,
-implemented as a function returning a decorator.
-For more complex situations, it is more
-convenient to implement decorator factories as
-callable objects that can be converted into decorators.
+The ``decorator`` facility can also produce a decorator starting
+from a class with the signature of a caller.
 
-As an example, here will I show a decorator
-which is able to convert a blocking function into an asynchronous
-function. The function, when called,
-is executed in a separate thread. Moreover, it is possible to set
-three callbacks ``on_success``, ``on_failure`` and ``on_closing``,
-to specify how to manage the function call (of course the code here
-is just an example, it is not a recommended way of doing multi-threaded
-programming). The implementation is the following:
+As an example, here will I show a decorator which is able to convert a
+blocking function into an asynchronous function. The function, when
+called, is executed in a separate thread. This is very similar in
+spirit to the approach used in the ``concurrent.futures`` package. Of
+course the code here is just an example, it is not a recommended way
+of implementing futures. The implementation is the following:
 
 .. code-block:: python
 
- def on_success(result):  # default implementation
-     "Called on the result of the function"
-     return result
-
-.. code-block:: python
-
- def on_failure(exc_info):  # default implementation
-     "Called if the function fails"
-     pass
-
-.. code-block:: python
-
- def on_closing():  # default implementation
-     "Called at the end, both in case of success and failure"
-     pass
-
-.. code-block:: python
-
- class Async(object):
+ class Future(threading.Thread):
      """
-     A decorator converting blocking functions into asynchronous
-     functions, by using threads or processes. Examples:
- 
-     async_with_threads = Async(threading.Thread)
-     async_with_processes = Async(multiprocessing.Process)
+     A class converting blocking functions into asynchronous
+     functions by using threads.
      """
- 
-     def __init__(self, threadfactory, on_success=on_success,
-                  on_failure=on_failure, on_closing=on_closing):
-         self.threadfactory = threadfactory
-         self.on_success = on_success
-         self.on_failure = on_failure
-         self.on_closing = on_closing
- 
-     def __call__(self, func, *args, **kw):
+     def __init__(self, func, *args, **kw):
          try:
              counter = func.counter
          except AttributeError:  # instantiate the counter at the first call
@@ -481,31 +447,27 @@ programming). The implementation is the following:
          name = '%s-%s' % (func.__name__, next(counter))
  
          def func_wrapper():
-             try:
-                 result = func(*args, **kw)
-             except:
-                 self.on_failure(sys.exc_info())
-             else:
-                 return self.on_success(result)
-             finally:
-                 self.on_closing()
-         thread = self.threadfactory(None, func_wrapper, name)
-         thread.start()
-         return thread
+             self._result = func(*args, **kw)
+         super(Future, self).__init__(target=func_wrapper, name=name)
+         self.start()
+ 
+     def result(self):
+         self.join()
+         return self._result
 
 
-The decorated function returns
-the current execution thread, which can be stored and checked later, for
-instance to verify that the thread ``.isAlive()``.
+The decorated function returns a ``Future`` object, which has a ``.result()``
+method which blocks until the underlying thread finishes and returns
+the final result.
 
-Here is an example of usage. Suppose one wants to write some data to
+Suppose one wants to write some data to
 an external resource which can be accessed by a single user at once
 (for instance a printer). Then the access to the writing function must
 be locked. Here is a minimalistic example:
 
 .. code-block:: python
 
- >>> async = decorator(Async(threading.Thread))
+ >>> async = decorator(Future)
 
  >>> datalist = [] # for simplicity the written data are stored into a list.
 
@@ -523,12 +485,12 @@ be no synchronization problems since ``write`` is locked.
 .. code-block:: python
 
  >>> write("data1") 
- <Thread(write-1, started...)>
+ <Future(write-1, started...)>
 
  >>> time.sleep(.1) # wait a bit, so we are sure data2 is written after data1
 
  >>> write("data2") 
- <Thread(write-2, started...)>
+ <Future(write-2, started...)>
 
  >>> time.sleep(2) # wait for the writers to complete
 

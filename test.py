@@ -4,6 +4,7 @@ Some simple tests
 
 import os
 import sys
+import time
 import doctest
 from decorator import decorator
 import documentation
@@ -34,9 +35,18 @@ def test1():
     this = getfname(f1)
     assert this == 'test.py', this
 
+
+def test_long_running():
+    f1 = documentation.long_running(1)
+    f2 = documentation.long_running(2)
+    assert f1.result() + f2.result() == 3
+
 if __name__ == '__main__':
+    t0 = time.time()
     for name, test in list(globals().items()):
         if name.startswith('test'):
             test()
     err = doctest.testmod(documentation)[0]
+    t1 = time.time()
+    print('Tests run in %s seconds' % (t1 - t0))
     sys.exit(err)
