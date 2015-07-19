@@ -7,7 +7,7 @@ The ``decorator`` module
 :Author: Michele Simionato
 :E-mail: michele.simionato@gmail.com
 :Version: $VERSION ($DATE)
-:Requires: Python 2.6+
+:Supports: Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5
 :Download page: http://pypi.python.org/pypi/decorator/$VERSION
 :Installation: ``pip install decorator``
 :License: BSD license
@@ -43,7 +43,7 @@ solve every problem with a decorator, just because you can.
 
 You may find the source code for all the examples
 discussed here in the ``documentation.py`` file, which contains
-this documentation in the form of doctests.
+the documentation you are reading in the form of doctests.
 
 Definitions
 ------------------------------------
@@ -124,9 +124,9 @@ keyword arguments:
  >>> print(getargspec(f1))
  ArgSpec(args=[], varargs='args', keywords='kw', defaults=None)
 
-This means that introspection tools such as pydoc will give
+This means that introspection tools such as *pydoc* will give
 wrong informations about the signature of ``f1``. This is pretty bad:
-pydoc will tell you that the function accepts a generic signature
+*pydoc* will tell you that the function accepts a generic signature
 ``*args``, ``**kw``, but when you try to call the function with more than an
 argument, you will get an error:
 
@@ -142,14 +142,14 @@ The solution
 
 The solution is to provide a generic factory of generators, which
 hides the complexity of making signature-preserving decorators
-from the application programmer. The ``decorator`` function in
+from the application programmer. The ``decorate`` function in
 the ``decorator`` module is such a factory:
 
 .. code-block:: python
 
- >>> from decorator import decorator
+ >>> from decorator import decorate
 
-``decorator`` takes two arguments, a caller function describing the
+``decorate`` takes two arguments, a caller function describing the
 functionality of the decorator and a function to be decorated; it
 returns the decorated function. The caller function must have
 signature ``(f, *args, **kw)`` and it must call the original function ``f``
@@ -164,9 +164,9 @@ $$memoize
 
 The difference with respect to the ``memoize_uw`` approach, which is based
 on nested functions, is that the decorator module forces you to lift
-the inner function at the outer level (*flat is better than nested*).
+the inner function at the outer level.
 Moreover, you are forced to pass explicitly the function you want to
-decorate to the caller function.
+decorate, there are no closures.
 
 Here is a test of usage:
 
@@ -239,17 +239,21 @@ The same decorator works with functions of any signature:
 
 $FUNCTION_ANNOTATIONS
 
-``decorator`` is a decorator
+decorator.decorator
 ---------------------------------------------
 
 It may be annoying to write a caller function (like the ``_trace``
 function above) and then a trivial wrapper
-(``def trace(f): return decorator(_trace, f)``) every time. For this reason,
+(``def trace(f): return decorate(_trace, f)``) every time. For this reason,
 the ``decorator`` module provides an easy shortcut to convert
-the caller function into a signature-preserving decorator:
-you can just call ``decorator`` with a single argument.
-In our example you can just write ``trace = decorator(_trace)``.
-The ``decorator`` function can also be used as a signature-changing
+the caller function into a signature-preserving decorator: the
+``decorator`` function:
+
+>>> from decorator import decorator
+>>> print(decorator.__doc__)
+decorator(caller) converts a caller function into a decorator
+
+The ``decorator`` function can be used as a signature-changing
 decorator, just as ``classmethod`` and ``staticmethod``.
 However, ``classmethod`` and ``staticmethod`` return generic
 objects which are not callable, while ``decorator`` returns
@@ -264,8 +268,7 @@ For instance, you can write directly
  ...     print("calling %s with args %s, {%s}" % (f.__name__, args, kwstr))
  ...     return f(*args, **kw)
 
-and now ``trace`` will be a decorator. Actually ``trace`` is a ``partial``
-object which can be used as a decorator:
+and now ``trace`` will be a decorator.
 
 .. code-block:: python
 
@@ -281,10 +284,6 @@ Here is an example of usage:
 
  >>> func()
  calling func with args (), {}
-
-If you are using an old Python version (Python 2.4) the
-``decorator`` module provides a poor man replacement for
-``functools.partial``.
 
 ``blocking``
 -------------------------------------------
@@ -328,7 +327,7 @@ available. For instance:
 We have just seen an examples of a simple decorator factory,
 implemented as a function returning a decorator.
 For more complex situations, it is more
-convenient to implement decorator factories as classes returning
+convenient to implement decorator factories as
 callable objects that can be converted into decorators.
 
 As an example, here will I show a decorator
@@ -442,7 +441,7 @@ of the decorated functions: the decorated ``hello`` function here will have
 a generic signature ``hello(*args, **kwargs)`` but will break when
 called with more than zero arguments. For such reasons the decorator
 module, starting with release 3.4, offers a ``decorator.contextmanager``
-decorator that solves both problems and works even in Python 2.5.
+decorator that solves both problems and works in all supported Python versions.
 The usage is the same and factories decorated with ``decorator.contextmanager``
 will returns instances of ``ContextManager``, a subclass of
 ``contextlib.GeneratorContextManager`` with a ``__call__`` method
@@ -513,17 +512,6 @@ For each argument in the ``args`` (which is a list of strings containing
 the names of the mandatory arguments) an attribute ``arg0``, ``arg1``,
 ..., ``argN`` is also generated. Finally, there is a ``signature``
 attribute, a string with the signature of the original function.
-
-Notice that while I do not have plans
-to change or remove the functionality provided in the
-``FunctionMaker`` class, I do not guarantee that it will stay
-unchanged forever. For instance, right now I am using the traditional
-string interpolation syntax for function templates, but Python 2.6
-and Python 3.0 provide a newer interpolation syntax and I may use
-the new syntax in the future.
-On the other hand, the functionality provided by
-``decorator`` has been there from version 0.1 and it is guaranteed to
-stay there forever.
 
 Getting the source code
 ---------------------------------------------------
@@ -653,12 +641,12 @@ The worse case is shown by the following example::
      pass
  " "f()"
 
-On my MacBook, using the ``do_nothing`` decorator instead of the
-plain function is more than three times slower::
+On my laptop, using the ``do_nothing`` decorator instead of the
+plain function is five times slower::
 
  $ bash performance.sh
- 1000000 loops, best of 3: 0.669 usec per loop
- 1000000 loops, best of 3: 0.181 usec per loop
+ 1000000 loops, best of 3: 1.39 usec per loop
+ 1000000 loops, best of 3: 0.278 usec per loop
 
 It should be noted that a real life function would probably do
 something more useful than ``f`` here, and therefore in real life the
@@ -703,9 +691,9 @@ would require to change the CPython implementation of functions and
 add an hook to make it possible to change their signature directly.
 That could happen in future versions of Python (see PEP 362_) and
 then the decorator module would become obsolete. However, at present,
-even in Python 3.2 it is impossible to change the function signature
+even in Python 3.5 it is impossible to change the function signature
 directly, therefore the ``decorator`` module is still useful.
-Actually, this is one of the main reasons why I keep maintaining
+Actually, this is the main reasons why I keep maintaining
 the module and releasing new versions.
 
 .. _362: http://www.python.org/dev/peps/pep-0362
@@ -730,8 +718,8 @@ you will get a ``NameError``:
  def f(_func_):
      return _call_(_func_, _func_)
 
-Finally, the implementation is such that the decorated function shares
-the original function dictionary:
+Finally, the implementation is such that *the decorated function shares
+the original function dictionary*:
 
 .. code-block:: python
 
@@ -747,6 +735,9 @@ the original function dictionary:
  >>> f.attr2 # the original attribute did not change
  'something else'
 
+If you don't like this behavior you can always save a copy of
+the original function dictionary before decorating it.
+
 Compatibility notes
 ---------------------------------------------------------------
 
@@ -754,13 +745,19 @@ This version supports all Python releases from 2.6 to 3.5 with
 a single code base. In order to do so, I decided to drop the support
 for ancient versions of Python (Python 2.5 is nearly ten year old).
 If you need to support ancient versions of Python, stick with the
-decorator module 3.4.1.
+decorator module 3.4.2.
 
 Historical notes
 -------------------------
 
 The decorator module is over ten years old. Here a few notes on its
 evolution, for whoever is interested.
+
+Version 4 drops support for Python 2.4 and 2.5 and makes it possible
+to use a single code base both for Python 2 and Python 3. This is a
+*huge* bonus, since I could remove over 2,000 lines of duplicated
+documentation. Having to maintain separate docs for Python 2 and Python 3
+effectively stopped any development on the module for several years.
 
 Version 3.4 fixes some bugs in the support of recent versions of
 Python 3.  Version 3.3 was the first version of the ``decorator``
@@ -809,7 +806,7 @@ they are not serious.
 .. _docutils: http://docutils.sourceforge.net/
 .. _pygments: http://pygments.org/
 
-LICENCE
+LICENSE
 ---------------------------------------------
 
 Copyright (c) 2005-2015, Michele Simionato
@@ -879,24 +876,23 @@ utility ``inspect.getfullargspec``, new in Python 3:
  []
  >>> argspec.kwonlydefaults
 
-You can also check that the ``__annotations__`` dictionary is preserved:
+You can check that the ``__annotations__`` dictionary is preserved:
 
 .. code-block:: python
 
-  >>> f.__annotations__ == f.__wrapped__.__annotations__
+  >>> f.__annotations__ is f.__wrapped__.__annotations__
   True
 
-Depending on the version of the decorator module, the two dictionaries can
-be the same object or not: you cannot rely on object identity, but you can
-rely on the content being the same.
+Here ``f.__wrapped__`` is the original undecorated function. Such an attribute
+is added to be consistent with the way `functools.update_wrapper` work.
 """
 import sys
 import threading
 import time
 import functools
 import itertools
-from decorator import *
 from setup import VERSION
+from decorator import decorator, decorate, FunctionMaker, contextmanager
 
 if sys.version < '3':
     function_annotations = ''
@@ -924,7 +920,7 @@ def _trace(f, *args, **kw):
 
 
 def trace(f):
-    return decorator(_trace, f)
+    return decorate(_trace, f)
 
 
 def on_success(result):  # default implementation
@@ -947,8 +943,8 @@ class Async(object):
     A decorator converting blocking functions into asynchronous
     functions, by using threads or processes. Examples:
 
-    async_with_threads =  Async(threading.Thread)
-    async_with_processes =  Async(multiprocessing.Process)
+    async_with_threads = Async(threading.Thread)
+    async_with_processes = Async(multiprocessing.Process)
     """
 
     def __init__(self, threadfactory, on_success=on_success,
@@ -995,38 +991,33 @@ def memoize_uw(func):
 
     def memoize(*args, **kw):
         if kw:  # frozenset is used to ensure hashability
-            key = args, frozenset(kw.iteritems())
+            key = args, frozenset(kw.items())
         else:
             key = args
-        cache = func.cache
-        if key in cache:
-            return cache[key]
-        else:
-            cache[key] = result = func(*args, **kw)
-            return result
+        if key not in func.cache:
+            func.cache[key] = func(*args, **kw)
+        return func.cache[key]
     return functools.update_wrapper(memoize, func)
 
 
 def _memoize(func, *args, **kw):
     if kw:  # frozenset is used to ensure hashability
-        key = args, frozenset(kw.iteritems())
+        key = args, frozenset(kw.items())
     else:
         key = args
-    cache = func.cache  # attributed added by memoize
-    if key in cache:
-        return cache[key]
-    else:
-        cache[key] = result = func(*args, **kw)
-        return result
+    cache = func.cache  # attribute added by memoize
+    if key not in cache:
+        cache[key] = func(*args, **kw)
+    return cache[key]
 
 
 def memoize(f):
     f.cache = {}
-    return decorator(_memoize, f)
+    return decorate(_memoize, f)
 
 
 def blocking(not_avail):
-    def blocking(f, *args, **kw):
+    def _blocking(f, *args, **kw):
         if not hasattr(f, "thread"):  # no thread running
             def set_result():
                 f.result = f(*args, **kw)
@@ -1038,7 +1029,7 @@ def blocking(not_avail):
         else:  # the thread is ended, return the stored result
             del f.thread
             return f.result
-    return decorator(blocking)
+    return decorator(_blocking)
 
 
 class User(object):

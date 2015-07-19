@@ -2,8 +2,8 @@ HISTORY
 --------
 
 4.0.0 Removed the need for 2to3 by dropping the support for Python 2.5; now
-     the decorator module can be distributed as a wheel
-     (2015/07/19)
+     the decorator module can be distributed as a wheel. Introduced
+     `decorator.decorated`. (2015/07/19)
 3.4.1 Ported the repository from GoogleCode to GitHub and added Travis CI
      support. Tests are executed with the new command `python test.py -v`.
      setuptools is now mandatory in Python 3. The suggested

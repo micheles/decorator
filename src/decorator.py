@@ -200,45 +200,50 @@ class FunctionMaker(object):
                          evaldict, addsource, **attrs)
 
 
-def decorator(caller, func=None):
+def decorate(caller, func):
     """
-    decorator(caller) converts a caller function into a decorator;
-    decorator(caller, func) decorates a function using a caller.
+    decorate(caller, func) decorates a function using a caller.
     """
-    if func is not None:  # returns a decorated function
-        evaldict = func.__globals__.copy()
-        evaldict['_call_'] = caller
-        evaldict['_func_'] = func
-        return FunctionMaker.create(
-            func, "return _call_(_func_, %(shortsignature)s)",
-            evaldict, __wrapped__=func)
-    else:  # returns a decorator
-        if inspect.isclass(caller):
-            name = caller.__name__.lower()
-            callerfunc = get_init(caller)
-            doc = 'decorator(%s) converts functions/generators into ' \
-                'factories of %s objects' % (caller.__name__, caller.__name__)
-            fun = getfullargspec(callerfunc).args[1]  # second arg
-        elif inspect.isfunction(caller):
-            if caller.__name__ == '<lambda>':
-                name = '_lambda_'
-            else:
-                name = caller.__name__
-            callerfunc = caller
-            doc = caller.__doc__
-            fun = getfullargspec(callerfunc).args[0]  # first arg
-        else:  # assume caller is an object with a __call__ method
-            name = caller.__class__.__name__.lower()
-            callerfunc = caller.__call__.__func__
-            doc = caller.__call__.__doc__
-            fun = getfullargspec(callerfunc).args[1]  # second arg
-        evaldict = callerfunc.__globals__.copy()
-        evaldict['_call_'] = caller
-        evaldict['decorator'] = decorator
-        return FunctionMaker.create(
-            '%s(%s)' % (name, fun),
-            'return decorator(_call_, %s)' % fun,
-            evaldict, call=caller, doc=doc, module=caller.__module__)
+    evaldict = func.__globals__.copy()
+    evaldict['_call_'] = caller
+    evaldict['_func_'] = func
+    return FunctionMaker.create(
+        func, "return _call_(_func_, %(shortsignature)s)",
+        evaldict, __wrapped__=func)
+
+
+def decorator(caller, _func=None):
+    """decorator(caller) converts a caller function into a decorator"""
+    if _func is not None:  # return a decorated function
+        # this is obsolete behavior; you should use decorate instead
+        return decorate(caller, _func)
+    # else return a decorator
+    if inspect.isclass(caller):
+        name = caller.__name__.lower()
+        callerfunc = get_init(caller)
+        doc = 'decorator(%s) converts functions/generators into ' \
+            'factories of %s objects' % (caller.__name__, caller.__name__)
+        fun = getfullargspec(callerfunc).args[1]  # second arg
+    elif inspect.isfunction(caller):
+        if caller.__name__ == '<lambda>':
+            name = '_lambda_'
+        else:
+            name = caller.__name__
+        callerfunc = caller
+        doc = caller.__doc__
+        fun = getfullargspec(callerfunc).args[0]  # first arg
+    else:  # assume caller is an object with a __call__ method
+        name = caller.__class__.__name__.lower()
+        callerfunc = caller.__call__.__func__
+        doc = caller.__call__.__doc__
+        fun = getfullargspec(callerfunc).args[1]  # second arg
+    evaldict = callerfunc.__globals__.copy()
+    evaldict['_call_'] = caller
+    evaldict['decorator'] = decorator
+    return FunctionMaker.create(
+        '%s(%s)' % (name, fun),
+        'return decorator(_call_, %s)' % fun,
+        evaldict, call=caller, doc=doc, module=caller.__module__)
 
 
 # ####################### contextmanager ####################### #
