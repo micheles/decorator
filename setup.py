@@ -1,21 +1,14 @@
 import sys
 import os.path
 if sys.version >= '3':
-    from setuptools import setup  # needed for the flag use_2to3
+    from setuptools import setup
 else:
     from distutils.core import setup
 
+dic = {}
+exec(open('src/decorator.py').read(), dic)
+VERSION = dic['__version__']
 
-def getversion(fname):
-    """Get the __version__ reading the file: works both in Python 2.X and 3.X,
-    whereas direct importing would break in Python 3.X with a syntax error"""
-    for line in open(fname):
-        if line.startswith('__version__'):
-            return eval(line[13:])
-    raise NameError('Missing __version__ in decorator.py')
-
-VERSION = getversion(
-    os.path.join(os.path.dirname(__file__), 'src/decorator.py'))
 
 if __name__ == '__main__':
     setup(name='decorator',
@@ -39,5 +32,4 @@ if __name__ == '__main__':
                        'Programming Language :: Python :: 3',
                        'Topic :: Software Development :: Libraries',
                        'Topic :: Utilities'],
-          use_2to3=True,
           zip_safe=False)
