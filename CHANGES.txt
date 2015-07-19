@@ -1,10 +1,13 @@
 HISTORY
-----------
+--------
 
+4.0.0 Removed the need for 2to3 by dropping the support for Python 2.5; now
+     the decorator module can be distributed as a wheel
+     (2015/07/19)
 3.4.1 Ported the repository from GoogleCode to GitHub and added Travis CI
      support. Tests are executed with the new command `python test.py -v`.
      setuptools is now mandatory in Python 3. The suggested
-     installation tool is `pip`, not `easy_install`. Supported IronPython
+     installation tool is now `pip`, not `easy_install`. Supported IronPython
      and other Python implementations without sys._getframe, as requested by
      Doug Blank (2015/03/16)
 3.4.0 Added the ability to use classes and generic callables as callers and
@@ -17,7 +20,7 @@ HISTORY
      Ellison (01/09/2011)
 3.3.1 Fixed a doctest broken for Python 3.2, as noted by
      Arfrever Frehtes Taifersar Arahesis; changed the name of
-     the attribute ``undecorated`` to ``__wrapped__`` following the
+     the attribute ``undecorated`` to ``__wrapped__``, by following the
      Python 3.2 convention, as requested by Ram Rachum; added
      the Python 3 classifier to setup.py (22/04/2011)
 3.3. Added support for function annotations (1/1/2011)
