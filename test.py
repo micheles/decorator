@@ -6,6 +6,7 @@ import os
 import sys
 import doctest
 from decorator import decorator
+import documentation
 
 
 @decorator
@@ -37,11 +38,5 @@ if __name__ == '__main__':
     for name, test in list(globals().items()):
         if name.startswith('test'):
             test()
-
-    if sys.version >= '3':
-        import documentation3 as doc
-    else:
-        import documentation as doc
-
-    err = doctest.testmod(doc)[0]
+    err = doctest.testmod(documentation)[0]
     sys.exit(err)

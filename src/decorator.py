@@ -244,7 +244,7 @@ def decorator(caller, func=None):
 # ####################### contextmanager ####################### #
 
 def __call__(self, func):
-    'Context manager decorator'
+    """Context manager decorator"""
     return FunctionMaker.create(
         func, "with _self_: return _func_(%(shortsignature)s)",
         dict(_self_=self, _func_=func), __wrapped__=func)
@@ -258,17 +258,11 @@ try:  # Python >= 3.2
 
 except ImportError:  # Python >= 2.5
 
-    try:
-        from contextlib import GeneratorContextManager
-    except ImportError:  # Python 2.4
-        class ContextManager(object):
-            def __init__(self, g, *a, **k):
-                raise RuntimeError(
-                    'You cannot used contextmanager in Python 2.4!')
-    else:
-        class ContextManager(GeneratorContextManager):
-            def __init__(self, g, *a, **k):
-                return GeneratorContextManager.__init__(self, g(*a, **k))
-            __call__ = __call__
+    from contextlib import GeneratorContextManager
+
+    class ContextManager(GeneratorContextManager):
+        def __init__(self, g, *a, **k):
+            return GeneratorContextManager.__init__(self, g(*a, **k))
+        __call__ = __call__
 
 contextmanager = decorator(ContextManager)

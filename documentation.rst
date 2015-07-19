@@ -4,10 +4,10 @@ The ``decorator`` module
 
 :Author: Michele Simionato
 :E-mail: michele.simionato@gmail.com
-:Version: 3.4.1 (2015-03-16)
-:Requires: Python 2.4+
-:Download page: http://pypi.python.org/pypi/decorator/3.4.1
-:Installation: ``easy_install decorator``
+:Version: 4.0.0 (2015-07-19)
+:Requires: Python 2.6+
+:Download page: http://pypi.python.org/pypi/decorator/4.0.0
+:Installation: ``pip install decorator``
 :License: BSD license
 
 .. contents::
@@ -112,7 +112,7 @@ been added in Python 2.5 expressly to simplify the definition of decorators
 ``__name__``, ``__doc__``, ``__module__`` and ``__dict__``
 from the original function to the decorated function by hand).
 
-.. _functools.update_wrapper: https://docs.python.org/2/library/functools.html#functools.update_wrapper
+.. _functools.update_wrapper: https://docs.python.org/3/library/functools.html#functools.update_wrapper
 
 The implementation above works in the sense that the decorator
 can accept functions with generic signatures; unfortunately this
@@ -136,7 +136,7 @@ keyword arguments:
 .. code-block:: python
 
  >>> from inspect import getargspec
- >>> print getargspec(f1) # I am using Python 2.6+ here
+ >>> print(getargspec(f1))
  ArgSpec(args=[], varargs='args', keywords='kw', defaults=None)
 
 This means that introspection tools such as pydoc will give
@@ -147,10 +147,10 @@ argument, you will get an error:
 
 .. code-block:: python
 
- >>> f1(0, 1)
+ >>> f1(0, 1) 
  Traceback (most recent call last):
     ...
- TypeError: f1() takes exactly 1 argument (2 given)
+ TypeError: f1() takes exactly 1 positional argument (2 given)
 
 The solution
 -----------------------------------------
@@ -210,17 +210,17 @@ Here is a test of usage:
  ...     time.sleep(2)
  ...     return "done"
 
- >>> print heavy_computation() # the first time it will take 2 seconds
+ >>> print(heavy_computation()) # the first time it will take 2 seconds
  done
 
- >>> print heavy_computation() # the second time it will be instantaneous
+ >>> print(heavy_computation()) # the second time it will be instantaneous
  done
 
 The signature of ``heavy_computation`` is the one you would expect:
 
 .. code-block:: python
 
- >>> print getargspec(heavy_computation)
+ >>> print(getargspec(heavy_computation))
  ArgSpec(args=[], varargs=None, keywords=None, defaults=None)
 
 A ``trace`` decorator
@@ -233,7 +233,8 @@ function is called:
 .. code-block:: python
 
  def _trace(f, *args, **kw):
-     print "calling %s with args %s, %s" % (f.__name__, args, kw)
+     kwstr = ', '.join('%r: %r' % (k, kw[k]) for k in sorted(kw))
+     print("calling %s with args %s, {%s}" % (f.__name__, args, kwstr))
      return f(*args, **kw)
 
 
@@ -246,7 +247,7 @@ function is called:
 Here is an example of usage:
 
 .. code-block:: python
- 
+
  >>> @trace
  ... def f1(x):
  ...     pass
@@ -262,7 +263,7 @@ and it that it has the correct signature:
 
 .. code-block:: python
 
- >>> print getargspec(f1)
+ >>> print(getargspec(f1))
  ArgSpec(args=['x'], varargs=None, keywords=None, defaults=None)
 
 The same decorator works with functions of any signature:
@@ -276,24 +277,55 @@ The same decorator works with functions of any signature:
  >>> f(0, 3)
  calling f with args (0, 3, 2), {}
 
- >>> print getargspec(f)
+ >>> print(getargspec(f))
  ArgSpec(args=['x', 'y', 'z'], varargs='args', keywords='kw', defaults=(1, 2))
 
-That includes even functions with exotic signatures like the following:
+Function annotations
+---------------------------------------------
+
+Python 3 introduced the concept of `function annotations`_,i.e. the ability
+to annotate the signature of a function with additional information,
+stored in a dictionary named ``__annotations__``. The decorator module,
+starting from release 3.3, is able to understand and to preserve the
+annotations. Here is an example:
 
 .. code-block:: python
 
  >>> @trace
- ... def exotic_signature((x, y)=(1,2)): return x+y
+ ... def f(x: 'the first argument', y: 'default argument'=1, z=2,
+ ...       *args: 'varargs', **kw: 'kwargs'):
+ ...     pass
 
- >>> print getargspec(exotic_signature)
- ArgSpec(args=[['x', 'y']], varargs=None, keywords=None, defaults=((1, 2),))
- >>> exotic_signature()
- calling exotic_signature with args ((1, 2),), {}
- 3
+In order to introspect functions with annotations, one needs the
+utility ``inspect.getfullargspec``, new in Python 3:
 
-Notice that the support for exotic signatures has been deprecated
-in Python 2.6 and removed in Python 3.0.
+.. code-block:: python
+
+ >>> from inspect import getfullargspec
+ >>> argspec = getfullargspec(f)
+ >>> argspec.args
+ ['x', 'y', 'z']
+ >>> argspec.varargs
+ 'args'
+ >>> argspec.varkw
+ 'kw'
+ >>> argspec.defaults
+ (1, 2)
+ >>> argspec.kwonlyargs
+ []
+ >>> argspec.kwonlydefaults
+
+You can also check that the ``__annotations__`` dictionary is preserved:
+
+.. code-block:: python
+
+  >>> f.__annotations__ == f.__wrapped__.__annotations__
+  True
+
+Depending on the version of the decorator module, the two dictionaries can
+be the same object or not: you cannot rely on object identity, but you can
+rely on the content being the same.
+
 
 ``decorator`` is a decorator
 ---------------------------------------------
@@ -316,7 +348,8 @@ For instance, you can write directly
 
  >>> @decorator
  ... def trace(f, *args, **kw):
- ...     print "calling %s with args %s, %s" % (f.func_name, args, kw)
+ ...     kwstr = ', '.join('%r: %r' % (k, kw[k]) for k in sorted(kw))
+ ...     print("calling %s with args %s, {%s}" % (f.__name__, args, kwstr))
  ...     return f(*args, **kw)
 
 and now ``trace`` will be a decorator. Actually ``trace`` is a ``partial``
@@ -378,19 +411,19 @@ available. For instance:
  ...     time.sleep(3) # simulate a blocking resource
  ...     return "some data"
 
- >>> print read_data() # data is not available yet
+ >>> print(read_data())  # data is not available yet
  Please wait ...
 
  >>> time.sleep(1)
- >>> print read_data() # data is not available yet
+ >>> print(read_data())  # data is not available yet
  Please wait ...
 
  >>> time.sleep(1)
- >>> print read_data() # data is not available yet
+ >>> print(read_data())  # data is not available yet
  Please wait ...
 
- >>> time.sleep(1.1) # after 3.1 seconds, data is available
- >>> print read_data()
+ >>> time.sleep(1.1)  # after 3.1 seconds, data is available
+ >>> print(read_data())
  some data
 
 ``async``
@@ -452,7 +485,7 @@ programming). The implementation is the following:
              counter = func.counter
          except AttributeError:  # instantiate the counter at the first call
              counter = func.counter = itertools.count(1)
-         name = '%s-%s' % (func.__name__, counter.next())
+         name = '%s-%s' % (func.__name__, next(counter))
  
          def func_wrapper():
              try:
@@ -468,9 +501,9 @@ programming). The implementation is the following:
          return thread
 
 
-The decorated function returns the current execution thread, which can
-be stored and checked later, for  instance to verify that the
-thread ``.isAlive()``.
+The decorated function returns
+the current execution thread, which can be stored and checked later, for
+instance to verify that the thread ``.isAlive()``.
 
 Here is an example of usage. Suppose one wants to write some data to
 an external resource which can be accessed by a single user at once
@@ -498,23 +531,23 @@ be no synchronization problems since ``write`` is locked.
 
  >>> write("data1") 
  <Thread(write-1, started...)>
- 
+
  >>> time.sleep(.1) # wait a bit, so we are sure data2 is written after data1
- 
+
  >>> write("data2") 
  <Thread(write-2, started...)>
- 
+
  >>> time.sleep(2) # wait for the writers to complete
- 
- >>> print datalist
+
+ >>> print(datalist)
  ['data1', 'data2']
 
 contextmanager
 -------------------------------------
 
 For a long time Python had in its standard library a ``contextmanager``
-decorator, able to convert generator functions into ``GeneratorContextManager``
-factories. For instance if you write
+decorator, able to convert generator functions into
+``GeneratorContextManager`` factories. For instance if you write
 
 .. code-block:: python
 
@@ -532,11 +565,8 @@ the ``with`` statement:
 
 .. code-block:: python
 
- >>> ba = before_after('BEFORE', 'AFTER')
- >>> type(ba)
- <class 'contextlib.GeneratorContextManager'>
- >>> with ba:
- ...     print 'hello'
+ >>> with before_after('BEFORE', 'AFTER'):
+ ...     print('hello')
  BEFORE
  hello
  AFTER
@@ -551,7 +581,7 @@ method, so that they can be used as decorators as in this example:
 
  >>> @ba 
  ... def hello():
- ...     print 'hello'
+ ...     print('hello')
  ...
  >>> hello() 
  BEFORE
@@ -574,10 +604,6 @@ will returns instances of ``ContextManager``, a subclass of
 ``contextlib.GeneratorContextManager`` with a ``__call__`` method
 acting as a signature-preserving decorator.
 
-**Disclaimer**: the ``contextmanager`` decorator is an *experimental* feature:
-it may go away in future versions of the decorator module. Use it at your
-own risk.
-
 The ``FunctionMaker`` class
 ---------------------------------------------------------------
 
@@ -598,7 +624,7 @@ were the function is generated by ``exec``. Here is an example:
 .. code-block:: python
 
  >>> def f(*args, **kw): # a function with a generic signature
- ...     print args, kw
+ ...     print(args, kw)
 
  >>> f1 = FunctionMaker.create('f1(a, b)', 'f(a, b)', dict(f=f))
  >>> f1(1,2)
@@ -621,7 +647,7 @@ be added to the generated function:
 
  >>> f1 = FunctionMaker.create(
  ...     'f1(a, b)', 'f(a, b)', dict(f=f), addsource=True)
- >>> print f1.__source__
+ >>> print(f1.__source__)
  def f1(a, b):
      f(a, b)
  <BLANKLINE>
@@ -681,7 +707,8 @@ source code which is probably not what you want:
  @identity_dec
  def example(): pass
 
- >>> print inspect.getsource(example)
+ >>> import inspect
+ >>> print(inspect.getsource(example))
      def wrapper(*args, **kw):
          return func(*args, **kw)
  <BLANKLINE>
@@ -696,7 +723,7 @@ undecorated function:
 
 .. code-block:: python
 
- >>> print inspect.getsource(factorial.__wrapped__)
+ >>> print(inspect.getsource(factorial.__wrapped__))
  @tail_recursive
  def factorial(n, acc=1):
      "The good old factorial"
@@ -801,7 +828,7 @@ Here is how you apply the upgraded decorator to the good old factorial:
 
 .. code-block:: python
 
- >>> print factorial(4)
+ >>> print(factorial(4))
  24
 
 This decorator is pretty impressive, and should give you some food for
@@ -830,7 +857,7 @@ have a performance penalty.
 The worse case is shown by the following example::
 
  $ cat performance.sh
- python -m timeit -s "
+ python3 -m timeit -s "
  from decorator import decorator
 
  @decorator
@@ -842,7 +869,7 @@ The worse case is shown by the following example::
      pass
  " "f()"
 
- python -m timeit -s "
+ python3 -m timeit -s "
  def f():
      pass
  " "f()"
@@ -851,8 +878,8 @@ On my MacBook, using the ``do_nothing`` decorator instead of the
 plain function is more than three times slower::
 
  $ bash performance.sh
- 1000000 loops, best of 3: 0.995 usec per loop
- 1000000 loops, best of 3: 0.273 usec per loop
+ 1000000 loops, best of 3: 0.669 usec per loop
+ 1000000 loops, best of 3: 0.181 usec per loop
 
 It should be noted that a real life function would probably do
 something more useful than ``f`` here, and therefore in real life the
@@ -874,15 +901,15 @@ function is decorated the traceback will be longer:
 
 .. code-block:: python
 
- >>> f()
+ >>> f() 
  Traceback (most recent call last):
    ...
       File "<string>", line 2, in f
-      File "<doctest __main__[18]>", line 4, in trace
+      File "<doctest __main__[22]>", line 4, in trace
         return f(*args, **kw)
-      File "<doctest __main__[47]>", line 3, in f
+      File "<doctest __main__[51]>", line 3, in f
         1/0
- ZeroDivisionError: integer division or modulo by zero
+ ZeroDivisionError: ...
 
 You see here the inner call to the decorator ``trace``, which calls
 ``f(*args, **kw)``, and a reference to  ``File "<string>", line 2, in f``.
@@ -897,7 +924,7 @@ would require to change the CPython implementation of functions and
 add an hook to make it possible to change their signature directly.
 That could happen in future versions of Python (see PEP 362_) and
 then the decorator module would become obsolete. However, at present,
-even in Python 3.1 it is impossible to change the function signature
+even in Python 3.2 it is impossible to change the function signature
 directly, therefore the ``decorator`` module is still useful.
 Actually, this is one of the main reasons why I keep maintaining
 the module and releasing new versions.
@@ -907,38 +934,7 @@ the module and releasing new versions.
 In the present implementation, decorators generated by ``decorator``
 can only be used on user-defined Python functions or methods, not on generic
 callable objects, nor on built-in functions, due to limitations of the
-``inspect`` module in the standard library. Moreover, notice
-that you can decorate a method, but only before if becomes a bound or unbound
-method, i.e. inside the class.
-Here is an example of valid decoration:
-
-.. code-block:: python
-
- >>> class C(object):
- ...      @trace
- ...      def meth(self):
- ...          pass
-
-Here is an example of invalid decoration, when the decorator in
-called too late:
-
-.. code-block:: python
-
- >>> class C(object):
- ...      def meth(self):
- ...          pass
- ...
- >>> trace(C.meth)
- Traceback (most recent call last):
-   ...
- TypeError: You are decorating a non function: <unbound method C.meth>
-
-The solution is to extract the inner function from the unbound method:
-
-.. code-block:: python
-
- >>> trace(C.meth.im_func) 
- <function meth at 0x...>
+``inspect`` module in the standard library.
 
 There is a restriction on the names of the arguments: for instance,
 if try to call an argument ``_call_`` or ``_func_``
@@ -947,17 +943,16 @@ you will get a ``NameError``:
 .. code-block:: python
 
  >>> @trace
- ... def f(_func_): print f
- ... 
+ ... def f(_func_): print(f)
+ ...
  Traceback (most recent call last):
    ...
  NameError: _func_ is overridden in
  def f(_func_):
      return _call_(_func_, _func_)
 
-Finally, the implementation is such that the decorated function
-attribute ``.func_globals`` is a *copy* of the original function
-attribute, just as the attribute dictionary of the decorated function.
+Finally, the implementation is such that the decorated function shares
+the original function dictionary:
 
 .. code-block:: python
 
@@ -969,23 +964,57 @@ attribute, just as the attribute dictionary of the decorated function.
 
  >>> traced_f.attr1
  'something'
- >>> traced_f.attr2 = "something different"  # setting attr
- >>> f.attr2  # the original attribute did not change
+ >>> traced_f.attr2 = "something different" # setting attr
+ >>> f.attr2 # the original attribute did not change
  'something else'
 
 Compatibility notes
 ---------------------------------------------------------------
 
-This version fully supports Python 3, including `function
-annotations`_. Moreover it is the first version to support
-generic callers, i.e. callable objects with the right
-signature, not necessarily functions. ``contextmanager``
-will not work in Python 2.4. The decorated function
-dictionary is now the same of the original function
-dictionary, wheread in past versions they were
-different objects.
+This version supports all Python releases from 2.6 to 3.5 with
+a single code base. In order to do so, I decided to drop the support
+for ancient versions of Python (Python 2.5 is nearly ten year old).
+If you need to support ancient versions of Python, stick with the
+decorator module 3.4.1.
 
-The examples shown here have been tested with Python 2.7 and 3.4. Python 2.4
+Historical notes
+-------------------------
+
+The decorator module is over ten years old. Here a few notes on its
+evolution, for whoever is interested.
+
+Version 3.4 fixes some bugs in the support of recent versions of
+Python 3.  Version 3.3 was the first version of the ``decorator``
+module to fully support Python 3, including `function
+annotations`_. Version 3.2 was the first version to support Python 3
+via the ``2to3`` conversion tool.  The hard work (for me) has been
+converting the documentation and the doctests.  This has been possible
+only after that docutils_ and pygments_ have been ported to Python 3.
+
+Version 3 of the ``decorator`` module do not contain any backward
+incompatible change, apart from the removal of the functions
+``get_info`` and ``new_wrapper``, which have been deprecated for
+years. ``get_info`` has been removed since it was little used and
+since it had to be changed anyway to work with Python 3.0;
+``new_wrapper`` has been removed since it was useless: its major use
+case (converting signature changing decorators to signature preserving
+decorators) has been subsumed by ``decorator_apply``, whereas the other use
+case can be managed with the ``FunctionMaker``.
+
+There are a few changes in the documentation: I removed the
+``decorator_factory`` example, which was confusing some of my users,
+and I removed the part about exotic signatures in the Python 3
+documentation, since Python 3 does not support them.
+
+Finally ``decorator`` cannot be used as a class decorator and the
+`functionality introduced in version 2.3`_ has been removed. That
+means that in order to define decorator factories with classes you
+need to define the ``__call__`` method explicitly (no magic anymore).
+All these changes should not cause any trouble, since they were
+all rarely used features. Should you have any trouble, you can always
+downgrade to the 2.3 version.
+
+The examples shown here have been tested with Python 2.6. Python 2.4
 is also supported - of course the examples requiring the ``with``
 statement will not work there. Python 2.5 works fine, but if you
 run the examples in the interactive interpreter
@@ -995,6 +1024,7 @@ tuple. That means that running the file
 ``documentation.py`` under Python 2.5 will print a few errors, but
 they are not serious.
 
+.. _functionality introduced in version 2.3: http://www.phyast.pitt.edu/~micheles/python/documentation.html#class-decorators-and-decorator-factories
 .. _function annotations: http://www.python.org/dev/peps/pep-3107/
 .. _distribute: http://packages.python.org/distribute/
 .. _docutils: http://docutils.sourceforge.net/
