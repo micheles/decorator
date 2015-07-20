@@ -25,7 +25,7 @@ decision made it possible to use a single code base both for Python
 2.X and Python 3.X. This is a *huge* bonus, since I could remove over
 2,000 lines of duplicated documentation. Having to maintain separate
 docs for Python 2 and Python 3 effectively stopped any development on
-the module for several years.  Moreover, it is now trivial to
+the module for several years. Moreover, it is now trivial to
 distribute the module as a wheel since 2to3 is no more required.
 
 This version supports all Python releases from 2.6 up to 3.5.  If
@@ -35,14 +35,25 @@ decorator module version 3.4.2.
 What's new
 ---------------------
 
-By leveraging on the fact that now there is a single manual
-for all Python versions, the documentation has been overhauled.
-Even if you are an old time user of the module, you may want to read
-the manual again, since several examples have been improved.
-A new utility function ``decorate(func, caller)` has been
-added, doing the same job that in the past was done by
-``decorator(caller, func)``. The old functionality is still there for
-compatibility sake, but it is deprecated and not documented anymore.
+Since now there is a single manual for all Python versions, I took the
+occasion for overhauling the documentation. Therefore, even if you are
+an old time user, you may want to read the manual again, since several
+examples have been improved.  A new utility function ``decorate(func,
+caller)` has been added, doing the same job that in the past was done
+by ``decorator(caller, func)``. The old functionality is still there
+for compatibility sake, but it is deprecated and not documented
+anymore.
+
+Apart from that, there are no changes. There is a new experimental
+feature, though. The decorator module now include an implementation
+of generic (multiple dispatch) functions. The API is designed to
+mimic the one of `functools.singledispatch` but the implementation
+is much simpler and more general; moreover it preserves the signature of
+the decorated functions. For the moment it is there to exemplify
+the power of the module. In the future it could change and/or be
+enhanced/optimized; on the other hand, it could even become
+deprecated. Such is the fate of experimental features. In any case
+it is only 40 lines of code. Take it as food for thought.
 
 Usefulness of decorators
 ------------------------------------------------
@@ -279,9 +290,11 @@ the ``decorator`` module provides an easy shortcut to convert
 the caller function into a signature-preserving decorator: the
 ``decorator`` function:
 
->>> from decorator import decorator
->>> print(decorator.__doc__)
-decorator(caller) converts a caller function into a decorator
+.. code-block:: python
+
+ >>> from decorator import decorator
+ >>> print(decorator.__doc__)
+ decorator(caller) converts a caller function into a decorator
 
 The ``decorator`` function can be used as a signature-changing
 decorator, just as ``classmethod`` and ``staticmethod``.
@@ -616,6 +629,92 @@ $$fact
 making a recursive call, or returns directly the result of a recursive
 call).
 
+Multiple dispatch
+-------------------------------------------
+
+There has been talk of implementing multiple dispatch (i.e. generic)
+functions in Python for over ten years. Last year for the first time
+something was done and now in Python 3.4 we have a decorator
+`functools.singledispatch` which can be used to implement generic
+functions. As the name implies, it has the restriction of being
+limited to single dispatch, i.e. it is able to dispatch on the first
+argument of the function only.  The decorator module provide a
+decorator factory `dispatch_on` which can be used to implement generic
+functions dispatching on any argument; moreover it can manage
+dispatching on more than one argument; of course it is
+signature-preserving too.
+
+Here I will give a very concrete example where it is desiderable to
+dispatch on the second argument. Suppose you have an XMLWriter class,
+which is instantiated with some configuration parameters and has
+a `.write` method which is able to serialize objects to XML:
+
+$$XMLWriter
+
+Here you want to dispatch on the second argument since the first, `self`
+is already taken. The `dispatch_on` facility allows you to specify
+the dispatch argument by simply passing its name as a string (notice
+that if you mispell the name you will get an error). The function
+decorated with `dispatch_on` is turned into a generic function
+and it is the one which is called if there are no more specialized
+implementations. Usually such default function should raise a
+NotImplementedError, forcing peope to register some implementation.
+The registration can be done as a decorator:
+
+$$writefloat
+
+Now the XMLWriter is able to serialize floats:
+
+.. code-block:: python
+
+ >>> writer = XMLWriter()
+ >>> writer.write(2.3)
+ '<float>2.3</float>'
+
+I could give a down-to-earth example of situations in which it is desiderable
+to dispatch on more than one argument (for instance once I implemented
+a database-access library where the first dispatching argument was the
+the database driver and the second the database record), but here I prefer
+to follow the old tradition and show the time-honored
+Rock-Paper-Scissor example:
+
+$$Rock
+$$Paper
+$$Scissor
+
+I have added an ordinal to the Rock-Paper-Scissor classes to
+simplify the implementation of the generic function. There are
+9 combinations, however combinations with the same ordinal
+correspond to parity. Moreover by exchanging.
+
+$$win
+$$winRockPaper
+$$winPaperScissor
+$$winRockScissor
+
+Here is the result:
+
+.. code-block:: python
+
+ >>> win(Paper(), Rock())
+ 1
+ >>> win(Scissor(), Paper())
+ 1
+ >>> win(Rock(), Scissor())
+ 1
+ >>> win(Paper(), Paper())
+ 0
+ >>> win(Rock(), Rock())
+ 0
+ >>> win(Scissor(), Scissor())
+ 0
+ >>> win(Rock(), Paper())
+ -1
+ >>> win(Paper(), Scissor())
+ -1
+ >>> win(Scissor(), Rock())
+ -1
+
 Caveats and limitations
 -------------------------------------------
 
@@ -826,7 +925,8 @@ import time
 import functools
 import itertools
 from setup import VERSION
-from decorator import decorator, decorate, FunctionMaker, contextmanager
+from decorator import (decorator, decorate, FunctionMaker, contextmanager,
+                       dispatch_on)
 
 if sys.version < '3':
     function_annotations = ''
@@ -1116,3 +1216,53 @@ def hello(user):
     AFTER
     """
     print('hello %s' % user)
+
+
+class XMLWriter(object):
+    def __init__(self, **config):
+        self.cfg = config
+
+    @dispatch_on('obj')
+    def write(self, obj):
+        raise NotImplementedError(type(obj))
+
+
+@XMLWriter.write.register(float)
+def writefloat(self, obj):
+    return '<float>%s</float>' % obj
+
+
+class Rock(object):
+    ordinal = 0
+
+
+class Paper(object):
+    ordinal = 1
+
+
+class Scissor(object):
+    ordinal = 2
+
+
+@dispatch_on('a', 'b')
+def win(a, b):
+    if a.ordinal == b.ordinal:
+        return 0
+    elif a.ordinal > b.ordinal:
+        return -win(b, a)
+    raise NotImplementedError((type(a), type(b)))
+
+
+@win.register(Rock, Paper)
+def winRockPaper(a, b):
+    return -1
+
+
+@win.register(Rock, Scissor)
+def winRockScissor(a, b):
+    return 1
+
+
+@win.register(Paper, Scissor)
+def winPaperScissor(a, b):
+    return -1

@@ -40,6 +40,7 @@ __all__ = ["decorator", "FunctionMaker", "contextmanager"]
 import re
 import sys
 import inspect
+import itertools
 
 if sys.version >= '3':
     from inspect import getfullargspec
@@ -271,3 +272,53 @@ except ImportError:  # Python >= 2.5
         __call__ = __call__
 
 contextmanager = decorator(ContextManager)
+
+
+# ######################### dispatch_on ############################ #
+
+# inspired from simplegeneric by P.J. Eby and functools.singledispatch
+def dispatch_on(*dispatch_args):
+    """
+    Factory of decorators turning a function into a generic function
+    dispatching on the given arguments.
+    """
+    assert dispatch_args, 'No dispatch args passed'
+    dispatch_str = '(%s,)' % ', '.join(dispatch_args)
+
+    def generic(func):
+
+        typemap = {(object,) * len(dispatch_args): func}
+
+        def register(*types):
+            "Decorator to register an implementation for the given types"
+            if len(types) != len(dispatch_args):
+                raise TypeError('Length mismatch: expected %d types, got %d' %
+                                (len(dispatch_args), len(types)))
+
+            def dec(f):
+                typemap[types] = f
+                return f
+            return dec
+
+        def dispatch(dispatch_args, *args, **kw):
+            "Dispatcher function"
+            types = tuple(type(arg) for arg in dispatch_args)
+            try:  # fast path
+                return typemap[types](*args, **kw)
+            except KeyError:
+                pass
+            _gettypemap = typemap.get
+            for types in itertools.product(*(t.__mro__ for t in types)):
+                f = _gettypemap(types)
+                if f is not None:
+                    return f(*args, **kw)
+            # else call the default implementation
+            return func(*args, **kw)
+
+        return FunctionMaker.create(
+            func, 'return _f_({}, %(shortsignature)s)'.format(dispatch_str),
+            dict(_f_=dispatch), register=register, default=func,
+            typemap=typemap, __wrapped__=func)
+
+    generic.__name__ = 'dispatch_on' + dispatch_str
+    return generic
