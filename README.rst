@@ -3,7 +3,7 @@ Decorator module
 
 :Author: Michele Simionato
 :E-mail: michele.simionato@gmail.com
-:Requires: Python 2.4+
+:Requires: Python 2.6+
 :Download page: http://pypi.python.org/pypi/decorator
 :Installation: ``pip install decorator``
 :License: BSD license
@@ -34,20 +34,10 @@ Run
 
  `$ python test.py -v`
 
-You will see a few innocuous errors with Python 2.5, because some
-inner details such as the introduction of the ArgSpec namedtuple and
-Thread.__repr__ changed. You may safely ignore them. 
-
-You cannot run the tests in Python 2.4, since there is a test using
-the with statement, but the decorator module is expected to work
-anyway (it has been used in production with Python 2.4 for years). My
-plan is to keep supporting all Python versions >= 2.4 in the core
-module, but I will keep the documentation and the tests updated only
-for the latest Python versions in both the 2.X and 3.X branches.
-
-Finally, notice that you may run into trouble if in your system there
+Notice that you may run into trouble if in your system there
 is an older version of the decorator module; in such a case remove the
-old version.
+old version. It is safe even to copy the module `decorator.py` over
+an existing one, since version 4.0 is backward-compatible.
 
 Documentation
 --------------
@@ -60,10 +50,10 @@ There are various versions of the documentation:
 -  `HTML version (Python 3)`_ 
 -  `PDF version (Python 3)`_ 
 
-.. _HTML version (Python 2): https://github.com/micheles/decorator/blob/3.4.1/documentation.rst
-.. _PDF version (Python 2): https://github.com/micheles/decorator/blob/3.4.1/documentation.pdf
-.. _HTML version (Python 3): https://github.com/micheles/decorator/blob/3.4.1/documentation3.rst
-.. _PDF version (Python 3): https://github.com/micheles/decorator/blob/3.4.1/documentation3.pdf
+.. _HTML version (Python 2): https://github.com/micheles/decorator/blob/4.0.0/documentation.rst
+.. _PDF version (Python 2): https://github.com/micheles/decorator/blob/4.0.0/documentation.pdf
+.. _HTML version (Python 3): https://github.com/micheles/decorator/blob/4.0.0/documentation3.rst
+.. _PDF version (Python 3): https://github.com/micheles/decorator/blob/4.0.0/documentation3.pdf
 
 Repository
 ---------------

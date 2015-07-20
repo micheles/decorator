@@ -14,7 +14,37 @@ The ``decorator`` module
 
 .. contents::
 
-Introduction
+Compatibility notes
+-----------------------------------------
+
+The decorator module is over ten years old, but still alive and
+kicking.  It is used by several frameworks and has been stable for a
+*long* time.  Even version 4.0 is compatible with the past, except for
+one thing: support for Python 2.4 and 2.5 has been dropped. That
+decision made it possible to use a single code base both for Python
+2.X and Python 3.X. This is a *huge* bonus, since I could remove over
+2,000 lines of duplicated documentation. Having to maintain separate
+docs for Python 2 and Python 3 effectively stopped any development on
+the module for several years.  Moreover, it is now trivial to
+distribute the module as a wheel since 2to3 is no more required.
+
+This version supports all Python releases from 2.6 up to 3.5.  If
+you need to support ancient versions of Python, stick with the
+decorator module version 3.4.2.
+
+What's new
+---------------------
+
+By leveraging on the fact that now there is a single manual
+for all Python versions, the documentation has been overhauled.
+Even if you are an old time user of the module, you may want to read
+the manual again, since several examples have been improved.
+A new utility function ``decorate(func, caller)` has been
+added, doing the same job that in the past was done by
+``decorator(caller, func)``. The old functionality is still there for
+compatibility sake, but it is deprecated and not documented anymore.
+
+Usefulness of decorators
 ------------------------------------------------
 
 Python decorators are an interesting example of why syntactic sugar
@@ -239,12 +269,12 @@ The same decorator works with functions of any signature:
 
 $FUNCTION_ANNOTATIONS
 
-decorator.decorator
+``decorator.decorator``
 ---------------------------------------------
 
 It may be annoying to write a caller function (like the ``_trace``
 function above) and then a trivial wrapper
-(``def trace(f): return decorate(_trace, f)``) every time. For this reason,
+(``def trace(f): return decorate(f, _trace)``) every time. For this reason,
 the ``decorator`` module provides an easy shortcut to convert
 the caller function into a signature-preserving decorator: the
 ``decorator`` function:
@@ -321,16 +351,18 @@ available. For instance:
  >>> print(read_data())
  some data
 
-``async``
+``decorator(cls)``
 --------------------------------------------
 
 The ``decorator`` facility can also produce a decorator starting
-from a class with the signature of a caller.
+from a class with the signature of a caller. In such a case the
+produced generator is able to convert functions into factories
+of instances of that class.
 
 As an example, here will I show a decorator which is able to convert a
 blocking function into an asynchronous function. The function, when
-called, is executed in a separate thread. This is very similar in
-spirit to the approach used in the ``concurrent.futures`` package. Of
+called, is executed in a separate thread. This is very similar
+to the approach used in the ``concurrent.futures`` package. Of
 course the code here is just an example, it is not a recommended way
 of implementing futures. The implementation is the following:
 
@@ -338,44 +370,20 @@ $$Future
 
 The decorated function returns a ``Future`` object, which has a ``.result()``
 method which blocks until the underlying thread finishes and returns
-the final result.
-
-Suppose one wants to write some data to
-an external resource which can be accessed by a single user at once
-(for instance a printer). Then the access to the writing function must
-be locked. Here is a minimalistic example:
+the final result. Here is a minimalistic example of usage:
 
 .. code-block:: python
 
- >>> async = decorator(Future)
+ >>> futurefactory = decorator(Future)
+ >>> @futurefactory
+ ... def long_running(x):
+ ...     time.sleep(.5)
+ ...     return x
 
- >>> datalist = [] # for simplicity the written data are stored into a list.
-
- >>> @async
- ... def write(data):
- ...     # append data to the datalist by locking
- ...     with threading.Lock():
- ...         time.sleep(1) # emulate some long running operation
- ...         datalist.append(data)
- ...     # other operations not requiring a lock here
-
-Each call to ``write`` will create a new writer thread, but there will
-be no synchronization problems since ``write`` is locked.
-
-.. code-block:: python
-
- >>> write("data1") # doctest: +ELLIPSIS
- <Future(write-1, started...)>
-
- >>> time.sleep(.1) # wait a bit, so we are sure data2 is written after data1
-
- >>> write("data2") # doctest: +ELLIPSIS
- <Future(write-2, started...)>
-
- >>> time.sleep(2) # wait for the writers to complete
-
- >>> print(datalist)
- ['data1', 'data2']
+ >>> f1 = long_running(1)
+ >>> f2 = long_running(2)
+ >>> f1.result() + f2.result()
+ 3
 
 contextmanager
 -------------------------------------
@@ -710,8 +718,8 @@ you will get a ``NameError``:
  def f(_func_):
      return _call_(_func_, _func_)
 
-Finally, the implementation is such that *the decorated function shares
-the original function dictionary*:
+Finally, the implementation is such that the decorated function makes
+a (shallow) copy of the original function dictionary:
 
 .. code-block:: python
 
@@ -727,72 +735,6 @@ the original function dictionary*:
  >>> f.attr2 # the original attribute did not change
  'something else'
 
-If you don't like this behavior you can always save a copy of
-the original function dictionary before decorating it.
-
-Compatibility notes
----------------------------------------------------------------
-
-This version supports all Python releases from 2.6 to 3.5 with
-a single code base. In order to do so, I decided to drop the support
-for ancient versions of Python (Python 2.5 is nearly ten year old).
-If you need to support ancient versions of Python, stick with the
-decorator module 3.4.2.
-
-Historical notes
--------------------------
-
-The decorator module is over ten years old. Here a few notes on its
-evolution, for whoever is interested.
-
-Version 4 drops support for Python 2.4 and 2.5 and makes it possible
-to use a single code base both for Python 2 and Python 3. This is a
-*huge* bonus, since I could remove over 2,000 lines of duplicated
-documentation. Having to maintain separate docs for Python 2 and Python 3
-effectively stopped any development on the module for several years.
-
-Version 3.4 fixes some bugs in the support of recent versions of
-Python 3.  Version 3.3 was the first version of the ``decorator``
-module to fully support Python 3, including `function
-annotations`_. Version 3.2 was the first version to support Python 3
-via the ``2to3`` conversion tool.  The hard work (for me) has been
-converting the documentation and the doctests.  This has been possible
-only after that docutils_ and pygments_ have been ported to Python 3.
-
-Version 3 of the ``decorator`` module do not contain any backward
-incompatible change, apart from the removal of the functions
-``get_info`` and ``new_wrapper``, which have been deprecated for
-years. ``get_info`` has been removed since it was little used and
-since it had to be changed anyway to work with Python 3.0;
-``new_wrapper`` has been removed since it was useless: its major use
-case (converting signature changing decorators to signature preserving
-decorators) has been subsumed by ``decorator_apply``, whereas the other use
-case can be managed with the ``FunctionMaker``.
-
-There are a few changes in the documentation: I removed the
-``decorator_factory`` example, which was confusing some of my users,
-and I removed the part about exotic signatures in the Python 3
-documentation, since Python 3 does not support them.
-
-Finally ``decorator`` cannot be used as a class decorator and the
-`functionality introduced in version 2.3`_ has been removed. That
-means that in order to define decorator factories with classes you
-need to define the ``__call__`` method explicitly (no magic anymore).
-All these changes should not cause any trouble, since they were
-all rarely used features. Should you have any trouble, you can always
-downgrade to the 2.3 version.
-
-The examples shown here have been tested with Python 2.6. Python 2.4
-is also supported - of course the examples requiring the ``with``
-statement will not work there. Python 2.5 works fine, but if you
-run the examples in the interactive interpreter
-you will notice a few differences since
-``getargspec`` returns an ``ArgSpec`` namedtuple instead of a regular
-tuple. That means that running the file
-``documentation.py`` under Python 2.5 will print a few errors, but
-they are not serious.
-
-.. _functionality introduced in version 2.3: http://www.phyast.pitt.edu/~micheles/python/documentation.html#class-decorators-and-decorator-factories
 .. _function annotations: http://www.python.org/dev/peps/pep-3107/
 .. _distribute: http://packages.python.org/distribute/
 .. _docutils: http://docutils.sourceforge.net/
@@ -912,7 +854,7 @@ def _trace(f, *args, **kw):
 
 
 def trace(f):
-    return decorate(_trace, f)
+    return decorate(f, _trace)
 
 
 class Future(threading.Thread):
@@ -935,14 +877,6 @@ class Future(threading.Thread):
     def result(self):
         self.join()
         return self._result
-
-futurefactory = decorator(Future)
-
-
-@futurefactory
-def long_running(x):
-    time.sleep(1)
-    return x
 
 
 def identity_dec(func):
@@ -983,7 +917,7 @@ def _memoize(func, *args, **kw):
 
 def memoize(f):
     f.cache = {}
-    return decorate(_memoize, f)
+    return decorate(f, _memoize)
 
 
 def blocking(not_avail):

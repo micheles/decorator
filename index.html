@@ -349,7 +349,7 @@ ul.auto-toc {
 <td>Michele Simionato</td></tr>
 <tr class="field"><th class="docinfo-name">E-mail:</th><td class="field-body"><a class="reference external" href="mailto:michele.simionato&#64;gmail.com">michele.simionato&#64;gmail.com</a></td>
 </tr>
-<tr class="field"><th class="docinfo-name">Requires:</th><td class="field-body">Python 2.4+</td>
+<tr class="field"><th class="docinfo-name">Requires:</th><td class="field-body">Python 2.6+</td>
 </tr>
 <tr class="field"><th class="docinfo-name">Download page:</th><td class="field-body"><a class="reference external" href="http://pypi.python.org/pypi/decorator">http://pypi.python.org/pypi/decorator</a></td>
 </tr>
@@ -376,27 +376,19 @@ the documentation, download the <a class="reference external" href="http://pypi.
 <p>Run</p>
 <blockquote>
 <cite>$ python test.py -v</cite></blockquote>
-<p>You will see a few innocuous errors with Python 2.5, because some
-inner details such as the introduction of the ArgSpec namedtuple and
-Thread.__repr__ changed. You may safely ignore them.</p>
-<p>You cannot run the tests in Python 2.4, since there is a test using
-the with statement, but the decorator module is expected to work
-anyway (it has been used in production with Python 2.4 for years). My
-plan is to keep supporting all Python versions &gt;= 2.4 in the core
-module, but I will keep the documentation and the tests updated only
-for the latest Python versions in both the 2.X and 3.X branches.</p>
-<p>Finally, notice that you may run into trouble if in your system there
+<p>Notice that you may run into trouble if in your system there
 is an older version of the decorator module; in such a case remove the
-old version.</p>
+old version. It is safe even to copy the module <cite>decorator.py</cite> over
+an existing one, since version 4.0 is backward-compatible.</p>
 </div>
 <div class="section" id="documentation">
 <h1>Documentation</h1>
 <p>There are various versions of the documentation:</p>
 <ul class="simple">
-<li><a class="reference external" href="https://github.com/micheles/decorator/blob/3.4.1/documentation.rst">HTML version (Python 2)</a></li>
-<li><a class="reference external" href="https://github.com/micheles/decorator/blob/3.4.1/documentation.pdf">PDF version (Python 2)</a></li>
-<li><a class="reference external" href="https://github.com/micheles/decorator/blob/3.4.1/documentation3.rst">HTML version (Python 3)</a></li>
-<li><a class="reference external" href="https://github.com/micheles/decorator/blob/3.4.1/documentation3.pdf">PDF version (Python 3)</a></li>
+<li><a class="reference external" href="https://github.com/micheles/decorator/blob/4.0.0/documentation.rst">HTML version (Python 2)</a></li>
+<li><a class="reference external" href="https://github.com/micheles/decorator/blob/4.0.0/documentation.pdf">PDF version (Python 2)</a></li>
+<li><a class="reference external" href="https://github.com/micheles/decorator/blob/4.0.0/documentation3.rst">HTML version (Python 3)</a></li>
+<li><a class="reference external" href="https://github.com/micheles/decorator/blob/4.0.0/documentation3.pdf">PDF version (Python 3)</a></li>
 </ul>
 </div>
 <div class="section" id="repository">

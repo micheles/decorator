@@ -1,0 +1,1 @@
+include README.rst LICENSE.txt CHANGES.txt test.py performance.sh documentation.py documentation.pdf

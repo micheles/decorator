@@ -1,4 +1,4 @@
-# #########################     LICENCE     ############################ #
+# #########################     LICENSE     ############################ #
 
 # Copyright (c) 2005-2015, Michele Simionato
 # All rights reserved.
@@ -200,9 +200,9 @@ class FunctionMaker(object):
                          evaldict, addsource, **attrs)
 
 
-def decorate(caller, func):
+def decorate(func, caller):
     """
-    decorate(caller, func) decorates a function using a caller.
+    decorate(func, caller) decorates a function using a caller.
     """
     evaldict = func.__globals__.copy()
     evaldict['_call_'] = caller
@@ -216,7 +216,7 @@ def decorator(caller, _func=None):
     """decorator(caller) converts a caller function into a decorator"""
     if _func is not None:  # return a decorated function
         # this is obsolete behavior; you should use decorate instead
-        return decorate(caller, _func)
+        return decorate(_func, caller)
     # else return a decorator function
     if inspect.isclass(caller):
         name = caller.__name__.lower()

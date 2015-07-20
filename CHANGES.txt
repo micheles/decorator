@@ -2,8 +2,8 @@ HISTORY
 --------
 
 4.0.0 Removed the need for 2to3 by dropping the support for Python 2.5; now
-     the decorator module can be distributed as a wheel. Introduced
-     `decorator.decorated`. (2015/07/19)
+     the decorator module can be distributed as a wheel. Reworked the
+     documentation and introduced `decorator.decorated`. (2015/07/19)
 3.4.1 Ported the repository from GoogleCode to GitHub and added Travis CI
      support. Tests are executed with the new command `python test.py -v`.
      setuptools is now mandatory in Python 3. The suggested
@@ -69,7 +69,7 @@ HISTORY
 1.1. 'decorator' instances now have attributes __name__, __doc__,
      __module__ and __dict__ coming from the associated caller function; 
      included the licence into the documentation (02/12/2006)
-1.0. Added LICENCE.txt; added a setuptools-friendly setup.py script 
+1.0. Added LICENSE.txt; added a setuptools-friendly setup.py script 
      contributed by Luke Arno (10/08/2006)
 0.8.1. Minor fixes to the documentation (21/06/2006)
 0.8. Improved the documentation, added the 'caveats' section (16/06/2006)
