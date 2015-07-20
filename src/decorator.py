@@ -316,7 +316,7 @@ def dispatch_on(*dispatch_args):
             return func(*args, **kw)
 
         return FunctionMaker.create(
-            func, 'return _f_({}, %(shortsignature)s)'.format(dispatch_str),
+            func, 'return _f_(%s, %%(shortsignature)s)' % dispatch_str,
             dict(_f_=dispatch), register=register, default=func,
             typemap=typemap, __wrapped__=func)
 

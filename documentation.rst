@@ -874,7 +874,7 @@ I could give a down-to-earth example of situations in which it is desiderable
 to dispatch on more than one argument (for instance once I implemented
 a database-access library where the first dispatching argument was the
 the database driver and the second the database record), but here I prefer
-to follow the old tradition and show the time-honored
+to follow the tradition and show the time-honored
 Rock-Paper-Scissor example:
 
 .. code-block:: python
@@ -891,6 +891,19 @@ Rock-Paper-Scissor example:
 
  class Scissor(object):
      ordinal = 2
+
+
+I have added an ordinal to the Rock-Paper-Scissor classes to
+simplify the implementation. The idea is to define a generic function
+`win(a, b)` of two arguments corresponding to the moves of the first
+and second player respectively. The moves are instances of the classes
+Rock, Paper and Scissors; Paper instances win over Rocks, Scissor
+win over Paper and Rock win over Scissor. The function with return 1
+for a win, -1 for a loss and 0 for parity. There are
+9 combinations, however combinations with the same ordinal
+correspond to parity and exchanging the order of the arguments the
+sign of the result changes, so it is enough to specify only 3
+direct implementations:
 
 .. code-block:: python
 
