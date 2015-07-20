@@ -286,6 +286,10 @@ def dispatch_on(*dispatch_args):
     dispatch_str = '(%s,)' % ', '.join(dispatch_args)
 
     def generic(func):
+        # first check the dispatch arguments
+        argset = set(inspect.getargspec(func).args)
+        if not set(dispatch_args) <= argset:
+            raise NameError('Unknown dispatch arguments %s' % dispatch_str)
 
         typemap = {(object,) * len(dispatch_args): func}
 

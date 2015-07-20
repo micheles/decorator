@@ -237,7 +237,7 @@ endobj
 << /Outlines 74 0 R /PageLabels 110 0 R /PageMode /UseNone /Pages 93 0 R /Type /Catalog >>
 endobj
 73 0 obj
-<< /Author (Michele Simionato) /CreationDate (D:20150720114013-01'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
+<< /Author (Michele Simionato) /CreationDate (D:20150720122633-01'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
   /Title (The decorator module) >>
 endobj
 74 0 obj
@@ -5551,7 +5551,7 @@ Q
 endstream
 endobj
 106 0 obj
-<< /Length 14039 >>
+<< /Length 14055 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -5655,7 +5655,7 @@ Q
 q
 1 0 0 1 62.69291 543.8236 cm
 q
-BT 1 0 0 1 0 62 Tm .502927 Tw 12 TL /F1 10 Tf 0 0 0 rg (Here you want to dispatch on the second argument since the first, ) Tj /F4 10 Tf 0 0 0 rg (self ) Tj /F1 10 Tf 0 0 0 rg (is already taken. The ) Tj /F4 10 Tf 0 0 0 rg (dispatch_on) Tj T* 0 Tw .817209 Tw /F1 10 Tf 0 0 0 rg (facility allows you to specify the dispatch argument by simply passing its name as a string \(notice that if) Tj T* 0 Tw 1.681163 Tw (you mispell the name you will get an error\). The function decorated with ) Tj /F4 10 Tf 0 0 0 rg (dispatch_on ) Tj /F1 10 Tf 0 0 0 rg (is turned into a) Tj T* 0 Tw .145868 Tw (generic function and it is the one which is called if there are no more specialized implementations. Usually) Tj T* 0 Tw .066647 Tw (such default function should raise a NotImplementedError, forcing peope to register some implementation.) Tj T* 0 Tw (The registration can be done as a decorator:) Tj T* ET
+BT 1 0 0 1 0 62 Tm .502927 Tw 12 TL /F1 10 Tf 0 0 0 rg (Here you want to dispatch on the second argument since the first, ) Tj /F4 10 Tf 0 0 0 rg (self ) Tj /F1 10 Tf 0 0 0 rg (is already taken. The ) Tj /F4 10 Tf 0 0 0 rg (dispatch_on) Tj T* 0 Tw .817209 Tw /F1 10 Tf 0 0 0 rg (facility allows you to specify the dispatch argument by simply passing its name as a string \(notice that if) Tj T* 0 Tw 1.681163 Tw (you mispell the name you will get an error\). The function decorated with ) Tj /F4 10 Tf 0 0 0 rg (dispatch_on ) Tj /F1 10 Tf 0 0 0 rg (is turned into a) Tj T* 0 Tw .145868 Tw (generic function and it is the one which is called if there are no more specialized implementations. Usually) Tj T* 0 Tw .066647 Tw (such default function should raise a NotImplementedError, forcing peope to register some implementation.) Tj T* 0 Tw (The registration can be done with a decorator:) Tj T* ET
 Q
 Q
 q
@@ -5919,7 +5919,7 @@ Q
 q
 1 0 0 1 62.69291 125.8236 cm
 q
-BT 1 0 0 1 0 74 Tm .606235 Tw 12 TL /F1 10 Tf 0 0 0 rg (I have added an ordinal to the Rock-Paper-Scissor classes to simplify the implementation. The idea is to) Tj T* 0 Tw .764692 Tw (define a generic function ) Tj /F4 10 Tf 0 0 0 rg (win\(a, b\) ) Tj /F1 10 Tf 0 0 0 rg (of two arguments corresponding to the moves of the first and second) Tj T* 0 Tw .77284 Tw (player respectively. The moves are instances of the classes Rock, Paper and Scissors; Paper instances) Tj T* 0 Tw .014488 Tw (win over Rocks, Scissor win over Paper and Rock win over Scissor. The function with return 1 for a win, -1) Tj T* 0 Tw 2.412485 Tw (for a loss and 0 for parity. There are 9 combinations, however combinations with the same ordinal) Tj T* 0 Tw 1.122765 Tw (correspond to parity and exchanging the order of the arguments the sign of the result changes, so it is) Tj T* 0 Tw (enough to specify only 3 direct implementations:) Tj T* ET
+BT 1 0 0 1 0 74 Tm .606235 Tw 12 TL /F1 10 Tf 0 0 0 rg (I have added an ordinal to the Rock-Paper-Scissor classes to simplify the implementation. The idea is to) Tj T* 0 Tw .764692 Tw (define a generic function ) Tj /F4 10 Tf 0 0 0 rg (win\(a, b\) ) Tj /F1 10 Tf 0 0 0 rg (of two arguments corresponding to the moves of the first and second) Tj T* 0 Tw .721984 Tw (player respectively. The moves are instances of the classes Rock, Paper and Scissors; Paper wins over) Tj T* 0 Tw .333488 Tw (Rock, Scissor wins over Paper and Rock wins over Scissor. The function with return +1 for a win, -1 for a) Tj T* 0 Tw 1.578735 Tw (loss and 0 for parity. There are 9 combinations, however combinations with the same ordinal \(i.e. the) Tj T* 0 Tw .438221 Tw (same class\) return 0; moreover by exchanging the order of the arguments the sign of the result changes,) Tj T* 0 Tw (so it is enough to specify only 3 direct implementations:) Tj T* ET
 Q
 Q
 q
@@ -7241,31 +7241,31 @@ xref
 0000170487 00000 n
 0000185250 00000 n
 0000199819 00000 n
-0000213917 00000 n
-0000229566 00000 n
-0000240526 00000 n
-0000252588 00000 n
-0000252802 00000 n
-0000252840 00000 n
-0000252878 00000 n
-0000252916 00000 n
-0000252954 00000 n
-0000252992 00000 n
-0000253030 00000 n
-0000253068 00000 n
-0000253106 00000 n
-0000253144 00000 n
-0000253183 00000 n
-0000253222 00000 n
-0000253261 00000 n
-0000253300 00000 n
-0000253339 00000 n
-0000253378 00000 n
+0000213933 00000 n
+0000229582 00000 n
+0000240542 00000 n
+0000252604 00000 n
+0000252818 00000 n
+0000252856 00000 n
+0000252894 00000 n
+0000252932 00000 n
+0000252970 00000 n
+0000253008 00000 n
+0000253046 00000 n
+0000253084 00000 n
+0000253122 00000 n
+0000253160 00000 n
+0000253199 00000 n
+0000253238 00000 n
+0000253277 00000 n
+0000253316 00000 n
+0000253355 00000 n
+0000253394 00000 n
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com)
- [(\317\313\250\216@\201D\266%\262\3238c0\314\357) (\317\313\250\216@\201D\266%\262\3238c0\314\357)]
+ [(\012\225\374\004\011l\341\337\(\313\257_;\317D\205) (\012\225\374\004\011l\341\337\(\313\257_;\317D\205)]
  /Info 73 0 R /Root 72 0 R /Size 127 >>
 startxref
-253417
+253433
 %%EOF

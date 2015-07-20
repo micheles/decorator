@@ -88,7 +88,7 @@ Definitions
 ------------------------------------
 
 Technically speaking, any Python object which can be called with one argument
-can be used as  a decorator. However, this definition is somewhat too large
+can be used as a decorator. However, this definition is somewhat too large
 to be really useful. It is more convenient to split the generic class of
 decorators in two subclasses:
 
@@ -853,7 +853,7 @@ decorated with `dispatch_on` is turned into a generic function
 and it is the one which is called if there are no more specialized
 implementations. Usually such default function should raise a
 NotImplementedError, forcing peope to register some implementation.
-The registration can be done as a decorator:
+The registration can be done with a decorator:
 
 .. code-block:: python
 
@@ -893,17 +893,17 @@ Rock-Paper-Scissor example:
      ordinal = 2
 
 
-I have added an ordinal to the Rock-Paper-Scissor classes to
-simplify the implementation. The idea is to define a generic function
-`win(a, b)` of two arguments corresponding to the moves of the first
-and second player respectively. The moves are instances of the classes
-Rock, Paper and Scissors; Paper instances win over Rocks, Scissor
-win over Paper and Rock win over Scissor. The function with return 1
-for a win, -1 for a loss and 0 for parity. There are
-9 combinations, however combinations with the same ordinal
-correspond to parity and exchanging the order of the arguments the
-sign of the result changes, so it is enough to specify only 3
-direct implementations:
+I have added an ordinal to the Rock-Paper-Scissor classes to simplify
+the implementation. The idea is to define a generic function `win(a,
+b)` of two arguments corresponding to the moves of the first and
+second player respectively. The moves are instances of the classes
+Rock, Paper and Scissors; Paper wins over Rock, Scissor wins over
+Paper and Rock wins over Scissor. The function with return +1 for a
+win, -1 for a loss and 0 for parity. There are 9 combinations, however
+combinations with the same ordinal (i.e. the same class) return 0;
+moreover by exchanging the order of the arguments the sign of the
+result changes, so it is enough to specify only 3 direct
+implementations:
 
 .. code-block:: python
 

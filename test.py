@@ -36,7 +36,6 @@ def test1():
     assert this == 'test.py', this
 
 
-
 if __name__ == '__main__':
     t0 = time.time()
     for name, test in list(globals().items()):
