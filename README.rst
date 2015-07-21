@@ -32,7 +32,11 @@ Testing
 
 Run
 
- `$ python test.py -v`
+ `$ python src/tests/test.py -v`
+
+or (if you have setuptools installed)
+
+ `$ python setup.py test`
 
 Notice that you may run into trouble if in your system there
 is an older version of the decorator module; in such a case remove the

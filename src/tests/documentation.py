@@ -148,12 +148,7 @@ general ``memoize_uw`` returns a function with a
 
 Consider for instance the following case:
 
-.. code-block:: python
-
- >>> @memoize_uw
- ... def f1(x):
- ...     time.sleep(1) # simulate some long computation
- ...     return x
+$$f1
 
 Here the original function takes a single argument named ``x``,
 but the decorated function takes any number of arguments and
@@ -166,7 +161,8 @@ keyword arguments:
  ArgSpec(args=[], varargs='args', keywords='kw', defaults=None)
 
 This means that introspection tools such as *pydoc* will give
-wrong informations about the signature of ``f1``. This is pretty bad:
+wrong informations about the signature of ``f1``, unless you are
+using a recent of Python 3.X. This is pretty bad:
 *pydoc* will tell you that the function accepts a generic signature
 ``*args``, ``**kw``, but when you try to call the function with more than an
 argument, you will get an error:
@@ -177,6 +173,12 @@ argument, you will get an error:
  Traceback (most recent call last):
     ...
  TypeError: f1() takes exactly 1 positional argument (2 given)
+
+Notice even in Python 3.5 `inspect.getargspec` and
+`inspect.getfullargspec` (which are deprecated in that release) will
+give the wrong signature. `inspect.signature` will return the right
+signature on the surface.
+
 
 The solution
 -----------------------------------------
@@ -540,11 +542,9 @@ decorators. In that case ``inspect.getsource`` gives you the wrapper
 source code which is probably not what you want:
 
 $$identity_dec
+$$example
 
 .. code-block:: python
-
- @identity_dec
- def example(): pass
 
  >>> import inspect
  >>> print(inspect.getsource(example))
@@ -640,8 +640,8 @@ limited to single dispatch, i.e. it is able to dispatch on the first
 argument of the function only.  The decorator module provide a
 decorator factory `dispatch_on` which can be used to implement generic
 functions dispatching on any argument; moreover it can manage
-dispatching on more than one argument; of course it is
-signature-preserving too.
+dispatching on more than one argument and, of course, it is
+signature-preserving.
 
 Here I will give a very concrete example where it is desiderable to
 dispatch on the second argument. Suppose you have an XMLWriter class,
@@ -657,7 +657,7 @@ that if you mispell the name you will get an error). The function
 decorated with `dispatch_on` is turned into a generic function
 and it is the one which is called if there are no more specialized
 implementations. Usually such default function should raise a
-NotImplementedError, forcing peope to register some implementation.
+`NotImplementedError`, thus forcing people to register some implementation.
 The registration can be done with a decorator:
 
 $$writefloat
@@ -686,11 +686,11 @@ the implementation. The idea is to define a generic function `win(a,
 b)` of two arguments corresponding to the moves of the first and
 second player respectively. The moves are instances of the classes
 Rock, Paper and Scissors; Paper wins over Rock, Scissor wins over
-Paper and Rock wins over Scissor. The function with return +1 for a
+Paper and Rock wins over Scissor. The function will return +1 for a
 win, -1 for a loss and 0 for parity. There are 9 combinations, however
 combinations with the same ordinal (i.e. the same class) return 0;
 moreover by exchanging the order of the arguments the sign of the
-result changes, so it is enough to specify only 3 direct
+result changes, so it is enough to specify directly only 3
 implementations:
 
 $$win
@@ -720,6 +720,43 @@ Here is the result:
  -1
  >>> win(Scissor(), Rock())
  -1
+
+Generic functions implementations in Python are
+complicated by the existence of "virtual ancestors", i.e. superclasses
+which are not in the class hierarchy.
+Consider for instance this class:
+
+$$WithLength
+
+This class defines a `__len__` method and as such is
+considered to be a subclass of the abstract base class `Sized`:
+
+>>> issubclass(WithLength, collections.Sized)
+True
+
+However, `collections.Sized` is not an ancestor of `WithLenght`.
+Any implementation of generic functions, even
+with single dispatch, must go through some contorsion to take into
+account the virtual ancestors.
+
+In particular if we define a generic function
+
+$$get_length
+
+implemented on all classes with a lenght
+
+$$get_length_sized
+
+then `get_length` must be defined on `WithLength` instances:
+
+>>> get_length(WithLength())
+0
+
+The implementation of generic functions in the decorator module is
+marked as experimental because it may
+fail in some corner cases. Also, the implementation does not even
+attempt to use a cache, so it is not as fast as it could be.
+Simplicity was the paramount concern of this implementation.
 
 Caveats and limitations
 -------------------------------------------
@@ -935,16 +972,16 @@ import threading
 import time
 import functools
 import itertools
-from setup import VERSION
+import collections
 from decorator import (decorator, decorate, FunctionMaker, contextmanager,
-                       dispatch_on)
+                       dispatch_on, __version__)
 
 if sys.version < '3':
     function_annotations = ''
 
 today = time.strftime('%Y-%m-%d')
 
-__doc__ = (doc.replace('$VERSION', VERSION).replace('$DATE', today)
+__doc__ = (doc.replace('$VERSION', __version__).replace('$DATE', today)
            .replace('$FUNCTION_ANNOTATIONS', function_annotations))
 
 
@@ -1013,6 +1050,13 @@ def memoize_uw(func):
             func.cache[key] = func(*args, **kw)
         return func.cache[key]
     return functools.update_wrapper(memoize, func)
+
+
+@memoize_uw
+def f1(x):
+    "Simulate some long computation"
+    time.sleep(1)
+    return x
 
 
 def _memoize(func, *args, **kw):
@@ -1229,6 +1273,9 @@ def hello(user):
     print('hello %s' % user)
 
 
+# #######################  multiple dispatch ############################ #
+
+
 class XMLWriter(object):
     def __init__(self, **config):
         self.cfg = config
@@ -1277,3 +1324,18 @@ def winRockScissor(a, b):
 @win.register(Paper, Scissor)
 def winPaperScissor(a, b):
     return -1
+
+
+class WithLength(object):
+    def __len__(self):
+        return 0
+
+
+@dispatch_on('obj')
+def get_length(obj):
+    raise NotImplementedError(type(obj))
+
+
+@get_length.register(collections.Sized)
+def get_length_sized(obj):
+    return len(obj)

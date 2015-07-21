@@ -35,8 +35,6 @@ from __future__ import print_function
 
 __version__ = '4.0.0'
 
-__all__ = ["decorator", "FunctionMaker", "contextmanager"]
-
 import re
 import sys
 import inspect
@@ -251,32 +249,84 @@ def decorator(caller, _func=None):
 
 # ####################### contextmanager ####################### #
 
-def __call__(self, func):
-    """Context manager decorator"""
-    return FunctionMaker.create(
-        func, "with _self_: return _func_(%(shortsignature)s)",
-        dict(_self_=self, _func_=func), __wrapped__=func)
-
 try:  # Python >= 3.2
-
     from contextlib import _GeneratorContextManager
-
-    class ContextManager(_GeneratorContextManager):
-        __call__ = __call__
-
 except ImportError:  # Python >= 2.5
+    from contextlib import GeneratorContextManager as _GeneratorContextManager
 
-    from contextlib import GeneratorContextManager
 
-    class ContextManager(GeneratorContextManager):
-        def __init__(self, g, *a, **k):
-            return GeneratorContextManager.__init__(self, g(*a, **k))
-        __call__ = __call__
+class ContextManager(_GeneratorContextManager):
+    def __call__(self, func):
+        """Context manager decorator"""
+        return FunctionMaker.create(
+            func, "with _self_: return _func_(%(shortsignature)s)",
+            dict(_self_=self, _func_=func), __wrapped__=func)
+
+init = getfullargspec(_GeneratorContextManager.__init__)
+n_args = len(init.args)
+if n_args == 2 and not init.varargs:  # (self, genobj) Python 2.7
+    def __init__(self, g, *a, **k):
+        return _GeneratorContextManager.__init__(self, g(*a, **k))
+    ContextManager.__init__ = __init__
+elif n_args == 2 and init.varargs:  # (self, gen, *a, **k) Python 3.4
+    pass
+elif n_args == 4:  # (self, gen, args, kwds) Python 3.5
+    def __init__(self, g, *a, **k):
+        return _GeneratorContextManager.__init__(self, g, a, k)
+    ContextManager.__init__ = __init__
 
 contextmanager = decorator(ContextManager)
 
 
 # ######################### dispatch_on ############################ #
+
+class _ABCManager(object):
+    """
+    Manage a list of ABCs for each dispatch type. The list is partially
+    ordered by the `issubclass` comparison operator.
+    """
+    def __init__(self, n):
+        self.indices = range(n)
+        self.abcs = [[] for _ in self.indices]
+
+    def insert(self, i, a):
+        """
+        For each index `i` insert an ABC `a` in the corresponding list, by
+        keeping the partial ordering.
+        """
+        abcs = self.abcs[i]
+        if not abcs:
+            abcs.append(a)
+            return
+        for j, abc in enumerate(abcs):
+            if issubclass(a, abc):
+                abcs.insert(j, a)
+                break
+        else:  # less specialized
+            abcs.append(a)
+
+    def get_abcs(self, types):
+        """
+        For each type get the most specialized ABC available; return a tuple
+        """
+        class Sentinel(object):
+            pass
+        abclist = [Sentinel for _ in self.indices]
+        for i, t, abcs in zip(self.indices, types, self.abcs):
+            mro = t.__mro__
+            for new in abcs:
+                if issubclass(t, new):
+                    old = abclist[i]
+                    if old is Sentinel or issubclass(new, old) or new in mro:
+                        abclist[i] = new
+                    elif issubclass(old, new):
+                        pass
+                    else:
+                        raise RuntimeError(
+                            'Ambiguous dispatch for %s: %s or %s?'
+                            % (t, old, new))
+        return tuple(abclist)
+
 
 # inspired from simplegeneric by P.J. Eby and functools.singledispatch
 def dispatch_on(*dispatch_args):
@@ -287,13 +337,16 @@ def dispatch_on(*dispatch_args):
     assert dispatch_args, 'No dispatch args passed'
     dispatch_str = '(%s,)' % ', '.join(dispatch_args)
 
-    def generic(func):
+    def gen_func_dec(func):
+        """Decorator turning a function into a generic function"""
+
         # first check the dispatch arguments
-        argset = set(inspect.getargspec(func).args)
+        argset = set(getfullargspec(func).args)
         if not set(dispatch_args) <= argset:
             raise NameError('Unknown dispatch arguments %s' % dispatch_str)
 
         typemap = {(object,) * len(dispatch_args): func}
+        abcman = _ABCManager(len(dispatch_args))
 
         def register(*types):
             "Decorator to register an implementation for the given types"
@@ -303,6 +356,14 @@ def dispatch_on(*dispatch_args):
 
             def dec(f):
                 typemap[types] = f
+                n_args = len(getfullargspec(f).args)
+                if n_args < len(dispatch_args):
+                    raise TypeError(
+                        '%s has not enough arguments (got %d, expected %d)' %
+                        (f, n_args, len(dispatch_args)))
+                for i, t, abc in zip(abcman.indices, types, abcman.abcs):
+                    if inspect.isabstract(t):
+                        abcman.insert(i, t)
                 return f
             return dec
 
@@ -313,9 +374,11 @@ def dispatch_on(*dispatch_args):
                 return typemap[types](*args, **kw)
             except KeyError:
                 pass
-            _gettypemap = typemap.get
             for types in itertools.product(*(t.__mro__ for t in types)):
-                f = _gettypemap(types)
+                f = typemap.get(types)
+                if f is None and abcman.abcs:  # look in the ABCs
+                    print(abcman.get_abcs(types))
+                    f = typemap.get(abcman.get_abcs(types))
                 if f is not None:
                     return f(*args, **kw)
             # else call the default implementation
@@ -324,7 +387,7 @@ def dispatch_on(*dispatch_args):
         return FunctionMaker.create(
             func, 'return _f_(%s, %%(shortsignature)s)' % dispatch_str,
             dict(_f_=dispatch), register=register, default=func,
-            typemap=typemap, __wrapped__=func)
+            typemap=typemap, abcs=abcman.abcs, __wrapped__=func)
 
-    generic.__name__ = 'dispatch_on' + dispatch_str
-    return generic
+    gen_func_dec.__name__ = 'dispatch_on' + dispatch_str
+    return gen_func_dec

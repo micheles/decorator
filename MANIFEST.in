@@ -1,1 +1,2 @@
-include README.rst LICENSE.txt CHANGES.txt test.py performance.sh documentation.py documentation.pdf
+include README.rst LICENSE.txt CHANGES.txt performance.sh documentation.rst documentation.pdf
+recursive-include src/tests *.py

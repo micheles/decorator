@@ -31,4 +31,5 @@ if __name__ == '__main__':
                        'Programming Language :: Python :: 3',
                        'Topic :: Software Development :: Libraries',
                        'Topic :: Utilities'],
+          test_suite='tests',
           zip_safe=False)
