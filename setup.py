@@ -1,5 +1,4 @@
 import sys
-import os.path
 if sys.version >= '3':
     from setuptools import setup
 else:

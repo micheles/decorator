@@ -208,9 +208,10 @@ def decorate(func, caller):
     evaldict = func.__globals__.copy()
     evaldict['_call_'] = caller
     evaldict['_func_'] = func
+    qn = getattr(func, '__qualname__', None)
     return FunctionMaker.create(
         func, "return _call_(_func_, %(shortsignature)s)",
-        evaldict, __wrapped__=func)
+        evaldict, __wrapped__=func, __qualname__=qn)
 
 
 def decorator(caller, _func=None):
@@ -240,11 +241,12 @@ def decorator(caller, _func=None):
         fun = getfullargspec(callerfunc).args[1]  # second arg
     evaldict = callerfunc.__globals__.copy()
     evaldict['_call_'] = caller
-    evaldict['decorator'] = decorator
+    evaldict['_decorate_'] = decorate
     return FunctionMaker.create(
         '%s(%s)' % (name, fun),
-        'return decorator(_call_, %s)' % fun,
-        evaldict, call=caller, doc=doc, module=caller.__module__)
+        'return _decorate_(%s, _call_)' % fun,
+        evaldict, call=caller, doc=doc, module=caller.__module__,
+        __wrapped__=caller)
 
 
 # ####################### contextmanager ####################### #

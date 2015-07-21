@@ -553,12 +553,11 @@ $$identity_dec
  <BLANKLINE>
 
 (see bug report 1764286_ for an explanation of what is happening).
-Unfortunately the bug is still there, even in Python 2.7 and 3.1.
-There is however a workaround. The decorator module adds an
-attribute ``.__wrapped__`` to the decorated function, containing
-a reference to the original function. The easy way to get
-the source code is to call ``inspect.getsource`` on the
-undecorated function:
+Unfortunately the bug is still there, even in Python 2.7 and 3.4 (it
+will be fixed for Python 3.5, thought).  There is however a
+workaround. The decorated function has an attribute ``.__wrapped__``,
+pointing to the original function. The easy way to get the source code
+is to call ``inspect.getsource`` on the undecorated function:
 
 .. code-block:: python
 
@@ -925,7 +924,12 @@ You can check that the ``__annotations__`` dictionary is preserved:
 
 Here ``f.__wrapped__`` is the original undecorated function. Such an attribute
 is added to be consistent with the way `functools.update_wrapper` work.
+Another attribute which is copied from the original function is
+`__qualname`, the qualified name. This is a concept introduced
+in Python 3. In Python 2 the decorator module will still add a
+qualified name, but its value will always be `None`.
 """
+
 import sys
 import threading
 import time
