@@ -6,7 +6,7 @@ HISTORY
      Reworked the documentation and introduced `decorator.decorated`.
      Copied the `__qualname__` attribute, as requested by XXX
      (2015/07/21)
-3.4.2 Replaced the old links in index.html with updated ones (2015/03/16)
+3.4.2 Same as 3.4.1, re-uploaded to PyPI (2015-03-22)
 3.4.1 Ported the repository from GoogleCode to GitHub and added Travis CI
      support. Tests are executed with the new command `python test.py -v`.
      setuptools is now mandatory in Python 3. The suggested
