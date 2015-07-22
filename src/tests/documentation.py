@@ -14,46 +14,54 @@ The ``decorator`` module
 
 .. contents::
 
-Compatibility notes
+Introduction
 -----------------------------------------
 
 The decorator module is over ten years old, but still alive and
-kicking.  It is used by several frameworks and has been stable for a
-*long* time.  Even version 4.0 is compatible with the past, except for
-one thing: support for Python 2.4 and 2.5 has been dropped. That
-decision made it possible to use a single code base both for Python
-2.X and Python 3.X. This is a *huge* bonus, since I could remove over
-2,000 lines of duplicated documentation. Having to maintain separate
-docs for Python 2 and Python 3 effectively stopped any development on
-the module for several years. Moreover, it is now trivial to
-distribute the module as a wheel since 2to3 is no more required.
-
-This version supports all Python releases from 2.6 up to 3.5.  If
-you need to support ancient versions of Python, stick with the
-decorator module version 3.4.2.
+kicking. It is used by several frameworks (IPython, scipy,
+pyramid,...) and has been stable for a *long* time. It is your best
+option if you want to preserve the signature of decorated functions in
+a consistent way across Python releases. Version 4.0 is fully
+compatible with the past, except for one thing: support for Python 2.4
+and 2.5 has been dropped. That decision made it possible to use a
+single code base both for Python 2.X and Python 3.X. This is a *huge*
+bonus, since I could remove over 2,000 lines of duplicated
+documentation/doctests. Having to maintain separate docs for Python 2 and
+Python 3 effectively stopped any development on the module for several
+years. Moreover, it is now trivial to distribute the module as a wheel
+since 2to3 is no more required. Since Python 2.5 has been released 9
+years ago, I felt that it was reasonable to drop the support for it. If you
+need to support ancient versions of Python, stick with the decorator
+module version 3.4.2.  This version supports all Python releases from
+2.6 up to 3.5, which currently is still in beta status.
 
 What's new
 ---------------------
 
 Since now there is a single manual for all Python versions, I took the
 occasion for overhauling the documentation. Therefore, even if you are
-an old time user, you may want to read the manual again, since several
-examples have been improved.  A new utility function ``decorate(func,
-caller)` has been added, doing the same job that in the past was done
+an old time user, you may want to read the docs again, since several
+examples have been improved. The packaging has been improved and now
+I am also distributing the code in wheel format. The integration
+with setuptools has been improved and now you can use
+``python setup.py test`` to run the tests.
+A new utility function ``decorate(func,
+caller)`` has been added, doing the same job that in the past was done
 by ``decorator(caller, func)``. The old functionality is still there
 for compatibility sake, but it is deprecated and not documented
 anymore.
 
-Apart from that, there are no changes. There is a new experimental
-feature, though. The decorator module now include an implementation
-of generic (multiple dispatch) functions. The API is designed to
-mimic the one of `functools.singledispatch` but the implementation
-is much simpler and more general; moreover it preserves the signature of
-the decorated functions. For the moment it is there to exemplify
-the power of the module. In the future it could change and/or be
-enhanced/optimized; on the other hand, it could even become
-deprecated. Such is the fate of experimental features. In any case
-it is only 40 lines of code. Take it as food for thought.
+Apart from that, there is a new experimental feature. The decorator
+module now includes an implementation of generic (multiple dispatch)
+functions. The API is designed to mimic the one of
+`functools.singledispatch` but the implementation is much simpler and
+more general; moreover all the decorators involved preserve the
+signature of the decorated functions. For the moment the facility is
+there mostly to exemplify the power of the module. In the future it
+could change and/or be enhanced/optimized; on the other hand, it could
+even become deprecated. Such is the fate of experimental features. In
+any case it is very short and compact, so you can extract it for
+your own use. Take it as food for thought.
 
 Usefulness of decorators
 ------------------------------------------------
@@ -176,8 +184,7 @@ argument, you will get an error:
 
 Notice even in Python 3.5 `inspect.getargspec` and
 `inspect.getfullargspec` (which are deprecated in that release) will
-give the wrong signature. `inspect.signature` will return the right
-signature on the surface.
+give the wrong signature.
 
 
 The solution
@@ -553,8 +560,8 @@ $$example
  <BLANKLINE>
 
 (see bug report 1764286_ for an explanation of what is happening).
-Unfortunately the bug is still there, even in Python 2.7 and 3.4 (it
-will be fixed for Python 3.5, thought).  There is however a
+Unfortunately the bug is still there, in all versions of Python except
+Python 3.5, which is not yet released. There is however a
 workaround. The decorated function has an attribute ``.__wrapped__``,
 pointing to the original function. The easy way to get the source code
 is to call ``inspect.getsource`` on the undecorated function:
@@ -634,11 +641,11 @@ Multiple dispatch
 There has been talk of implementing multiple dispatch (i.e. generic)
 functions in Python for over ten years. Last year for the first time
 something was done and now in Python 3.4 we have a decorator
-`functools.singledispatch` which can be used to implement generic
+``functools.singledispatch`` which can be used to implement generic
 functions. As the name implies, it has the restriction of being
 limited to single dispatch, i.e. it is able to dispatch on the first
 argument of the function only.  The decorator module provide a
-decorator factory `dispatch_on` which can be used to implement generic
+decorator factory ``dispatch_on`` which can be used to implement generic
 functions dispatching on any argument; moreover it can manage
 dispatching on more than one argument and, of course, it is
 signature-preserving.
@@ -646,18 +653,18 @@ signature-preserving.
 Here I will give a very concrete example where it is desiderable to
 dispatch on the second argument. Suppose you have an XMLWriter class,
 which is instantiated with some configuration parameters and has
-a `.write` method which is able to serialize objects to XML:
+a ``.write`` method which is able to serialize objects to XML:
 
 $$XMLWriter
 
-Here you want to dispatch on the second argument since the first, `self`
+Here you want to dispatch on the second argument since the first, ``self``
 is already taken. The `dispatch_on` facility allows you to specify
 the dispatch argument by simply passing its name as a string (notice
 that if you mispell the name you will get an error). The function
 decorated with `dispatch_on` is turned into a generic function
 and it is the one which is called if there are no more specialized
 implementations. Usually such default function should raise a
-`NotImplementedError`, thus forcing people to register some implementation.
+``NotImplementedError``, thus forcing people to register some implementation.
 The registration can be done with a decorator:
 
 $$writefloat
@@ -682,8 +689,8 @@ $$Paper
 $$Scissor
 
 I have added an ordinal to the Rock-Paper-Scissor classes to simplify
-the implementation. The idea is to define a generic function `win(a,
-b)` of two arguments corresponding to the moves of the first and
+the implementation. The idea is to define a generic function ``win(a,
+b)`` of two arguments corresponding to the moves of the first and
 second player respectively. The moves are instances of the classes
 Rock, Paper and Scissors; Paper wins over Rock, Scissor wins over
 Paper and Rock wins over Scissor. The function will return +1 for a
@@ -721,6 +728,9 @@ Here is the result:
  >>> win(Scissor(), Rock())
  -1
 
+Generics and Abstract Base Classes
+-------------------------------------------------
+
 Generic functions implementations in Python are
 complicated by the existence of "virtual ancestors", i.e. superclasses
 which are not in the class hierarchy.
@@ -728,13 +738,15 @@ Consider for instance this class:
 
 $$WithLength
 
-This class defines a `__len__` method and as such is
-considered to be a subclass of the abstract base class `Sized`:
+This class defines a ``__len__`` method and as such is
+considered to be a subclass of the abstract base class ``Sized``:
 
->>> issubclass(WithLength, collections.Sized)
-True
+.. code-block:: python
 
-However, `collections.Sized` is not an ancestor of `WithLenght`.
+ >>> issubclass(WithLength, collections.Sized)
+ True
+
+However, ``collections.Sized`` is not an ancestor of ``WithLenght``.
 Any implementation of generic functions, even
 with single dispatch, must go through some contorsion to take into
 account the virtual ancestors.
@@ -747,16 +759,52 @@ implemented on all classes with a lenght
 
 $$get_length_sized
 
-then `get_length` must be defined on `WithLength` instances:
+then ``get_length`` must be defined on ``WithLength`` instances:
 
->>> get_length(WithLength())
-0
+.. code-block:: python
+
+ >>> get_length(WithLength())
+ 0
+
+Of course this is a contrived example since you could just use the
+builtin ``len``, but you should get the idea.
 
 The implementation of generic functions in the decorator module is
-marked as experimental because it may
-fail in some corner cases. Also, the implementation does not even
-attempt to use a cache, so it is not as fast as it could be.
-Simplicity was the paramount concern of this implementation.
+marked as experimental because it may change in the future.
+Simplicity was preferred over consistency with the way
+``functools.singledispatch`` works in the standard library.
+For instance, suppose we define ``WithLength`` as a virtual
+subclass of ``collections.Set``:
+
+.. code-block:: python
+
+ >>> _ = collections.Set.register(WithLength)  # issubclass(WithLength, Set)
+
+Now, let us define an implementation of ``get_length`` specific to set:
+
+.. code-block:: python
+
+ >>> @get_length.register(collections.Set)
+ ... def get_length_set(obj):
+ ...     return 1
+
+The current implementation first check in the MRO and then look
+for abstract bases classes; since ``WithLength`` inherits directly
+from ``collections.Sized`` that implementation is found first:
+
+.. code-block:: python
+
+ >>> get_length(WithLength())
+ 0
+
+Generic functions implemented via ``functools.singledispatch`` use
+a more sophisticated lookup algorithm; in particular they are able
+to discern that a ``Set`` is a ``Sized`` object, so the most
+specialized implementation is the one for ``Set`` and the result should be
+1, not 0.
+
+Finally let me notice that the current implementation does not use any
+cache, whereas the one in ``singledispatch`` has a cache.
 
 Caveats and limitations
 -------------------------------------------
@@ -843,7 +891,7 @@ the module and releasing new versions.
 In the present implementation, decorators generated by ``decorator``
 can only be used on user-defined Python functions or methods, not on generic
 callable objects, nor on built-in functions, due to limitations of the
-``inspect`` module in the standard library.
+``inspect`` module in the standard library, especially for Python 2.X.
 
 There is a restriction on the names of the arguments: for instance,
 if try to call an argument ``_call_`` or ``_func_``
@@ -1326,7 +1374,7 @@ def winPaperScissor(a, b):
     return -1
 
 
-class WithLength(object):
+class WithLength(collections.Sized):
     def __len__(self):
         return 0
 

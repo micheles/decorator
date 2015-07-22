@@ -295,15 +295,13 @@ class _ABCManager(object):
         keeping the partial ordering.
         """
         abcs = self.abcs[i]
-        if not abcs:
-            abcs.append(a)
-            return
         for j, abc in enumerate(abcs):
-            if issubclass(a, abc):
+            if issubclass(a, abc) and a is not abc:
                 abcs.insert(j, a)
                 break
         else:  # less specialized
-            abcs.append(a)
+            if a not in abcs:
+                abcs.append(a)
 
     def get_abcs(self, types):
         """
@@ -313,11 +311,10 @@ class _ABCManager(object):
             pass
         abclist = [Sentinel for _ in self.indices]
         for i, t, abcs in zip(self.indices, types, self.abcs):
-            mro = t.__mro__
             for new in abcs:
                 if issubclass(t, new):
                     old = abclist[i]
-                    if old is Sentinel or issubclass(new, old) or new in mro:
+                    if old is Sentinel or issubclass(new, old):
                         abclist[i] = new
                     elif issubclass(old, new):
                         pass
@@ -345,7 +342,7 @@ def dispatch_on(*dispatch_args):
         if not set(dispatch_args) <= argset:
             raise NameError('Unknown dispatch arguments %s' % dispatch_str)
 
-        typemap = {(object,) * len(dispatch_args): func}
+        typemap = {}
         abcman = _ABCManager(len(dispatch_args))
 
         def register(*types):
@@ -355,15 +352,15 @@ def dispatch_on(*dispatch_args):
                                 (len(dispatch_args), len(types)))
 
             def dec(f):
-                typemap[types] = f
                 n_args = len(getfullargspec(f).args)
                 if n_args < len(dispatch_args):
                     raise TypeError(
                         '%s has not enough arguments (got %d, expected %d)' %
                         (f, n_args, len(dispatch_args)))
                 for i, t, abc in zip(abcman.indices, types, abcman.abcs):
-                    if inspect.isabstract(t):
+                    if hasattr(type(t), 'register'):  # instance of ABCMeta
                         abcman.insert(i, t)
+                typemap[types] = f
                 return f
             return dec
 
@@ -374,13 +371,17 @@ def dispatch_on(*dispatch_args):
                 return typemap[types](*args, **kw)
             except KeyError:
                 pass
-            for types in itertools.product(*(t.__mro__ for t in types)):
-                f = typemap.get(types)
-                if f is None and abcman.abcs:  # look in the ABCs
-                    print(abcman.get_abcs(types))
-                    f = typemap.get(abcman.get_abcs(types))
+            for types_ in itertools.product(*(t.__mro__ for t in types)):
+                f = typemap.get(types_)
                 if f is not None:
                     return f(*args, **kw)
+
+            # else look at the ABCs
+            if abcman.abcs:
+                f = typemap.get(abcman.get_abcs(types))
+                if f is not None:
+                    return f(*args, **kw)
+
             # else call the default implementation
             return func(*args, **kw)
 

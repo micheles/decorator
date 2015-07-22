@@ -14,7 +14,8 @@ except (SystemError, ValueError):
 
 class DocumentationTestCase(unittest.TestCase):
     def test(self):
-        doctest.testmod(documentation)
+        err = doctest.testmod(documentation)[0]
+        self.assertEqual(err, 0)
 
 
 class ExtraTestCase(unittest.TestCase):
@@ -232,11 +233,16 @@ class TestSingleDispatch(unittest.TestCase):
         self.assertEqual(g(s), "concrete-set")
         self.assertEqual(g(f), "frozen-set")
         self.assertEqual(g(t), "tuple")
-
-        self.assertEqual(
-            [abc.__name__ for abc in g.abcs[0]],
-            ['MutableMapping', 'MutableSequence', 'MutableSet', 'Mapping',
-             'Sequence', 'Set', 'Sized'])
+        if hasattr(c, 'ChainMap'):
+            self.assertEqual(
+                [abc.__name__ for abc in g.abcs[0]],
+                ['ChainMap', 'MutableMapping', 'MutableSequence', 'MutableSet',
+                 'Mapping', 'Sequence', 'Set', 'Sized'])
+        else:
+            self.assertEqual(
+                [abc.__name__ for abc in g.abcs[0]],
+                ['MutableMapping', 'MutableSequence', 'MutableSet',
+                 'Mapping', 'Sequence', 'Set', 'Sized'])
 
     def test_mro_conflicts(self):
         c = collections
@@ -258,14 +264,13 @@ class TestSingleDispatch(unittest.TestCase):
         c.Iterable.register(O)
         self.assertEqual(g(o), "sized")   # because it's explicitly in __mro__
         c.Container.register(O)
-        return
         self.assertEqual(g(o), "sized")   # see above: Sized is in __mro__
         c.Set.register(O)
-        self.assertEqual(g(o), "set")
-        # because c.Set is a subclass of
+        self.assertEqual(g(o), "sized")
+        # could be set because c.Set is a subclass of
         # c.Sized and c.Container
 
-        class P:
+        class P(object):
             pass
         p = P()
         self.assertEqual(g(p), "base")
@@ -273,15 +278,9 @@ class TestSingleDispatch(unittest.TestCase):
         self.assertEqual(g(p), "iterable")
         c.Container.register(P)
 
-        with self.assertRaises(RuntimeError) as re_one:
+        with self.assertRaises(RuntimeError):
             g(p)
-        self.assertIn(
-            str(re_one.exception),
-            (("Ambiguous dispatch: <class 'collections.abc.Container'> "
-              "or <class 'collections.abc.Iterable'>"),
-             ("Ambiguous dispatch: <class 'collections.abc.Iterable'> "
-              "or <class 'collections.abc.Container'>")),
-        )
+
         class Q(c.Sized):
             def __len__(self):
                 return 0
@@ -290,46 +289,50 @@ class TestSingleDispatch(unittest.TestCase):
         c.Iterable.register(Q)
         self.assertEqual(g(q), "sized")   # because it's explicitly in __mro__
         c.Set.register(Q)
-        self.assertEqual(g(q), "set")     # because c.Set is a subclass of
-                                          # c.Sized and c.Iterable
-        @functools.singledispatch
-        def h(arg):
+        self.assertEqual(g(q), "sized")
+        # could be because c.Set is a subclass of
+        # c.Sized and c.Iterable
+
+        @singledispatch
+        def h(obj):
             return "base"
+
         @h.register(c.Sized)
-        def _(arg):
+        def h_sized(arg):
             return "sized"
+
         @h.register(c.Container)
-        def _(arg):
+        def h_container(arg):
             return "container"
         # Even though Sized and Container are explicit bases of MutableMapping,
         # this ABC is implicitly registered on defaultdict which makes all of
         # MutableMapping's bases implicit as well from defaultdict's
         # perspective.
-        with self.assertRaises(RuntimeError) as re_two:
+        with self.assertRaises(RuntimeError):
             h(c.defaultdict(lambda: 0))
-        self.assertIn(
-            str(re_two.exception),
-            (("Ambiguous dispatch: <class 'collections.abc.Container'> "
-              "or <class 'collections.abc.Sized'>"),
-             ("Ambiguous dispatch: <class 'collections.abc.Sized'> "
-              "or <class 'collections.abc.Container'>")),
-        )
+
         class R(c.defaultdict):
             pass
         c.MutableSequence.register(R)
-        @functools.singledispatch
-        def i(arg):
+
+        @singledispatch
+        def i(obj):
             return "base"
+
         @i.register(c.MutableMapping)
-        def _(arg):
+        def i_mapping(arg):
             return "mapping"
+
         @i.register(c.MutableSequence)
-        def _(arg):
+        def i_sequence(arg):
             return "sequence"
         r = R()
-        self.assertEqual(i(r), "sequence")
+        with self.assertRaises(RuntimeError):  # not for standardlib
+            self.assertEqual(i(r), "sequence")
+
         class S:
             pass
+
         class T(S, c.Sized):
             def __len__(self):
                 return 0
@@ -337,40 +340,42 @@ class TestSingleDispatch(unittest.TestCase):
         self.assertEqual(h(t), "sized")
         c.Container.register(T)
         self.assertEqual(h(t), "sized")   # because it's explicitly in the MRO
+
         class U:
             def __len__(self):
                 return 0
         u = U()
-        self.assertEqual(h(u), "sized")   # implicit Sized subclass inferred
-                                          # from the existence of __len__()
+        if sys.version >= '3':
+            self.assertEqual(h(u), "sized")
+            # implicit Sized subclass inferred
+            # from the existence of __len__()
+
         c.Container.register(U)
         # There is no preference for registered versus inferred ABCs.
-        with self.assertRaises(RuntimeError) as re_three:
+        with self.assertRaises(RuntimeError):
             h(u)
-        self.assertIn(
-            str(re_three.exception),
-            (("Ambiguous dispatch: <class 'collections.abc.Container'> "
-              "or <class 'collections.abc.Sized'>"),
-             ("Ambiguous dispatch: <class 'collections.abc.Sized'> "
-              "or <class 'collections.abc.Container'>")),
-        )
+
         class V(c.Sized, S):
             def __len__(self):
                 return 0
-        @functools.singledispatch
-        def j(arg):
+
+        @singledispatch
+        def j(obj):
             return "base"
+
         @j.register(S)
-        def _(arg):
+        def j_s(arg):
             return "s"
+
         @j.register(c.Container)
-        def _(arg):
+        def j_container(arg):
             return "container"
         v = V()
         self.assertEqual(j(v), "s")
         c.Container.register(V)
-        self.assertEqual(j(v), "container")   # because it ends up right after
-                                              # Sized in the MRO
+        self.assertEqual(j(v), "s")  # could be "container"
+        # because it ends up right after
+        # Sized in the MRO
 
 if __name__ == '__main__':
     unittest.main()
