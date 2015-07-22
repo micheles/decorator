@@ -214,7 +214,7 @@ endobj
   /Trans <<  >> /Type /Page >>
 endobj
 67 0 obj
-<< /A << /S /URI /Type /Action /URI (http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691) >> /Border [ 0 0 0 ] /Rect [ 62.69291 645.0236 363.4029 657.0236 ] /Subtype /Link /Type /Annot >>
+<< /A << /S /URI /Type /Action /URI (http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691) >> /Border [ 0 0 0 ] /Rect [ 62.69291 633.0236 363.4029 645.0236 ] /Subtype /Link /Type /Annot >>
 endobj
 68 0 obj
 << /Annots [ 67 0 R ] /Contents 111 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 99 0 R /Resources << /Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ] >> /Rotate 0 
@@ -255,7 +255,7 @@ endobj
 << /Outlines 79 0 R /PageLabels 119 0 R /PageMode /UseNone /Pages 99 0 R /Type /Catalog >>
 endobj
 78 0 obj
-<< /Author (Michele Simionato) /CreationDate (D:20150722093236-01'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
+<< /Author (Michele Simionato) /CreationDate (D:20150722095023-01'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
   /Title (The decorator module) >>
 endobj
 79 0 obj
@@ -2336,7 +2336,7 @@ Q
 endstream
 endobj
 105 0 obj
-<< /Length 17627 >>
+<< /Length 17634 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -2840,7 +2840,7 @@ Q
 q
 1 0 0 1 62.69291 157.2236 cm
 q
-BT 1 0 0 1 0 38 Tm .84284 Tw 12 TL /F1 10 Tf 0 0 0 rg (Here ) Tj /F3 10 Tf 0 0 0 rg (f.__wrapped__ ) Tj /F1 10 Tf 0 0 0 rg (is the original undecorated function. Such an attribute is added to be consistent) Tj T* 0 Tw .057126 Tw (with the way ) Tj /F4 10 Tf 0 0 0 rg (functools.update_wrapper ) Tj /F1 10 Tf 0 0 0 rg (work. Another attribute which is copied from the original function is) Tj T* 0 Tw 1.67936 Tw /F4 10 Tf 0 0 0 rg (__qualname) Tj /F1 10 Tf 0 0 0 rg (, the qualified name. This is a concept introduced in Python 3. In Python 2 the decorator) Tj T* 0 Tw (module will still add a qualified name, but its value will always be ) Tj /F4 10 Tf 0 0 0 rg (None) Tj /F1 10 Tf 0 0 0 rg (.) Tj T* ET
+BT 1 0 0 1 0 38 Tm .84284 Tw 12 TL /F1 10 Tf 0 0 0 rg (Here ) Tj /F3 10 Tf 0 0 0 rg (f.__wrapped__ ) Tj /F1 10 Tf 0 0 0 rg (is the original undecorated function. Such an attribute is added to be consistent) Tj T* 0 Tw 1.36998 Tw (with the way ) Tj /F3 10 Tf 0 0 0 rg (functools.update_wrapper ) Tj /F1 10 Tf 0 0 0 rg (work. Another attribute which is copied from the original) Tj T* 0 Tw .41881 Tw (function is ) Tj /F3 10 Tf 0 0 0 rg (__qualname__) Tj /F1 10 Tf 0 0 0 rg (, the qualified name. This is a concept introduced in Python 3. In Python 2 the) Tj T* 0 Tw (decorator module will still add a qualified name, but its value will always be ) Tj /F4 10 Tf 0 0 0 rg (None) Tj /F1 10 Tf 0 0 0 rg (.) Tj T* ET
 Q
 Q
  
@@ -4640,7 +4640,7 @@ Q
 endstream
 endobj
 110 0 obj
-<< /Length 16271 >>
+<< /Length 16266 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -5054,38 +5054,38 @@ n 48 12 24 12 re f*
 .960784 .960784 .862745 rg
 n 72 12 6 12 re f*
 .960784 .960784 .862745 rg
-n 84 12 108 12 re f*
+n 84 12 96 12 re f*
 .960784 .960784 .862745 rg
-n 192 12 78 12 re f*
+n 180 12 78 12 re f*
 .960784 .960784 .862745 rg
-n 270 12 12 12 re f*
+n 258 12 12 12 re f*
 .960784 .960784 .862745 rg
-n 282 12 6 12 re f*
+n 270 12 6 12 re f*
 .960784 .960784 .862745 rg
 n 48 0 24 12 re f*
 .960784 .960784 .862745 rg
 n 72 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 78 0 54 12 re f*
+n 78 0 42 12 re f*
 .960784 .960784 .862745 rg
-n 132 0 6 12 re f*
+n 120 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 138 0 18 12 re f*
+n 126 0 18 12 re f*
 .960784 .960784 .862745 rg
-n 156 0 6 12 re f*
+n 144 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 162 0 24 12 re f*
+n 150 0 24 12 re f*
 .960784 .960784 .862745 rg
-n 186 0 18 12 re f*
+n 174 0 18 12 re f*
 .960784 .960784 .862745 rg
-n 210 0 66 12 re f*
+n 198 0 66 12 re f*
 .960784 .960784 .862745 rg
-n 276 0 6 12 re f*
+n 264 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 282 0 24 12 re f*
+n 270 0 24 12 re f*
 .960784 .960784 .862745 rg
-n 306 0 6 12 re f*
-BT 1 0 0 1 0 86 Tm 12 TL /F5 10 Tf 0 .501961 0 rg (def) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (decorator_apply) Tj 0 0 0 rg (\() Tj 0 0 0 rg (dec) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (func) Tj 0 0 0 rg (\):) Tj 0 0 0 rg  T* (    ) Tj /F6 10 Tf .729412 .129412 .129412 rg (""") Tj T* (    Decorate a function by preserving the signature even if dec) Tj T* (    is not a signature-preserving decorator.) Tj T* (    """) Tj /F3 10 Tf 0 0 0 rg  T* (    ) Tj /F5 10 Tf 0 .501961 0 rg (return) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 0 rg (FunctionMaker) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (create) Tj 0 0 0 rg (\() Tj 0 0 0 rg  T* (        ) Tj 0 0 0 rg (func) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ('return decorated\() Tj /F5 10 Tf .733333 .4 .533333 rg (%\(signature\)s) Tj /F3 10 Tf .729412 .129412 .129412 rg (\)') Tj 0 0 0 rg (,) Tj 0 0 0 rg  T* (        ) Tj 0 .501961 0 rg (dict) Tj 0 0 0 rg (\() Tj 0 0 0 rg (decorated) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg (dec) Tj 0 0 0 rg (\() Tj 0 0 0 rg (func) Tj 0 0 0 rg (\)\),) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (__wrapped__) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg (func) Tj 0 0 0 rg (\)) Tj T* ET
+n 294 0 6 12 re f*
+BT 1 0 0 1 0 86 Tm 12 TL /F5 10 Tf 0 .501961 0 rg (def) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (decorator_apply) Tj 0 0 0 rg (\() Tj 0 0 0 rg (dec) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (func) Tj 0 0 0 rg (\):) Tj 0 0 0 rg  T* (    ) Tj /F6 10 Tf .729412 .129412 .129412 rg (""") Tj T* (    Decorate a function by preserving the signature even if dec) Tj T* (    is not a signature-preserving decorator.) Tj T* (    """) Tj /F3 10 Tf 0 0 0 rg  T* (    ) Tj /F5 10 Tf 0 .501961 0 rg (return) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 0 rg (FunctionMaker) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (create) Tj 0 0 0 rg (\() Tj 0 0 0 rg  T* (        ) Tj 0 0 0 rg (func) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ('return decfunc\() Tj /F5 10 Tf .733333 .4 .533333 rg (%\(signature\)s) Tj /F3 10 Tf .729412 .129412 .129412 rg (\)') Tj 0 0 0 rg (,) Tj 0 0 0 rg  T* (        ) Tj 0 .501961 0 rg (dict) Tj 0 0 0 rg (\() Tj 0 0 0 rg (decfunc) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg (dec) Tj 0 0 0 rg (\() Tj 0 0 0 rg (func) Tj 0 0 0 rg (\)\),) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (__wrapped__) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg (func) Tj 0 0 0 rg (\)) Tj T* ET
 Q
 Q
 Q
@@ -5095,29 +5095,29 @@ Q
 endstream
 endobj
 111 0 obj
-<< /Length 16103 >>
+<< /Length 16301 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 741.0236 cm
+1 0 0 1 62.69291 729.0236 cm
 q
-BT 1 0 0 1 0 14 Tm .698314 Tw 12 TL /F3 10 Tf 0 0 0 rg (decorator_apply ) Tj /F1 10 Tf 0 0 0 rg (sets the attribute ) Tj /F3 10 Tf 0 0 0 rg (.__wrapped__ ) Tj /F1 10 Tf 0 0 0 rg (of the generated function to the original function,) Tj T* 0 Tw (so that you can get the right source code.) Tj T* ET
+BT 1 0 0 1 0 26 Tm .079982 Tw 12 TL /F3 10 Tf 0 0 0 rg (decorator_apply ) Tj /F1 10 Tf 0 0 0 rg (sets the attribute ) Tj /F3 10 Tf 0 0 0 rg (__wrapped__ ) Tj /F1 10 Tf 0 0 0 rg (of the generated function to the original function, so) Tj T* 0 Tw .028935 Tw (that you can get the right source code. If you are using Python 3, you should also set the ) Tj /F3 10 Tf 0 0 0 rg (__qualname__) Tj T* 0 Tw /F1 10 Tf 0 0 0 rg (attribute to preserve the qualified name of the original function.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 699.0236 cm
+1 0 0 1 62.69291 687.0236 cm
 q
 BT 1 0 0 1 0 26 Tm .13104 Tw 12 TL /F1 10 Tf 0 0 0 rg (Notice that I am not providing this functionality in the ) Tj /F3 10 Tf 0 0 0 rg (decorator ) Tj /F1 10 Tf 0 0 0 rg (module directly since I think it is best to) Tj T* 0 Tw 2.070751 Tw (rewrite the decorator rather than adding an additional level of indirection. However, practicality beats) Tj T* 0 Tw (purity, so you can add ) Tj /F3 10 Tf 0 0 0 rg (decorator_apply ) Tj /F1 10 Tf 0 0 0 rg (to your toolbox and use it if you need to.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 645.0236 cm
+1 0 0 1 62.69291 633.0236 cm
 q
 BT 1 0 0 1 0 38 Tm 1.74881 Tw 12 TL /F1 10 Tf 0 0 0 rg (In order to give an example of usage of ) Tj /F3 10 Tf 0 0 0 rg (decorator_apply) Tj /F1 10 Tf 0 0 0 rg (, I will show a pretty slick decorator that) Tj T* 0 Tw 1.276651 Tw (converts a tail-recursive function in an iterative function. I have shamelessly stolen the basic idea from) Tj T* 0 Tw 43.62829 Tw (Kay Schluehr's recipe in the Python Cookbook,) Tj T* 0 Tw 0 0 .501961 rg (http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691) Tj 0 0 0 rg (.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 275.8236 cm
+1 0 0 1 62.69291 263.8236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -5371,14 +5371,14 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 255.8236 cm
+1 0 0 1 62.69291 243.8236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Here the decorator is implemented as a class returning callable objects.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 210.6236 cm
+1 0 0 1 62.69291 198.6236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -5422,14 +5422,14 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 190.6236 cm
+1 0 0 1 62.69291 178.6236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Here is how you apply the upgraded decorator to the good old factorial:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 97.42362 cm
+1 0 0 1 62.69291 85.42362 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -8019,44 +8019,44 @@ xref
 0000044985 00000 n
 0000061604 00000 n
 0000080185 00000 n
-0000097871 00000 n
-0000118285 00000 n
-0000137040 00000 n
-0000151750 00000 n
-0000166031 00000 n
-0000182361 00000 n
-0000198523 00000 n
-0000212236 00000 n
-0000228363 00000 n
-0000241295 00000 n
-0000256127 00000 n
-0000266295 00000 n
-0000279442 00000 n
-0000280438 00000 n
-0000280685 00000 n
-0000280723 00000 n
-0000280761 00000 n
-0000280799 00000 n
-0000280837 00000 n
-0000280875 00000 n
-0000280913 00000 n
-0000280951 00000 n
-0000280989 00000 n
-0000281027 00000 n
-0000281066 00000 n
-0000281105 00000 n
-0000281144 00000 n
-0000281183 00000 n
-0000281222 00000 n
-0000281261 00000 n
-0000281300 00000 n
-0000281339 00000 n
-0000281378 00000 n
+0000097878 00000 n
+0000118292 00000 n
+0000137047 00000 n
+0000151757 00000 n
+0000166038 00000 n
+0000182363 00000 n
+0000198723 00000 n
+0000212436 00000 n
+0000228563 00000 n
+0000241495 00000 n
+0000256327 00000 n
+0000266495 00000 n
+0000279642 00000 n
+0000280638 00000 n
+0000280885 00000 n
+0000280923 00000 n
+0000280961 00000 n
+0000280999 00000 n
+0000281037 00000 n
+0000281075 00000 n
+0000281113 00000 n
+0000281151 00000 n
+0000281189 00000 n
+0000281227 00000 n
+0000281266 00000 n
+0000281305 00000 n
+0000281344 00000 n
+0000281383 00000 n
+0000281422 00000 n
+0000281461 00000 n
+0000281500 00000 n
+0000281539 00000 n
+0000281578 00000 n
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com)
- [(cT\276\320$\217\341<\304d\353\241\327\302A\250) (cT\276\320$\217\341<\304d\353\241\327\302A\250)]
+ [(\001\010J\2132\347\243Gc\3166\201E\377M\224) (\001\010J\2132\347\243Gc\3166\201E\377M\224)]
  /Info 78 0 R /Root 77 0 R /Size 139 >>
 startxref
-281417
+281617
 %%EOF

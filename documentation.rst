@@ -375,9 +375,9 @@ You can check that the ``__annotations__`` dictionary is preserved:
   True
 
 Here ``f.__wrapped__`` is the original undecorated function. Such an attribute
-is added to be consistent with the way `functools.update_wrapper` work.
+is added to be consistent with the way ``functools.update_wrapper`` work.
 Another attribute which is copied from the original function is
-`__qualname`, the qualified name. This is a concept introduced
+``__qualname__``, the qualified name. This is a concept introduced
 in Python 3. In Python 2 the decorator module will still add a
 qualified name, but its value will always be `None`.
 
@@ -738,13 +738,15 @@ having to rewrite them in terms of ``decorator``. You can use a
      is not a signature-preserving decorator.
      """
      return FunctionMaker.create(
-         func, 'return decorated(%(signature)s)',
-         dict(decorated=dec(func)), __wrapped__=func)
+         func, 'return decfunc(%(signature)s)',
+         dict(decfunc=dec(func)), __wrapped__=func)
 
 
-``decorator_apply`` sets the attribute ``.__wrapped__`` of the generated
+``decorator_apply`` sets the attribute ``__wrapped__`` of the generated
 function to the original function, so that you can get the right
-source code.
+source code. If you are using Python 3, you should also set the
+``__qualname__`` attribute to preserve the qualified name of the
+original function.
 
 Notice that I am not providing this functionality in the ``decorator``
 module directly since I think it is best to rewrite the decorator rather
