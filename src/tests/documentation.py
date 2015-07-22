@@ -535,6 +535,19 @@ the names of the mandatory arguments) an attribute ``arg0``, ``arg1``,
 ..., ``argN`` is also generated. Finally, there is a ``signature``
 attribute, a string with the signature of the original function.
 
+Notice: you should not pass signature strings with default arguments,
+i.e. something like 'f1(a, b=None)'. Just pass 'f1(a, b)' and then
+a tuple of defaults:
+
+.. code-block:: python
+
+ >>> f1 = FunctionMaker.create(
+ ...     'f1(a, b)', 'f(a, b)', dict(f=f), addsource=True, defaults=(None,))
+ >>> import inspect
+ >>> print(inspect.getargspec(f1))
+ ArgSpec(args=['a', 'b'], varargs=None, keywords=None, defaults=(None,))
+
+
 Getting the source code
 ---------------------------------------------------
 
@@ -553,7 +566,6 @@ $$example
 
 .. code-block:: python
 
- >>> import inspect
  >>> print(inspect.getsource(example))
      def wrapper(*args, **kw):
          return func(*args, **kw)
