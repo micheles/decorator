@@ -5,11 +5,22 @@ import unittest
 import decimal
 import inspect
 import collections
-from decorator import dispatch_on
+from decorator import dispatch_on, contextmanager
 try:
     from . import documentation
 except (SystemError, ValueError):
     import documentation
+
+
+@contextmanager
+def assertRaises(etype):
+    """This works in Python 2.6 too"""
+    try:
+        yield
+    except etype:
+        pass
+    else:
+        raise Exception('Expected %s' % etype)
 
 
 class DocumentationTestCase(unittest.TestCase):
@@ -83,14 +94,13 @@ class TestSingleDispatch(unittest.TestCase):
             return "int %s" % (i,)
         self.assertEqual(g(""), "base")
         self.assertEqual(g(12), "int 12")
-        self.assertIs(g.typemap[int, ], g_int)
 
     def test_register_error(self):
         @singledispatch
         def g(obj):
             return "base"
 
-        with self.assertRaises(TypeError):
+        with assertRaises(TypeError):
             @g.register(int)
             def g_int():
                 return "int"
@@ -278,7 +288,7 @@ class TestSingleDispatch(unittest.TestCase):
         self.assertEqual(g(p), "iterable")
         c.Container.register(P)
 
-        with self.assertRaises(RuntimeError):
+        with assertRaises(RuntimeError):
             g(p)
 
         class Q(c.Sized):
@@ -308,7 +318,7 @@ class TestSingleDispatch(unittest.TestCase):
         # this ABC is implicitly registered on defaultdict which makes all of
         # MutableMapping's bases implicit as well from defaultdict's
         # perspective.
-        with self.assertRaises(RuntimeError):
+        with assertRaises(RuntimeError):
             h(c.defaultdict(lambda: 0))
 
         class R(c.defaultdict):
@@ -327,7 +337,7 @@ class TestSingleDispatch(unittest.TestCase):
         def i_sequence(arg):
             return "sequence"
         r = R()
-        with self.assertRaises(RuntimeError):  # not for standardlib
+        with assertRaises(RuntimeError):  # not for standardlib
             self.assertEqual(i(r), "sequence")
 
         class S:
@@ -352,7 +362,7 @@ class TestSingleDispatch(unittest.TestCase):
 
         c.Container.register(U)
         # There is no preference for registered versus inferred ABCs.
-        with self.assertRaises(RuntimeError):
+        with assertRaises(RuntimeError):
             h(u)
 
         class V(c.Sized, S):
