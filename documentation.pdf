@@ -133,16 +133,16 @@ endobj
 << /Border [ 0 0 0 ] /Contents () /Dest [ 71 0 R /XYZ 62.69291 607.8236 0 ] /Rect [ 521.4627 272.7736 532.5827 284.7736 ] /Subtype /Link /Type /Annot >>
 endobj
 45 0 obj
-<< /Border [ 0 0 0 ] /Contents () /Dest [ 72 0 R /XYZ 62.69291 147.0236 0 ] /Rect [ 62.69291 254.0236 174.3929 266.0236 ] /Subtype /Link /Type /Annot >>
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 72 0 R /XYZ 62.69291 129.0236 0 ] /Rect [ 62.69291 254.0236 174.3929 266.0236 ] /Subtype /Link /Type /Annot >>
 endobj
 46 0 obj
-<< /Border [ 0 0 0 ] /Contents () /Dest [ 72 0 R /XYZ 62.69291 147.0236 0 ] /Rect [ 521.4627 254.7736 532.5827 266.7736 ] /Subtype /Link /Type /Annot >>
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 72 0 R /XYZ 62.69291 129.0236 0 ] /Rect [ 521.4627 254.7736 532.5827 266.7736 ] /Subtype /Link /Type /Annot >>
 endobj
 47 0 obj
-<< /Border [ 0 0 0 ] /Contents () /Dest [ 75 0 R /XYZ 62.69291 330.6236 0 ] /Rect [ 62.69291 236.0236 106.0329 248.0236 ] /Subtype /Link /Type /Annot >>
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 75 0 R /XYZ 62.69291 270.6236 0 ] /Rect [ 62.69291 236.0236 106.0329 248.0236 ] /Subtype /Link /Type /Annot >>
 endobj
 48 0 obj
-<< /Border [ 0 0 0 ] /Contents () /Dest [ 75 0 R /XYZ 62.69291 330.6236 0 ] /Rect [ 521.4627 236.7736 532.5827 248.7736 ] /Subtype /Link /Type /Annot >>
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 75 0 R /XYZ 62.69291 270.6236 0 ] /Rect [ 521.4627 236.7736 532.5827 248.7736 ] /Subtype /Link /Type /Annot >>
 endobj
 49 0 obj
 << /Annots [ 5 0 R 6 0 R 7 0 R 8 0 R 9 0 R 10 0 R 11 0 R 12 0 R 13 0 R 14 0 R 
@@ -255,7 +255,7 @@ endobj
 << /Outlines 79 0 R /PageLabels 119 0 R /PageMode /UseNone /Pages 99 0 R /Type /Catalog >>
 endobj
 78 0 obj
-<< /Author (Michele Simionato) /CreationDate (D:20150722085001-01'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
+<< /Author (Michele Simionato) /CreationDate (D:20150722093236-01'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
   /Title (The decorator module) >>
 endobj
 79 0 obj
@@ -313,10 +313,10 @@ endobj
 << /Dest [ 71 0 R /XYZ 62.69291 607.8236 0 ] /Next 97 0 R /Parent 79 0 R /Prev 95 0 R /Title (Generic functions and virtual ancestors) >>
 endobj
 97 0 obj
-<< /Dest [ 72 0 R /XYZ 62.69291 147.0236 0 ] /Next 98 0 R /Parent 79 0 R /Prev 96 0 R /Title (Caveats and limitations) >>
+<< /Dest [ 72 0 R /XYZ 62.69291 129.0236 0 ] /Next 98 0 R /Parent 79 0 R /Prev 96 0 R /Title (Caveats and limitations) >>
 endobj
 98 0 obj
-<< /Dest [ 75 0 R /XYZ 62.69291 330.6236 0 ] /Parent 79 0 R /Prev 97 0 R /Title (LICENSE) >>
+<< /Dest [ 75 0 R /XYZ 62.69291 270.6236 0 ] /Parent 79 0 R /Prev 97 0 R /Title (LICENSE) >>
 endobj
 99 0 obj
 << /Count 19 /Kids [ 49 0 R 51 0 R 56 0 R 57 0 R 58 0 R 60 0 R 61 0 R 62 0 R 63 0 R 64 0 R 
@@ -5893,14 +5893,14 @@ Q
 endstream
 endobj
 113 0 obj
-<< /Length 16060 >>
+<< /Length 16068 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
 1 0 0 1 62.69291 717.0236 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 38 Tm /F1 10 Tf 12 TL .352209 Tw (I could give a down-to-earth example of situations in which it is desiderable to dispatch on more than one) Tj T* 0 Tw 3.67998 Tw (argument \(for instance once I implemented a database-access library where the first dispatching) Tj T* 0 Tw .164987 Tw (argument was the the database driver and the second the database record\), but here I prefer to follow the) Tj T* 0 Tw (tradition and show the time-honored Rock-Paper-Scissor example:) Tj T* ET
+BT 1 0 0 1 0 38 Tm /F1 10 Tf 12 TL .352209 Tw (I could give a down-to-earth example of situations in which it is desiderable to dispatch on more than one) Tj T* 0 Tw 3.67998 Tw (argument \(for instance once I implemented a database-access library where the first dispatching) Tj T* 0 Tw .442765 Tw (argument was the the database driver and the second one was the database record\), but here I prefer to) Tj T* 0 Tw (follow the tradition and show the time-honored Rock-Paper-Scissor example:) Tj T* ET
 Q
 Q
 q
@@ -6817,14 +6817,14 @@ Q
 q
 1 0 0 1 62.69291 86.82362 cm
 q
-BT 1 0 0 1 0 38 Tm .646651 Tw 12 TL /F1 10 Tf 0 0 0 rg (The implementation of generic functions in the decorator module is still experimental. In this initial phase) Tj T* 0 Tw 2.659069 Tw (implicity was preferred over consistency with the way ) Tj /F3 10 Tf 0 0 0 rg (functools.singledispatch ) Tj /F1 10 Tf 0 0 0 rg (works in the) Tj T* 0 Tw .571235 Tw (standard library. So there some subtle differences in special case. I will only show an example. Suppose) Tj T* 0 Tw (with are using a third party set-like class like the following:) Tj T* ET
+BT 1 0 0 1 0 38 Tm .646651 Tw 12 TL /F1 10 Tf 0 0 0 rg (The implementation of generic functions in the decorator module is still experimental. In this initial phase) Tj T* 0 Tw 2.659069 Tw (implicity was preferred over consistency with the way ) Tj /F3 10 Tf 0 0 0 rg (functools.singledispatch ) Tj /F1 10 Tf 0 0 0 rg (works in the) Tj T* 0 Tw .258735 Tw (standard library. So there some subtle differences in special cases. I will only show an example. Suppose) Tj T* 0 Tw (you are using a third party set-like class like the following:) Tj T* ET
 Q
 Q
  
 endstream
 endobj
 115 0 obj
-<< /Length 14323 >>
+<< /Length 14773 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -6873,7 +6873,9 @@ n 120 12 12 12 re f*
 n 48 0 36 12 re f*
 .960784 .960784 .862745 rg
 n 90 0 6 12 re f*
-BT 1 0 0 1 0 50 Tm 12 TL /F5 10 Tf 0 .501961 0 rg (class) Tj /F3 10 Tf 0 0 0 rg ( ) Tj /F5 10 Tf 0 0 1 rg (SomeSet) Tj /F3 10 Tf 0 0 0 rg (\() Tj 0 0 0 rg (collections) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (Sized) Tj 0 0 0 rg (\):) Tj 0 0 0 rg  T* (    ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# methods that make SomeSet set-like) Tj /F3 10 Tf 0 0 0 rg  T* (    ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# not shown ...) Tj /F3 10 Tf 0 0 0 rg  T* (    ) Tj /F5 10 Tf 0 .501961 0 rg (def) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (__len__) Tj 0 0 0 rg (\() Tj 0 .501961 0 rg (self) Tj 0 0 0 rg (\):) Tj 0 0 0 rg  T* (        ) Tj /F5 10 Tf 0 .501961 0 rg (return) Tj /F3 10 Tf 0 0 0 rg ( ) Tj .4 .4 .4 rg (0) Tj T* ET
+.960784 .960784 .862745 rg
+n 108 0 264 12 re f*
+BT 1 0 0 1 0 50 Tm 12 TL /F5 10 Tf 0 .501961 0 rg (class) Tj /F3 10 Tf 0 0 0 rg ( ) Tj /F5 10 Tf 0 0 1 rg (SomeSet) Tj /F3 10 Tf 0 0 0 rg (\() Tj 0 0 0 rg (collections) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (Sized) Tj 0 0 0 rg (\):) Tj 0 0 0 rg  T* (    ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# methods that make SomeSet set-like) Tj /F3 10 Tf 0 0 0 rg  T* (    ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# not shown ...) Tj /F3 10 Tf 0 0 0 rg  T* (    ) Tj /F5 10 Tf 0 .501961 0 rg (def) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (__len__) Tj 0 0 0 rg (\() Tj 0 .501961 0 rg (self) Tj 0 0 0 rg (\):) Tj 0 0 0 rg  T* (        ) Tj /F5 10 Tf 0 .501961 0 rg (return) Tj /F3 10 Tf 0 0 0 rg ( ) Tj .4 .4 .4 rg (0) Tj 0 0 0 rg (  ) Tj /F6 10 Tf .25098 .501961 .501961 rg (# in reality one would return more than zero) Tj T* ET
 Q
 Q
 Q
@@ -7044,13 +7046,19 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 362.2236 cm
+1 0 0 1 62.69291 386.2236 cm
 q
-BT 1 0 0 1 0 62 Tm 2.257752 Tw 12 TL /F1 10 Tf 0 0 0 rg (Generic functions implemented via ) Tj /F3 10 Tf 0 0 0 rg (functools.singledispatch ) Tj /F1 10 Tf 0 0 0 rg (use a more sophisticated lookup) Tj T* 0 Tw .632209 Tw (algorithm; in particular they are able to discern that a ) Tj /F3 10 Tf 0 0 0 rg (Set ) Tj /F1 10 Tf 0 0 0 rg (is a ) Tj /F3 10 Tf 0 0 0 rg (Sized ) Tj /F1 10 Tf 0 0 0 rg (object, so the implementation for) Tj T* 0 Tw 10.16355 Tw /F3 10 Tf 0 0 0 rg (Set ) Tj /F1 10 Tf 0 0 0 rg (is taken and the result is 1, not 0. Also, the functions implemented via) Tj T* 0 Tw .927251 Tw /F3 10 Tf 0 0 0 rg (functools.singledispatch ) Tj /F1 10 Tf 0 0 0 rg (are smarter when there are conflicting implementations and are able to) Tj T* 0 Tw .844488 Tw (solve more potential conflicts. Just to have an idea of what I am talking about, here is a situation with a) Tj T* 0 Tw (conflict:) Tj T* ET
+BT 1 0 0 1 0 38 Tm 2.257752 Tw 12 TL /F1 10 Tf 0 0 0 rg (Generic functions implemented via ) Tj /F3 10 Tf 0 0 0 rg (functools.singledispatch ) Tj /F1 10 Tf 0 0 0 rg (use a more sophisticated lookup) Tj T* 0 Tw .632209 Tw (algorithm; in particular they are able to discern that a ) Tj /F3 10 Tf 0 0 0 rg (Set ) Tj /F1 10 Tf 0 0 0 rg (is a ) Tj /F3 10 Tf 0 0 0 rg (Sized ) Tj /F1 10 Tf 0 0 0 rg (object, so the implementation for) Tj T* 0 Tw 2.135777 Tw /F3 10 Tf 0 0 0 rg (Set ) Tj /F1 10 Tf 0 0 0 rg (is taken and the result is 1, not 0. Still, the implementation in the decorator module is easy to) Tj T* 0 Tw (undestand, once one declare that real ancestors take the precedence over virtual ancestors.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 245.0236 cm
+1 0 0 1 62.69291 344.2236 cm
+q
+BT 1 0 0 1 0 26 Tm 1.365976 Tw 12 TL /F1 10 Tf 0 0 0 rg (The functions implemented via ) Tj /F3 10 Tf 0 0 0 rg (functools.singledispatch ) Tj /F1 10 Tf 0 0 0 rg (are smarter when there are conflicting) Tj T* 0 Tw .691654 Tw (implementations and are able to solve more potential conflicts. Just to have an idea of what I am talking) Tj T* 0 Tw (about, here is a situation with a conflict:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 227.0236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -7192,25 +7200,25 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 189.0236 cm
+1 0 0 1 62.69291 171.0236 cm
 q
-BT 1 0 0 1 0 38 Tm 9.280976 Tw 12 TL /F1 10 Tf 0 0 0 rg (Since ) Tj /F3 10 Tf 0 0 0 rg (WithLength ) Tj /F1 10 Tf 0 0 0 rg (is both a \(virtual\) subclass of ) Tj /F3 10 Tf 0 0 0 rg (collections.Iterable ) Tj /F1 10 Tf 0 0 0 rg (and of) Tj T* 0 Tw .08998 Tw /F3 10 Tf 0 0 0 rg (collections.Sized) Tj /F1 10 Tf 0 0 0 rg (, it is impossible to decide which implementation should be taken. Consistently with) Tj T* 0 Tw .488314 Tw (the ) Tj /F4 10 Tf (refuse the temptation to guess ) Tj /F1 10 Tf (philosophy, an error is raised. ) Tj /F3 10 Tf 0 0 0 rg (functools.singledispatch ) Tj /F1 10 Tf 0 0 0 rg (works) Tj T* 0 Tw (exactly the same in this case.) Tj T* ET
+BT 1 0 0 1 0 38 Tm 9.280976 Tw 12 TL /F1 10 Tf 0 0 0 rg (Since ) Tj /F3 10 Tf 0 0 0 rg (WithLength ) Tj /F1 10 Tf 0 0 0 rg (is both a \(virtual\) subclass of ) Tj /F3 10 Tf 0 0 0 rg (collections.Iterable ) Tj /F1 10 Tf 0 0 0 rg (and of) Tj T* 0 Tw 4.906647 Tw /F3 10 Tf 0 0 0 rg (collections.Sized) Tj /F1 10 Tf 0 0 0 rg (, which are not related by subclassing, it is impossible to decide which) Tj T* 0 Tw .214269 Tw (implementation should be taken. Consistently with the ) Tj /F4 10 Tf (refuse the temptation to guess ) Tj /F1 10 Tf (philosophy, an error) Tj T* 0 Tw (is raised. ) Tj /F3 10 Tf 0 0 0 rg (functools.singledispatch ) Tj /F1 10 Tf 0 0 0 rg (would work exactly the same in this case.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 159.0236 cm
+1 0 0 1 62.69291 141.0236 cm
 q
 BT 1 0 0 1 0 14 Tm .39561 Tw 12 TL /F1 10 Tf 0 0 0 rg (Finally let me notice that the decorator module implementation does not use any cache, whereas the one) Tj T* 0 Tw (in ) Tj /F3 10 Tf 0 0 0 rg (singledispatch ) Tj /F1 10 Tf 0 0 0 rg (has a cache.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 126.0236 cm
+1 0 0 1 62.69291 108.0236 cm
 q
 BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Caveats and limitations) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 96.02362 cm
+1 0 0 1 62.69291 78.02362 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL .474987 Tw (The first thing you should be aware of, it the fact that decorators have a performance penalty. The worse) Tj T* 0 Tw (case is shown by the following example:) Tj T* ET
@@ -7220,7 +7228,7 @@ Q
 endstream
 endobj
 116 0 obj
-<< /Length 10091 >>
+<< /Length 10109 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -7281,7 +7289,7 @@ q
 1 0 0 1 62.69291 396.6236 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL .867984 Tw (You should be aware that decorators will make your tracebacks longer and more difficult to understand.) Tj T* 0 Tw (Consider this example:) Tj T* ET
+BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL .091984 Tw (More importantly, you should be aware that decorators will make your tracebacks longer and more difficult) Tj T* 0 Tw (to understand. Consider this example:) Tj T* ET
 Q
 Q
 q
@@ -7498,29 +7506,29 @@ Q
 endstream
 endobj
 117 0 obj
-<< /Length 12826 >>
+<< /Length 13088 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 717.0236 cm
+1 0 0 1 62.69291 669.0236 cm
 q
-BT 1 0 0 1 0 38 Tm .74186 Tw 12 TL /F1 10 Tf 0 0 0 rg (could happen in future versions of Python \(see PEP ) Tj 0 0 .501961 rg (362) Tj 0 0 0 rg (\) and then the decorator module would become) Tj T* 0 Tw 2.385318 Tw (obsolete. However, at present, even in Python 3.5 it is impossible to change the function signature) Tj T* 0 Tw 1.372485 Tw (directly, therefore the ) Tj /F3 10 Tf 0 0 0 rg (decorator ) Tj /F1 10 Tf 0 0 0 rg (module is still useful. Actually, this is the main reasons why I keep) Tj T* 0 Tw (maintaining the module and releasing new versions.) Tj T* ET
+BT 1 0 0 1 0 86 Tm .74186 Tw 12 TL /F1 10 Tf 0 0 0 rg (could happen in future versions of Python \(see PEP ) Tj 0 0 .501961 rg (362) Tj 0 0 0 rg (\) and then the decorator module would become) Tj T* 0 Tw 2.385318 Tw (obsolete. However, at present, even in Python 3.4 it is impossible to change the function signature) Tj T* 0 Tw 1.372485 Tw (directly, therefore the ) Tj /F3 10 Tf 0 0 0 rg (decorator ) Tj /F1 10 Tf 0 0 0 rg (module is still useful. Actually, this is the main reasons why I keep) Tj T* 0 Tw 2.169398 Tw (maintaining the module and releasing new versions. It should be noticed that in Python 3.5 a lot of) Tj T* 0 Tw 9.189147 Tw (improvements have been made: in that version you can decorated a function with) Tj T* 0 Tw .084147 Tw /F3 10 Tf 0 0 0 rg (func_tools.update_wrapper ) Tj /F1 10 Tf 0 0 0 rg (and ) Tj /F3 10 Tf 0 0 0 rg (pydoc ) Tj /F1 10 Tf 0 0 0 rg (will see the correct signature; still internally the function will) Tj T* 0 Tw 1.47748 Tw (have an incorrect signature, as you can see by using ) Tj /F3 10 Tf 0 0 0 rg (inspect.getfullargspec) Tj /F1 10 Tf 0 0 0 rg (: all documentation) Tj T* 0 Tw (tools using such function \(which has been correctly deprecated\) will see the wrong signature.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 675.0236 cm
+1 0 0 1 62.69291 615.0236 cm
 q
-BT 1 0 0 1 0 26 Tm 1.043828 Tw 12 TL /F1 10 Tf 0 0 0 rg (In the present implementation, decorators generated by ) Tj /F3 10 Tf 0 0 0 rg (decorator ) Tj /F1 10 Tf 0 0 0 rg (can only be used on user-defined) Tj T* 0 Tw .152485 Tw (Python functions or methods, not on generic callable objects, nor on built-in functions, due to limitations of) Tj T* 0 Tw (the ) Tj /F3 10 Tf 0 0 0 rg (inspect ) Tj /F1 10 Tf 0 0 0 rg (module in the standard library, especially for Python 2.X.) Tj T* ET
+BT 1 0 0 1 0 38 Tm 1.043828 Tw 12 TL /F1 10 Tf 0 0 0 rg (In the present implementation, decorators generated by ) Tj /F3 10 Tf 0 0 0 rg (decorator ) Tj /F1 10 Tf 0 0 0 rg (can only be used on user-defined) Tj T* 0 Tw .152485 Tw (Python functions or methods, not on generic callable objects, nor on built-in functions, due to limitations of) Tj T* 0 Tw 2.15881 Tw (the ) Tj /F3 10 Tf 0 0 0 rg (inspect ) Tj /F1 10 Tf 0 0 0 rg (module in the standard library, especially for Python 2.X \(in Python 3.5 a lot of such) Tj T* 0 Tw (limitations have been removed\).) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 645.0236 cm
+1 0 0 1 62.69291 585.0236 cm
 q
 BT 1 0 0 1 0 14 Tm .785777 Tw 12 TL /F1 10 Tf 0 0 0 rg (There is a restriction on the names of the arguments: for instance, if try to call an argument ) Tj /F3 10 Tf 0 0 0 rg (_call_ ) Tj /F1 10 Tf 0 0 0 rg (or) Tj T* 0 Tw /F3 10 Tf 0 0 0 rg (_func_ ) Tj /F1 10 Tf 0 0 0 rg (you will get a ) Tj /F3 10 Tf 0 0 0 rg (NameError) Tj /F1 10 Tf 0 0 0 rg (:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 527.8236 cm
+1 0 0 1 62.69291 467.8236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -7622,14 +7630,14 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 495.8236 cm
+1 0 0 1 62.69291 435.8236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL 1.720651 Tw (Finally, the implementation is such that the decorated function makes a \(shallow\) copy of the original) Tj T* 0 Tw (function dictionary:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 342.6236 cm
+1 0 0 1 62.69291 282.6236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -7769,30 +7777,30 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 309.6236 cm
+1 0 0 1 62.69291 249.6236 cm
 q
 BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (LICENSE) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 291.6236 cm
+1 0 0 1 62.69291 231.6236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Copyright \(c\) 2005-2015, Michele Simionato All rights reserved.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 261.6236 cm
+1 0 0 1 62.69291 201.6236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL 1.328555 Tw (Redistribution and use in source and binary forms, with or without modification, are permitted provided) Tj T* 0 Tw (that the following conditions are met:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 255.6236 cm
+1 0 0 1 62.69291 195.6236 cm
 Q
 q
-1 0 0 1 62.69291 207.6236 cm
+1 0 0 1 62.69291 147.6236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 BT 1 0 0 1 0 2 Tm  T* ET
@@ -7807,24 +7815,31 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 207.6236 cm
+1 0 0 1 62.69291 147.6236 cm
 Q
 q
 1 0 0 1 62.69291 81.62362 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 110 Tm /F1 10 Tf 12 TL .17998 Tw (THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND) Tj T* 0 Tw 2.911797 Tw (ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED) Tj T* 0 Tw 5.165529 Tw (WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE) Tj T* 0 Tw 1.395433 Tw (DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE LIABLE) Tj T* 0 Tw 5.53122 Tw (FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL) Tj T* 0 Tw 2.705976 Tw (DAMAGES \(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR) Tj T* 0 Tw 3.868976 Tw (SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION\) HOWEVER) Tj T* 0 Tw 1.326647 Tw (CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR) Tj T* 0 Tw 1.525366 Tw (TORT \(INCLUDING NEGLIGENCE OR OTHERWISE\) ARISING IN ANY WAY OUT OF THE USE OF) Tj T* 0 Tw (THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.) Tj T* ET
+BT 1 0 0 1 0 50 Tm /F1 10 Tf 12 TL .17998 Tw (THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND) Tj T* 0 Tw 2.911797 Tw (ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED) Tj T* 0 Tw 5.165529 Tw (WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE) Tj T* 0 Tw 1.395433 Tw (DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE LIABLE) Tj T* 0 Tw 5.53122 Tw (FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL) Tj T* 0 Tw ET
 Q
 Q
  
 endstream
 endobj
 118 0 obj
-<< /Length 361 >>
+<< /Length 939 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 741.0236 cm
+1 0 0 1 62.69291 705.0236 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 50 Tm /F1 10 Tf 12 TL 2.705976 Tw (DAMAGES \(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR) Tj T* 0 Tw 3.868976 Tw (SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION\) HOWEVER) Tj T* 0 Tw 1.326647 Tw (CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR) Tj T* 0 Tw 1.525366 Tw (TORT \(INCLUDING NEGLIGENCE OR OTHERWISE\) ARISING IN ANY WAY OUT OF THE USE OF) Tj T* 0 Tw (THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 675.0236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL .407132 Tw (If you use this software and you are happy with it, consider sending me a note, just to gratify my ego. On) Tj T* 0 Tw (the other hand, if you use this software and you are unhappy with it, send me a patch!) Tj T* ET
@@ -8012,36 +8027,36 @@ xref
 0000182361 00000 n
 0000198523 00000 n
 0000212236 00000 n
-0000228355 00000 n
-0000241287 00000 n
-0000255669 00000 n
-0000265819 00000 n
-0000278704 00000 n
-0000279122 00000 n
-0000279369 00000 n
-0000279407 00000 n
-0000279445 00000 n
-0000279483 00000 n
-0000279521 00000 n
-0000279559 00000 n
-0000279597 00000 n
-0000279635 00000 n
-0000279673 00000 n
-0000279711 00000 n
-0000279750 00000 n
-0000279789 00000 n
-0000279828 00000 n
-0000279867 00000 n
-0000279906 00000 n
-0000279945 00000 n
-0000279984 00000 n
-0000280023 00000 n
-0000280062 00000 n
+0000228363 00000 n
+0000241295 00000 n
+0000256127 00000 n
+0000266295 00000 n
+0000279442 00000 n
+0000280438 00000 n
+0000280685 00000 n
+0000280723 00000 n
+0000280761 00000 n
+0000280799 00000 n
+0000280837 00000 n
+0000280875 00000 n
+0000280913 00000 n
+0000280951 00000 n
+0000280989 00000 n
+0000281027 00000 n
+0000281066 00000 n
+0000281105 00000 n
+0000281144 00000 n
+0000281183 00000 n
+0000281222 00000 n
+0000281261 00000 n
+0000281300 00000 n
+0000281339 00000 n
+0000281378 00000 n
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com)
- [(\001/{;`\255:\224G\357U\210\302\220\020\246) (\001/{;`\255:\224G\357U\210\302\220\020\246)]
+ [(cT\276\320$\217\341<\304d\353\241\327\302A\250) (cT\276\320$\217\341<\304d\353\241\327\302A\250)]
  /Info 78 0 R /Root 77 0 R /Size 139 >>
 startxref
-280101
+281417
 %%EOF

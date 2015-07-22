@@ -1,8 +1,4 @@
-import sys
-if sys.version >= '3':
-    from setuptools import setup
-else:
-    from distutils.core import setup
+from setuptools import setup
 
 dic = {}
 exec(open('src/decorator.py').read(), dic)
