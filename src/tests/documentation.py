@@ -728,10 +728,10 @@ Here is the result:
  >>> win(Scissor(), Rock())
  -1
 
-Generics and Abstract Base Classes
+Generic functions and virtual ancestors
 -------------------------------------------------
 
-Generic functions implementations in Python are
+Generic function implementations in Python are
 complicated by the existence of "virtual ancestors", i.e. superclasses
 which are not in the class hierarchy.
 Consider for instance this class:
@@ -739,14 +739,14 @@ Consider for instance this class:
 $$WithLength
 
 This class defines a ``__len__`` method and as such is
-considered to be a subclass of the abstract base class ``Sized``:
+considered to be a subclass of the abstract base class ``collections.Sized``:
 
 .. code-block:: python
 
  >>> issubclass(WithLength, collections.Sized)
  True
 
-However, ``collections.Sized`` is not an ancestor of ``WithLenght``.
+However, ``collections.Sized`` is not an ancestor of ``WithLength``.
 Any implementation of generic functions, even
 with single dispatch, must go through some contorsion to take into
 account the virtual ancestors.
@@ -755,7 +755,7 @@ In particular if we define a generic function
 
 $$get_length
 
-implemented on all classes with a lenght
+implemented on all classes with a length
 
 $$get_length_sized
 
@@ -770,15 +770,26 @@ Of course this is a contrived example since you could just use the
 builtin ``len``, but you should get the idea.
 
 The implementation of generic functions in the decorator module is
-marked as experimental because it may change in the future.
-Simplicity was preferred over consistency with the way
-``functools.singledispatch`` works in the standard library.
-For instance, suppose we define ``WithLength`` as a virtual
-subclass of ``collections.Set``:
+still experimental. In this initial phase implicity was preferred
+over consistency with the way ``functools.singledispatch`` works in
+the standard library. So there some subtle differences in special
+case. I will only show an example.
+Suppose with are using a third party set-like class like
+the following:
+
+$$SomeSet
+
+Here the author of ``SomeSet`` made a mistake by not inheriting
+from ``collections.Set``, but only from ``collections.Sized``.
+
+This is not a problem since we can register *a posteriori*
+``collections.Set`` as a virtual ancestor of ``SomeSet`` (in
+general any instance of ``abc.ABCMeta`` can be registered to work
+as a virtual ancestor):
 
 .. code-block:: python
 
- >>> _ = collections.Set.register(WithLength)  # issubclass(WithLength, Set)
+ >>> _ = collections.Set.register(SomeSet)  # issubclass(SomeSet, Set)
 
 Now, let us define an implementation of ``get_length`` specific to set:
 
@@ -789,22 +800,42 @@ Now, let us define an implementation of ``get_length`` specific to set:
  ...     return 1
 
 The current implementation first check in the MRO and then look
-for abstract bases classes; since ``WithLength`` inherits directly
+for virtual ancestors; since ``SomeSet`` inherits directly
 from ``collections.Sized`` that implementation is found first:
 
 .. code-block:: python
 
- >>> get_length(WithLength())
+ >>> get_length(SomeSet())
  0
 
 Generic functions implemented via ``functools.singledispatch`` use
 a more sophisticated lookup algorithm; in particular they are able
-to discern that a ``Set`` is a ``Sized`` object, so the most
-specialized implementation is the one for ``Set`` and the result should be
-1, not 0.
+to discern that a ``Set`` is a ``Sized`` object, so the
+implementation for ``Set`` is taken and the result is 1, not 0.
+Also, the functions implemented via ``functools.singledispatch``
+are smarter when there are conflicting implementations and are
+able to solve more potential conflicts. Just to have an idea
+of what I am talking about, here is a situation with a conflict:
 
-Finally let me notice that the current implementation does not use any
-cache, whereas the one in ``singledispatch`` has a cache.
+.. code-block:: python
+
+ >>> _ = collections.Iterable.register(WithLength)
+ >>> @get_length.register(collections.Iterable)
+ ... def get_length_iterable(obj):
+ ...     raise TypeError('Cannot get the length of an iterable')
+ >>> get_length(WithLength())
+ Traceback (most recent call last):
+   ...
+ RuntimeError: Ambiguous dispatch for WithLength instance: Sized or Iterable?
+
+Since ``WithLength`` is both a (virtual) subclass
+of ``collections.Iterable`` and of ``collections.Sized``, it is impossible
+to decide which implementation should be taken. Consistently with
+the *refuse the temptation to guess* philosophy, an error is raised.
+``functools.singledispatch`` works exactly the same in this case.
+
+Finally let me notice that the decorator module implementation does
+not use any cache, whereas the one in ``singledispatch`` has a cache.
 
 Caveats and limitations
 -------------------------------------------
@@ -1374,7 +1405,14 @@ def winPaperScissor(a, b):
     return -1
 
 
-class WithLength(collections.Sized):
+class WithLength(object):
+    def __len__(self):
+        return 0
+
+
+class SomeSet(collections.Sized):
+    # methods that make SomeSet set-like
+    # not shown ...
     def __len__(self):
         return 0
 

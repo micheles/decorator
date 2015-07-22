@@ -32,6 +32,7 @@ Decorator module, see http://pypi.python.org/pypi/decorator
 for the documentation.
 """
 from __future__ import print_function
+from abc import ABCMeta
 
 __version__ = '4.0.0'
 
@@ -320,8 +321,8 @@ class _ABCManager(object):
                         pass
                     else:
                         raise RuntimeError(
-                            'Ambiguous dispatch for %s: %s or %s?'
-                            % (t, old, new))
+                            'Ambiguous dispatch for %s instance: %s or %s?'
+                            % (t.__name__, old.__name__, new.__name__))
         return tuple(abclist)
 
 
@@ -358,7 +359,7 @@ def dispatch_on(*dispatch_args):
                         '%s has not enough arguments (got %d, expected %d)' %
                         (f, n_args, len(dispatch_args)))
                 for i, t, abc in zip(abcman.indices, types, abcman.abcs):
-                    if hasattr(type(t), 'register'):  # instance of ABCMeta
+                    if isinstance(t, ABCMeta):
                         abcman.insert(i, t)
                 typemap[types] = f
                 return f
