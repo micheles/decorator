@@ -127,7 +127,7 @@ class TestSingleDispatch(unittest.TestCase):
         c = collections
         d = {"a": "b"}
         l = [1, 2, 3]
-        s = {object(), None}
+        s = set([object(), None])
         f = frozenset(s)
         t = (1, 2, 3)
 
