@@ -279,51 +279,51 @@ elif n_args == 4:  # (self, gen, args, kwds) Python 3.5
 contextmanager = decorator(ContextManager)
 
 
-# ######################### dispatch_on ############################ #
+# ############################ dispatch_on ############################ #
 
-class _ABCManager(object):
+class _VAManager(object):
     """
-    Manage a list of ABCs for each dispatch type. The list is partially
-    ordered by the `issubclass` comparison operator.
+    Manage a list of virtual ancestors for each dispatch type.
+    The list is partially ordered by the `issubclass` comparison operator.
     """
     def __init__(self, n):
         self.indices = range(n)
-        self.abcs = [[] for _ in self.indices]
+        self.vancestors = [[] for _ in self.indices]
 
     def insert(self, i, a):
         """
-        For each index `i` insert an ABC `a` in the corresponding list, by
-        keeping the partial ordering.
+        For each index `i` insert a virtual ancestor `a` in the corresponding
+        list, by keeping the partial ordering.
         """
-        abcs = self.abcs[i]
-        for j, abc in enumerate(abcs):
-            if issubclass(a, abc) and a is not abc:
-                abcs.insert(j, a)
+        vancestors = self.vancestors[i]
+        for j, va in enumerate(vancestors):
+            if issubclass(a, va) and a is not va:
+                vancestors.insert(j, a)
                 break
         else:  # less specialized
-            if a not in abcs:
-                abcs.append(a)
+            if a not in vancestors:
+                vancestors.append(a)
 
-    def get_abcs(self, types):
+    def get_vancestors(self, types):
         """
-        For each type get the most specialized ABC available; return a tuple
+        For each type get the most specialized VA available; return a tuple
         """
         class Sentinel(object):
             pass
-        abclist = [Sentinel for _ in self.indices]
-        for i, t, abcs in zip(self.indices, types, self.abcs):
-            for new in abcs:
+        valist = [Sentinel for _ in self.indices]
+        for i, t, vancestors in zip(self.indices, types, self.vancestors):
+            for new in vancestors:
                 if issubclass(t, new):
-                    old = abclist[i]
+                    old = valist[i]
                     if old is Sentinel or issubclass(new, old):
-                        abclist[i] = new
+                        valist[i] = new
                     elif issubclass(old, new):
                         pass
                     else:
                         raise RuntimeError(
                             'Ambiguous dispatch for %s instance: %s or %s?'
                             % (t.__name__, old.__name__, new.__name__))
-        return tuple(abclist)
+        return tuple(valist)
 
 
 # inspired from simplegeneric by P.J. Eby and functools.singledispatch
@@ -344,7 +344,7 @@ def dispatch_on(*dispatch_args):
             raise NameError('Unknown dispatch arguments %s' % dispatch_str)
 
         typemap = {}
-        abcman = _ABCManager(len(dispatch_args))
+        man = _VAManager(len(dispatch_args))
 
         def register(*types):
             "Decorator to register an implementation for the given types"
@@ -358,9 +358,9 @@ def dispatch_on(*dispatch_args):
                     raise TypeError(
                         '%s has not enough arguments (got %d, expected %d)' %
                         (f, n_args, len(dispatch_args)))
-                for i, t, abc in zip(abcman.indices, types, abcman.abcs):
+                for i, t, va in zip(man.indices, types, man.vancestors):
                     if isinstance(t, ABCMeta):
-                        abcman.insert(i, t)
+                        man.insert(i, t)
                 typemap[types] = f
                 return f
             return dec
@@ -369,17 +369,19 @@ def dispatch_on(*dispatch_args):
             "Dispatcher function"
             types = tuple(type(arg) for arg in dispatch_args)
             try:  # fast path
-                return typemap[types](*args, **kw)
+                f = typemap[types]
             except KeyError:
                 pass
+            else:
+                return f(*args, **kw)
             for types_ in itertools.product(*(t.__mro__ for t in types)):
                 f = typemap.get(types_)
                 if f is not None:
                     return f(*args, **kw)
 
-            # else look at the ABCs
-            if abcman.abcs:
-                f = typemap.get(abcman.get_abcs(types))
+            # else look at the virtual ancestors
+            if man.vancestors:
+                f = typemap.get(man.get_vancestors(types))
                 if f is not None:
                     return f(*args, **kw)
 
@@ -389,7 +391,7 @@ def dispatch_on(*dispatch_args):
         return FunctionMaker.create(
             func, 'return _f_(%s, %%(shortsignature)s)' % dispatch_str,
             dict(_f_=dispatch), register=register, default=func,
-            typemap=typemap, abcs=abcman.abcs, __wrapped__=func)
+            typemap=typemap, vancestors=man.vancestors, __wrapped__=func)
 
     gen_func_dec.__name__ = 'dispatch_on' + dispatch_str
     return gen_func_dec

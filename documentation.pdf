@@ -25,16 +25,16 @@ endobj
 << /Border [ 0 0 0 ] /Contents () /Dest [ 52 0 R /XYZ 62.69291 765.0236 0 ] /Rect [ 527.0227 560.7736 532.5827 572.7736 ] /Subtype /Link /Type /Annot >>
 endobj
 9 0 obj
-<< /Border [ 0 0 0 ] /Contents () /Dest [ 52 0 R /XYZ 62.69291 594.0236 0 ] /Rect [ 62.69291 542.0236 117.3029 554.0236 ] /Subtype /Link /Type /Annot >>
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 52 0 R /XYZ 62.69291 582.0236 0 ] /Rect [ 62.69291 542.0236 117.3029 554.0236 ] /Subtype /Link /Type /Annot >>
 endobj
 10 0 obj
-<< /Border [ 0 0 0 ] /Contents () /Dest [ 52 0 R /XYZ 62.69291 594.0236 0 ] /Rect [ 527.0227 542.7736 532.5827 554.7736 ] /Subtype /Link /Type /Annot >>
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 52 0 R /XYZ 62.69291 582.0236 0 ] /Rect [ 527.0227 542.7736 532.5827 554.7736 ] /Subtype /Link /Type /Annot >>
 endobj
 11 0 obj
-<< /Border [ 0 0 0 ] /Contents () /Dest [ 52 0 R /XYZ 62.69291 381.0236 0 ] /Rect [ 62.69291 524.0236 182.7229 536.0236 ] /Subtype /Link /Type /Annot >>
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 52 0 R /XYZ 62.69291 369.0236 0 ] /Rect [ 62.69291 524.0236 182.7229 536.0236 ] /Subtype /Link /Type /Annot >>
 endobj
 12 0 obj
-<< /Border [ 0 0 0 ] /Contents () /Dest [ 52 0 R /XYZ 62.69291 381.0236 0 ] /Rect [ 527.0227 524.7736 532.5827 536.7736 ] /Subtype /Link /Type /Annot >>
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 52 0 R /XYZ 62.69291 369.0236 0 ] /Rect [ 527.0227 524.7736 532.5827 536.7736 ] /Subtype /Link /Type /Annot >>
 endobj
 13 0 obj
 << /Border [ 0 0 0 ] /Contents () /Dest [ 57 0 R /XYZ 62.69291 765.0236 0 ] /Rect [ 62.69291 506.0236 114.3629 518.0236 ] /Subtype /Link /Type /Annot >>
@@ -156,7 +156,7 @@ endobj
 << /BaseFont /Helvetica-Oblique /Encoding /WinAnsiEncoding /Name /F4 /Subtype /Type1 /Type /Font >>
 endobj
 51 0 obj
-<< /A << /S /URI /Type /Action /URI (http://pythonwheels.com/) >> /Border [ 0 0 0 ] /Rect [ 397.6066 642.0236 425.9338 654.0236 ] /Subtype /Link /Type /Annot >>
+<< /A << /S /URI /Type /Action /URI (http://pythonwheels.com/) >> /Border [ 0 0 0 ] /Rect [ 62.69291 630.0236 89.4624 642.0236 ] /Subtype /Link /Type /Annot >>
 endobj
 52 0 obj
 << /Annots [ 51 0 R ] /Contents 102 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 100 0 R /Resources << /Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ] >> /Rotate 0 
@@ -258,7 +258,7 @@ endobj
 << /Outlines 80 0 R /PageLabels 120 0 R /PageMode /UseNone /Pages 100 0 R /Type /Catalog >>
 endobj
 79 0 obj
-<< /Author (Michele Simionato) /CreationDate (D:20150722163825-01'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
+<< /Author (Michele Simionato) /CreationDate (D:20150722193543-01'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
   /Title (The decorator module) >>
 endobj
 80 0 obj
@@ -268,10 +268,10 @@ endobj
 << /Dest [ 52 0 R /XYZ 62.69291 765.0236 0 ] /Next 82 0 R /Parent 80 0 R /Title (Introduction) >>
 endobj
 82 0 obj
-<< /Dest [ 52 0 R /XYZ 62.69291 594.0236 0 ] /Next 83 0 R /Parent 80 0 R /Prev 81 0 R /Title (What's new) >>
+<< /Dest [ 52 0 R /XYZ 62.69291 582.0236 0 ] /Next 83 0 R /Parent 80 0 R /Prev 81 0 R /Title (What's new) >>
 endobj
 83 0 obj
-<< /Dest [ 52 0 R /XYZ 62.69291 381.0236 0 ] /Next 84 0 R /Parent 80 0 R /Prev 82 0 R /Title (Usefulness of decorators) >>
+<< /Dest [ 52 0 R /XYZ 62.69291 369.0236 0 ] /Next 84 0 R /Parent 80 0 R /Prev 82 0 R /Title (Usefulness of decorators) >>
 endobj
 84 0 obj
 << /Dest [ 57 0 R /XYZ 62.69291 765.0236 0 ] /Next 85 0 R /Parent 80 0 R /Prev 83 0 R /Title (Definitions) >>
@@ -764,7 +764,7 @@ Q
 endstream
 endobj
 102 0 obj
-<< /Length 7450 >>
+<< /Length 7477 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -774,50 +774,50 @@ BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Introduction) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 606.0236 cm
+1 0 0 1 62.69291 594.0236 cm
 q
-BT 1 0 0 1 0 122 Tm 1.033876 Tw 12 TL /F1 10 Tf 0 0 0 rg (The decorator module is over ten years old, but still alive and kicking. It is used by several frameworks) Tj T* 0 Tw 1.737356 Tw (\(IPython, scipy, pyramid,...\) and has been stable for a ) Tj /F4 10 Tf (long ) Tj /F1 10 Tf (time. It is your best option if you want to) Tj T* 0 Tw .607984 Tw (preserve the signature of decorated functions in a consistent way across Python releases. Version 4.0 is) Tj T* 0 Tw 1.318221 Tw (fully compatible with the past, except for one thing: support for Python 2.4 and 2.5 has been dropped.) Tj T* 0 Tw .843488 Tw (That decision made it possible to use a single code base both for Python 2.X and Python 3.X. This is a) Tj T* 0 Tw 2.409982 Tw /F4 10 Tf (huge ) Tj /F1 10 Tf (bonus, since I could remove over 2,000 lines of duplicated documentation/doctests. Having to) Tj T* 0 Tw .18561 Tw (maintain separate docs for Python 2 and Python 3 effectively stopped any development on the module for) Tj T* 0 Tw 2.207209 Tw (several years. Moreover, it is now trivial to distribute the module as a ) Tj 0 0 .501961 rg (wheel ) Tj 0 0 0 rg (since 2to3 is no more) Tj T* 0 Tw .038935 Tw (required. Since Python 2.5 has been released 9 years ago, I felt that it was reasonable to drop the support) Tj T* 0 Tw .012209 Tw (for it. If you need to support ancient versions of Python, stick with the decorator module version 3.4.2. This) Tj T* 0 Tw (version supports all Python releases from 2.6 up to 3.5, which currently is still in beta status.) Tj T* ET
+BT 1 0 0 1 0 134 Tm 1.033876 Tw 12 TL /F1 10 Tf 0 0 0 rg (The decorator module is over ten years old, but still alive and kicking. It is used by several frameworks) Tj T* 0 Tw .59832 Tw (\(IPython, scipy, authkit, pylons, repoze, pycuda, sugar, ...\) and has been stable for a ) Tj /F4 10 Tf (long ) Tj /F1 10 Tf (time. It is your) Tj T* 0 Tw .142927 Tw (best option if you want to preserve the signature of decorated functions in a consistent way across Python) Tj T* 0 Tw .103876 Tw (releases. Version 4.0 is fully compatible with the past, except for one thing: support for Python 2.4 and 2.5) Tj T* 0 Tw 1.399431 Tw (has been dropped. That decision made it possible to use a single code base both for Python 2.X and) Tj T* 0 Tw 6.201984 Tw (Python 3.X. This is a ) Tj /F4 10 Tf (huge ) Tj /F1 10 Tf (bonus, since I could remove over 2,000 lines of duplicated) Tj T* 0 Tw .485366 Tw (documentation/doctests. Having to maintain separate docs for Python 2 and Python 3 effectively stopped) Tj T* 0 Tw .384431 Tw (any development on the module for several years. Moreover, it is now trivial to distribute the module as a) Tj T* 0 Tw .649488 Tw 0 0 .501961 rg (wheel ) Tj 0 0 0 rg (since 2to3 is no more required. Since Python 2.5 has been released 9 years ago, I felt that it was) Tj T* 0 Tw 1.462209 Tw (reasonable to drop the support for it. If you need to support ancient versions of Python, stick with the) Tj T* 0 Tw 2.127984 Tw (decorator module version 3.4.2. This version supports all Python releases from 2.6 up to 3.5, which) Tj T* 0 Tw (currently is still in beta status.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 573.0236 cm
+1 0 0 1 62.69291 561.0236 cm
 q
 BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (What's new) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 483.0236 cm
+1 0 0 1 62.69291 471.0236 cm
 q
-BT 1 0 0 1 0 74 Tm 2.334692 Tw 12 TL /F1 10 Tf 0 0 0 rg (Since now there is a single manual for all Python versions, I took the occasion for overhauling the) Tj T* 0 Tw .691098 Tw (documentation. Therefore, even if you are an old time user, you may want to read the docs again, since) Tj T* 0 Tw .311984 Tw (several examples have been improved. The packaging has been improved and now I am also distributing) Tj T* 0 Tw 2.16686 Tw (the code in wheel format. The integration with setuptools has been improved and now you can use) Tj T* 0 Tw .166412 Tw /F3 10 Tf 0 0 0 rg (python) Tj ( ) Tj (setup.py) Tj ( ) Tj (test ) Tj /F1 10 Tf 0 0 0 rg (to run the tests. A new utility function ) Tj /F3 10 Tf 0 0 0 rg (decorate\(func, caller\) ) Tj /F1 10 Tf 0 0 0 rg (has been) Tj T* 0 Tw 3.003318 Tw (added, doing the same job that in the past was done by ) Tj /F3 10 Tf 0 0 0 rg (decorator\(caller,) Tj ( ) Tj (func\)) Tj /F1 10 Tf 0 0 0 rg (. The old) Tj T* 0 Tw (functionality is still there for compatibility sake, but it is deprecated and not documented anymore.) Tj T* ET
+BT 1 0 0 1 0 74 Tm 2.334692 Tw 12 TL /F1 10 Tf 0 0 0 rg (Since now there is a single manual for all Python versions, I took the occasion for overhauling the) Tj T* 0 Tw .691098 Tw (documentation. Therefore, even if you are an old time user, you may want to read the docs again, since) Tj T* 0 Tw .311984 Tw (several examples have been improved. The packaging has been improved and now I am also distributing) Tj T* 0 Tw 2.16686 Tw (the code in wheel format. The integration with setuptools has been improved and now you can use) Tj T* 0 Tw .166412 Tw /F3 10 Tf 0 0 0 rg (python) Tj ( ) Tj (setup.py test ) Tj /F1 10 Tf 0 0 0 rg (to run the tests. A new utility function ) Tj /F3 10 Tf 0 0 0 rg (decorate\(func, caller\) ) Tj /F1 10 Tf 0 0 0 rg (has been) Tj T* 0 Tw 3.003318 Tw (added, doing the same job that in the past was done by ) Tj /F3 10 Tf 0 0 0 rg (decorator\(caller,) Tj ( ) Tj (func\)) Tj /F1 10 Tf 0 0 0 rg (. The old) Tj T* 0 Tw (functionality is still there for compatibility sake, but it is deprecated and not documented anymore.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 393.0236 cm
+1 0 0 1 62.69291 381.0236 cm
 q
-BT 1 0 0 1 0 74 Tm 4.582126 Tw 12 TL /F1 10 Tf 0 0 0 rg (Apart from that, there is a new experimental feature. The decorator module now includes an) Tj T* 0 Tw 3.31284 Tw (implementation of generic \(multiple dispatch\) functions. The API is designed to mimic the one of) Tj T* 0 Tw 2.42998 Tw /F4 10 Tf 0 0 0 rg (functools.singledispatch ) Tj /F1 10 Tf 0 0 0 rg (but the implementation is much simpler and more general; moreover all the) Tj T* 0 Tw .274651 Tw (decorators involved preserve the signature of the decorated functions. For the moment the facility is there) Tj T* 0 Tw .359985 Tw (mostly to exemplify the power of the module. In the future it could change and/or be enhanced/optimized;) Tj T* 0 Tw 1.252927 Tw (on the other hand, it could even become deprecated. Such is the fate of experimental features. In any) Tj T* 0 Tw (case it is very short and compact, so you can extract it for your own use. Take it as food for thought.) Tj T* ET
+BT 1 0 0 1 0 74 Tm 4.582126 Tw 12 TL /F1 10 Tf 0 0 0 rg (Apart from that, there is a new experimental feature. The decorator module now includes an) Tj T* 0 Tw 3.31284 Tw (implementation of generic \(multiple dispatch\) functions. The API is designed to mimic the one of) Tj T* 0 Tw 1.893615 Tw /F4 10 Tf 0 0 0 rg (functools.singledispatch ) Tj /F1 10 Tf 0 0 0 rg (but the implementation is much simpler; moreover all the decorators involved) Tj T* 0 Tw .362485 Tw (preserve the signature of the decorated functions. For the moment the facility is there mostly to exemplify) Tj T* 0 Tw .101654 Tw (the power of the module. In the future it could change and/or be enhanced/optimized; on the other hand, it) Tj T* 0 Tw .289431 Tw (could even become deprecated. Such is the fate of experimental features. In any case it is very short and) Tj T* 0 Tw (compact, so you can extract it for your own use. Take it as food for thought.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 360.0236 cm
+1 0 0 1 62.69291 348.0236 cm
 q
 BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Usefulness of decorators) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 294.0236 cm
+1 0 0 1 62.69291 282.0236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 50 Tm /F1 10 Tf 12 TL 3.995366 Tw (Python decorators are an interesting example of why syntactic sugar matters. In principle, their) Tj T* 0 Tw .151235 Tw (introduction in Python 2.4 changed nothing, since they do not provide any new functionality which was not) Tj T* 0 Tw 2.238555 Tw (already present in the language. In practice, their introduction has significantly changed the way we) Tj T* 0 Tw .098409 Tw (structure our programs in Python. I believe the change is for the best, and that decorators are a great idea) Tj T* 0 Tw (since:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 288.0236 cm
-Q
-q
-1 0 0 1 62.69291 288.0236 cm
+1 0 0 1 62.69291 276.0236 cm
 Q
 q
 1 0 0 1 62.69291 276.0236 cm
+Q
+q
+1 0 0 1 62.69291 264.0236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -838,10 +838,10 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 270.0236 cm
+1 0 0 1 62.69291 258.0236 cm
 Q
 q
-1 0 0 1 62.69291 258.0236 cm
+1 0 0 1 62.69291 246.0236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -862,10 +862,10 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 252.0236 cm
+1 0 0 1 62.69291 240.0236 cm
 Q
 q
-1 0 0 1 62.69291 240.0236 cm
+1 0 0 1 62.69291 228.0236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -886,10 +886,10 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 234.0236 cm
+1 0 0 1 62.69291 222.0236 cm
 Q
 q
-1 0 0 1 62.69291 222.0236 cm
+1 0 0 1 62.69291 210.0236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 q
@@ -910,23 +910,23 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 222.0236 cm
+1 0 0 1 62.69291 210.0236 cm
 Q
 q
-1 0 0 1 62.69291 180.0236 cm
+1 0 0 1 62.69291 168.0236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 26 Tm /F1 10 Tf 12 TL .848876 Tw (Still, as of now, writing custom decorators correctly requires some experience and it is not as easy as it) Tj T* 0 Tw 1.049269 Tw (could be. For instance, typical implementations of decorators involve nested functions, and we all know) Tj T* 0 Tw (that flat is better than nested.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 126.0236 cm
+1 0 0 1 62.69291 114.0236 cm
 q
 BT 1 0 0 1 0 38 Tm 1.093735 Tw 12 TL /F1 10 Tf 0 0 0 rg (The aim of the ) Tj /F3 10 Tf 0 0 0 rg (decorator ) Tj /F1 10 Tf 0 0 0 rg (module it to simplify the usage of decorators for the average programmer,) Tj T* 0 Tw 2.456136 Tw (and to popularize decorators by showing various non-trivial examples. Of course, as all techniques,) Tj T* 0 Tw 2.234987 Tw (decorators can be abused \(I have seen that\) and you should not try to solve every problem with a) Tj T* 0 Tw (decorator, just because you can.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 96.02362 cm
+1 0 0 1 62.69291 84.02362 cm
 q
 BT 1 0 0 1 0 14 Tm .13561 Tw 12 TL /F1 10 Tf 0 0 0 rg (You may find the source code for all the examples discussed here in the ) Tj /F3 10 Tf 0 0 0 rg (documentation.py ) Tj /F1 10 Tf 0 0 0 rg (file, which) Tj T* 0 Tw (contains the documentation you are reading in the form of doctests.) Tj T* ET
 Q
@@ -7835,7 +7835,7 @@ Q
 q
 1 0 0 1 62.69291 286.6236 cm
 q
-BT 1 0 0 1 0 110 Tm .932209 Tw 12 TL /F1 10 Tf 0 0 0 rg (At present, there is no clean way to avoid ) Tj /F3 10 Tf 0 0 0 rg (exec) Tj /F1 10 Tf 0 0 0 rg (. A clean solution would require to change the CPython) Tj T* 0 Tw .777485 Tw (implementation of functions and add an hook to make it possible to change their signature directly. That) Tj T* 0 Tw .74186 Tw (could happen in future versions of Python \(see PEP ) Tj 0 0 .501961 rg (362) Tj 0 0 0 rg (\) and then the decorator module would become) Tj T* 0 Tw 2.385318 Tw (obsolete. However, at present, even in Python 3.4 it is impossible to change the function signature) Tj T* 0 Tw 1.372485 Tw (directly, therefore the ) Tj /F3 10 Tf 0 0 0 rg (decorator ) Tj /F1 10 Tf 0 0 0 rg (module is still useful. Actually, this is the main reasons why I keep) Tj T* 0 Tw 2.169398 Tw (maintaining the module and releasing new versions. It should be noticed that in Python 3.5 a lot of) Tj T* 0 Tw 9.189147 Tw (improvements have been made: in that version you can decorated a function with) Tj T* 0 Tw .084147 Tw /F3 10 Tf 0 0 0 rg (func_tools.update_wrapper ) Tj /F1 10 Tf 0 0 0 rg (and ) Tj /F3 10 Tf 0 0 0 rg (pydoc ) Tj /F1 10 Tf 0 0 0 rg (will see the correct signature; still internally the function will) Tj T* 0 Tw 1.47748 Tw (have an incorrect signature, as you can see by using ) Tj /F3 10 Tf 0 0 0 rg (inspect.getfullargspec) Tj /F1 10 Tf 0 0 0 rg (: all documentation) Tj T* 0 Tw (tools using such function \(which has been correctly deprecated\) will see the wrong signature.) Tj T* ET
+BT 1 0 0 1 0 110 Tm .932209 Tw 12 TL /F1 10 Tf 0 0 0 rg (At present, there is no clean way to avoid ) Tj /F3 10 Tf 0 0 0 rg (exec) Tj /F1 10 Tf 0 0 0 rg (. A clean solution would require to change the CPython) Tj T* 0 Tw .777485 Tw (implementation of functions and add an hook to make it possible to change their signature directly. That) Tj T* 0 Tw .74186 Tw (could happen in future versions of Python \(see PEP ) Tj 0 0 .501961 rg (362) Tj 0 0 0 rg (\) and then the decorator module would become) Tj T* 0 Tw 2.385318 Tw (obsolete. However, at present, even in Python 3.5 it is impossible to change the function signature) Tj T* 0 Tw 1.372485 Tw (directly, therefore the ) Tj /F3 10 Tf 0 0 0 rg (decorator ) Tj /F1 10 Tf 0 0 0 rg (module is still useful. Actually, this is the main reasons why I keep) Tj T* 0 Tw 2.169398 Tw (maintaining the module and releasing new versions. It should be noticed that in Python 3.5 a lot of) Tj T* 0 Tw 9.189147 Tw (improvements have been made: in that version you can decorated a function with) Tj T* 0 Tw .084147 Tw /F3 10 Tf 0 0 0 rg (func_tools.update_wrapper ) Tj /F1 10 Tf 0 0 0 rg (and ) Tj /F3 10 Tf 0 0 0 rg (pydoc ) Tj /F1 10 Tf 0 0 0 rg (will see the correct signature; still internally the function will) Tj T* 0 Tw 1.47748 Tw (have an incorrect signature, as you can see by using ) Tj /F3 10 Tf 0 0 0 rg (inspect.getfullargspec) Tj /F1 10 Tf 0 0 0 rg (: all documentation) Tj T* 0 Tw (tools using such function \(which has been correctly deprecated\) will see the wrong signature.) Tj T* ET
 Q
 Q
 q
@@ -8281,99 +8281,99 @@ xref
 0000008103 00000 n
 0000008646 00000 n
 0000008765 00000 n
-0000008945 00000 n
-0000009176 00000 n
-0000009381 00000 n
-0000009495 00000 n
-0000009612 00000 n
-0000009839 00000 n
-0000010077 00000 n
-0000010289 00000 n
-0000010501 00000 n
-0000010697 00000 n
-0000010928 00000 n
-0000011140 00000 n
-0000011352 00000 n
-0000011564 00000 n
-0000011776 00000 n
-0000011967 00000 n
-0000012198 00000 n
-0000012416 00000 n
-0000012647 00000 n
-0000012859 00000 n
-0000013071 00000 n
-0000013283 00000 n
-0000013495 00000 n
-0000013707 00000 n
-0000013902 00000 n
-0000014133 00000 n
-0000014345 00000 n
-0000014456 00000 n
-0000014704 00000 n
-0000014782 00000 n
-0000014899 00000 n
-0000015027 00000 n
-0000015169 00000 n
-0000015298 00000 n
-0000015440 00000 n
-0000015570 00000 n
-0000015705 00000 n
-0000015843 00000 n
-0000015980 00000 n
-0000016106 00000 n
-0000016240 00000 n
-0000016372 00000 n
-0000016513 00000 n
-0000016654 00000 n
-0000016807 00000 n
-0000016942 00000 n
-0000017099 00000 n
-0000017240 00000 n
-0000017352 00000 n
-0000017548 00000 n
-0000025169 00000 n
-0000032677 00000 n
-0000045241 00000 n
-0000061860 00000 n
-0000080441 00000 n
-0000098134 00000 n
-0000118548 00000 n
-0000137303 00000 n
-0000152013 00000 n
-0000166294 00000 n
-0000184809 00000 n
-0000201420 00000 n
-0000213850 00000 n
-0000230902 00000 n
-0000245120 00000 n
-0000258044 00000 n
-0000269189 00000 n
-0000283878 00000 n
-0000291981 00000 n
-0000292228 00000 n
-0000292266 00000 n
-0000292304 00000 n
-0000292342 00000 n
-0000292380 00000 n
-0000292418 00000 n
-0000292456 00000 n
-0000292494 00000 n
-0000292532 00000 n
-0000292570 00000 n
-0000292609 00000 n
-0000292648 00000 n
-0000292687 00000 n
-0000292726 00000 n
-0000292765 00000 n
-0000292804 00000 n
-0000292843 00000 n
-0000292882 00000 n
-0000292921 00000 n
+0000008944 00000 n
+0000009175 00000 n
+0000009380 00000 n
+0000009494 00000 n
+0000009611 00000 n
+0000009838 00000 n
+0000010076 00000 n
+0000010288 00000 n
+0000010500 00000 n
+0000010696 00000 n
+0000010927 00000 n
+0000011139 00000 n
+0000011351 00000 n
+0000011563 00000 n
+0000011775 00000 n
+0000011966 00000 n
+0000012197 00000 n
+0000012415 00000 n
+0000012646 00000 n
+0000012858 00000 n
+0000013070 00000 n
+0000013282 00000 n
+0000013494 00000 n
+0000013706 00000 n
+0000013901 00000 n
+0000014132 00000 n
+0000014344 00000 n
+0000014455 00000 n
+0000014703 00000 n
+0000014781 00000 n
+0000014898 00000 n
+0000015026 00000 n
+0000015168 00000 n
+0000015297 00000 n
+0000015439 00000 n
+0000015569 00000 n
+0000015704 00000 n
+0000015842 00000 n
+0000015979 00000 n
+0000016105 00000 n
+0000016239 00000 n
+0000016371 00000 n
+0000016512 00000 n
+0000016653 00000 n
+0000016806 00000 n
+0000016941 00000 n
+0000017098 00000 n
+0000017239 00000 n
+0000017351 00000 n
+0000017547 00000 n
+0000025168 00000 n
+0000032703 00000 n
+0000045267 00000 n
+0000061886 00000 n
+0000080467 00000 n
+0000098160 00000 n
+0000118574 00000 n
+0000137329 00000 n
+0000152039 00000 n
+0000166320 00000 n
+0000184835 00000 n
+0000201446 00000 n
+0000213876 00000 n
+0000230928 00000 n
+0000245146 00000 n
+0000258070 00000 n
+0000269215 00000 n
+0000283904 00000 n
+0000292007 00000 n
+0000292254 00000 n
+0000292292 00000 n
+0000292330 00000 n
+0000292368 00000 n
+0000292406 00000 n
+0000292444 00000 n
+0000292482 00000 n
+0000292520 00000 n
+0000292558 00000 n
+0000292596 00000 n
+0000292635 00000 n
+0000292674 00000 n
+0000292713 00000 n
+0000292752 00000 n
+0000292791 00000 n
+0000292830 00000 n
+0000292869 00000 n
+0000292908 00000 n
+0000292947 00000 n
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com)
- [(\246\331\010\202\265\001C\307O\247?\347\352\236\362\252) (\246\331\010\202\265\001C\307O\247?\347\352\236\362\252)]
+ [(\216\330\\\217r}\230,\3753\022\362\265J;b) (\216\330\\\217r}\230,\3753\022\362\265J;b)]
  /Info 79 0 R /Root 78 0 R /Size 140 >>
 startxref
-292960
+292986
 %%EOF

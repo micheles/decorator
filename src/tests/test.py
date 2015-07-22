@@ -245,12 +245,12 @@ class TestSingleDispatch(unittest.TestCase):
         self.assertEqual(g(t), "tuple")
         if hasattr(c, 'ChainMap'):
             self.assertEqual(
-                [abc.__name__ for abc in g.abcs[0]],
+                [abc.__name__ for abc in g.vancestors[0]],
                 ['ChainMap', 'MutableMapping', 'MutableSequence', 'MutableSet',
                  'Mapping', 'Sequence', 'Set', 'Sized'])
         else:
             self.assertEqual(
-                [abc.__name__ for abc in g.abcs[0]],
+                [abc.__name__ for abc in g.vancestors[0]],
                 ['MutableMapping', 'MutableSequence', 'MutableSet',
                  'Mapping', 'Sequence', 'Set', 'Sized'])
 
