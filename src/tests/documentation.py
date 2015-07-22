@@ -18,22 +18,25 @@ Introduction
 -----------------------------------------
 
 The decorator module is over ten years old, but still alive and
-kicking. It is used by several frameworks (IPython, scipy,
-pyramid,...) and has been stable for a *long* time. It is your best
-option if you want to preserve the signature of decorated functions in
-a consistent way across Python releases. Version 4.0 is fully
-compatible with the past, except for one thing: support for Python 2.4
-and 2.5 has been dropped. That decision made it possible to use a
-single code base both for Python 2.X and Python 3.X. This is a *huge*
-bonus, since I could remove over 2,000 lines of duplicated
-documentation/doctests. Having to maintain separate docs for Python 2 and
-Python 3 effectively stopped any development on the module for several
-years. Moreover, it is now trivial to distribute the module as a wheel
-since 2to3 is no more required. Since Python 2.5 has been released 9
-years ago, I felt that it was reasonable to drop the support for it. If you
-need to support ancient versions of Python, stick with the decorator
-module version 3.4.2.  This version supports all Python releases from
-2.6 up to 3.5, which currently is still in beta status.
+kicking. It is used by several frameworks (IPython, scipy, authkit,
+pylons, repoze, pycuda, sugar, ...) and has been stable for a *long*
+time. It is your best option if you want to preserve the signature of
+decorated functions in a consistent way across Python
+releases. Version 4.0 is fully compatible with the past, except for
+one thing: support for Python 2.4 and 2.5 has been dropped. That
+decision made it possible to use a single code base both for Python
+2.X and Python 3.X. This is a *huge* bonus, since I could remove over
+2,000 lines of duplicated documentation/doctests. Having to maintain
+separate docs for Python 2 and Python 3 effectively stopped any
+development on the module for several years. Moreover, it is now
+trivial to distribute the module as a wheel_ since 2to3 is no more
+required. Since Python 2.5 has been released 9 years ago, I felt that
+it was reasonable to drop the support for it. If you need to support
+ancient versions of Python, stick with the decorator module version
+3.4.2.  This version supports all Python releases from 2.6 up to 3.5,
+which currently is still in beta status.
+
+.. _wheel: http://pythonwheels.com/
 
 What's new
 ---------------------
@@ -41,11 +44,10 @@ What's new
 Since now there is a single manual for all Python versions, I took the
 occasion for overhauling the documentation. Therefore, even if you are
 an old time user, you may want to read the docs again, since several
-examples have been improved. The packaging has been improved and now
-I am also distributing the code in wheel format. The integration
-with setuptools has been improved and now you can use
-``python setup.py test`` to run the tests.
-A new utility function ``decorate(func,
+examples have been improved. The packaging has been improved and now I
+am also distributing the code in wheel format. The integration with
+setuptools has been improved and now you can use ``python setup.py
+test`` to run the tests.  A new utility function ``decorate(func,
 caller)`` has been added, doing the same job that in the past was done
 by ``decorator(caller, func)``. The old functionality is still there
 for compatibility sake, but it is deprecated and not documented
@@ -54,14 +56,14 @@ anymore.
 Apart from that, there is a new experimental feature. The decorator
 module now includes an implementation of generic (multiple dispatch)
 functions. The API is designed to mimic the one of
-`functools.singledispatch` but the implementation is much simpler and
-more general; moreover all the decorators involved preserve the
-signature of the decorated functions. For the moment the facility is
-there mostly to exemplify the power of the module. In the future it
-could change and/or be enhanced/optimized; on the other hand, it could
-even become deprecated. Such is the fate of experimental features. In
-any case it is very short and compact, so you can extract it for
-your own use. Take it as food for thought.
+`functools.singledispatch` but the implementation is much simpler;
+moreover all the decorators involved preserve the signature of the
+decorated functions. For the moment the facility is there mostly to
+exemplify the power of the module. In the future it could change
+and/or be enhanced/optimized; on the other hand, it could even become
+deprecated. Such is the fate of experimental features. In any case it
+is very short and compact, so you can extract it for your own
+use. Take it as food for thought.
 
 Usefulness of decorators
 ------------------------------------------------
@@ -536,7 +538,7 @@ the names of the mandatory arguments) an attribute ``arg0``, ``arg1``,
 attribute, a string with the signature of the original function.
 
 Notice: you should not pass signature strings with default arguments,
-i.e. something like 'f1(a, b=None)'. Just pass 'f1(a, b)' and then
+i.e. something like ``'f1(a, b=None)'``. Just pass ``'f1(a, b)'`` and then
 a tuple of defaults:
 
 .. code-block:: python
@@ -828,7 +830,25 @@ to discern that a ``Set`` is a ``Sized`` object, so the
 implementation for ``Set`` is taken and the result is 1, not 0.
 Still, the implementation in the decorator module is easy to
 undestand, once one declare that real ancestors take the precedence
-over virtual ancestors.
+over virtual ancestors and the problem can be solved anyway by
+subclassing. As a matter of fact, if we define a subclass
+
+$$SomeSet2
+
+which inherits from ``collections.Set``, we get as expected
+
+.. code-block:: python
+
+ >>> get_length(SomeSet2())
+ 1
+
+consistently with the method resolution order, with ``Set`` having the
+precedence with respect to ``Sized``:
+
+.. code-block:: python
+
+ >>> [c.__name__ for c in SomeSet2.mro()]
+ ['SomeSet2', 'SomeSet', 'Set', 'Sized', 'Iterable', 'Container', 'object']
 
 The functions implemented via ``functools.singledispatch``
 are smarter when there are conflicting implementations and are
@@ -932,7 +952,7 @@ would require to change the CPython implementation of functions and
 add an hook to make it possible to change their signature directly.
 That could happen in future versions of Python (see PEP 362_) and
 then the decorator module would become obsolete. However, at present,
-even in Python 3.4 it is impossible to change the function signature
+even in Python 3.5 it is impossible to change the function signature
 directly, therefore the ``decorator`` module is still useful.
 Actually, this is the main reasons why I keep maintaining
 the module and releasing new versions.
@@ -985,7 +1005,6 @@ a (shallow) copy of the original function dictionary:
  'something else'
 
 .. _function annotations: http://www.python.org/dev/peps/pep-3107/
-.. _distribute: http://packages.python.org/distribute/
 .. _docutils: http://docutils.sourceforge.net/
 .. _pygments: http://pygments.org/
 
@@ -1453,3 +1472,11 @@ def get_length(obj):
 @get_length.register(collections.Sized)
 def get_length_sized(obj):
     return len(obj)
+
+
+class SomeSet2(SomeSet, collections.Set):
+    def __contains__(self, a):
+        return True
+
+    def __iter__(self):
+        yield 1

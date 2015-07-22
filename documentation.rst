@@ -26,12 +26,14 @@ single code base both for Python 2.X and Python 3.X. This is a *huge*
 bonus, since I could remove over 2,000 lines of duplicated
 documentation/doctests. Having to maintain separate docs for Python 2 and
 Python 3 effectively stopped any development on the module for several
-years. Moreover, it is now trivial to distribute the module as a wheel
+years. Moreover, it is now trivial to distribute the module as a wheel_
 since 2to3 is no more required. Since Python 2.5 has been released 9
 years ago, I felt that it was reasonable to drop the support for it. If you
 need to support ancient versions of Python, stick with the decorator
 module version 3.4.2.  This version supports all Python releases from
 2.6 up to 3.5, which currently is still in beta status.
+
+.. _wheel: http://pythonwheels.com/
 
 What's new
 ---------------------
@@ -667,7 +669,7 @@ the names of the mandatory arguments) an attribute ``arg0``, ``arg1``,
 attribute, a string with the signature of the original function.
 
 Notice: you should not pass signature strings with default arguments,
-i.e. something like 'f1(a, b=None)'. Just pass 'f1(a, b)' and then
+i.e. something like ``'f1(a, b=None)'``. Just pass ``'f1(a, b)'`` and then
 a tuple of defaults:
 
 .. code-block:: python
@@ -1100,7 +1102,33 @@ to discern that a ``Set`` is a ``Sized`` object, so the
 implementation for ``Set`` is taken and the result is 1, not 0.
 Still, the implementation in the decorator module is easy to
 undestand, once one declare that real ancestors take the precedence
-over virtual ancestors.
+over virtual ancestors and the problem can be solved anyway by
+subclassing. As a matter of fact, if we define a subclass
+
+.. code-block:: python
+
+ class SomeSet2(SomeSet, collections.Set):
+     def __contains__(self, a):
+         return True
+ 
+     def __iter__(self):
+         yield 1
+
+
+which inherits from ``collections.Set``, we get as expected
+
+.. code-block:: python
+
+ >>> get_length(SomeSet2())
+ 1
+
+consistently with the method resolution order, with ``Set`` having the
+precedence with respect to ``Sized``:
+
+.. code-block:: python
+
+ >>> [c.__name__ for c in SomeSet2.mro()]
+ ['SomeSet2', 'SomeSet', 'Set', 'Sized', 'Iterable', 'Container', 'object']
 
 The functions implemented via ``functools.singledispatch``
 are smarter when there are conflicting implementations and are
