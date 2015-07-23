@@ -40,7 +40,6 @@ import re
 import sys
 import inspect
 import itertools
-import collections
 
 if sys.version >= '3':
     from inspect import getfullargspec
@@ -166,7 +165,6 @@ class FunctionMaker(object):
             src += '\n'  # this is needed in old versions of Python
         try:
             code = compile(src, '<string>', 'single')
-            # print >> sys.stderr, 'Compiling %s' % src
             exec(code, evaldict)
         except:
             print('Error in generated code:', file=sys.stderr)
@@ -282,27 +280,19 @@ contextmanager = decorator(ContextManager)
 
 # ############################ dispatch_on ############################ #
 
-def unique(classes):
+def append(a, vancestors):
     """
-    Return a tuple of unique classes by preserving the original order.
+    Append ``a`` to the list of the virtual ancestors, unless it is already
+    included.
     """
-    known = set([object])
-    outlist = []
-    for cl in classes:
-        if cl not in known:
-            outlist.append(cl)
-        known.add(cl)
-    return tuple(outlist)
-
-
-def insert(a, vancestors):
     for j, va in enumerate(vancestors):
-        if issubclass(a, va) and a is not va:
-            vancestors.insert(j, a)
+        if issubclass(va, a):
             break
-    else:  # less specialized
-        if a not in vancestors:
-            vancestors.append(a)
+        if issubclass(a, va):
+            vancestors[j] = a
+            break
+    else:
+        vancestors.append(a)
 
 
 # inspired from simplegeneric by P.J. Eby and functools.singledispatch
@@ -328,7 +318,7 @@ def dispatch_on(*dispatch_args):
         if not set(dispatch_args) <= argset:
             raise NameError('Unknown dispatch arguments %s' % dispatch_str)
 
-        typemap = collections.OrderedDict()
+        typemap = {}
 
         def vancestors(*types):
             """
@@ -339,8 +329,8 @@ def dispatch_on(*dispatch_args):
             for types_ in typemap:
                 for t, type_, ra in zip(types, types_, ras):
                     if issubclass(t, type_) and type_ not in t.__mro__:
-                        insert(type_, ra)
-            return ras
+                        append(type_, ra)
+            return map(set, ras)
 
         def mros(*types):
             """
@@ -348,12 +338,16 @@ def dispatch_on(*dispatch_args):
             """
             check(types)
             lists = []
-            for t, ancestors in zip(types, vancestors(*types)):
-                t_ancestors = unique(t.__bases__ + tuple(ancestors))
-                if not t_ancestors:
-                    mro = t.__mro__
+            for t, vas in zip(types, vancestors(*types)):
+                n_vas = len(vas)
+                if n_vas > 1:
+                    raise RuntimeError(
+                        'Ambiguous dispatch for %s: %s' % (t, vas))
+                elif n_vas == 1:
+                    va, = vas
+                    mro = type('t', (t, va), {}).__mro__[1:]
                 else:
-                    mro = type(t.__name__, t_ancestors, {}).__mro__
+                    mro = t.__mro__
                 lists.append(mro[:-1])  # discard object
             return lists
 
@@ -371,7 +365,7 @@ def dispatch_on(*dispatch_args):
                 return f
             return dec
 
-        def dispatch(dispatch_args, *args, **kw):
+        def _dispatch(dispatch_args, *args, **kw):
             "Dispatcher function"
             types = tuple(type(arg) for arg in dispatch_args)
             try:  # fast path
@@ -390,7 +384,7 @@ def dispatch_on(*dispatch_args):
 
         return FunctionMaker.create(
             func, 'return _f_(%s, %%(shortsignature)s)' % dispatch_str,
-            dict(_f_=dispatch), register=register, default=func,
+            dict(_f_=_dispatch), register=register, default=func,
             typemap=typemap, vancestors=vancestors, mros=mros,
             __wrapped__=func)
 

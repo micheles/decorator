@@ -666,18 +666,19 @@ functions dispatching on any argument; moreover it can manage
 dispatching on more than one argument and, of course, it is
 signature-preserving.
 
-Here I will give a very concrete example where it is desiderable to
-dispatch on the second argument. Suppose you have an XMLWriter class,
-which is instantiated with some configuration parameters and has
-a ``.write`` method which is able to serialize objects to XML:
+Here I will give a very concrete example (taken from a real-life use
+case) where it is desiderable to dispatch on the second
+argument. Suppose you have an XMLWriter class, which is instantiated
+with some configuration parameters and has a ``.write`` method which
+is able to serialize objects to XML:
 
 $$XMLWriter
 
 Here you want to dispatch on the second argument since the first, ``self``
-is already taken. The `dispatch_on` facility allows you to specify
+is already taken. The ``dispatch_on`` decorator factory allows you to specify
 the dispatch argument by simply passing its name as a string (notice
 that if you mispell the name you will get an error). The function
-decorated with `dispatch_on` is turned into a generic function
+decorated is turned into a generic function
 and it is the one which is called if there are no more specialized
 implementations. Usually such default function should raise a
 ``NotImplementedError``, thus forcing people to register some implementation.
@@ -747,10 +748,9 @@ Here is the result:
 Generic functions and virtual ancestors
 -------------------------------------------------
 
-Generic function implementations in Python are
-complicated by the existence of "virtual ancestors", i.e. superclasses
-which are not in the class hierarchy.
-Consider for instance this class:
+Generic function implementations in Python are complicated by the
+existence of "virtual ancestors", i.e. superclasses which are not in
+the class hierarchy.  Consider for instance this class:
 
 $$WithLength
 
@@ -762,8 +762,8 @@ considered to be a subclass of the abstract base class ``collections.Sized``:
  >>> issubclass(WithLength, collections.Sized)
  True
 
-However, ``collections.Sized`` is not an ancestor of ``WithLength``.
-Any implementation of generic functions, even
+However, ``collections.Sized`` is not in the MRO of ``WithLength``, it
+is not a true ancestor. Any implementation of generic functions, even
 with single dispatch, must go through some contorsion to take into
 account the virtual ancestors.
 
@@ -775,26 +775,22 @@ implemented on all classes with a length
 
 $$get_length_sized
 
-then ``get_length`` must be defined on ``WithLength`` instances:
+then ``get_length`` must be defined on ``WithLength`` instances
 
 .. code-block:: python
 
  >>> get_length(WithLength())
  0
 
-You can find the virtual ancestors of a given set of classes as follows:
-
- >> get_length.vancestors(WithLength,)
- [[<class 'collections.abc.Sized'>]]
-
+even if ``collections.Sized`` is not a true ancestor of ``WithLength``.
 Of course this is a contrived example since you could just use the
 builtin ``len``, but you should get the idea.
 
-The implementation of generic functions in the decorator module is
-still experimental. In this initial phase implicity was preferred
-over consistency with the way ``functools.singledispatch`` works in
-the standard library. So there some subtle differences in special
-cases. I will only show an example.
+Since in Python it is possible to consider any instance of ABCMeta
+as a virtual ancestor of any other class (it is enough to register it
+as ``ancestor.register(cls)``), any implementation of generic functions
+must take this feature into account. Let me give an example.
+
 Suppose you are using a third party set-like class like
 the following:
 
@@ -803,14 +799,14 @@ $$SomeSet
 Here the author of ``SomeSet`` made a mistake by not inheriting
 from ``collections.Set``, but only from ``collections.Sized``.
 
-This is not a problem since we can register *a posteriori*
-``collections.Set`` as a virtual ancestor of ``SomeSet`` (in
-general any instance of ``abc.ABCMeta`` can be registered to work
-as a virtual ancestor):
+This is not a problem since you can register *a posteriori*
+``collections.Set`` as a virtual ancestor of ``SomeSet``:
 
 .. code-block:: python
 
- >>> _ = collections.Set.register(SomeSet)  # issubclass(SomeSet, Set)
+ >>> _ = collections.Set.register(SomeSet)
+ >>> issubclass(SomeSet, collections.Set)
+ True
 
 Now, let us define an implementation of ``get_length`` specific to set:
 
@@ -823,34 +819,32 @@ implementation for ``Set`` is taken:
 .. code-block:: python
 
  >>> get_length(SomeSet())
- Traceback (most recent call last):
-   ...
- TypeError: Cannot create a consistent method resolution
- order (MRO) for bases Sized, Set
-
-Sometimes it is impossible to find the right implementation. Here is a
-situation with a type conflict. First of all, let us register
-
-.. code-block:: python
-
- >>> @get_length.register(collections.Iterable)
- ... def get_length_iterable(obj):
- ...     raise TypeError('Cannot get the length of an iterable')
+ 1
 
 
-Since ``SomeSet`` is now both a (virtual) subclass
-of ``collections.Iterable`` and of ``collections.Sized``, which are
-not related by subclassing, it is impossible
-to decide which implementation should be taken. Consistently with
-the *refuse the temptation to guess* philosophy, an error is raised.
+The implementation of generic functions in the decorator module is
+still experimental. In this initial phase implicity was preferred
+over perfect consistency with the way ``functools.singledispatch`` works in
+the standard library. So there are some subtle differences in special
+cases.
 
- >>> get_length(SomeSet())
- Traceback (most recent call last):
-   ...
- TypeError: Cannot create a consistent method resolution
- order (MRO) for bases Iterable, Sized, Set
+Considered a class ``C`` registered both as ``collections.Iterable``
+and ``collections.Sized`` and define a generic function ``g`` with
+implementations both for ``collections.Iterable`` and
+``collections.Sized``. It is impossible to decide which implementation
+to use, and the following code will fail with a RuntimeError:
 
-``functools.singledispatch`` would raise a similar error in this case.
+$$singledispatch_example
+
+This is consistent with the "refuse the temptation to guess"
+philosophy. ``functools.singledispatch`` will raise a similar error.
+It would be easy to rely on the order of registration to decide the
+precedence order. This is reasonable, but also fragile: if during some
+refactoring you change the registration order by mistake, a different
+implementation could be taken. If implementations of the generic
+functions are distributed across modules, and you change the import
+order, a different implementation could be taken. So the decorator
+module is using the same approach of the standard library.
 
 Finally let me notice that the decorator module implementation does
 not use any cache, whereas the one in ``singledispatch`` has a cache.
@@ -1456,3 +1450,44 @@ def get_length_sized(obj):
 @get_length.register(collections.Set)
 def get_length_set(obj):
     return 1
+
+
+@contextmanager
+def assertRaises(etype):
+    """This works in Python 2.6 too"""
+    try:
+        yield
+    except etype:
+        pass
+    else:
+        raise Exception('Expected %s' % etype.__name__)
+
+
+class C(object):
+    "Registered as Sized and Iterable"
+collections.Sized.register(C)
+collections.Iterable.register(C)
+
+
+def singledispatch_example():
+    singledispatch = dispatch_on('obj')
+
+    @singledispatch
+    def g(obj):
+        raise NotImplementedError(type(g))
+
+    @g.register(collections.Sized)
+    def g_sized(object):
+        return "sized"
+
+    @g.register(collections.Iterable)
+    def g_iterable(object):
+        return "iterable"
+
+    with assertRaises(RuntimeError):
+        g(C())  # Ambiguous dispatch: Iterable or Sized?
+
+
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()
