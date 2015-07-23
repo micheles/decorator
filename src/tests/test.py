@@ -320,7 +320,8 @@ class TestSingleDispatch(unittest.TestCase):
         def i_sequence(arg):
             return "sequence"
         r = R()
-        #self.assertEqual(i(r), "mapping")  # was sequence
+        with doc.assertRaises(RuntimeError):
+            self.assertEqual(i(r), "mapping")
 
         class S(object):
             pass

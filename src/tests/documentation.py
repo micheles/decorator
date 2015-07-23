@@ -821,30 +821,30 @@ implementation for ``Set`` is taken:
  >>> get_length(SomeSet())
  1
 
-
-The implementation of generic functions in the decorator module is
-still experimental. In this initial phase implicity was preferred
-over perfect consistency with the way ``functools.singledispatch`` works in
-the standard library. So there are some subtle differences in special
-cases.
-
-Considered a class ``C`` registered both as ``collections.Iterable``
-and ``collections.Sized`` and define a generic function ``g`` with
+Some times it is not clear how to dispatch. For instance, consider a
+class ``C`` registered both as ``collections.Iterable`` and
+``collections.Sized`` and define a generic function ``g`` with
 implementations both for ``collections.Iterable`` and
 ``collections.Sized``. It is impossible to decide which implementation
-to use, and the following code will fail with a RuntimeError:
+to use, since the ancestors are independent, and the following code
+will fail with a RuntimeError:
 
 $$singledispatch_example
 
 This is consistent with the "refuse the temptation to guess"
-philosophy. ``functools.singledispatch`` will raise a similar error.
+philosophy. ``functools.singledispatch`` would raise a similar error.
+
 It would be easy to rely on the order of registration to decide the
 precedence order. This is reasonable, but also fragile: if during some
 refactoring you change the registration order by mistake, a different
 implementation could be taken. If implementations of the generic
 functions are distributed across modules, and you change the import
 order, a different implementation could be taken. So the decorator
-module is using the same approach of the standard library.
+module prefers to raise an error in the face of ambiguity. This is the
+same approach taken by the standard library. Notice that the dispatch
+algorithm used by the decorator module is different from the one used
+by ``functools.singledispatch``, so there are cases where you will get
+different answers.
 
 Finally let me notice that the decorator module implementation does
 not use any cache, whereas the one in ``singledispatch`` has a cache.

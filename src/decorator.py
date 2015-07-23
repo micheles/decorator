@@ -285,13 +285,15 @@ def append(a, vancestors):
     Append ``a`` to the list of the virtual ancestors, unless it is already
     included.
     """
+    add = True
     for j, va in enumerate(vancestors):
         if issubclass(va, a):
+            add = False
             break
         if issubclass(a, va):
             vancestors[j] = a
-            break
-    else:
+            add = False
+    if add:
         vancestors.append(a)
 
 
@@ -330,7 +332,7 @@ def dispatch_on(*dispatch_args):
                 for t, type_, ra in zip(types, types_, ras):
                     if issubclass(t, type_) and type_ not in t.__mro__:
                         append(type_, ra)
-            return map(set, ras)
+            return [set(ra) for ra in ras]
 
         def mros(*types):
             """
