@@ -40,6 +40,7 @@ import re
 import sys
 import inspect
 import itertools
+import collections
 
 if sys.version >= '3':
     from inspect import getfullargspec
@@ -281,49 +282,27 @@ contextmanager = decorator(ContextManager)
 
 # ############################ dispatch_on ############################ #
 
-class _VAManager(object):
+def unique(classes):
     """
-    Manage a list of virtual ancestors for each dispatch type.
-    The list is partially ordered by the `issubclass` comparison operator.
+    Return a tuple of unique classes by preserving the original order.
     """
-    def __init__(self, n):
-        self.indices = range(n)
-        self.vancestors = [[] for _ in self.indices]
+    known = set([object])
+    outlist = []
+    for cl in classes:
+        if cl not in known:
+            outlist.append(cl)
+        known.add(cl)
+    return tuple(outlist)
 
-    def insert(self, i, a):
-        """
-        For each index `i` insert a virtual ancestor `a` in the corresponding
-        list, by keeping the partial ordering.
-        """
-        vancestors = self.vancestors[i]
-        for j, va in enumerate(vancestors):
-            if issubclass(a, va) and a is not va:
-                vancestors.insert(j, a)
-                break
-        else:  # less specialized
-            if a not in vancestors:
-                vancestors.append(a)
 
-    def get_vancestors(self, types):
-        """
-        For each type get the most specialized VA available; return a tuple
-        """
-        class Sentinel(object):
-            pass
-        valist = [Sentinel for _ in self.indices]
-        for i, t, vancestors in zip(self.indices, types, self.vancestors):
-            for new in vancestors:
-                if issubclass(t, new):
-                    old = valist[i]
-                    if old is Sentinel or issubclass(new, old):
-                        valist[i] = new
-                    elif issubclass(old, new):
-                        pass
-                    else:
-                        raise RuntimeError(
-                            'Ambiguous dispatch for %s instance: %s or %s?'
-                            % (t.__name__, old.__name__, new.__name__))
-        return tuple(valist)
+def insert(a, vancestors):
+    for j, va in enumerate(vancestors):
+        if issubclass(a, va) and a is not va:
+            vancestors.insert(j, a)
+            break
+    else:  # less specialized
+        if a not in vancestors:
+            vancestors.append(a)
 
 
 # inspired from simplegeneric by P.J. Eby and functools.singledispatch
@@ -335,6 +314,12 @@ def dispatch_on(*dispatch_args):
     assert dispatch_args, 'No dispatch args passed'
     dispatch_str = '(%s,)' % ', '.join(dispatch_args)
 
+    def check(types):
+        """Make use one passes the expected number of types"""
+        if len(types) != len(dispatch_args):
+            raise TypeError('Expected %d types, got %d' %
+                            (len(dispatch_args), len(types)))
+
     def gen_func_dec(func):
         """Decorator turning a function into a generic function"""
 
@@ -343,14 +328,38 @@ def dispatch_on(*dispatch_args):
         if not set(dispatch_args) <= argset:
             raise NameError('Unknown dispatch arguments %s' % dispatch_str)
 
-        typemap = {}
-        man = _VAManager(len(dispatch_args))
+        typemap = collections.OrderedDict()
+
+        def vancestors(*types):
+            """
+            Get a list of lists of virtual ancestors for the given types
+            """
+            check(types)
+            ras = [[] for _ in range(len(dispatch_args))]
+            for types_ in typemap:
+                for t, type_, ra in zip(types, types_, ras):
+                    if issubclass(t, type_) and type_ not in t.__mro__:
+                        insert(type_, ra)
+            return ras
+
+        def mros(*types):
+            """
+            Get a list of MROs, one for each type
+            """
+            check(types)
+            lists = []
+            for t, ancestors in zip(types, vancestors(*types)):
+                t_ancestors = unique(t.__bases__ + tuple(ancestors))
+                if not t_ancestors:
+                    mro = t.__mro__
+                else:
+                    mro = type(t.__name__, t_ancestors, {}).__mro__
+                lists.append(mro[:-1])  # discard object
+            return lists
 
         def register(*types):
             "Decorator to register an implementation for the given types"
-            if len(types) != len(dispatch_args):
-                raise TypeError('Length mismatch: expected %d types, got %d' %
-                                (len(dispatch_args), len(types)))
+            check(types)
 
             def dec(f):
                 n_args = len(getfullargspec(f).args)
@@ -358,9 +367,6 @@ def dispatch_on(*dispatch_args):
                     raise TypeError(
                         '%s has not enough arguments (got %d, expected %d)' %
                         (f, n_args, len(dispatch_args)))
-                for i, t, va in zip(man.indices, types, man.vancestors):
-                    if isinstance(t, ABCMeta):
-                        man.insert(i, t)
                 typemap[types] = f
                 return f
             return dec
@@ -374,14 +380,8 @@ def dispatch_on(*dispatch_args):
                 pass
             else:
                 return f(*args, **kw)
-            for types_ in itertools.product(*(t.__mro__ for t in types)):
+            for types_ in itertools.product(*mros(*types)):
                 f = typemap.get(types_)
-                if f is not None:
-                    return f(*args, **kw)
-
-            # else look at the virtual ancestors
-            if man.vancestors:
-                f = typemap.get(man.get_vancestors(types))
                 if f is not None:
                     return f(*args, **kw)
 
@@ -391,7 +391,8 @@ def dispatch_on(*dispatch_args):
         return FunctionMaker.create(
             func, 'return _f_(%s, %%(shortsignature)s)' % dispatch_str,
             dict(_f_=dispatch), register=register, default=func,
-            typemap=typemap, vancestors=man.vancestors, __wrapped__=func)
+            typemap=typemap, vancestors=vancestors, mros=mros,
+            __wrapped__=func)
 
     gen_func_dec.__name__ = 'dispatch_on' + dispatch_str
     return gen_func_dec

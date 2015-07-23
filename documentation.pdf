@@ -133,16 +133,16 @@ endobj
 << /Border [ 0 0 0 ] /Contents () /Dest [ 72 0 R /XYZ 62.69291 503.8236 0 ] /Rect [ 521.4627 272.7736 532.5827 284.7736 ] /Subtype /Link /Type /Annot >>
 endobj
 45 0 obj
-<< /Border [ 0 0 0 ] /Contents () /Dest [ 74 0 R /XYZ 62.69291 448.6236 0 ] /Rect [ 62.69291 254.0236 174.3929 266.0236 ] /Subtype /Link /Type /Annot >>
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 74 0 R /XYZ 62.69291 667.8236 0 ] /Rect [ 62.69291 254.0236 174.3929 266.0236 ] /Subtype /Link /Type /Annot >>
 endobj
 46 0 obj
-<< /Border [ 0 0 0 ] /Contents () /Dest [ 74 0 R /XYZ 62.69291 448.6236 0 ] /Rect [ 521.4627 254.7736 532.5827 266.7736 ] /Subtype /Link /Type /Annot >>
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 74 0 R /XYZ 62.69291 667.8236 0 ] /Rect [ 521.4627 254.7736 532.5827 266.7736 ] /Subtype /Link /Type /Annot >>
 endobj
 47 0 obj
-<< /Border [ 0 0 0 ] /Contents () /Dest [ 77 0 R /XYZ 62.69291 575.8236 0 ] /Rect [ 62.69291 236.0236 106.0329 248.0236 ] /Subtype /Link /Type /Annot >>
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 77 0 R /XYZ 62.69291 765.0236 0 ] /Rect [ 62.69291 236.0236 106.0329 248.0236 ] /Subtype /Link /Type /Annot >>
 endobj
 48 0 obj
-<< /Border [ 0 0 0 ] /Contents () /Dest [ 77 0 R /XYZ 62.69291 575.8236 0 ] /Rect [ 521.4627 236.7736 532.5827 248.7736 ] /Subtype /Link /Type /Annot >>
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 77 0 R /XYZ 62.69291 765.0236 0 ] /Rect [ 521.4627 236.7736 532.5827 248.7736 ] /Subtype /Link /Type /Annot >>
 endobj
 49 0 obj
 << /Annots [ 5 0 R 6 0 R 7 0 R 8 0 R 9 0 R 10 0 R 11 0 R 12 0 R 13 0 R 14 0 R 
@@ -244,7 +244,7 @@ endobj
   /Type /Page >>
 endobj
 75 0 obj
-<< /A << /S /URI /Type /Action /URI (http://www.python.org/dev/peps/pep-0362) >> /Border [ 0 0 0 ] /Rect [ 301.1597 370.6236 317.8397 382.6236 ] /Subtype /Link /Type /Annot >>
+<< /A << /S /URI /Type /Action /URI (http://www.python.org/dev/peps/pep-0362) >> /Border [ 0 0 0 ] /Rect [ 301.1597 581.8236 317.8397 593.8236 ] /Subtype /Link /Type /Annot >>
 endobj
 76 0 obj
 << /Annots [ 75 0 R ] /Contents 118 0 R /MediaBox [ 0 0 595.2756 841.8898 ] /Parent 100 0 R /Resources << /Font 1 0 R /ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ] >> /Rotate 0 
@@ -258,7 +258,7 @@ endobj
 << /Outlines 80 0 R /PageLabels 120 0 R /PageMode /UseNone /Pages 100 0 R /Type /Catalog >>
 endobj
 79 0 obj
-<< /Author (Michele Simionato) /CreationDate (D:20150722193543-01'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
+<< /Author (Michele Simionato) /CreationDate (D:20150723063650-01'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
   /Title (The decorator module) >>
 endobj
 80 0 obj
@@ -316,10 +316,10 @@ endobj
 << /Dest [ 72 0 R /XYZ 62.69291 503.8236 0 ] /Next 98 0 R /Parent 80 0 R /Prev 96 0 R /Title (Generic functions and virtual ancestors) >>
 endobj
 98 0 obj
-<< /Dest [ 74 0 R /XYZ 62.69291 448.6236 0 ] /Next 99 0 R /Parent 80 0 R /Prev 97 0 R /Title (Caveats and limitations) >>
+<< /Dest [ 74 0 R /XYZ 62.69291 667.8236 0 ] /Next 99 0 R /Parent 80 0 R /Prev 97 0 R /Title (Caveats and limitations) >>
 endobj
 99 0 obj
-<< /Dest [ 77 0 R /XYZ 62.69291 575.8236 0 ] /Parent 80 0 R /Prev 98 0 R /Title (LICENSE) >>
+<< /Dest [ 77 0 R /XYZ 62.69291 765.0236 0 ] /Parent 80 0 R /Prev 98 0 R /Title (LICENSE) >>
 endobj
 100 0 obj
 << /Count 19 /Kids [ 49 0 R 52 0 R 57 0 R 58 0 R 59 0 R 61 0 R 62 0 R 63 0 R 64 0 R 65 0 R 
@@ -391,7 +391,7 @@ q
 1 0 0 1 91.03937 3 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (4.0.0 \(2015-07-22\)) Tj T* ET
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (4.0.0 \(2015-07-23\)) Tj T* ET
 Q
 Q
 q
@@ -6909,7 +6909,7 @@ Q
 endstream
 endobj
 116 0 obj
-<< /Length 12865 >>
+<< /Length 13708 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -7095,6 +7095,149 @@ n -6 -6 468.6898 48 re B*
 Q
 q
 .960784 .960784 .862745 rg
+n 0 24 120 12 re f*
+.960784 .960784 .862745 rg
+n 120 24 6 12 re f*
+.960784 .960784 .862745 rg
+n 126 24 66 12 re f*
+.960784 .960784 .862745 rg
+n 192 24 6 12 re f*
+.960784 .960784 .862745 rg
+n 198 24 18 12 re f*
+.960784 .960784 .862745 rg
+n 216 24 6 12 re f*
+.960784 .960784 .862745 rg
+n 0 12 18 12 re f*
+.960784 .960784 .862745 rg
+n 24 12 84 12 re f*
+.960784 .960784 .862745 rg
+n 108 12 6 12 re f*
+.960784 .960784 .862745 rg
+n 114 12 18 12 re f*
+.960784 .960784 .862745 rg
+n 132 12 12 12 re f*
+.960784 .960784 .862745 rg
+n 24 0 36 12 re f*
+.960784 .960784 .862745 rg
+n 66 0 6 12 re f*
+BT 1 0 0 1 0 26 Tm 12 TL /F3 10 Tf .666667 .133333 1 rg (@get_length.register) Tj 0 0 0 rg (\() Tj 0 0 0 rg (collections) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (Set) Tj 0 0 0 rg (\)) Tj 0 0 0 rg  T* /F5 10 Tf 0 .501961 0 rg (def) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (get_length_set) Tj 0 0 0 rg (\() Tj 0 0 0 rg (obj) Tj 0 0 0 rg (\):) Tj 0 0 0 rg  T* (    ) Tj /F5 10 Tf 0 .501961 0 rg (return) Tj /F3 10 Tf 0 0 0 rg ( ) Tj .4 .4 .4 rg (1) Tj T* ET
+Q
+Q
+Q
+Q
+Q
+q
+1 0 0 1 62.69291 368.2236 cm
+q
+BT 1 0 0 1 0 14 Tm .210697 Tw 12 TL /F1 10 Tf 0 0 0 rg (The current implementation, as the one used by ) Tj /F3 10 Tf 0 0 0 rg (functools.singledispatch) Tj /F1 10 Tf 0 0 0 rg (, is able to discern that a) Tj T* 0 Tw /F3 10 Tf 0 0 0 rg (Set ) Tj /F1 10 Tf 0 0 0 rg (is a ) Tj /F3 10 Tf 0 0 0 rg (Sized ) Tj /F1 10 Tf 0 0 0 rg (object, so the implementation for ) Tj /F3 10 Tf 0 0 0 rg (Set ) Tj /F1 10 Tf 0 0 0 rg (is taken:) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 287.0236 cm
+q
+q
+1 0 0 1 0 0 cm
+q
+1 0 0 1 6.6 6.6 cm
+q
+.662745 .662745 .662745 RG
+.5 w
+.960784 .960784 .862745 rg
+n -6 -6 468.6898 72 re B*
+Q
+q
+.960784 .960784 .862745 rg
+n 0 48 6 12 re f*
+.960784 .960784 .862745 rg
+n 6 48 6 12 re f*
+.960784 .960784 .862745 rg
+n 12 48 6 12 re f*
+.960784 .960784 .862745 rg
+n 24 48 60 12 re f*
+.960784 .960784 .862745 rg
+n 84 48 6 12 re f*
+.960784 .960784 .862745 rg
+n 90 48 42 12 re f*
+.960784 .960784 .862745 rg
+n 132 48 18 12 re f*
+.960784 .960784 .862745 rg
+n 0 36 54 12 re f*
+.960784 .960784 .862745 rg
+n 60 36 6 12 re f*
+.960784 .960784 .862745 rg
+n 66 36 24 12 re f*
+.960784 .960784 .862745 rg
+n 96 36 36 12 re f*
+.960784 .960784 .862745 rg
+n 138 36 24 12 re f*
+.960784 .960784 .862745 rg
+n 168 36 24 12 re f*
+.960784 .960784 .862745 rg
+n 192 36 12 12 re f*
+.960784 .960784 .862745 rg
+n 12 24 18 12 re f*
+.960784 .960784 .862745 rg
+n 0 12 54 12 re f*
+.960784 .960784 .862745 rg
+n 54 12 6 12 re f*
+.960784 .960784 .862745 rg
+n 66 12 36 12 re f*
+.960784 .960784 .862745 rg
+n 108 12 36 12 re f*
+.960784 .960784 .862745 rg
+n 150 12 6 12 re f*
+.960784 .960784 .862745 rg
+n 162 12 60 12 re f*
+.960784 .960784 .862745 rg
+n 228 12 36 12 re f*
+.960784 .960784 .862745 rg
+n 270 12 60 12 re f*
+.960784 .960784 .862745 rg
+n 0 0 30 12 re f*
+.960784 .960784 .862745 rg
+n 36 0 6 12 re f*
+.960784 .960784 .862745 rg
+n 42 0 18 12 re f*
+.960784 .960784 .862745 rg
+n 60 0 6 12 re f*
+.960784 .960784 .862745 rg
+n 72 0 18 12 re f*
+.960784 .960784 .862745 rg
+n 96 0 30 12 re f*
+.960784 .960784 .862745 rg
+n 132 0 30 12 re f*
+.960784 .960784 .862745 rg
+n 162 0 6 12 re f*
+.960784 .960784 .862745 rg
+n 174 0 18 12 re f*
+BT 1 0 0 1 0 50 Tm 12 TL /F3 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (get_length) Tj 0 0 0 rg (\() Tj 0 0 0 rg (SomeSet) Tj 0 0 0 rg (\(\)\)) Tj 0 0 0 rg  T* 0 0 0 rg (Traceback) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (\() Tj 0 0 0 rg (most) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (recent) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (call) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (last) Tj 0 0 0 rg (\):) Tj 0 0 0 rg  T* (  ) Tj .4 .4 .4 rg (...) Tj 0 0 0 rg  T* /F5 10 Tf .823529 .254902 .227451 rg (TypeError) Tj /F3 10 Tf 0 0 0 rg (:) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (Cannot) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (create) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (a) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (consistent) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (method) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (resolution) Tj 0 0 0 rg  T* 0 0 0 rg (order) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (\() Tj 0 0 0 rg (MRO) Tj 0 0 0 rg (\)) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (for) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 0 rg (bases) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (Sized) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (Set) Tj T* ET
+Q
+Q
+Q
+Q
+Q
+q
+1 0 0 1 62.69291 255.0236 cm
+q
+0 0 0 rg
+BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL .354987 Tw (Sometimes it is impossible to find the right implementation. Here is a situation with a type conflict. First of) Tj T* 0 Tw (all, let us register) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 197.8236 cm
+q
+q
+1 0 0 1 0 0 cm
+q
+1 0 0 1 6.6 6.6 cm
+q
+.662745 .662745 .662745 RG
+.5 w
+.960784 .960784 .862745 rg
+n -6 -6 468.6898 48 re B*
+Q
+q
+.960784 .960784 .862745 rg
 n 0 24 6 12 re f*
 .960784 .960784 .862745 rg
 n 6 24 6 12 re f*
@@ -7109,146 +7252,34 @@ n 150 24 66 12 re f*
 .960784 .960784 .862745 rg
 n 216 24 6 12 re f*
 .960784 .960784 .862745 rg
-n 222 24 18 12 re f*
+n 222 24 48 12 re f*
 .960784 .960784 .862745 rg
-n 240 24 6 12 re f*
+n 270 24 6 12 re f*
 .960784 .960784 .862745 rg
 n 0 12 18 12 re f*
 .960784 .960784 .862745 rg
 n 24 12 18 12 re f*
 .960784 .960784 .862745 rg
-n 48 12 84 12 re f*
+n 48 12 114 12 re f*
 .960784 .960784 .862745 rg
-n 132 12 6 12 re f*
+n 162 12 6 12 re f*
 .960784 .960784 .862745 rg
-n 138 12 18 12 re f*
+n 168 12 18 12 re f*
 .960784 .960784 .862745 rg
-n 156 12 12 12 re f*
+n 186 12 12 12 re f*
 .960784 .960784 .862745 rg
 n 0 0 18 12 re f*
 .960784 .960784 .862745 rg
-n 48 0 36 12 re f*
-.960784 .960784 .862745 rg
-n 90 0 6 12 re f*
-BT 1 0 0 1 0 26 Tm 12 TL /F3 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj .666667 .133333 1 rg (@get_length.register) Tj 0 0 0 rg (\() Tj 0 0 0 rg (collections) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (Set) Tj 0 0 0 rg (\)) Tj 0 0 0 rg  T* .4 .4 .4 rg (...) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (def) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (get_length_set) Tj 0 0 0 rg (\() Tj 0 0 0 rg (obj) Tj 0 0 0 rg (\):) Tj 0 0 0 rg  T* .4 .4 .4 rg (...) Tj 0 0 0 rg (     ) Tj /F5 10 Tf 0 .501961 0 rg (return) Tj /F3 10 Tf 0 0 0 rg ( ) Tj .4 .4 .4 rg (1) Tj T* ET
-Q
-Q
-Q
-Q
-Q
-q
-1 0 0 1 62.69291 368.2236 cm
-q
-BT 1 0 0 1 0 14 Tm 1.152651 Tw 12 TL /F1 10 Tf 0 0 0 rg (The current implementation first check in the MRO and then look for virtual ancestors; since ) Tj /F3 10 Tf 0 0 0 rg (SomeSet) Tj T* 0 Tw /F1 10 Tf 0 0 0 rg (inherits directly from ) Tj /F3 10 Tf 0 0 0 rg (collections.Sized ) Tj /F1 10 Tf 0 0 0 rg (that implementation is found first:) Tj T* ET
-Q
-Q
-q
-1 0 0 1 62.69291 323.0236 cm
-q
-q
-1 0 0 1 0 0 cm
-q
-1 0 0 1 6.6 6.6 cm
-q
-.662745 .662745 .662745 RG
-.5 w
-.960784 .960784 .862745 rg
-n -6 -6 468.6898 36 re B*
-Q
-q
-.960784 .960784 .862745 rg
-n 0 12 6 12 re f*
-.960784 .960784 .862745 rg
-n 6 12 6 12 re f*
-.960784 .960784 .862745 rg
-n 12 12 6 12 re f*
-.960784 .960784 .862745 rg
-n 24 12 60 12 re f*
-.960784 .960784 .862745 rg
-n 84 12 6 12 re f*
-.960784 .960784 .862745 rg
-n 90 12 42 12 re f*
-.960784 .960784 .862745 rg
-n 132 12 18 12 re f*
-.960784 .960784 .862745 rg
-n 0 0 6 12 re f*
-BT 1 0 0 1 0 14 Tm 12 TL /F3 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (get_length) Tj 0 0 0 rg (\() Tj 0 0 0 rg (SomeSet) Tj 0 0 0 rg (\(\)\)) Tj 0 0 0 rg  T* .4 .4 .4 rg (0) Tj T* ET
-Q
-Q
-Q
-Q
-Q
-q
-1 0 0 1 62.69291 255.0236 cm
-q
-BT 1 0 0 1 0 50 Tm 2.257752 Tw 12 TL /F1 10 Tf 0 0 0 rg (Generic functions implemented via ) Tj /F3 10 Tf 0 0 0 rg (functools.singledispatch ) Tj /F1 10 Tf 0 0 0 rg (use a more sophisticated lookup) Tj T* 0 Tw .632209 Tw (algorithm; in particular they are able to discern that a ) Tj /F3 10 Tf 0 0 0 rg (Set ) Tj /F1 10 Tf 0 0 0 rg (is a ) Tj /F3 10 Tf 0 0 0 rg (Sized ) Tj /F1 10 Tf 0 0 0 rg (object, so the implementation for) Tj T* 0 Tw 2.135777 Tw /F3 10 Tf 0 0 0 rg (Set ) Tj /F1 10 Tf 0 0 0 rg (is taken and the result is 1, not 0. Still, the implementation in the decorator module is easy to) Tj T* 0 Tw 2.038555 Tw (undestand, once one declare that real ancestors take the precedence over virtual ancestors and the) Tj T* 0 Tw (problem can be solved anyway by subclassing. As a matter of fact, if we define a subclass) Tj T* ET
-Q
-Q
-q
-1 0 0 1 62.69291 161.8236 cm
-q
-q
-1 0 0 1 0 0 cm
-q
-1 0 0 1 6.6 6.6 cm
-q
-.662745 .662745 .662745 RG
-.5 w
-.960784 .960784 .862745 rg
-n -6 -6 468.6898 84 re B*
-Q
-q
-.960784 .960784 .862745 rg
-n 0 60 30 12 re f*
-.960784 .960784 .862745 rg
-n 36 60 48 12 re f*
-.960784 .960784 .862745 rg
-n 84 60 6 12 re f*
-.960784 .960784 .862745 rg
-n 90 60 42 12 re f*
-.960784 .960784 .862745 rg
-n 132 60 6 12 re f*
-.960784 .960784 .862745 rg
-n 144 60 66 12 re f*
-.960784 .960784 .862745 rg
-n 210 60 6 12 re f*
-.960784 .960784 .862745 rg
-n 216 60 18 12 re f*
-.960784 .960784 .862745 rg
-n 234 60 12 12 re f*
-.960784 .960784 .862745 rg
-n 24 48 18 12 re f*
-.960784 .960784 .862745 rg
-n 48 48 72 12 re f*
-.960784 .960784 .862745 rg
-n 120 48 6 12 re f*
-.960784 .960784 .862745 rg
-n 126 48 24 12 re f*
-.960784 .960784 .862745 rg
-n 150 48 6 12 re f*
-.960784 .960784 .862745 rg
-n 162 48 6 12 re f*
-.960784 .960784 .862745 rg
-n 168 48 12 12 re f*
-.960784 .960784 .862745 rg
-n 48 36 36 12 re f*
-.960784 .960784 .862745 rg
-n 90 36 24 12 re f*
-.960784 .960784 .862745 rg
-n 24 12 18 12 re f*
-.960784 .960784 .862745 rg
-n 48 12 48 12 re f*
-.960784 .960784 .862745 rg
-n 96 12 6 12 re f*
-.960784 .960784 .862745 rg
-n 102 12 24 12 re f*
-.960784 .960784 .862745 rg
-n 126 12 12 12 re f*
-.960784 .960784 .862745 rg
 n 48 0 30 12 re f*
 .960784 .960784 .862745 rg
-n 84 0 6 12 re f*
-BT 1 0 0 1 0 62 Tm 12 TL /F5 10 Tf 0 .501961 0 rg (class) Tj /F3 10 Tf 0 0 0 rg ( ) Tj /F5 10 Tf 0 0 1 rg (SomeSet2) Tj /F3 10 Tf 0 0 0 rg (\() Tj 0 0 0 rg (SomeSet) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (collections) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (Set) Tj 0 0 0 rg (\):) Tj 0 0 0 rg  T* (    ) Tj /F5 10 Tf 0 .501961 0 rg (def) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (__contains__) Tj 0 0 0 rg (\() Tj 0 .501961 0 rg (self) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (a) Tj 0 0 0 rg (\):) Tj 0 0 0 rg  T* (        ) Tj /F5 10 Tf 0 .501961 0 rg (return) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 .501961 0 rg (True) Tj 0 0 0 rg  T*  T* (    ) Tj /F5 10 Tf 0 .501961 0 rg (def) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (__iter__) Tj 0 0 0 rg (\() Tj 0 .501961 0 rg (self) Tj 0 0 0 rg (\):) Tj 0 0 0 rg  T* (        ) Tj /F5 10 Tf 0 .501961 0 rg (yield) Tj /F3 10 Tf 0 0 0 rg ( ) Tj .4 .4 .4 rg (1) Tj T* ET
+n 84 0 54 12 re f*
+.960784 .960784 .862745 rg
+n 138 0 6 12 re f*
+.960784 .960784 .862745 rg
+n 144 0 228 12 re f*
+.960784 .960784 .862745 rg
+n 372 0 6 12 re f*
+BT 1 0 0 1 0 26 Tm 12 TL /F3 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj .666667 .133333 1 rg (@get_length.register) Tj 0 0 0 rg (\() Tj 0 0 0 rg (collections) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (Iterable) Tj 0 0 0 rg (\)) Tj 0 0 0 rg  T* .4 .4 .4 rg (...) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (def) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (get_length_iterable) Tj 0 0 0 rg (\() Tj 0 0 0 rg (obj) Tj 0 0 0 rg (\):) Tj 0 0 0 rg  T* .4 .4 .4 rg (...) Tj 0 0 0 rg (     ) Tj /F5 10 Tf 0 .501961 0 rg (raise) Tj /F3 10 Tf 0 0 0 rg ( ) Tj /F5 10 Tf .823529 .254902 .227451 rg (TypeError) Tj /F3 10 Tf 0 0 0 rg (\() Tj .729412 .129412 .129412 rg ('Cannot get the length of an iterable') Tj 0 0 0 rg (\)) Tj T* ET
 Q
 Q
 Q
@@ -7257,11 +7288,19 @@ Q
 q
 1 0 0 1 62.69291 141.8236 cm
 q
-BT 1 0 0 1 0 2 Tm 12 TL /F1 10 Tf 0 0 0 rg (which inherits from ) Tj /F3 10 Tf 0 0 0 rg (collections.Set) Tj /F1 10 Tf 0 0 0 rg (, we get as expected) Tj T* ET
+BT 1 0 0 1 0 38 Tm 8.153615 Tw 12 TL /F1 10 Tf 0 0 0 rg (Since ) Tj /F3 10 Tf 0 0 0 rg (SomeSet ) Tj /F1 10 Tf 0 0 0 rg (is now both a \(virtual\) subclass of ) Tj /F3 10 Tf 0 0 0 rg (collections.Iterable ) Tj /F1 10 Tf 0 0 0 rg (and of) Tj T* 0 Tw 4.906647 Tw /F3 10 Tf 0 0 0 rg (collections.Sized) Tj /F1 10 Tf 0 0 0 rg (, which are not related by subclassing, it is impossible to decide which) Tj T* 0 Tw .214269 Tw (implementation should be taken. Consistently with the ) Tj /F4 10 Tf (refuse the temptation to guess ) Tj /F1 10 Tf (philosophy, an error) Tj T* 0 Tw (is raised.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 96.62362 cm
+1 0 0 1 62.69291 135.8236 cm
+Q
+q
+1 0 0 1 62.69291 76.86614 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+BT 1 0 0 1 0 2 Tm  T* ET
+q
+1 0 0 1 20 0 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -7271,130 +7310,32 @@ q
 .662745 .662745 .662745 RG
 .5 w
 .960784 .960784 .862745 rg
-n -6 -6 468.6898 36 re B*
+n -6 -6 442.6898 48 re B*
 Q
 q
-.960784 .960784 .862745 rg
-n 0 12 6 12 re f*
-.960784 .960784 .862745 rg
-n 6 12 6 12 re f*
-.960784 .960784 .862745 rg
-n 12 12 6 12 re f*
-.960784 .960784 .862745 rg
-n 24 12 60 12 re f*
-.960784 .960784 .862745 rg
-n 84 12 6 12 re f*
-.960784 .960784 .862745 rg
-n 90 12 48 12 re f*
-.960784 .960784 .862745 rg
-n 138 12 18 12 re f*
-.960784 .960784 .862745 rg
-n 0 0 6 12 re f*
-BT 1 0 0 1 0 14 Tm 12 TL /F3 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (get_length) Tj 0 0 0 rg (\() Tj 0 0 0 rg (SomeSet2) Tj 0 0 0 rg (\(\)\)) Tj 0 0 0 rg  T* .4 .4 .4 rg (1) Tj T* ET
+BT 1 0 0 1 0 26 Tm 12 TL /F3 10 Tf 0 0 0 rg (>) Tj (>) Tj (>) Tj ( get_length\(SomeSet\(\)\)) Tj T* (Traceback \(most recent call last\):) Tj T* (  ...) Tj T* ET
 Q
 Q
 Q
+Q
+Q
+q
 Q
 Q
  
 endstream
 endobj
 117 0 obj
-<< /Length 11086 >>
+<< /Length 6988 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 753.0236 cm
+1 0 0 1 62.69291 727.8236 cm
+0 0 0 rg
+BT /F1 10 Tf 12 TL ET
+BT 1 0 0 1 0 2 Tm  T* ET
 q
-BT 1 0 0 1 0 2 Tm 12 TL /F1 10 Tf 0 0 0 rg (consistently with the method resolution order, with ) Tj /F3 10 Tf 0 0 0 rg (Set ) Tj /F1 10 Tf 0 0 0 rg (having the precedence with respect to ) Tj /F3 10 Tf 0 0 0 rg (Sized) Tj /F1 10 Tf 0 0 0 rg (:) Tj T* ET
-Q
-Q
-q
-1 0 0 1 62.69291 707.8236 cm
-q
-q
-1 0 0 1 0 0 cm
-q
-1 0 0 1 6.6 6.6 cm
-q
-.662745 .662745 .662745 RG
-.5 w
-.960784 .960784 .862745 rg
-n -6 -6 468.6898 36 re B*
-Q
-q
-.960784 .960784 .862745 rg
-n 0 12 6 12 re f*
-.960784 .960784 .862745 rg
-n 6 12 6 12 re f*
-.960784 .960784 .862745 rg
-n 12 12 6 12 re f*
-.960784 .960784 .862745 rg
-n 24 12 6 12 re f*
-.960784 .960784 .862745 rg
-n 30 12 6 12 re f*
-.960784 .960784 .862745 rg
-n 36 12 6 12 re f*
-.960784 .960784 .862745 rg
-n 42 12 48 12 re f*
-.960784 .960784 .862745 rg
-n 96 12 18 12 re f*
-.960784 .960784 .862745 rg
-n 120 12 6 12 re f*
-.960784 .960784 .862745 rg
-n 132 12 12 12 re f*
-.960784 .960784 .862745 rg
-n 150 12 48 12 re f*
-.960784 .960784 .862745 rg
-n 198 12 6 12 re f*
-.960784 .960784 .862745 rg
-n 204 12 18 12 re f*
-.960784 .960784 .862745 rg
-n 222 12 18 12 re f*
-.960784 .960784 .862745 rg
-n 0 0 6 12 re f*
-.960784 .960784 .862745 rg
-n 6 0 60 12 re f*
-.960784 .960784 .862745 rg
-n 66 0 6 12 re f*
-.960784 .960784 .862745 rg
-n 78 0 54 12 re f*
-.960784 .960784 .862745 rg
-n 132 0 6 12 re f*
-.960784 .960784 .862745 rg
-n 144 0 30 12 re f*
-.960784 .960784 .862745 rg
-n 174 0 6 12 re f*
-.960784 .960784 .862745 rg
-n 186 0 42 12 re f*
-.960784 .960784 .862745 rg
-n 228 0 6 12 re f*
-.960784 .960784 .862745 rg
-n 240 0 60 12 re f*
-.960784 .960784 .862745 rg
-n 300 0 6 12 re f*
-.960784 .960784 .862745 rg
-n 312 0 66 12 re f*
-.960784 .960784 .862745 rg
-n 378 0 6 12 re f*
-.960784 .960784 .862745 rg
-n 390 0 48 12 re f*
-.960784 .960784 .862745 rg
-n 438 0 6 12 re f*
-BT 1 0 0 1 0 14 Tm 12 TL /F3 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj 0 0 0 rg ([) Tj 0 0 0 rg (c) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (__name__) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (for) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 0 rg (c) Tj 0 0 0 rg ( ) Tj /F5 10 Tf .666667 .133333 1 rg (in) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 0 rg (SomeSet2) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (mro) Tj 0 0 0 rg (\(\)]) Tj 0 0 0 rg  T* 0 0 0 rg ([) Tj .729412 .129412 .129412 rg ('SomeSet2') Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ('SomeSet') Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ('Set') Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ('Sized') Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ('Iterable') Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ('Container') Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ('object') Tj 0 0 0 rg (]) Tj T* ET
-Q
-Q
-Q
-Q
-Q
-q
-1 0 0 1 62.69291 663.8236 cm
-q
-BT 1 0 0 1 0 26 Tm 1.365976 Tw 12 TL /F1 10 Tf 0 0 0 rg (The functions implemented via ) Tj /F3 10 Tf 0 0 0 rg (functools.singledispatch ) Tj /F1 10 Tf 0 0 0 rg (are smarter when there are conflicting) Tj T* 0 Tw .691654 Tw (implementations and are able to solve more potential conflicts. Just to have an idea of what I am talking) Tj T* 0 Tw (about, here is a situation with a conflict:) Tj T* ET
-Q
-Q
-q
-1 0 0 1 62.69291 546.6236 cm
+1 0 0 1 20 0 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -7404,164 +7345,48 @@ q
 .662745 .662745 .662745 RG
 .5 w
 .960784 .960784 .862745 rg
-n -6 -6 468.6898 108 re B*
+n -6 -6 442.6898 36 re B*
 Q
 q
-.960784 .960784 .862745 rg
-n 0 84 6 12 re f*
-.960784 .960784 .862745 rg
-n 6 84 6 12 re f*
-.960784 .960784 .862745 rg
-n 12 84 6 12 re f*
-.960784 .960784 .862745 rg
-n 24 84 6 12 re f*
-.960784 .960784 .862745 rg
-n 36 84 6 12 re f*
-.960784 .960784 .862745 rg
-n 48 84 66 12 re f*
-.960784 .960784 .862745 rg
-n 114 84 6 12 re f*
-.960784 .960784 .862745 rg
-n 120 84 48 12 re f*
-.960784 .960784 .862745 rg
-n 168 84 6 12 re f*
-.960784 .960784 .862745 rg
-n 174 84 48 12 re f*
-.960784 .960784 .862745 rg
-n 222 84 6 12 re f*
-.960784 .960784 .862745 rg
-n 228 84 60 12 re f*
-.960784 .960784 .862745 rg
-n 288 84 6 12 re f*
-.960784 .960784 .862745 rg
-n 0 72 6 12 re f*
-.960784 .960784 .862745 rg
-n 6 72 6 12 re f*
-.960784 .960784 .862745 rg
-n 12 72 6 12 re f*
-.960784 .960784 .862745 rg
-n 24 72 120 12 re f*
-.960784 .960784 .862745 rg
-n 144 72 6 12 re f*
-.960784 .960784 .862745 rg
-n 150 72 66 12 re f*
-.960784 .960784 .862745 rg
-n 216 72 6 12 re f*
-.960784 .960784 .862745 rg
-n 222 72 48 12 re f*
-.960784 .960784 .862745 rg
-n 270 72 6 12 re f*
-.960784 .960784 .862745 rg
-n 0 60 18 12 re f*
-.960784 .960784 .862745 rg
-n 24 60 18 12 re f*
-.960784 .960784 .862745 rg
-n 48 60 114 12 re f*
-.960784 .960784 .862745 rg
-n 162 60 6 12 re f*
-.960784 .960784 .862745 rg
-n 168 60 18 12 re f*
-.960784 .960784 .862745 rg
-n 186 60 12 12 re f*
-.960784 .960784 .862745 rg
-n 0 48 18 12 re f*
-.960784 .960784 .862745 rg
-n 48 48 30 12 re f*
-.960784 .960784 .862745 rg
-n 84 48 54 12 re f*
-.960784 .960784 .862745 rg
-n 138 48 6 12 re f*
-.960784 .960784 .862745 rg
-n 144 48 228 12 re f*
-.960784 .960784 .862745 rg
-n 372 48 6 12 re f*
-.960784 .960784 .862745 rg
-n 0 36 6 12 re f*
-.960784 .960784 .862745 rg
-n 6 36 6 12 re f*
-.960784 .960784 .862745 rg
-n 12 36 6 12 re f*
-.960784 .960784 .862745 rg
-n 24 36 60 12 re f*
-.960784 .960784 .862745 rg
-n 84 36 6 12 re f*
-.960784 .960784 .862745 rg
-n 90 36 60 12 re f*
-.960784 .960784 .862745 rg
-n 150 36 18 12 re f*
-.960784 .960784 .862745 rg
-n 0 24 54 12 re f*
-.960784 .960784 .862745 rg
-n 60 24 6 12 re f*
-.960784 .960784 .862745 rg
-n 66 24 24 12 re f*
-.960784 .960784 .862745 rg
-n 96 24 36 12 re f*
-.960784 .960784 .862745 rg
-n 138 24 24 12 re f*
-.960784 .960784 .862745 rg
-n 168 24 24 12 re f*
-.960784 .960784 .862745 rg
-n 192 24 12 12 re f*
-.960784 .960784 .862745 rg
-n 12 12 18 12 re f*
-.960784 .960784 .862745 rg
-n 0 0 72 12 re f*
-.960784 .960784 .862745 rg
-n 72 0 6 12 re f*
-.960784 .960784 .862745 rg
-n 84 0 54 12 re f*
-.960784 .960784 .862745 rg
-n 144 0 48 12 re f*
-.960784 .960784 .862745 rg
-n 198 0 18 12 re f*
-.960784 .960784 .862745 rg
-n 222 0 60 12 re f*
-.960784 .960784 .862745 rg
-n 288 0 48 12 re f*
-.960784 .960784 .862745 rg
-n 336 0 6 12 re f*
-.960784 .960784 .862745 rg
-n 348 0 30 12 re f*
-.960784 .960784 .862745 rg
-n 384 0 12 12 re f*
-.960784 .960784 .862745 rg
-n 402 0 48 12 re f*
-.960784 .960784 .862745 rg
-n 450 0 6 12 re f*
-BT 1 0 0 1 0 86 Tm 12 TL /F3 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (_) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (collections) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (Iterable) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (register) Tj 0 0 0 rg (\() Tj 0 0 0 rg (WithLength) Tj 0 0 0 rg (\)) Tj 0 0 0 rg  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj .666667 .133333 1 rg (@get_length.register) Tj 0 0 0 rg (\() Tj 0 0 0 rg (collections) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (Iterable) Tj 0 0 0 rg (\)) Tj 0 0 0 rg  T* .4 .4 .4 rg (...) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (def) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (get_length_iterable) Tj 0 0 0 rg (\() Tj 0 0 0 rg (obj) Tj 0 0 0 rg (\):) Tj 0 0 0 rg  T* .4 .4 .4 rg (...) Tj 0 0 0 rg (     ) Tj /F5 10 Tf 0 .501961 0 rg (raise) Tj /F3 10 Tf 0 0 0 rg ( ) Tj /F5 10 Tf .823529 .254902 .227451 rg (TypeError) Tj /F3 10 Tf 0 0 0 rg (\() Tj .729412 .129412 .129412 rg ('Cannot get the length of an iterable') Tj 0 0 0 rg (\)) Tj 0 0 0 rg  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (get_length) Tj 0 0 0 rg (\() Tj 0 0 0 rg (WithLength) Tj 0 0 0 rg (\(\)\)) Tj 0 0 0 rg  T* 0 0 0 rg (Traceback) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (\() Tj 0 0 0 rg (most) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (recent) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (call) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (last) Tj 0 0 0 rg (\):) Tj 0 0 0 rg  T* (  ) Tj .4 .4 .4 rg (...) Tj 0 0 0 rg  T* /F5 10 Tf .823529 .254902 .227451 rg (RuntimeError) Tj /F3 10 Tf 0 0 0 rg (:) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (Ambiguous) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (dispatch) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (for) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 0 rg (WithLength) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (instance) Tj 0 0 0 rg (:) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (Sized) Tj 0 0 0 rg ( ) Tj /F5 10 Tf .666667 .133333 1 rg (or) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 0 rg (Iterable) Tj 0 0 0 rg (?) Tj T* ET
+BT 1 0 0 1 0 14 Tm 12 TL /F3 10 Tf 0 0 0 rg (TypeError: Cannot create a consistent method resolution) Tj T* (order \(MRO\) for bases Iterable, Sized, Set) Tj T* ET
 Q
 Q
 Q
 Q
 Q
 q
-1 0 0 1 62.69291 490.6236 cm
-q
-BT 1 0 0 1 0 38 Tm 9.280976 Tw 12 TL /F1 10 Tf 0 0 0 rg (Since ) Tj /F3 10 Tf 0 0 0 rg (WithLength ) Tj /F1 10 Tf 0 0 0 rg (is both a \(virtual\) subclass of ) Tj /F3 10 Tf 0 0 0 rg (collections.Iterable ) Tj /F1 10 Tf 0 0 0 rg (and of) Tj T* 0 Tw 4.906647 Tw /F3 10 Tf 0 0 0 rg (collections.Sized) Tj /F1 10 Tf 0 0 0 rg (, which are not related by subclassing, it is impossible to decide which) Tj T* 0 Tw .214269 Tw (implementation should be taken. Consistently with the ) Tj /F4 10 Tf (refuse the temptation to guess ) Tj /F1 10 Tf (philosophy, an error) Tj T* 0 Tw (is raised. ) Tj /F3 10 Tf 0 0 0 rg (functools.singledispatch ) Tj /F1 10 Tf 0 0 0 rg (would work exactly the same in this case.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 460.6236 cm
+1 0 0 1 62.69291 727.8236 cm
+Q
+q
+1 0 0 1 62.69291 709.8236 cm
+q
+BT 1 0 0 1 0 2 Tm 12 TL /F3 10 Tf 0 0 0 rg (functools.singledispatch ) Tj /F1 10 Tf 0 0 0 rg (would raise a similar error in this case.) Tj T* ET
+Q
+Q
+q
+1 0 0 1 62.69291 679.8236 cm
 q
 BT 1 0 0 1 0 14 Tm .39561 Tw 12 TL /F1 10 Tf 0 0 0 rg (Finally let me notice that the decorator module implementation does not use any cache, whereas the one) Tj T* 0 Tw (in ) Tj /F3 10 Tf 0 0 0 rg (singledispatch ) Tj /F1 10 Tf 0 0 0 rg (has a cache.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 427.6236 cm
+1 0 0 1 62.69291 646.8236 cm
 q
 BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Caveats and limitations) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 397.6236 cm
+1 0 0 1 62.69291 616.8236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL .474987 Tw (The first thing you should be aware of, it the fact that decorators have a performance penalty. The worse) Tj T* 0 Tw (case is shown by the following example:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 172.4236 cm
+1 0 0 1 62.69291 391.6236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -7582,13 +7407,13 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 152.4236 cm
+1 0 0 1 62.69291 371.6236 cm
 q
 BT 1 0 0 1 0 2 Tm 12 TL /F1 10 Tf 0 0 0 rg (On my laptop, using the ) Tj /F3 10 Tf 0 0 0 rg (do_nothing ) Tj /F1 10 Tf 0 0 0 rg (decorator instead of the plain function is five times slower:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 95.22362 cm
+1 0 0 1 62.69291 314.4236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -7608,28 +7433,21 @@ Q
 Q
 Q
 Q
- 
-endstream
-endobj
-118 0 obj
-<< /Length 14630 >>
-stream
-1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 729.0236 cm
+1 0 0 1 62.69291 270.4236 cm
 q
 BT 1 0 0 1 0 26 Tm 1.25832 Tw 12 TL /F1 10 Tf 0 0 0 rg (It should be noted that a real life function would probably do something more useful than ) Tj /F3 10 Tf 0 0 0 rg (f ) Tj /F1 10 Tf 0 0 0 rg (here, and) Tj T* 0 Tw .91811 Tw (therefore in real life the performance penalty could be completely negligible. As always, the only way to) Tj T* 0 Tw (know if there is a penalty in your specific use case is to measure it.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 699.0236 cm
+1 0 0 1 62.69291 240.4236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL .091984 Tw (More importantly, you should be aware that decorators will make your tracebacks longer and more difficult) Tj T* 0 Tw (to understand. Consider this example:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 641.8236 cm
+1 0 0 1 62.69291 183.2236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -7673,13 +7491,13 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 609.8236 cm
+1 0 0 1 62.69291 151.2236 cm
 q
 BT 1 0 0 1 0 14 Tm .583318 Tw 12 TL /F1 10 Tf 0 0 0 rg (Calling ) Tj /F3 10 Tf 0 0 0 rg (f\(\) ) Tj /F1 10 Tf 0 0 0 rg (will give you a ) Tj /F3 10 Tf 0 0 0 rg (ZeroDivisionError) Tj /F1 10 Tf 0 0 0 rg (, but since the function is decorated the traceback will) Tj T* 0 Tw (be longer:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 480.6236 cm
+1 0 0 1 62.69291 82.02362 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -7689,59 +7507,86 @@ q
 .662745 .662745 .662745 RG
 .5 w
 .960784 .960784 .862745 rg
-n -6 -6 468.6898 120 re B*
+n -6 -6 468.6898 60 re B*
 Q
 q
 .960784 .960784 .862745 rg
-n 0 96 6 12 re f*
+n 0 36 6 12 re f*
 .960784 .960784 .862745 rg
-n 6 96 6 12 re f*
+n 6 36 6 12 re f*
 .960784 .960784 .862745 rg
-n 12 96 6 12 re f*
+n 12 36 6 12 re f*
 .960784 .960784 .862745 rg
-n 24 96 6 12 re f*
+n 24 36 6 12 re f*
 .960784 .960784 .862745 rg
-n 30 96 12 12 re f*
+n 30 36 12 12 re f*
 .960784 .960784 .862745 rg
-n 0 84 54 12 re f*
+n 0 24 54 12 re f*
 .960784 .960784 .862745 rg
-n 60 84 6 12 re f*
+n 60 24 6 12 re f*
 .960784 .960784 .862745 rg
-n 66 84 24 12 re f*
+n 66 24 24 12 re f*
 .960784 .960784 .862745 rg
-n 96 84 36 12 re f*
+n 96 24 36 12 re f*
 .960784 .960784 .862745 rg
-n 138 84 24 12 re f*
+n 138 24 24 12 re f*
 .960784 .960784 .862745 rg
-n 168 84 24 12 re f*
+n 168 24 24 12 re f*
 .960784 .960784 .862745 rg
-n 192 84 12 12 re f*
+n 192 24 12 12 re f*
 .960784 .960784 .862745 rg
-n 12 72 18 12 re f*
+n 12 12 18 12 re f*
 .960784 .960784 .862745 rg
-n 30 60 24 12 re f*
+n 30 0 24 12 re f*
 .960784 .960784 .862745 rg
-n 60 60 6 12 re f*
+n 60 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 66 60 6 12 re f*
+n 66 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 72 60 36 12 re f*
+n 72 0 36 12 re f*
 .960784 .960784 .862745 rg
-n 108 60 6 12 re f*
+n 108 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 114 60 6 12 re f*
+n 114 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 120 60 6 12 re f*
+n 120 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 132 60 24 12 re f*
+n 132 0 24 12 re f*
 .960784 .960784 .862745 rg
-n 162 60 6 12 re f*
+n 162 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 168 60 6 12 re f*
+n 168 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 180 60 12 12 re f*
+n 180 0 12 12 re f*
 .960784 .960784 .862745 rg
-n 198 60 6 12 re f*
+n 198 0 6 12 re f*
+BT 1 0 0 1 0 38 Tm 12 TL /F3 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (f) Tj 0 0 0 rg (\(\)) Tj 0 0 0 rg  T* 0 0 0 rg (Traceback) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (\() Tj 0 0 0 rg (most) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (recent) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (call) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (last) Tj 0 0 0 rg (\):) Tj 0 0 0 rg  T* (  ) Tj .4 .4 .4 rg (...) Tj 0 0 0 rg  T* (     ) Tj 0 0 0 rg (File) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg (") Tj (<) Tj (string) Tj (>) Tj (") Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (line) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (2) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj /F5 10 Tf .666667 .133333 1 rg (in) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 0 rg (f) Tj 0 0 0 rg  T* ET
+Q
+Q
+Q
+Q
+Q
+ 
+endstream
+endobj
+118 0 obj
+<< /Length 15916 >>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+q
+1 0 0 1 62.69291 691.8236 cm
+q
+q
+1 0 0 1 0 0 cm
+q
+1 0 0 1 6.6 6.6 cm
+q
+.662745 .662745 .662745 RG
+.5 w
+.960784 .960784 .862745 rg
+n -6 -6 468.6898 72 re B*
+Q
+q
 .960784 .960784 .862745 rg
 n 30 48 24 12 re f*
 .960784 .960784 .862745 rg
@@ -7820,38 +7665,38 @@ n 0 0 102 12 re f*
 n 102 0 6 12 re f*
 .960784 .960784 .862745 rg
 n 114 0 18 12 re f*
-BT 1 0 0 1 0 98 Tm 12 TL /F3 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (f) Tj 0 0 0 rg (\(\)) Tj 0 0 0 rg  T* 0 0 0 rg (Traceback) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (\() Tj 0 0 0 rg (most) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (recent) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (call) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (last) Tj 0 0 0 rg (\):) Tj 0 0 0 rg  T* (  ) Tj .4 .4 .4 rg (...) Tj 0 0 0 rg  T* (     ) Tj 0 0 0 rg (File) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg (") Tj (<) Tj (string) Tj (>) Tj (") Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (line) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (2) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj /F5 10 Tf .666667 .133333 1 rg (in) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 0 rg (f) Tj 0 0 0 rg  T* (     ) Tj 0 0 0 rg (File) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg (") Tj (<) Tj (doctest __main__[22]) Tj (>) Tj (") Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (line) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (4) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj /F5 10 Tf .666667 .133333 1 rg (in) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 0 rg (trace) Tj 0 0 0 rg  T* (       ) Tj /F5 10 Tf 0 .501961 0 rg (return) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 0 rg (f) Tj 0 0 0 rg (\() Tj .4 .4 .4 rg (*) Tj 0 0 0 rg (args) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (**) Tj 0 0 0 rg (kw) Tj 0 0 0 rg (\)) Tj 0 0 0 rg  T* (     ) Tj 0 0 0 rg (File) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg (") Tj (<) Tj (doctest __main__[51]) Tj (>) Tj (") Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (line) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (3) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj /F5 10 Tf .666667 .133333 1 rg (in) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 0 rg (f) Tj 0 0 0 rg  T* (       ) Tj .4 .4 .4 rg (1) Tj .4 .4 .4 rg (/) Tj .4 .4 .4 rg (0) Tj 0 0 0 rg  T* /F5 10 Tf .823529 .254902 .227451 rg (ZeroDivisionError) Tj /F3 10 Tf 0 0 0 rg (:) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (...) Tj T* ET
+BT 1 0 0 1 0 50 Tm 12 TL /F3 10 Tf 0 0 0 rg (     ) Tj 0 0 0 rg (File) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg (") Tj (<) Tj (doctest __main__[22]) Tj (>) Tj (") Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (line) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (4) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj /F5 10 Tf .666667 .133333 1 rg (in) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 0 rg (trace) Tj 0 0 0 rg  T* (       ) Tj /F5 10 Tf 0 .501961 0 rg (return) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 0 rg (f) Tj 0 0 0 rg (\() Tj .4 .4 .4 rg (*) Tj 0 0 0 rg (args) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (**) Tj 0 0 0 rg (kw) Tj 0 0 0 rg (\)) Tj 0 0 0 rg  T* (     ) Tj 0 0 0 rg (File) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg (") Tj (<) Tj (doctest __main__[51]) Tj (>) Tj (") Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (line) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (3) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj /F5 10 Tf .666667 .133333 1 rg (in) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 0 rg (f) Tj 0 0 0 rg  T* (       ) Tj .4 .4 .4 rg (1) Tj .4 .4 .4 rg (/) Tj .4 .4 .4 rg (0) Tj 0 0 0 rg  T* /F5 10 Tf .823529 .254902 .227451 rg (ZeroDivisionError) Tj /F3 10 Tf 0 0 0 rg (:) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (...) Tj T* ET
 Q
 Q
 Q
 Q
 Q
 q
-1 0 0 1 62.69291 412.6236 cm
+1 0 0 1 62.69291 623.8236 cm
 q
 BT 1 0 0 1 0 50 Tm 1.05528 Tw 12 TL /F1 10 Tf 0 0 0 rg (You see here the inner call to the decorator ) Tj /F3 10 Tf 0 0 0 rg (trace) Tj /F1 10 Tf 0 0 0 rg (, which calls ) Tj /F3 10 Tf 0 0 0 rg (f\(*args,) Tj ( ) Tj (**kw\)) Tj /F1 10 Tf 0 0 0 rg (, and a reference to) Tj T* 0 Tw .076457 Tw /F3 10 Tf 0 0 0 rg (File) Tj ( ) Tj (") Tj (<) Tj (string) Tj (>) Tj (",) Tj ( ) Tj (line) Tj ( ) Tj (2,) Tj ( ) Tj (in) Tj ( ) Tj (f) Tj /F1 10 Tf 0 0 0 rg (. This latter reference is due to the fact that internally the decorator) Tj T* 0 Tw 2.053318 Tw (module uses ) Tj /F3 10 Tf 0 0 0 rg (exec ) Tj /F1 10 Tf 0 0 0 rg (to generate the decorated function. Notice that ) Tj /F3 10 Tf 0 0 0 rg (exec ) Tj /F1 10 Tf 0 0 0 rg (is ) Tj /F4 10 Tf (not ) Tj /F1 10 Tf (responsibile for the) Tj T* 0 Tw 1.507485 Tw (performance penalty, since is the called ) Tj /F4 10 Tf (only once ) Tj /F1 10 Tf (at function decoration time, and not every time the) Tj T* 0 Tw (decorated function is called.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 286.6236 cm
+1 0 0 1 62.69291 497.8236 cm
 q
 BT 1 0 0 1 0 110 Tm .932209 Tw 12 TL /F1 10 Tf 0 0 0 rg (At present, there is no clean way to avoid ) Tj /F3 10 Tf 0 0 0 rg (exec) Tj /F1 10 Tf 0 0 0 rg (. A clean solution would require to change the CPython) Tj T* 0 Tw .777485 Tw (implementation of functions and add an hook to make it possible to change their signature directly. That) Tj T* 0 Tw .74186 Tw (could happen in future versions of Python \(see PEP ) Tj 0 0 .501961 rg (362) Tj 0 0 0 rg (\) and then the decorator module would become) Tj T* 0 Tw 2.385318 Tw (obsolete. However, at present, even in Python 3.5 it is impossible to change the function signature) Tj T* 0 Tw 1.372485 Tw (directly, therefore the ) Tj /F3 10 Tf 0 0 0 rg (decorator ) Tj /F1 10 Tf 0 0 0 rg (module is still useful. Actually, this is the main reasons why I keep) Tj T* 0 Tw 2.169398 Tw (maintaining the module and releasing new versions. It should be noticed that in Python 3.5 a lot of) Tj T* 0 Tw 9.189147 Tw (improvements have been made: in that version you can decorated a function with) Tj T* 0 Tw .084147 Tw /F3 10 Tf 0 0 0 rg (func_tools.update_wrapper ) Tj /F1 10 Tf 0 0 0 rg (and ) Tj /F3 10 Tf 0 0 0 rg (pydoc ) Tj /F1 10 Tf 0 0 0 rg (will see the correct signature; still internally the function will) Tj T* 0 Tw 1.47748 Tw (have an incorrect signature, as you can see by using ) Tj /F3 10 Tf 0 0 0 rg (inspect.getfullargspec) Tj /F1 10 Tf 0 0 0 rg (: all documentation) Tj T* 0 Tw (tools using such function \(which has been correctly deprecated\) will see the wrong signature.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 232.6236 cm
+1 0 0 1 62.69291 443.8236 cm
 q
 BT 1 0 0 1 0 38 Tm 1.043828 Tw 12 TL /F1 10 Tf 0 0 0 rg (In the present implementation, decorators generated by ) Tj /F3 10 Tf 0 0 0 rg (decorator ) Tj /F1 10 Tf 0 0 0 rg (can only be used on user-defined) Tj T* 0 Tw .152485 Tw (Python functions or methods, not on generic callable objects, nor on built-in functions, due to limitations of) Tj T* 0 Tw 2.15881 Tw (the ) Tj /F3 10 Tf 0 0 0 rg (inspect ) Tj /F1 10 Tf 0 0 0 rg (module in the standard library, especially for Python 2.X \(in Python 3.5 a lot of such) Tj T* 0 Tw (limitations have been removed\).) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 202.6236 cm
+1 0 0 1 62.69291 413.8236 cm
 q
 BT 1 0 0 1 0 14 Tm .785777 Tw 12 TL /F1 10 Tf 0 0 0 rg (There is a restriction on the names of the arguments: for instance, if try to call an argument ) Tj /F3 10 Tf 0 0 0 rg (_call_ ) Tj /F1 10 Tf 0 0 0 rg (or) Tj T* 0 Tw /F3 10 Tf 0 0 0 rg (_func_ ) Tj /F1 10 Tf 0 0 0 rg (you will get a ) Tj /F3 10 Tf 0 0 0 rg (NameError) Tj /F1 10 Tf 0 0 0 rg (:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 85.42362 cm
+1 0 0 1 62.69291 296.6236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -7952,22 +7797,15 @@ Q
 Q
 Q
 Q
- 
-endstream
-endobj
-119 0 obj
-<< /Length 8045 >>
-stream
-1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 741.0236 cm
+1 0 0 1 62.69291 264.6236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL 1.720651 Tw (Finally, the implementation is such that the decorated function makes a \(shallow\) copy of the original) Tj T* 0 Tw (function dictionary:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 587.8236 cm
+1 0 0 1 62.69291 111.4236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -8106,31 +7944,38 @@ Q
 Q
 Q
 Q
+ 
+endstream
+endobj
+119 0 obj
+<< /Length 2646 >>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
-1 0 0 1 62.69291 554.8236 cm
+1 0 0 1 62.69291 744.0236 cm
 q
 BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (LICENSE) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 536.8236 cm
+1 0 0 1 62.69291 726.0236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (Copyright \(c\) 2005-2015, Michele Simionato All rights reserved.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 506.8236 cm
+1 0 0 1 62.69291 696.0236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL 1.328555 Tw (Redistribution and use in source and binary forms, with or without modification, are permitted provided) Tj T* 0 Tw (that the following conditions are met:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 500.8236 cm
+1 0 0 1 62.69291 690.0236 cm
 Q
 q
-1 0 0 1 62.69291 452.8236 cm
+1 0 0 1 62.69291 642.0236 cm
 0 0 0 rg
 BT /F1 10 Tf 12 TL ET
 BT 1 0 0 1 0 2 Tm  T* ET
@@ -8145,17 +7990,17 @@ q
 Q
 Q
 q
-1 0 0 1 62.69291 452.8236 cm
+1 0 0 1 62.69291 642.0236 cm
 Q
 q
-1 0 0 1 62.69291 326.8236 cm
+1 0 0 1 62.69291 516.0236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 110 Tm /F1 10 Tf 12 TL .17998 Tw (THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND) Tj T* 0 Tw 2.911797 Tw (ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED) Tj T* 0 Tw 5.165529 Tw (WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE) Tj T* 0 Tw 1.395433 Tw (DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE LIABLE) Tj T* 0 Tw 5.53122 Tw (FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL) Tj T* 0 Tw 2.705976 Tw (DAMAGES \(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR) Tj T* 0 Tw 3.868976 Tw (SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION\) HOWEVER) Tj T* 0 Tw 1.326647 Tw (CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR) Tj T* 0 Tw 1.525366 Tw (TORT \(INCLUDING NEGLIGENCE OR OTHERWISE\) ARISING IN ANY WAY OUT OF THE USE OF) Tj T* 0 Tw (THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 296.8236 cm
+1 0 0 1 62.69291 486.0236 cm
 q
 0 0 0 rg
 BT 1 0 0 1 0 14 Tm /F1 10 Tf 12 TL .407132 Tw (If you use this software and you are happy with it, consider sending me a note, just to gratify my ego. On) Tj T* 0 Tw (the other hand, if you use this software and you are unhappy with it, send me a patch!) Tj T* ET
@@ -8346,34 +8191,34 @@ xref
 0000213876 00000 n
 0000230928 00000 n
 0000245146 00000 n
-0000258070 00000 n
-0000269215 00000 n
-0000283904 00000 n
-0000292007 00000 n
-0000292254 00000 n
-0000292292 00000 n
-0000292330 00000 n
-0000292368 00000 n
-0000292406 00000 n
-0000292444 00000 n
-0000292482 00000 n
-0000292520 00000 n
-0000292558 00000 n
-0000292596 00000 n
-0000292635 00000 n
-0000292674 00000 n
-0000292713 00000 n
-0000292752 00000 n
-0000292791 00000 n
-0000292830 00000 n
-0000292869 00000 n
-0000292908 00000 n
-0000292947 00000 n
+0000258913 00000 n
+0000265959 00000 n
+0000281934 00000 n
+0000284638 00000 n
+0000284885 00000 n
+0000284923 00000 n
+0000284961 00000 n
+0000284999 00000 n
+0000285037 00000 n
+0000285075 00000 n
+0000285113 00000 n
+0000285151 00000 n
+0000285189 00000 n
+0000285227 00000 n
+0000285266 00000 n
+0000285305 00000 n
+0000285344 00000 n
+0000285383 00000 n
+0000285422 00000 n
+0000285461 00000 n
+0000285500 00000 n
+0000285539 00000 n
+0000285578 00000 n
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com)
- [(\216\330\\\217r}\230,\3753\022\362\265J;b) (\216\330\\\217r}\230,\3753\022\362\265J;b)]
+ [(\000\315 \266\015\\\242\277\\\302K\225\210N;\315) (\000\315 \266\015\\\242\277\\\302K\225\210N;\315)]
  /Info 79 0 R /Root 78 0 R /Size 140 >>
 startxref
-292986
+285617
 %%EOF

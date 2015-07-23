@@ -4,7 +4,7 @@ The ``decorator`` module
 
 :Author: Michele Simionato
 :E-mail: michele.simionato@gmail.com
-:Version: 4.0.0 (2015-07-22)
+:Version: 4.0.0 (2015-07-23)
 :Supports: Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5
 :Download page: http://pypi.python.org/pypi/decorator/4.0.0
 :Installation: ``pip install decorator``
@@ -1083,75 +1083,46 @@ Now, let us define an implementation of ``get_length`` specific to set:
 
 .. code-block:: python
 
- >>> @get_length.register(collections.Set)
- ... def get_length_set(obj):
- ...     return 1
+ @get_length.register(collections.Set)
+ def get_length_set(obj):
+     return 1
 
-The current implementation first check in the MRO and then look
-for virtual ancestors; since ``SomeSet`` inherits directly
-from ``collections.Sized`` that implementation is found first:
+
+The current implementation, as the one used by ``functools.singledispatch``,
+is able to discern that a ``Set`` is a ``Sized`` object, so the
+implementation for ``Set`` is taken:
 
 .. code-block:: python
 
  >>> get_length(SomeSet())
- 0
+ Traceback (most recent call last):
+   ...
+ TypeError: Cannot create a consistent method resolution
+ order (MRO) for bases Sized, Set
 
-Generic functions implemented via ``functools.singledispatch`` use
-a more sophisticated lookup algorithm; in particular they are able
-to discern that a ``Set`` is a ``Sized`` object, so the
-implementation for ``Set`` is taken and the result is 1, not 0.
-Still, the implementation in the decorator module is easy to
-undestand, once one declare that real ancestors take the precedence
-over virtual ancestors and the problem can be solved anyway by
-subclassing. As a matter of fact, if we define a subclass
+Sometimes it is impossible to find the right implementation. Here is a
+situation with a type conflict. First of all, let us register
 
 .. code-block:: python
 
- class SomeSet2(SomeSet, collections.Set):
-     def __contains__(self, a):
-         return True
- 
-     def __iter__(self):
-         yield 1
-
-
-which inherits from ``collections.Set``, we get as expected
-
-.. code-block:: python
-
- >>> get_length(SomeSet2())
- 1
-
-consistently with the method resolution order, with ``Set`` having the
-precedence with respect to ``Sized``:
-
-.. code-block:: python
-
- >>> [c.__name__ for c in SomeSet2.mro()]
- ['SomeSet2', 'SomeSet', 'Set', 'Sized', 'Iterable', 'Container', 'object']
-
-The functions implemented via ``functools.singledispatch``
-are smarter when there are conflicting implementations and are
-able to solve more potential conflicts. Just to have an idea
-of what I am talking about, here is a situation with a conflict:
-
-.. code-block:: python
-
- >>> _ = collections.Iterable.register(WithLength)
  >>> @get_length.register(collections.Iterable)
  ... def get_length_iterable(obj):
  ...     raise TypeError('Cannot get the length of an iterable')
- >>> get_length(WithLength())
- Traceback (most recent call last):
-   ...
- RuntimeError: Ambiguous dispatch for WithLength instance: Sized or Iterable?
 
-Since ``WithLength`` is both a (virtual) subclass
+
+Since ``SomeSet`` is now both a (virtual) subclass
 of ``collections.Iterable`` and of ``collections.Sized``, which are
 not related by subclassing, it is impossible
 to decide which implementation should be taken. Consistently with
 the *refuse the temptation to guess* philosophy, an error is raised.
-``functools.singledispatch`` would work exactly the same in this case.
+
+ >>> get_length(SomeSet())
+ Traceback (most recent call last):
+   ...
+ TypeError: Cannot create a consistent method resolution
+ order (MRO) for bases Iterable, Sized, Set
+
+``functools.singledispatch`` would raise a similar error in this case.
 
 Finally let me notice that the decorator module implementation does
 not use any cache, whereas the one in ``singledispatch`` has a cache.
