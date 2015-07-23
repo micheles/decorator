@@ -455,19 +455,20 @@ method, so that they can be used as decorators as in this example:
  hello
  AFTER
 
-The ``ba`` decorator is basically inserting a ``with ba:``
-block inside the function.
-However there two issues: the first is that ``GeneratorContextManager``
-objects are callable only in Python 3.2, so the previous example will break
-in older versions of Python; the second is that
-``GeneratorContextManager`` objects do not preserve the signature
-of the decorated functions: the decorated ``hello`` function here will have
-a generic signature ``hello(*args, **kwargs)`` but will break when
-called with more than zero arguments. For such reasons the decorator
-module, starting with release 3.4, offers a ``decorator.contextmanager``
-decorator that solves both problems and works in all supported Python versions.
-The usage is the same and factories decorated with ``decorator.contextmanager``
-will returns instances of ``ContextManager``, a subclass of
+The ``ba`` decorator is basically inserting a ``with ba:`` block
+inside the function.  However there two issues: the first is that
+``GeneratorContextManager`` objects are callable only in Python 3.2,
+so the previous example will break in older versions of Python (you
+can solve this by installing ``contextlib2``); the second is that
+``GeneratorContextManager`` objects do not preserve the signature of
+the decorated functions: the decorated ``hello`` function here will
+have a generic signature ``hello(*args, **kwargs)`` but will break
+when called with more than zero arguments. For such reasons the
+decorator module, starting with release 3.4, offers a
+``decorator.contextmanager`` decorator that solves both problems and
+works in all supported Python versions.  The usage is the same and
+factories decorated with ``decorator.contextmanager`` will returns
+instances of ``ContextManager``, a subclass of
 ``contextlib.GeneratorContextManager`` with a ``__call__`` method
 acting as a signature-preserving decorator.
 
@@ -656,7 +657,7 @@ Multiple dispatch
 
 There has been talk of implementing multiple dispatch (i.e. generic)
 functions in Python for over ten years. Last year for the first time
-something was done and now in Python 3.4 we have a decorator
+something concrete was done and now in Python 3.4 we have a decorator
 ``functools.singledispatch`` which can be used to implement generic
 functions. As the name implies, it has the restriction of being
 limited to single dispatch, i.e. it is able to dispatch on the first
@@ -789,7 +790,7 @@ builtin ``len``, but you should get the idea.
 Since in Python it is possible to consider any instance of ABCMeta
 as a virtual ancestor of any other class (it is enough to register it
 as ``ancestor.register(cls)``), any implementation of generic functions
-must take this feature into account. Let me give an example.
+must take virtual ancestors into account. Let me give an example.
 
 Suppose you are using a third party set-like class like
 the following:
@@ -813,23 +814,23 @@ Now, let us define an implementation of ``get_length`` specific to set:
 $$get_length_set
 
 The current implementation, as the one used by ``functools.singledispatch``,
-is able to discern that a ``Set`` is a ``Sized`` object, so the
+is able to discern that a ``Set`` is a ``Sized`` object, so the more specific
 implementation for ``Set`` is taken:
 
 .. code-block:: python
 
- >>> get_length(SomeSet())
+ >>> get_length(SomeSet())  # NB: the implementation for Sized would give 0
  1
 
-Some times it is not clear how to dispatch. For instance, consider a
+Sometimes it is not clear how to dispatch. For instance, consider a
 class ``C`` registered both as ``collections.Iterable`` and
 ``collections.Sized`` and define a generic function ``g`` with
 implementations both for ``collections.Iterable`` and
 ``collections.Sized``. It is impossible to decide which implementation
-to use, since the ancestors are independent, and the following code
-will fail with a RuntimeError:
+to use, since the ancestors are independent, and the following function
+will raise a RuntimeError when called:
 
-$$singledispatch_example
+$$singledispatch_example1
 
 This is consistent with the "refuse the temptation to guess"
 philosophy. ``functools.singledispatch`` would raise a similar error.
@@ -841,10 +842,22 @@ implementation could be taken. If implementations of the generic
 functions are distributed across modules, and you change the import
 order, a different implementation could be taken. So the decorator
 module prefers to raise an error in the face of ambiguity. This is the
-same approach taken by the standard library. Notice that the dispatch
+same approach taken by the standard library.
+
+However, it should be noticed that the dispatch
 algorithm used by the decorator module is different from the one used
-by ``functools.singledispatch``, so there are cases where you will get
-different answers.
+by the standard library, so there are cases where you will get
+different answers. The difference is that ``functools.singledispatch``
+tries to insert the virtual ancestors *before* the base classes, whereas
+``decorator.dispatch_on`` tries to insert them *after* the base classes.
+I will give an example showing the difference:
+
+$$singledispatch_example2
+
+If you play with this example and replace the ``singledispatch`` definition
+with ``functools.singledispatch``, you will see the output change from ``"s"``
+to ``"container"``, because ``functools.singledispatch``
+will insert the ``Container`` class right before ``S``.
 
 Finally let me notice that the decorator module implementation does
 not use any cache, whereas the one in ``singledispatch`` has a cache.
@@ -852,8 +865,7 @@ not use any cache, whereas the one in ``singledispatch`` has a cache.
 Caveats and limitations
 -------------------------------------------
 
-The first thing you should be aware of, it the fact that decorators
-have a performance penalty.
+One thing you should be aware of, is the performance penalty of decorators.
 The worse case is shown by the following example::
 
  $ cat performance.sh
@@ -1072,6 +1084,7 @@ import time
 import functools
 import itertools
 import collections
+import collections as c
 from decorator import (decorator, decorate, FunctionMaker, contextmanager,
                        dispatch_on, __version__)
 
@@ -1434,7 +1447,7 @@ class SomeSet(collections.Sized):
     # methods that make SomeSet set-like
     # not shown ...
     def __len__(self):
-        return 0  # in reality one would return more than zero
+        return 0
 
 
 @dispatch_on('obj')
@@ -1452,24 +1465,13 @@ def get_length_set(obj):
     return 1
 
 
-@contextmanager
-def assertRaises(etype):
-    """This works in Python 2.6 too"""
-    try:
-        yield
-    except etype:
-        pass
-    else:
-        raise Exception('Expected %s' % etype.__name__)
-
-
 class C(object):
     "Registered as Sized and Iterable"
 collections.Sized.register(C)
 collections.Iterable.register(C)
 
 
-def singledispatch_example():
+def singledispatch_example1():
     singledispatch = dispatch_on('obj')
 
     @singledispatch
@@ -1484,9 +1486,36 @@ def singledispatch_example():
     def g_iterable(object):
         return "iterable"
 
-    with assertRaises(RuntimeError):
-        g(C())  # Ambiguous dispatch: Iterable or Sized?
+    g(C())  # RuntimeError: Ambiguous dispatch: Iterable or Sized?
 
+
+def singledispatch_example2():
+    # adapted from functools.singledispatch test case
+    singledispatch = dispatch_on('arg')
+
+    class S(object):
+        pass
+
+    class V(c.Sized, S):
+        def __len__(self):
+            return 0
+
+    @singledispatch
+    def j(arg):
+        return "base"
+
+    @j.register(S)
+    def j_s(arg):
+        return "s"
+
+    @j.register(c.Container)
+    def j_container(arg):
+        return "container"
+
+    v = V()
+    assert j(v) == "s"
+    c.Container.register(V)  # add c.Container to the virtual mro of V
+    return j(v)  # "s", since the virtual mro is V, Sized, S, Container
 
 if __name__ == '__main__':
     import doctest

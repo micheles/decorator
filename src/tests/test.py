@@ -6,11 +6,22 @@ import decimal
 import inspect
 import functools
 import collections
-from decorator import dispatch_on
+from decorator import dispatch_on, contextmanager
 try:
     from . import documentation as doc
 except (SystemError, ValueError):
     import documentation as doc
+
+
+@contextmanager
+def assertRaises(etype):
+    """This works in Python 2.6 too"""
+    try:
+        yield
+    except etype:
+        pass
+    else:
+        raise Exception('Expected %s' % etype.__name__)
 
 
 class DocumentationTestCase(unittest.TestCase):
@@ -18,9 +29,14 @@ class DocumentationTestCase(unittest.TestCase):
         err = doctest.testmod(doc)[0]
         self.assertEqual(err, 0)
 
-    def test_singledispatch(self):
+    def test_singledispatch1(self):
         if hasattr(functools, 'singledispatch'):
-            doc.singledispatch_example()
+            with assertRaises(RuntimeError):
+                doc.singledispatch_example1()
+
+    def test_singledispatch2(self):
+        if hasattr(functools, 'singledispatch'):
+            self.assertEqual(doc.singledispatch_example2(), "s")
 
 
 class ExtraTestCase(unittest.TestCase):
@@ -94,7 +110,7 @@ class TestSingleDispatch(unittest.TestCase):
         def g(obj):
             return "base"
 
-        with doc.assertRaises(TypeError):
+        with assertRaises(TypeError):
             # wrong number of arguments
             @g.register(int)
             def g_int():
@@ -259,7 +275,7 @@ class TestSingleDispatch(unittest.TestCase):
         c.Iterable.register(O)
         self.assertEqual(g(o), "sized")
         c.Container.register(O)
-        with doc.assertRaises(RuntimeError):
+        with assertRaises(RuntimeError):  # was "sized" because in mro
             self.assertEqual(g(o), "sized")
         c.Set.register(O)
         self.assertEqual(g(o), "set")
@@ -272,7 +288,7 @@ class TestSingleDispatch(unittest.TestCase):
         self.assertEqual(g(p), "iterable")
         c.Container.register(P)
 
-        with doc.assertRaises(RuntimeError):
+        with assertRaises(RuntimeError):
             self.assertEqual(g(p), "iterable")
 
         class Q(c.Sized):
@@ -301,7 +317,7 @@ class TestSingleDispatch(unittest.TestCase):
         # this ABC is implicitly registered on defaultdict which makes all of
         # MutableMapping's bases implicit as well from defaultdict's
         # perspective.
-        with doc.assertRaises(RuntimeError):
+        with assertRaises(RuntimeError):
             self.assertEqual(h(c.defaultdict(lambda: 0)), "sized")
 
         class R(c.defaultdict):
@@ -320,8 +336,8 @@ class TestSingleDispatch(unittest.TestCase):
         def i_sequence(arg):
             return "sequence"
         r = R()
-        with doc.assertRaises(RuntimeError):
-            self.assertEqual(i(r), "mapping")
+        with assertRaises(RuntimeError):  # was no error
+            self.assertEqual(i(r), "sequence")
 
         class S(object):
             pass
@@ -338,37 +354,14 @@ class TestSingleDispatch(unittest.TestCase):
             def __len__(self):
                 return 0
         u = U()
-        if sys.version >= '3':
-            self.assertEqual(h(u), "sized")
-            # implicit Sized subclass inferred
-            # from the existence of __len__()
+        self.assertEqual(h(u), "sized")
+        # implicit Sized subclass inferred
+        # from the existence of __len__()
 
         c.Container.register(U)
-        # There is preference for registered versus inferred ABCs.
-        with doc.assertRaises(RuntimeError):
-            self.assertEqual(h(u), "sized")
-
-        class V(c.Sized, S):
-            def __len__(self):
-                return 0
-
-        @singledispatch
-        def j(obj):
-            return "base"
-
-        @j.register(S)
-        def j_s(arg):
-            return "s"
-
-        @j.register(c.Container)
-        def j_container(arg):
-            return "container"
-        v = V()
-        self.assertEqual(j(v), "s")
-        c.Container.register(V)
-        self.assertEqual(j(v), "s")  # could be "container"
-        # because it ends up right after
-        # Sized in the MRO
+        # There is no preference for registered versus inferred ABCs.
+        with assertRaises(RuntimeError):
+            h(u)
 
 if __name__ == '__main__':
     unittest.main()
