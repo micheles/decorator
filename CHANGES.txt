@@ -7,8 +7,8 @@ HISTORY
      Reworked the documentation and introduced `decorator.decorated`.
      Removed any dependence from `inspect.getargspec`, which is deprecated
      in Python 3.5, as signaled by XXX.
-     Copied the `__qualname__` attribute, as requested by Frazer McLean.
      Fixed `contextmanager` to work with Python 3.5.
+     Copied the `__qualname__` attribute, as requested by Frazer McLean.
      Added a `dispatch_on` facility to implement generic functions.
      (2015/07/21)
 3.4.2 Same as 3.4.1, re-uploaded to PyPI (2015-03-22)

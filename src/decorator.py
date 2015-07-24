@@ -38,6 +38,7 @@ __version__ = '4.0.0'
 import re
 import sys
 import inspect
+import operator
 import itertools
 import collections
 
@@ -318,11 +319,11 @@ def dispatch_on(*dispatch_args):
     assert dispatch_args, 'No dispatch args passed'
     dispatch_str = '(%s,)' % ', '.join(dispatch_args)
 
-    def check(types):
-        """Make use one passes the expected number of types"""
-        if len(types) != len(dispatch_args):
-            raise TypeError('Expected %d types, got %d' %
-                            (len(dispatch_args), len(types)))
+    def check(arguments, wrong=operator.ne, msg=''):
+        """Make sure one passes the expected number of arguments"""
+        if wrong(len(arguments), len(dispatch_args)):
+            raise TypeError('Expected %d arguments, got %d%s' %
+                            (len(dispatch_args), len(arguments), msg))
 
     def gen_func_dec(func):
         """Decorator turning a function into a generic function"""
@@ -346,7 +347,7 @@ def dispatch_on(*dispatch_args):
                         append(type_, ra)
             return [set(ra) for ra in ras]
 
-        def vmros(*types):
+        def ancestors(*types):
             """
             Get a list of virtual MROs, one for each type
             """
@@ -362,25 +363,31 @@ def dispatch_on(*dispatch_args):
                     mro = type('t', (t, va), {}).__mro__[1:]
                 else:
                     mro = t.__mro__
-                lists.append(mro[:-1])  # discard object
+                lists.append(mro[:-1])  # discard t and object
             return lists
 
         def register(*types):
-            "Decorator to register an implementation for the given types"
+            """
+            Decorator to register an implementation for the given types
+            """
             check(types)
-
             def dec(f):
-                n_args = len(getfullargspec(f).args)
-                if n_args < len(dispatch_args):
-                    raise TypeError(
-                        '%s has not enough arguments (got %d, expected %d)' %
-                        (f, n_args, len(dispatch_args)))
+                check(getfullargspec(f).args, operator.lt, ' in ' + f.__name__)
                 typemap[types] = f
                 return f
             return dec
 
+        def dispatch_info(*types):
+            """
+            An utility to introspect the dispatch algorithm
+            """
+            check(types)
+            lst = []
+            for anc in itertools.product(*ancestors(*types)):
+                lst.append(tuple(a.__name__ for a in anc))
+            return lst
+
         def _dispatch(dispatch_args, *args, **kw):
-            "Dispatcher function"
             types = tuple(type(arg) for arg in dispatch_args)
             try:  # fast path
                 f = typemap[types]
@@ -388,7 +395,9 @@ def dispatch_on(*dispatch_args):
                 pass
             else:
                 return f(*args, **kw)
-            for types_ in itertools.product(*vmros(*types)):
+            combinations = itertools.product(*ancestors(*types))
+            next(combinations)  # the first one has been already tried
+            for types_ in combinations:
                 f = typemap.get(types_)
                 if f is not None:
                     return f(*args, **kw)
@@ -399,8 +408,8 @@ def dispatch_on(*dispatch_args):
         return FunctionMaker.create(
             func, 'return _f_(%s, %%(shortsignature)s)' % dispatch_str,
             dict(_f_=_dispatch), register=register, default=func,
-            typemap=typemap, vancestors=vancestors, vmros=vmros,
-            __wrapped__=func)
+            typemap=typemap, vancestors=vancestors, ancestors=ancestors,
+            dispatch_info=dispatch_info, __wrapped__=func)
 
     gen_func_dec.__name__ = 'dispatch_on' + dispatch_str
     return gen_func_dec

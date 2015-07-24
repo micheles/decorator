@@ -915,7 +915,7 @@ to dispatch on more than one argument (for instance once I implemented
 a database-access library where the first dispatching argument was the
 the database driver and the second one was the database record),
 but here I prefer to follow the tradition and show the time-honored
-Rock-Paper-Scissor example:
+Rock-Paper-Scissors example:
 
 .. code-block:: python
 
@@ -929,16 +929,16 @@ Rock-Paper-Scissor example:
 
 .. code-block:: python
 
- class Scissor(object):
+ class Scissors(object):
      ordinal = 2
 
 
-I have added an ordinal to the Rock-Paper-Scissor classes to simplify
+I have added an ordinal to the Rock-Paper-Scissors classes to simplify
 the implementation. The idea is to define a generic function ``win(a,
 b)`` of two arguments corresponding to the moves of the first and
 second player respectively. The moves are instances of the classes
-Rock, Paper and Scissors; Paper wins over Rock, Scissor wins over
-Paper and Rock wins over Scissor. The function will return +1 for a
+Rock, Paper and Scissors; Paper wins over Rock, Scissors wins over
+Paper and Rock wins over Scissors. The function will return +1 for a
 win, -1 for a loss and 0 for parity. There are 9 combinations, however
 combinations with the same ordinal (i.e. the same class) return 0;
 moreover by exchanging the order of the arguments the sign of the
@@ -963,14 +963,14 @@ implementations:
 
 .. code-block:: python
 
- @win.register(Paper, Scissor)
- def winPaperScissor(a, b):
+ @win.register(Paper, Scissors)
+ def winPaperScissors(a, b):
      return -1
 
 .. code-block:: python
 
- @win.register(Rock, Scissor)
- def winRockScissor(a, b):
+ @win.register(Rock, Scissors)
+ def winRockScissors(a, b):
      return 1
 
 
@@ -980,22 +980,54 @@ Here is the result:
 
  >>> win(Paper(), Rock())
  1
- >>> win(Scissor(), Paper())
+ >>> win(Scissors(), Paper())
  1
- >>> win(Rock(), Scissor())
+ >>> win(Rock(), Scissors())
  1
  >>> win(Paper(), Paper())
  0
  >>> win(Rock(), Rock())
  0
- >>> win(Scissor(), Scissor())
+ >>> win(Scissors(), Scissors())
  0
  >>> win(Rock(), Paper())
  -1
- >>> win(Paper(), Scissor())
+ >>> win(Paper(), Scissors())
  -1
- >>> win(Scissor(), Rock())
+ >>> win(Scissors(), Rock())
  -1
+
+The point of generic functions is that they play well with subclassing.
+For instance, suppose we define a StrongRock which does not lose against
+Paper:
+
+.. code-block:: python
+
+ class StrongRock(Rock):
+     pass
+
+.. code-block:: python
+
+ @win.register(StrongRock, Paper)
+ def winStrongRockPaper(a, b):
+     return 0
+
+
+Then we do not need to define other implementations, since they are
+inherited from the parent:
+
+.. code-block:: python
+
+ >>> win(StrongRock(), Scissors())
+ 1
+
+You can introspect the precedence used by the dispath algorithm by
+calling ``.dispatch_info(*types)``:
+
+.. code-block:: python
+
+  >>> win.dispatch_info(StrongRock, Scissors)
+  [('StrongRock', 'Scissors'), ('Rock', 'Scissors')]
 
 Generic functions and virtual ancestors
 -------------------------------------------------
@@ -1162,29 +1194,43 @@ I will give an example showing the difference:
              return 0
  
      @singledispatch
-     def j(arg):
+     def g(arg):
          return "base"
  
-     @j.register(S)
-     def j_s(arg):
+     @g.register(S)
+     def g_s(arg):
          return "s"
  
-     @j.register(c.Container)
-     def j_container(arg):
+     @g.register(c.Container)
+     def g_container(arg):
          return "container"
  
      v = V()
-     assert j(v) == "s"
+     assert g(v) == "s"
      c.Container.register(V)  # add c.Container to the virtual mro of V
-     return j(v)  # "s", since the virtual mro is V, Sized, S, Container
+     assert g(v) == "s"  # since the virtual mro is V, Sized, S, Container
+     return g, V
 
 
 If you play with this example and replace the ``singledispatch`` definition
-with ``functools.singledispatch``, you will see the output change from ``"s"``
-to ``"container"``, because ``functools.singledispatch``
+with ``functools.singledispatch``, the assert will break: ``g`` will return
+``"container"`` instead of ``"s"``, because ``functools.singledispatch``
 will insert the ``Container`` class right before ``S``.
+The only way to understand what is happening here is to scratch your
+head by looking at the implementations. I will just notice that
+``.dispatch_info`` is quite useful:
 
-Finally let me notice that the decorator module implementation does
+.. code-block:: python
+
+  >>> g, V = singledispatch_example2()
+  >>> g.dispatch_info(V)
+  [('V',), ('Sized',), ('S',), ('Container',)]
+
+The current implementation does not implement any kind of cooperation
+between generic functions, i.e. there is nothing akin to call-next-method
+in Lisp, nor akin to ``super`` in Python.
+
+Finally, let me notice that the decorator module implementation does
 not use any cache, whereas the one in ``singledispatch`` has a cache.
 
 Caveats and limitations
