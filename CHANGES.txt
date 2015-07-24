@@ -1,6 +1,7 @@
 HISTORY
 --------
 
+4.0.1 Added docs directory and upload_docs command (2015/07/24)
 4.0.0 Removed the need for 2to3 by dropping the support for Python 2.5.
      Added a MANIFEST.in file and produced a proper wheel. Improved
      the integration with setuptools so that `python setup.py test` works.
