@@ -12,4 +12,4 @@ pdf: documentation.rst
 	rst2pdf documentation.rst -o documentation.pdf
 
 upload: documentation.pdf
-	python3 setup.py register sdist bdist_wheel upload 
+	git clean -f; python3 setup.py register sdist bdist_wheel upload 
