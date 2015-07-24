@@ -17,7 +17,7 @@ Introduction
 
 The decorator module is over ten years old, but still alive and
 kicking. It is used by several frameworks (IPython, scipy, authkit,
-pylons, repoze, pycuda, sugar, ...) and has been stable for a *long*
+pylons, pycuda, sugar, ...) and has been stable for a *long*
 time. It is your best option if you want to preserve the signature of
 decorated functions in a consistent way across Python
 releases. Version 4.0 is fully compatible with the past, except for
@@ -27,7 +27,7 @@ decision made it possible to use a single code base both for Python
 2,000 lines of duplicated documentation/doctests. Having to maintain
 separate docs for Python 2 and Python 3 effectively stopped any
 development on the module for several years. Moreover, it is now
-trivial to distribute the module as a wheel_ since 2to3 is no more
+trivial to distribute the module as an universal wheel_ since 2to3 is no more
 required. Since Python 2.5 has been released 9 years ago, I felt that
 it was reasonable to drop the support for it. If you need to support
 ancient versions of Python, stick with the decorator module version
@@ -42,8 +42,8 @@ What's new
 Since now there is a single manual for all Python versions, I took the
 occasion for overhauling the documentation. Therefore, even if you are
 an old time user, you may want to read the docs again, since several
-examples have been improved. The packaging has been improved and now I
-am also distributing the code in wheel format. The integration with
+examples have been improved. The packaging has been improved and I
+am distributing the code in wheel format too. The integration with
 setuptools has been improved and now you can use ``python setup.py
 test`` to run the tests.  A new utility function ``decorate(func,
 caller)`` has been added, doing the same job that in the past was done
@@ -54,14 +54,15 @@ anymore.
 Apart from that, there is a new experimental feature. The decorator
 module now includes an implementation of generic (multiple dispatch)
 functions. The API is designed to mimic the one of
-`functools.singledispatch` but the implementation is much simpler;
-moreover all the decorators involved preserve the signature of the
-decorated functions. For the moment the facility is there mostly to
-exemplify the power of the module. In the future it could change
-and/or be enhanced/optimized; on the other hand, it could even become
-deprecated. Such is the fate of experimental features. In any case it
-is very short and compact, so you can extract it for your own
-use. Take it as food for thought.
+``functools.singledispatch`` (introduced in Python 3.4) but the
+implementation is much simpler; moreover all the decorators involved
+preserve the signature of the decorated functions. For the moment the
+facility is there mostly to exemplify the power of the module. In the
+future it could be enhanced/optimized; on the other hand, both its
+behavior and its API could change. Such is the fate of experimental
+features. In any case it is very short and compact (less then one
+hundred lines) so you can extract it for your own use. Take it as food
+for thought.
 
 Usefulness of decorators
 ------------------------------------------------
@@ -133,7 +134,11 @@ the result of the function call in a dictionary, so that the next time
 the function is called with the same input parameters the result is retrieved
 from the cache and not recomputed. There are many implementations of
 ``memoize`` in http://www.python.org/moin/PythonDecoratorLibrary,
-but they do not preserve the signature.
+but they do not preserve the signature. In recent versions of
+Python you can find a sophisticated ``lru_cache`` decorator
+in the standard library (in ``functools``). Here I am just
+interested in giving an example.
+
 A simple implementation could be the following (notice
 that in general it is impossible to memoize correctly something
 that depends on non-hashable arguments):
@@ -154,7 +159,7 @@ that depends on non-hashable arguments):
      return functools.update_wrapper(memoize, func)
 
 
-Here we used the functools.update_wrapper_ utility, which has
+Here i used the functools.update_wrapper_ utility, which has
 been added in Python 2.5 expressly to simplify the definition of decorators
 (in older versions of Python you need to copy the function attributes
 ``__name__``, ``__doc__``, ``__module__`` and ``__dict__``
@@ -185,16 +190,16 @@ keyword arguments:
 
 .. code-block:: python
 
- >>> from decorator import getargspec
+ >>> from decorator import getargspec  # akin to inspect.getargspec
  >>> print(getargspec(f1))
  ArgSpec(args=[], varargs='args', varkw='kw', defaults=None)
 
-This means that introspection tools such as *pydoc* will give
-wrong informations about the signature of ``f1``, unless you are
-using a recent of Python 3.X. This is pretty bad:
-*pydoc* will tell you that the function accepts a generic signature
-``*args``, ``**kw``, but when you try to call the function with more than an
-argument, you will get an error:
+This means that introspection tools such as ``pydoc`` will give wrong
+informations about the signature of ``f1``, unless you are using
+Python 3.5. This is pretty bad: ``pydoc`` will tell you that the
+function accepts a generic signature ``*args``, ``**kw``, but when you
+try to call the function with more than an argument, you will get an
+error:
 
 .. code-block:: python
 
@@ -203,8 +208,8 @@ argument, you will get an error:
     ...
  TypeError: f1() takes exactly 1 positional argument (2 given)
 
-Notice even in Python 3.5 `inspect.getargspec` and
-`inspect.getfullargspec` (which are deprecated in that release) will
+Notice even in Python 3.5 ``inspect.getargspec`` and
+``inspect.getfullargspec`` (which are deprecated in that release) will
 give the wrong signature.
 
 
@@ -382,7 +387,7 @@ is added to be consistent with the way ``functools.update_wrapper`` work.
 Another attribute which is copied from the original function is
 ``__qualname__``, the qualified name. This is a concept introduced
 in Python 3. In Python 2 the decorator module will still add a
-qualified name, but its value will always be `None`.
+qualified name, but its value will always be ``None``.
 
 
 ``decorator.decorator``
@@ -536,9 +541,9 @@ the final result. Here is a minimalistic example of usage:
  ...     time.sleep(.5)
  ...     return x
 
- >>> f1 = long_running(1)
- >>> f2 = long_running(2)
- >>> f1.result() + f2.result()
+ >>> fut1 = long_running(1)
+ >>> fut2 = long_running(2)
+ >>> fut1.result() + fut2.result()
  3
 
 contextmanager
@@ -688,7 +693,7 @@ Getting the source code
 Internally ``FunctionMaker.create`` uses ``exec`` to generate the
 decorated function. Therefore
 ``inspect.getsource`` will not work for decorated functions. That
-means that the usual '??' trick in IPython will give you the (right on
+means that the usual ``??`` trick in IPython will give you the (right on
 the spot) message ``Dynamically generated function. No source code
 available``.  In the past I have considered this acceptable, since
 ``inspect.getsource`` does not really work even with regular
@@ -719,7 +724,7 @@ source code which is probably not what you want:
 (see bug report 1764286_ for an explanation of what is happening).
 Unfortunately the bug is still there, in all versions of Python except
 Python 3.5, which is not yet released. There is however a
-workaround. The decorated function has an attribute ``.__wrapped__``,
+workaround. The decorated function has an attribute ``__wrapped__``,
 pointing to the original function. The easy way to get the source code
 is to call ``inspect.getsource`` on the undecorated function:
 
@@ -1029,6 +1034,14 @@ calling ``.dispatch_info(*types)``:
   >>> win.dispatch_info(StrongRock, Scissors)
   [('StrongRock', 'Scissors'), ('Rock', 'Scissors')]
 
+Since there is no direct implementation for (StrongRock, Scissors)
+the dispatcher will look at the implementation for (Rock, Scissors)
+which is available. Internally the algorithm is doing a cross
+product of the class precedence lists (or Method Resolution Orders,
+MRO_ for short) of StrongRock and Scissors respectively.
+
+.. _MRO: http://www.python.org/2.3/mro.html
+
 Generic functions and virtual ancestors
 -------------------------------------------------
 
@@ -1051,7 +1064,7 @@ considered to be a subclass of the abstract base class ``collections.Sized``:
  >>> issubclass(WithLength, collections.Sized)
  True
 
-However, ``collections.Sized`` is not in the MRO of ``WithLength``, it
+However, ``collections.Sized`` is not in the MRO_ of ``WithLength``, it
 is not a true ancestor. Any implementation of generic functions, even
 with single dispatch, must go through some contorsion to take into
 account the virtual ancestors.
@@ -1227,7 +1240,7 @@ head by looking at the implementations. I will just notice that
   [('V',), ('Sized',), ('S',), ('Container',)]
 
 The current implementation does not implement any kind of cooperation
-between generic functions, i.e. there is nothing akin to call-next-method
+between implementations, i.e. there is nothing akin to call-next-method
 in Lisp, nor akin to ``super`` in Python.
 
 Finally, let me notice that the decorator module implementation does
@@ -1306,19 +1319,17 @@ the decorated function is called.
 At present, there is no clean way to avoid ``exec``. A clean solution
 would require to change the CPython implementation of functions and
 add an hook to make it possible to change their signature directly.
-That could happen in future versions of Python (see PEP 362_) and
-then the decorator module would become obsolete. However, at present,
-even in Python 3.5 it is impossible to change the function signature
-directly, therefore the ``decorator`` module is still useful.
-Actually, this is the main reasons why I keep maintaining
-the module and releasing new versions.
-It should be noticed that in Python 3.5 a lot of improvements
-have been made: in that version you can decorated a function
-with ``func_tools.update_wrapper`` and ``pydoc`` will see the correct
+However, at present, even in Python 3.5 it is impossible to change the
+function signature directly, therefore the ``decorator`` module is
+still useful.  Actually, this is the main reasons why I keep
+maintaining the module and releasing new versions.  It should be
+noticed that in Python 3.5 a lot of improvements have been made: in
+that version you can decorated a function with
+``func_tools.update_wrapper`` and ``pydoc`` will see the correct
 signature; still internally the function will have an incorrect
-signature, as you can see by using ``inspect.getfullargspec``:
-all documentation tools using such function (which has been
-correctly deprecated) will see the wrong signature.
+signature, as you can see by using ``inspect.getfullargspec``: all
+documentation tools using such function (which has been correctly
+deprecated) will see the wrong signature.
 
 .. _362: http://www.python.org/dev/peps/pep-0362
 
