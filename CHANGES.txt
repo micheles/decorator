@@ -6,11 +6,11 @@ HISTORY
      the integration with setuptools so that `python setup.py test` works.
      Reworked the documentation and introduced `decorator.decorated`.
      Removed any dependence from `inspect.getargspec`, which is deprecated
-     in Python 3.5, as signaled by XXX.
+     in Python 3.5, as signaled by Ralf Gommers.
      Fixed `contextmanager` to work with Python 3.5.
      Copied the `__qualname__` attribute, as requested by Frazer McLean.
      Added a `dispatch_on` facility to implement generic functions.
-     (2015/07/21)
+     (2015/07/24)
 3.4.2 Same as 3.4.1, re-uploaded to PyPI (2015-03-22)
 3.4.1 Ported the repository from GoogleCode to GitHub and added Travis CI
      support. Tests are executed with the new command `python test.py -v`.
