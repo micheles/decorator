@@ -51,8 +51,8 @@ There are various versions of the documentation:
 -  `HTML version`_ 
 -  `PDF version`_ 
 
-.. _HTML version: https://github.com/micheles/decorator/blob/4.0.0/documentation.rst
-.. _PDF version: https://github.com/micheles/decorator/blob/4.0.0/documentation.pdf
+.. _HTML version: https://github.com/micheles/decorator/blob/4.0.0/docs/documentation.rst
+.. _PDF version: https://github.com/micheles/decorator/blob/4.0.0/docs/documentation.pdf
 
 Repository
 ---------------
