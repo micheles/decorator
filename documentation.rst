@@ -4,7 +4,7 @@ The ``decorator`` module
 
 :Author: Michele Simionato
 :E-mail: michele.simionato@gmail.com
-:Version: 4.0.0 (2015-07-23)
+:Version: 4.0.0 (2015-07-24)
 :Supports: Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5
 :Download page: http://pypi.python.org/pypi/decorator/4.0.0
 :Installation: ``pip install decorator``
@@ -185,9 +185,9 @@ keyword arguments:
 
 .. code-block:: python
 
- >>> from inspect import getargspec
+ >>> from decorator import getargspec
  >>> print(getargspec(f1))
- ArgSpec(args=[], varargs='args', keywords='kw', defaults=None)
+ ArgSpec(args=[], varargs='args', varkw='kw', defaults=None)
 
 This means that introspection tools such as *pydoc* will give
 wrong informations about the signature of ``f1``, unless you are
@@ -275,7 +275,7 @@ The signature of ``heavy_computation`` is the one you would expect:
 .. code-block:: python
 
  >>> print(getargspec(heavy_computation))
- ArgSpec(args=[], varargs=None, keywords=None, defaults=None)
+ ArgSpec(args=[], varargs=None, varkw=None, defaults=None)
 
 A ``trace`` decorator
 ------------------------------------------------------
@@ -318,7 +318,7 @@ and it that it has the correct signature:
 .. code-block:: python
 
  >>> print(getargspec(f1))
- ArgSpec(args=['x'], varargs=None, keywords=None, defaults=None)
+ ArgSpec(args=['x'], varargs=None, varkw=None, defaults=None)
 
 The same decorator works with functions of any signature:
 
@@ -332,7 +332,7 @@ The same decorator works with functions of any signature:
  calling f with args (0, 3, 2), {}
 
  >>> print(getargspec(f))
- ArgSpec(args=['x', 'y', 'z'], varargs='args', keywords='kw', defaults=(1, 2))
+ ArgSpec(args=['x', 'y', 'z'], varargs='args', varkw='kw', defaults=(1, 2))
 
 Function annotations
 ---------------------------------------------
@@ -351,7 +351,8 @@ annotations. Here is an example:
  ...     pass
 
 In order to introspect functions with annotations, one needs the
-utility ``inspect.getfullargspec``, new in Python 3:
+utility ``inspect.getfullargspec``, new in Python 3 (and deprecated
+in favor of ``inspect.signature`` in Python 3.5):
 
 .. code-block:: python
 
@@ -677,9 +678,8 @@ a tuple of defaults:
 
  >>> f1 = FunctionMaker.create(
  ...     'f1(a, b)', 'f(a, b)', dict(f=f), addsource=True, defaults=(None,))
- >>> import inspect
- >>> print(inspect.getargspec(f1))
- ArgSpec(args=['a', 'b'], varargs=None, keywords=None, defaults=(None,))
+ >>> print(getargspec(f1))
+ ArgSpec(args=['a', 'b'], varargs=None, varkw=None, defaults=(None,))
 
 
 Getting the source code
@@ -710,6 +710,7 @@ source code which is probably not what you want:
 
 .. code-block:: python
 
+ >>> import inspect
  >>> print(inspect.getsource(example))
      def wrapper(*args, **kw):
          return func(*args, **kw)

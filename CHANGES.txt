@@ -5,6 +5,8 @@ HISTORY
      Added a MANIFEST.in file and produced a proper wheel. Improved
      the integration with setuptools so that `python setup.py test` works.
      Reworked the documentation and introduced `decorator.decorated`.
+     Removed any dependence from `inspect.getargspec`, which is deprecated
+     in Python 3.5, as signaled by XXX.
      Copied the `__qualname__` attribute, as requested by Frazer McLean.
      Fixed `contextmanager` to work with Python 3.5.
      Added a `dispatch_on` facility to implement generic functions.

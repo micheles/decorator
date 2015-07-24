@@ -109,10 +109,10 @@ endobj
 << /Border [ 0 0 0 ] /Contents () /Dest [ 65 0 R /XYZ 62.69291 657.0236 0 ] /Rect [ 521.4627 344.7736 532.5827 356.7736 ] /Subtype /Link /Type /Annot >>
 endobj
 37 0 obj
-<< /Border [ 0 0 0 ] /Contents () /Dest [ 67 0 R /XYZ 62.69291 647.8236 0 ] /Rect [ 62.69291 326.0236 177.1629 338.0236 ] /Subtype /Link /Type /Annot >>
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 67 0 R /XYZ 62.69291 659.8236 0 ] /Rect [ 62.69291 326.0236 177.1629 338.0236 ] /Subtype /Link /Type /Annot >>
 endobj
 38 0 obj
-<< /Border [ 0 0 0 ] /Contents () /Dest [ 67 0 R /XYZ 62.69291 647.8236 0 ] /Rect [ 521.4627 326.7736 532.5827 338.7736 ] /Subtype /Link /Type /Annot >>
+<< /Border [ 0 0 0 ] /Contents () /Dest [ 67 0 R /XYZ 62.69291 659.8236 0 ] /Rect [ 521.4627 326.7736 532.5827 338.7736 ] /Subtype /Link /Type /Annot >>
 endobj
 39 0 obj
 << /Border [ 0 0 0 ] /Contents () /Dest [ 67 0 R /XYZ 62.69291 180.0236 0 ] /Rect [ 62.69291 308.0236 228.2829 320.0236 ] /Subtype /Link /Type /Annot >>
@@ -262,7 +262,7 @@ endobj
 << /Outlines 81 0 R /PageLabels 122 0 R /PageMode /UseNone /Pages 101 0 R /Type /Catalog >>
 endobj
 80 0 obj
-<< /Author (Michele Simionato) /CreationDate (D:20150723163253-01'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
+<< /Author (Michele Simionato) /CreationDate (D:20150724063304-01'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
   /Title (The decorator module) >>
 endobj
 81 0 obj
@@ -308,7 +308,7 @@ endobj
 << /Dest [ 65 0 R /XYZ 62.69291 657.0236 0 ] /Next 95 0 R /Parent 81 0 R /Prev 93 0 R /Title (The FunctionMaker class) >>
 endobj
 95 0 obj
-<< /Dest [ 67 0 R /XYZ 62.69291 647.8236 0 ] /Next 96 0 R /Parent 81 0 R /Prev 94 0 R /Title (Getting the source code) >>
+<< /Dest [ 67 0 R /XYZ 62.69291 659.8236 0 ] /Next 96 0 R /Parent 81 0 R /Prev 94 0 R /Title (Getting the source code) >>
 endobj
 96 0 obj
 << /Dest [ 67 0 R /XYZ 62.69291 180.0236 0 ] /Next 97 0 R /Parent 81 0 R /Prev 95 0 R /Title (Dealing with third party decorators) >>
@@ -395,7 +395,7 @@ q
 1 0 0 1 91.03937 3 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (4.0.0 \(2015-07-23\)) Tj T* ET
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (4.0.0 \(2015-07-24\)) Tj T* ET
 Q
 Q
 q
@@ -1270,7 +1270,7 @@ Q
 endstream
 endobj
 105 0 obj
-<< /Length 16560 >>
+<< /Length 16559 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -1338,11 +1338,11 @@ n 12 24 6 12 re f*
 .960784 .960784 .862745 rg
 n 24 24 24 12 re f*
 .960784 .960784 .862745 rg
-n 54 24 42 12 re f*
+n 54 24 54 12 re f*
 .960784 .960784 .862745 rg
-n 102 24 36 12 re f*
+n 114 24 36 12 re f*
 .960784 .960784 .862745 rg
-n 144 24 60 12 re f*
+n 156 24 60 12 re f*
 .960784 .960784 .862745 rg
 n 0 12 6 12 re f*
 .960784 .960784 .862745 rg
@@ -1380,22 +1380,22 @@ n 150 0 36 12 re f*
 .960784 .960784 .862745 rg
 n 186 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 198 0 48 12 re f*
+n 198 0 30 12 re f*
 .960784 .960784 .862745 rg
-n 246 0 6 12 re f*
+n 228 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 252 0 24 12 re f*
+n 234 0 24 12 re f*
 .960784 .960784 .862745 rg
-n 276 0 6 12 re f*
+n 258 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 288 0 48 12 re f*
+n 270 0 48 12 re f*
 .960784 .960784 .862745 rg
-n 336 0 6 12 re f*
+n 318 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 342 0 24 12 re f*
+n 324 0 24 12 re f*
 .960784 .960784 .862745 rg
-n 366 0 6 12 re f*
-BT 1 0 0 1 0 26 Tm 12 TL /F3 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (from) Tj /F3 10 Tf 0 0 0 rg ( ) Tj /F5 10 Tf 0 0 1 rg (inspect) Tj /F3 10 Tf 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (import) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 0 rg (getargspec) Tj 0 0 0 rg  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (print) Tj /F3 10 Tf 0 0 0 rg (\() Tj 0 0 0 rg (getargspec) Tj 0 0 0 rg (\() Tj 0 0 0 rg (f1) Tj 0 0 0 rg (\)\)) Tj 0 0 0 rg  T* 0 0 0 rg (ArgSpec) Tj 0 0 0 rg (\() Tj 0 0 0 rg (args) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ([],) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (varargs) Tj .4 .4 .4 rg (=) Tj .729412 .129412 .129412 rg ('args') Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (keywords) Tj .4 .4 .4 rg (=) Tj .729412 .129412 .129412 rg ('kw') Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (defaults) Tj .4 .4 .4 rg (=) Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (\)) Tj T* ET
+n 348 0 6 12 re f*
+BT 1 0 0 1 0 26 Tm 12 TL /F3 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (from) Tj /F3 10 Tf 0 0 0 rg ( ) Tj /F5 10 Tf 0 0 1 rg (decorator) Tj /F3 10 Tf 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (import) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 0 rg (getargspec) Tj 0 0 0 rg  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (print) Tj /F3 10 Tf 0 0 0 rg (\() Tj 0 0 0 rg (getargspec) Tj 0 0 0 rg (\() Tj 0 0 0 rg (f1) Tj 0 0 0 rg (\)\)) Tj 0 0 0 rg  T* 0 0 0 rg (ArgSpec) Tj 0 0 0 rg (\() Tj 0 0 0 rg (args) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ([],) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (varargs) Tj .4 .4 .4 rg (=) Tj .729412 .129412 .129412 rg ('args') Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (varkw) Tj .4 .4 .4 rg (=) Tj .729412 .129412 .129412 rg ('kw') Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (defaults) Tj .4 .4 .4 rg (=) Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (\)) Tj T* ET
 Q
 Q
 Q
@@ -1750,7 +1750,7 @@ Q
 endstream
 endobj
 106 0 obj
-<< /Length 18522 >>
+<< /Length 18516 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -1915,22 +1915,22 @@ n 150 0 24 12 re f*
 .960784 .960784 .862745 rg
 n 174 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 186 0 48 12 re f*
+n 186 0 30 12 re f*
 .960784 .960784 .862745 rg
-n 234 0 6 12 re f*
+n 216 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 240 0 24 12 re f*
+n 222 0 24 12 re f*
 .960784 .960784 .862745 rg
-n 264 0 6 12 re f*
+n 246 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 276 0 48 12 re f*
+n 258 0 48 12 re f*
 .960784 .960784 .862745 rg
-n 324 0 6 12 re f*
+n 306 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 330 0 24 12 re f*
+n 312 0 24 12 re f*
 .960784 .960784 .862745 rg
-n 354 0 6 12 re f*
-BT 1 0 0 1 0 14 Tm 12 TL /F3 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (print) Tj /F3 10 Tf 0 0 0 rg (\() Tj 0 0 0 rg (getargspec) Tj 0 0 0 rg (\() Tj 0 0 0 rg (heavy_computation) Tj 0 0 0 rg (\)\)) Tj 0 0 0 rg  T* 0 0 0 rg (ArgSpec) Tj 0 0 0 rg (\() Tj 0 0 0 rg (args) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ([],) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (varargs) Tj .4 .4 .4 rg (=) Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (keywords) Tj .4 .4 .4 rg (=) Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (defaults) Tj .4 .4 .4 rg (=) Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (\)) Tj T* ET
+n 336 0 6 12 re f*
+BT 1 0 0 1 0 14 Tm 12 TL /F3 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (print) Tj /F3 10 Tf 0 0 0 rg (\() Tj 0 0 0 rg (getargspec) Tj 0 0 0 rg (\() Tj 0 0 0 rg (heavy_computation) Tj 0 0 0 rg (\)\)) Tj 0 0 0 rg  T* 0 0 0 rg (ArgSpec) Tj 0 0 0 rg (\() Tj 0 0 0 rg (args) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ([],) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (varargs) Tj .4 .4 .4 rg (=) Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (varkw) Tj .4 .4 .4 rg (=) Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (defaults) Tj .4 .4 .4 rg (=) Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (\)) Tj T* ET
 Q
 Q
 Q
@@ -2311,22 +2311,22 @@ n 168 0 24 12 re f*
 .960784 .960784 .862745 rg
 n 192 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 204 0 48 12 re f*
+n 204 0 30 12 re f*
 .960784 .960784 .862745 rg
-n 252 0 6 12 re f*
+n 234 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 258 0 24 12 re f*
+n 240 0 24 12 re f*
 .960784 .960784 .862745 rg
-n 282 0 6 12 re f*
+n 264 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 294 0 48 12 re f*
+n 276 0 48 12 re f*
 .960784 .960784 .862745 rg
-n 342 0 6 12 re f*
+n 324 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 348 0 24 12 re f*
+n 330 0 24 12 re f*
 .960784 .960784 .862745 rg
-n 372 0 6 12 re f*
-BT 1 0 0 1 0 14 Tm 12 TL /F3 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (print) Tj /F3 10 Tf 0 0 0 rg (\() Tj 0 0 0 rg (getargspec) Tj 0 0 0 rg (\() Tj 0 0 0 rg (f1) Tj 0 0 0 rg (\)\)) Tj 0 0 0 rg  T* 0 0 0 rg (ArgSpec) Tj 0 0 0 rg (\() Tj 0 0 0 rg (args) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ([) Tj .729412 .129412 .129412 rg ('x') Tj 0 0 0 rg (],) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (varargs) Tj .4 .4 .4 rg (=) Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (keywords) Tj .4 .4 .4 rg (=) Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (defaults) Tj .4 .4 .4 rg (=) Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (\)) Tj T* ET
+n 354 0 6 12 re f*
+BT 1 0 0 1 0 14 Tm 12 TL /F3 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (print) Tj /F3 10 Tf 0 0 0 rg (\() Tj 0 0 0 rg (getargspec) Tj 0 0 0 rg (\() Tj 0 0 0 rg (f1) Tj 0 0 0 rg (\)\)) Tj 0 0 0 rg  T* 0 0 0 rg (ArgSpec) Tj 0 0 0 rg (\() Tj 0 0 0 rg (args) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ([) Tj .729412 .129412 .129412 rg ('x') Tj 0 0 0 rg (],) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (varargs) Tj .4 .4 .4 rg (=) Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (varkw) Tj .4 .4 .4 rg (=) Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (defaults) Tj .4 .4 .4 rg (=) Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (\)) Tj T* ET
 Q
 Q
 Q
@@ -2343,7 +2343,7 @@ Q
 endstream
 endobj
 107 0 obj
-<< /Length 17634 >>
+<< /Length 17749 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -2357,7 +2357,7 @@ q
 .662745 .662745 .662745 RG
 .5 w
 .960784 .960784 .862745 rg
-n -6 -6 474 120 re B*
+n -6 -6 468.6898 120 re B*
 Q
 q
 .960784 .960784 .862745 rg
@@ -2503,28 +2503,28 @@ n 228 0 36 12 re f*
 .960784 .960784 .862745 rg
 n 264 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 276 0 48 12 re f*
+n 276 0 30 12 re f*
 .960784 .960784 .862745 rg
-n 324 0 6 12 re f*
+n 306 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 330 0 24 12 re f*
+n 312 0 24 12 re f*
 .960784 .960784 .862745 rg
-n 354 0 6 12 re f*
+n 336 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 366 0 48 12 re f*
+n 348 0 48 12 re f*
+.960784 .960784 .862745 rg
+n 396 0 6 12 re f*
+.960784 .960784 .862745 rg
+n 402 0 6 12 re f*
+.960784 .960784 .862745 rg
+n 408 0 6 12 re f*
 .960784 .960784 .862745 rg
 n 414 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 420 0 6 12 re f*
-.960784 .960784 .862745 rg
 n 426 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 432 0 6 12 re f*
-.960784 .960784 .862745 rg
-n 444 0 6 12 re f*
-.960784 .960784 .862745 rg
-n 450 0 12 12 re f*
-BT 1 0 0 1 0 98 Tm 12 TL /F3 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj .666667 .133333 1 rg (@trace) Tj 0 0 0 rg  T* .4 .4 .4 rg (...) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (def) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (f) Tj 0 0 0 rg (\() Tj 0 0 0 rg (x) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (y) Tj .4 .4 .4 rg (=) Tj .4 .4 .4 rg (1) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (z) Tj .4 .4 .4 rg (=) Tj .4 .4 .4 rg (2) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (*) Tj 0 0 0 rg (args) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (**) Tj 0 0 0 rg (kw) Tj 0 0 0 rg (\):) Tj 0 0 0 rg  T* .4 .4 .4 rg (...) Tj 0 0 0 rg (     ) Tj /F5 10 Tf 0 .501961 0 rg (pass) Tj /F3 10 Tf 0 0 0 rg  T*  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (f) Tj 0 0 0 rg (\() Tj .4 .4 .4 rg (0) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (3) Tj 0 0 0 rg (\)) Tj 0 0 0 rg  T* 0 0 0 rg (calling) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (f) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (with) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 0 rg (args) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (\() Tj .4 .4 .4 rg (0) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (3) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (2) Tj 0 0 0 rg (\),) Tj 0 0 0 rg ( ) Tj 0 0 0 rg ({}) Tj 0 0 0 rg  T*  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (print) Tj /F3 10 Tf 0 0 0 rg (\() Tj 0 0 0 rg (getargspec) Tj 0 0 0 rg (\() Tj 0 0 0 rg (f) Tj 0 0 0 rg (\)\)) Tj 0 0 0 rg  T* 0 0 0 rg (ArgSpec) Tj 0 0 0 rg (\() Tj 0 0 0 rg (args) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ([) Tj .729412 .129412 .129412 rg ('x') Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ('y') Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ('z') Tj 0 0 0 rg (],) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (varargs) Tj .4 .4 .4 rg (=) Tj .729412 .129412 .129412 rg ('args') Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (keywords) Tj .4 .4 .4 rg (=) Tj .729412 .129412 .129412 rg ('kw') Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (defaults) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg (\() Tj .4 .4 .4 rg (1) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (2) Tj 0 0 0 rg (\)\)) Tj T* ET
+n 432 0 12 12 re f*
+BT 1 0 0 1 0 98 Tm 12 TL /F3 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj .666667 .133333 1 rg (@trace) Tj 0 0 0 rg  T* .4 .4 .4 rg (...) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (def) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (f) Tj 0 0 0 rg (\() Tj 0 0 0 rg (x) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (y) Tj .4 .4 .4 rg (=) Tj .4 .4 .4 rg (1) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (z) Tj .4 .4 .4 rg (=) Tj .4 .4 .4 rg (2) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (*) Tj 0 0 0 rg (args) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (**) Tj 0 0 0 rg (kw) Tj 0 0 0 rg (\):) Tj 0 0 0 rg  T* .4 .4 .4 rg (...) Tj 0 0 0 rg (     ) Tj /F5 10 Tf 0 .501961 0 rg (pass) Tj /F3 10 Tf 0 0 0 rg  T*  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (f) Tj 0 0 0 rg (\() Tj .4 .4 .4 rg (0) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (3) Tj 0 0 0 rg (\)) Tj 0 0 0 rg  T* 0 0 0 rg (calling) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (f) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (with) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 0 rg (args) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (\() Tj .4 .4 .4 rg (0) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (3) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (2) Tj 0 0 0 rg (\),) Tj 0 0 0 rg ( ) Tj 0 0 0 rg ({}) Tj 0 0 0 rg  T*  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (print) Tj /F3 10 Tf 0 0 0 rg (\() Tj 0 0 0 rg (getargspec) Tj 0 0 0 rg (\() Tj 0 0 0 rg (f) Tj 0 0 0 rg (\)\)) Tj 0 0 0 rg  T* 0 0 0 rg (ArgSpec) Tj 0 0 0 rg (\() Tj 0 0 0 rg (args) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ([) Tj .729412 .129412 .129412 rg ('x') Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ('y') Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ('z') Tj 0 0 0 rg (],) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (varargs) Tj .4 .4 .4 rg (=) Tj .729412 .129412 .129412 rg ('args') Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (varkw) Tj .4 .4 .4 rg (=) Tj .729412 .129412 .129412 rg ('kw') Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (defaults) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg (\() Tj .4 .4 .4 rg (1) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (2) Tj 0 0 0 rg (\)\)) Tj T* ET
 Q
 Q
 Q
@@ -2635,7 +2635,7 @@ Q
 q
 1 0 0 1 62.69291 455.6236 cm
 q
-BT 1 0 0 1 0 14 Tm .596647 Tw 12 TL /F1 10 Tf 0 0 0 rg (In order to introspect functions with annotations, one needs the utility ) Tj /F3 10 Tf 0 0 0 rg (inspect.getfullargspec) Tj /F1 10 Tf 0 0 0 rg (, new) Tj T* 0 Tw (in Python 3:) Tj T* ET
+BT 1 0 0 1 0 14 Tm .596647 Tw 12 TL /F1 10 Tf 0 0 0 rg (In order to introspect functions with annotations, one needs the utility ) Tj /F3 10 Tf 0 0 0 rg (inspect.getfullargspec) Tj /F1 10 Tf 0 0 0 rg (, new) Tj T* 0 Tw (in Python 3 \(and deprecated in favor of ) Tj /F3 10 Tf 0 0 0 rg (inspect.signature ) Tj /F1 10 Tf 0 0 0 rg (in Python 3.5\):) Tj T* ET
 Q
 Q
 q
@@ -4647,7 +4647,7 @@ Q
 endstream
 endobj
 112 0 obj
-<< /Length 18456 >>
+<< /Length 18313 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -4657,7 +4657,7 @@ BT 1 0 0 1 0 14 Tm 6.828314 Tw 12 TL /F1 10 Tf 0 0 0 rg (Notice: you should not 
 Q
 Q
 q
-1 0 0 1 62.69291 659.8236 cm
+1 0 0 1 62.69291 671.8236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -4667,77 +4667,67 @@ q
 .662745 .662745 .662745 RG
 .5 w
 .960784 .960784 .862745 rg
-n -6 -6 468.6898 72 re B*
+n -6 -6 468.6898 60 re B*
 Q
 q
 .960784 .960784 .862745 rg
-n 0 48 6 12 re f*
+n 0 36 6 12 re f*
 .960784 .960784 .862745 rg
-n 6 48 6 12 re f*
+n 6 36 6 12 re f*
 .960784 .960784 .862745 rg
-n 12 48 6 12 re f*
+n 12 36 6 12 re f*
 .960784 .960784 .862745 rg
-n 24 48 12 12 re f*
+n 24 36 12 12 re f*
 .960784 .960784 .862745 rg
-n 42 48 6 12 re f*
+n 42 36 6 12 re f*
 .960784 .960784 .862745 rg
-n 54 48 78 12 re f*
+n 54 36 78 12 re f*
 .960784 .960784 .862745 rg
-n 132 48 6 12 re f*
+n 132 36 6 12 re f*
 .960784 .960784 .862745 rg
-n 138 48 36 12 re f*
-.960784 .960784 .862745 rg
-n 174 48 6 12 re f*
-.960784 .960784 .862745 rg
-n 0 36 18 12 re f*
-.960784 .960784 .862745 rg
-n 48 36 60 12 re f*
-.960784 .960784 .862745 rg
-n 108 36 6 12 re f*
-.960784 .960784 .862745 rg
-n 120 36 54 12 re f*
+n 138 36 36 12 re f*
 .960784 .960784 .862745 rg
 n 174 36 6 12 re f*
 .960784 .960784 .862745 rg
-n 186 36 24 12 re f*
+n 0 24 18 12 re f*
 .960784 .960784 .862745 rg
-n 210 36 6 12 re f*
+n 48 24 60 12 re f*
 .960784 .960784 .862745 rg
-n 216 36 6 12 re f*
+n 108 24 6 12 re f*
 .960784 .960784 .862745 rg
-n 222 36 6 12 re f*
+n 120 24 54 12 re f*
 .960784 .960784 .862745 rg
-n 228 36 6 12 re f*
+n 174 24 6 12 re f*
 .960784 .960784 .862745 rg
-n 234 36 12 12 re f*
+n 186 24 24 12 re f*
 .960784 .960784 .862745 rg
-n 252 36 54 12 re f*
+n 210 24 6 12 re f*
 .960784 .960784 .862745 rg
-n 306 36 6 12 re f*
+n 216 24 6 12 re f*
 .960784 .960784 .862745 rg
-n 312 36 24 12 re f*
+n 222 24 6 12 re f*
 .960784 .960784 .862745 rg
-n 336 36 6 12 re f*
+n 228 24 6 12 re f*
 .960784 .960784 .862745 rg
-n 348 36 48 12 re f*
+n 234 24 12 12 re f*
 .960784 .960784 .862745 rg
-n 396 36 6 12 re f*
+n 252 24 54 12 re f*
 .960784 .960784 .862745 rg
-n 402 36 6 12 re f*
+n 306 24 6 12 re f*
 .960784 .960784 .862745 rg
-n 408 36 24 12 re f*
+n 312 24 24 12 re f*
 .960784 .960784 .862745 rg
-n 432 36 18 12 re f*
+n 336 24 6 12 re f*
 .960784 .960784 .862745 rg
-n 0 24 6 12 re f*
+n 348 24 48 12 re f*
 .960784 .960784 .862745 rg
-n 6 24 6 12 re f*
+n 396 24 6 12 re f*
 .960784 .960784 .862745 rg
-n 12 24 6 12 re f*
+n 402 24 6 12 re f*
 .960784 .960784 .862745 rg
-n 24 24 36 12 re f*
+n 408 24 24 12 re f*
 .960784 .960784 .862745 rg
-n 66 24 42 12 re f*
+n 432 24 18 12 re f*
 .960784 .960784 .862745 rg
 n 0 12 6 12 re f*
 .960784 .960784 .862745 rg
@@ -4749,17 +4739,13 @@ n 24 12 30 12 re f*
 .960784 .960784 .862745 rg
 n 54 12 6 12 re f*
 .960784 .960784 .862745 rg
-n 60 12 42 12 re f*
+n 60 12 60 12 re f*
 .960784 .960784 .862745 rg
-n 102 12 6 12 re f*
+n 120 12 6 12 re f*
 .960784 .960784 .862745 rg
-n 108 12 60 12 re f*
+n 126 12 12 12 re f*
 .960784 .960784 .862745 rg
-n 168 12 6 12 re f*
-.960784 .960784 .862745 rg
-n 174 12 12 12 re f*
-.960784 .960784 .862745 rg
-n 186 12 12 12 re f*
+n 138 12 12 12 re f*
 .960784 .960784 .862745 rg
 n 0 0 42 12 re f*
 .960784 .960784 .862745 rg
@@ -4787,43 +4773,43 @@ n 198 0 24 12 re f*
 .960784 .960784 .862745 rg
 n 222 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 234 0 48 12 re f*
+n 234 0 30 12 re f*
 .960784 .960784 .862745 rg
-n 282 0 6 12 re f*
+n 264 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 288 0 24 12 re f*
+n 270 0 24 12 re f*
 .960784 .960784 .862745 rg
-n 312 0 6 12 re f*
+n 294 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 324 0 48 12 re f*
+n 306 0 48 12 re f*
 .960784 .960784 .862745 rg
-n 372 0 6 12 re f*
+n 354 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 378 0 6 12 re f*
+n 360 0 6 12 re f*
 .960784 .960784 .862745 rg
-n 384 0 24 12 re f*
+n 366 0 24 12 re f*
 .960784 .960784 .862745 rg
-n 408 0 18 12 re f*
-BT 1 0 0 1 0 50 Tm 12 TL /F3 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (f1) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (FunctionMaker) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (create) Tj 0 0 0 rg (\() Tj 0 0 0 rg  T* .4 .4 .4 rg (...) Tj 0 0 0 rg (     ) Tj .729412 .129412 .129412 rg ('f1\(a, b\)') Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ('f\(a, b\)') Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 .501961 0 rg (dict) Tj 0 0 0 rg (\() Tj 0 0 0 rg (f) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg (f) Tj 0 0 0 rg (\),) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (addsource) Tj .4 .4 .4 rg (=) Tj 0 .501961 0 rg (True) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (defaults) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg (\() Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (,\)\)) Tj 0 0 0 rg  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (import) Tj /F3 10 Tf 0 0 0 rg ( ) Tj /F5 10 Tf 0 0 1 rg (inspect) Tj /F3 10 Tf 0 0 0 rg  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (print) Tj /F3 10 Tf 0 0 0 rg (\() Tj 0 0 0 rg (inspect) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (getargspec) Tj 0 0 0 rg (\() Tj 0 0 0 rg (f1) Tj 0 0 0 rg (\)\)) Tj 0 0 0 rg  T* 0 0 0 rg (ArgSpec) Tj 0 0 0 rg (\() Tj 0 0 0 rg (args) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ([) Tj .729412 .129412 .129412 rg ('a') Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ('b') Tj 0 0 0 rg (],) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (varargs) Tj .4 .4 .4 rg (=) Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (keywords) Tj .4 .4 .4 rg (=) Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (defaults) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg (\() Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (,\)\)) Tj T* ET
+n 390 0 18 12 re f*
+BT 1 0 0 1 0 38 Tm 12 TL /F3 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (f1) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (FunctionMaker) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (create) Tj 0 0 0 rg (\() Tj 0 0 0 rg  T* .4 .4 .4 rg (...) Tj 0 0 0 rg (     ) Tj .729412 .129412 .129412 rg ('f1\(a, b\)') Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ('f\(a, b\)') Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 .501961 0 rg (dict) Tj 0 0 0 rg (\() Tj 0 0 0 rg (f) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg (f) Tj 0 0 0 rg (\),) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (addsource) Tj .4 .4 .4 rg (=) Tj 0 .501961 0 rg (True) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (defaults) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg (\() Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (,\)\)) Tj 0 0 0 rg  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (print) Tj /F3 10 Tf 0 0 0 rg (\() Tj 0 0 0 rg (getargspec) Tj 0 0 0 rg (\() Tj 0 0 0 rg (f1) Tj 0 0 0 rg (\)\)) Tj 0 0 0 rg  T* 0 0 0 rg (ArgSpec) Tj 0 0 0 rg (\() Tj 0 0 0 rg (args) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg ([) Tj .729412 .129412 .129412 rg ('a') Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .729412 .129412 .129412 rg ('b') Tj 0 0 0 rg (],) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (varargs) Tj .4 .4 .4 rg (=) Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (varkw) Tj .4 .4 .4 rg (=) Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj 0 0 0 rg (defaults) Tj .4 .4 .4 rg (=) Tj 0 0 0 rg (\() Tj 0 .501961 0 rg (None) Tj 0 0 0 rg (,\)\)) Tj T* ET
 Q
 Q
 Q
 Q
 Q
 q
-1 0 0 1 62.69291 626.8236 cm
+1 0 0 1 62.69291 638.8236 cm
 q
 BT 1 0 0 1 0 3.5 Tm 21 TL /F2 17.5 Tf 0 0 0 rg (Getting the source code) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 548.8236 cm
+1 0 0 1 62.69291 560.8236 cm
 q
 BT 1 0 0 1 0 62 Tm 5.045529 Tw 12 TL /F1 10 Tf 0 0 0 rg (Internally ) Tj /F3 10 Tf 0 0 0 rg (FunctionMaker.create ) Tj /F1 10 Tf 0 0 0 rg (uses ) Tj /F3 10 Tf 0 0 0 rg (exec ) Tj /F1 10 Tf 0 0 0 rg (to generate the decorated function. Therefore) Tj T* 0 Tw 2.542126 Tw /F3 10 Tf 0 0 0 rg (inspect.getsource ) Tj /F1 10 Tf 0 0 0 rg (will not work for decorated functions. That means that the usual '??' trick in) Tj T* 0 Tw 26.45775 Tw (IPython will give you the \(right on the spot\) message) Tj T* 0 Tw .261647 Tw /F3 10 Tf 0 0 0 rg (Dynamically) Tj ( ) Tj (generated) Tj ( ) Tj (function.) Tj ( ) Tj (No) Tj ( ) Tj (source) Tj ( ) Tj (code available) Tj /F1 10 Tf 0 0 0 rg (. In the past I have considered) Tj T* 0 Tw .945366 Tw (this acceptable, since ) Tj /F3 10 Tf 0 0 0 rg (inspect.getsource ) Tj /F1 10 Tf 0 0 0 rg (does not really work even with regular decorators. In that) Tj T* 0 Tw (case ) Tj /F3 10 Tf 0 0 0 rg (inspect.getsource ) Tj /F1 10 Tf 0 0 0 rg (gives you the wrapper source code which is probably not what you want:) Tj T* ET
 Q
 Q
 q
-1 0 0 1 62.69291 479.6236 cm
+1 0 0 1 62.69291 491.6236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -4893,7 +4879,7 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 434.4236 cm
+1 0 0 1 62.69291 446.4236 cm
 q
 q
 1 0 0 1 0 0 cm
@@ -4959,9 +4945,19 @@ q
 .662745 .662745 .662745 RG
 .5 w
 .960784 .960784 .862745 rg
-n -6 -6 468.6898 60 re B*
+n -6 -6 468.6898 72 re B*
 Q
 q
+.960784 .960784 .862745 rg
+n 0 48 6 12 re f*
+.960784 .960784 .862745 rg
+n 6 48 6 12 re f*
+.960784 .960784 .862745 rg
+n 12 48 6 12 re f*
+.960784 .960784 .862745 rg
+n 24 48 36 12 re f*
+.960784 .960784 .862745 rg
+n 66 48 42 12 re f*
 .960784 .960784 .862745 rg
 n 0 36 6 12 re f*
 .960784 .960784 .862745 rg
@@ -5026,7 +5022,7 @@ n 0 0 6 12 re f*
 n 6 0 54 12 re f*
 .960784 .960784 .862745 rg
 n 60 0 6 12 re f*
-BT 1 0 0 1 0 38 Tm 12 TL /F3 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (print) Tj /F3 10 Tf 0 0 0 rg (\() Tj 0 0 0 rg (inspect) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (getsource) Tj 0 0 0 rg (\() Tj 0 0 0 rg (example) Tj 0 0 0 rg (\)\)) Tj 0 0 0 rg  T* (    ) Tj /F5 10 Tf 0 .501961 0 rg (def) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (wrapper) Tj 0 0 0 rg (\() Tj .4 .4 .4 rg (*) Tj 0 0 0 rg (args) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (**) Tj 0 0 0 rg (kw) Tj 0 0 0 rg (\):) Tj 0 0 0 rg  T* (        ) Tj /F5 10 Tf 0 .501961 0 rg (return) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 0 rg (func) Tj 0 0 0 rg (\() Tj .4 .4 .4 rg (*) Tj 0 0 0 rg (args) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (**) Tj 0 0 0 rg (kw) Tj 0 0 0 rg (\)) Tj 0 0 0 rg  T* .4 .4 .4 rg (<) Tj 0 0 0 rg (BLANKLINE) Tj .4 .4 .4 rg (>) Tj T* ET
+BT 1 0 0 1 0 50 Tm 12 TL /F3 10 Tf .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (import) Tj /F3 10 Tf 0 0 0 rg ( ) Tj /F5 10 Tf 0 0 1 rg (inspect) Tj /F3 10 Tf 0 0 0 rg  T* .4 .4 .4 rg (>) Tj (>) Tj (>) Tj 0 0 0 rg ( ) Tj /F5 10 Tf 0 .501961 0 rg (print) Tj /F3 10 Tf 0 0 0 rg (\() Tj 0 0 0 rg (inspect) Tj .4 .4 .4 rg (.) Tj 0 0 0 rg (getsource) Tj 0 0 0 rg (\() Tj 0 0 0 rg (example) Tj 0 0 0 rg (\)\)) Tj 0 0 0 rg  T* (    ) Tj /F5 10 Tf 0 .501961 0 rg (def) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 1 rg (wrapper) Tj 0 0 0 rg (\() Tj .4 .4 .4 rg (*) Tj 0 0 0 rg (args) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (**) Tj 0 0 0 rg (kw) Tj 0 0 0 rg (\):) Tj 0 0 0 rg  T* (        ) Tj /F5 10 Tf 0 .501961 0 rg (return) Tj /F3 10 Tf 0 0 0 rg ( ) Tj 0 0 0 rg (func) Tj 0 0 0 rg (\() Tj .4 .4 .4 rg (*) Tj 0 0 0 rg (args) Tj 0 0 0 rg (,) Tj 0 0 0 rg ( ) Tj .4 .4 .4 rg (**) Tj 0 0 0 rg (kw) Tj 0 0 0 rg (\)) Tj 0 0 0 rg  T* .4 .4 .4 rg (<) Tj 0 0 0 rg (BLANKLINE) Tj .4 .4 .4 rg (>) Tj T* ET
 Q
 Q
 Q
@@ -8389,48 +8385,48 @@ xref
 0000025390 00000 n
 0000032925 00000 n
 0000045489 00000 n
-0000062108 00000 n
-0000080689 00000 n
-0000098382 00000 n
-0000118796 00000 n
-0000137551 00000 n
-0000152264 00000 n
-0000166652 00000 n
-0000185167 00000 n
-0000201778 00000 n
-0000214193 00000 n
-0000231245 00000 n
-0000245487 00000 n
-0000258692 00000 n
-0000271400 00000 n
-0000280816 00000 n
-0000294082 00000 n
-0000296210 00000 n
-0000296468 00000 n
-0000296506 00000 n
-0000296544 00000 n
-0000296582 00000 n
-0000296620 00000 n
-0000296658 00000 n
-0000296696 00000 n
-0000296734 00000 n
-0000296772 00000 n
-0000296810 00000 n
-0000296849 00000 n
-0000296888 00000 n
-0000296927 00000 n
-0000296966 00000 n
-0000297005 00000 n
-0000297044 00000 n
-0000297083 00000 n
-0000297122 00000 n
-0000297161 00000 n
-0000297200 00000 n
+0000062107 00000 n
+0000080682 00000 n
+0000098490 00000 n
+0000118904 00000 n
+0000137659 00000 n
+0000152372 00000 n
+0000166760 00000 n
+0000185132 00000 n
+0000201743 00000 n
+0000214158 00000 n
+0000231210 00000 n
+0000245452 00000 n
+0000258657 00000 n
+0000271365 00000 n
+0000280781 00000 n
+0000294047 00000 n
+0000296175 00000 n
+0000296433 00000 n
+0000296471 00000 n
+0000296509 00000 n
+0000296547 00000 n
+0000296585 00000 n
+0000296623 00000 n
+0000296661 00000 n
+0000296699 00000 n
+0000296737 00000 n
+0000296775 00000 n
+0000296814 00000 n
+0000296853 00000 n
+0000296892 00000 n
+0000296931 00000 n
+0000296970 00000 n
+0000297009 00000 n
+0000297048 00000 n
+0000297087 00000 n
+0000297126 00000 n
+0000297165 00000 n
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com)
- [(\2036t\347"n8W\244\303vUDv\012\322) (\2036t\347"n8W\244\303vUDv\012\322)]
+ [(\224\356\312\274\343M$\177\006\323\247~\206\006\340\240) (\224\356\312\274\343M$\177\006\323\247~\206\006\340\240)]
  /Info 80 0 R /Root 79 0 R /Size 143 >>
 startxref
-297239
+297204
 %%EOF

@@ -32,7 +32,6 @@ Decorator module, see http://pypi.python.org/pypi/decorator
 for the documentation.
 """
 from __future__ import print_function
-from abc import ABCMeta
 
 __version__ = '4.0.0'
 
@@ -40,9 +39,16 @@ import re
 import sys
 import inspect
 import itertools
+import collections
 
 if sys.version >= '3':
-    from inspect import getfullargspec
+    # getargspec has been deprecated in Python 3.5
+    ArgSpec = collections.namedtuple(
+        'ArgSpec', 'args varargs varkw defaults')
+
+    def getargspec(f):
+        spec = inspect.getfullargspec(f)
+        return ArgSpec(spec.args, spec.varargs, spec.varkw, spec.defaults)
 
     def get_init(cls):
         return cls.__init__
@@ -61,8 +67,11 @@ else:
             yield self.varkw
             yield self.defaults
 
+        getargspec = inspect.getargspec
+
     def get_init(cls):
         return cls.__init__.__func__
+
 
 DEF = re.compile('\s*def\s*([_\w][_\w\d]*)\s*\(')
 
@@ -85,7 +94,7 @@ class FunctionMaker(object):
             self.doc = func.__doc__
             self.module = func.__module__
             if inspect.isfunction(func):
-                argspec = getfullargspec(func)
+                argspec = inspect.getfullargspec(func)
                 self.annotations = getattr(func, '__annotations__', {})
                 for a in ('args', 'varargs', 'varkw', 'defaults', 'kwonlyargs',
                           'kwonlydefaults'):
@@ -223,7 +232,7 @@ def decorator(caller, _func=None):
         callerfunc = get_init(caller)
         doc = 'decorator(%s) converts functions/generators into ' \
             'factories of %s objects' % (caller.__name__, caller.__name__)
-        fun = getfullargspec(callerfunc).args[1]  # second arg
+        fun = inspect.getfullargspec(callerfunc).args[1]  # second arg
     elif inspect.isfunction(caller):
         if caller.__name__ == '<lambda>':
             name = '_lambda_'
@@ -231,12 +240,12 @@ def decorator(caller, _func=None):
             name = caller.__name__
         callerfunc = caller
         doc = caller.__doc__
-        fun = getfullargspec(callerfunc).args[0]  # first arg
+        fun = inspect.getfullargspec(callerfunc).args[0]  # first arg
     else:  # assume caller is an object with a __call__ method
         name = caller.__class__.__name__.lower()
         callerfunc = caller.__call__.__func__
         doc = caller.__call__.__doc__
-        fun = getfullargspec(callerfunc).args[1]  # second arg
+        fun = inspect.getfullargspec(callerfunc).args[1]  # second arg
     evaldict = callerfunc.__globals__.copy()
     evaldict['_call_'] = caller
     evaldict['_decorate_'] = decorate
@@ -262,7 +271,7 @@ class ContextManager(_GeneratorContextManager):
             func, "with _self_: return _func_(%(shortsignature)s)",
             dict(_self_=self, _func_=func), __wrapped__=func)
 
-init = getfullargspec(_GeneratorContextManager.__init__)
+init = inspect.getfullargspec(_GeneratorContextManager.__init__)
 n_args = len(init.args)
 if n_args == 2 and not init.varargs:  # (self, genobj) Python 2.7
     def __init__(self, g, *a, **k):
@@ -316,7 +325,7 @@ def dispatch_on(*dispatch_args):
         """Decorator turning a function into a generic function"""
 
         # first check the dispatch arguments
-        argset = set(getfullargspec(func).args)
+        argset = set(inspect.getfullargspec(func).args)
         if not set(dispatch_args) <= argset:
             raise NameError('Unknown dispatch arguments %s' % dispatch_str)
 
@@ -324,7 +333,7 @@ def dispatch_on(*dispatch_args):
 
         def vancestors(*types):
             """
-            Get a list of lists of virtual ancestors for the given types
+            Get a list of sets of virtual ancestors for the given types
             """
             check(types)
             ras = [[] for _ in range(len(dispatch_args))]
@@ -334,9 +343,9 @@ def dispatch_on(*dispatch_args):
                         append(type_, ra)
             return [set(ra) for ra in ras]
 
-        def mros(*types):
+        def vmros(*types):
             """
-            Get a list of MROs, one for each type
+            Get a list of virtual MROs, one for each type
             """
             check(types)
             lists = []
@@ -358,7 +367,7 @@ def dispatch_on(*dispatch_args):
             check(types)
 
             def dec(f):
-                n_args = len(getfullargspec(f).args)
+                n_args = len(inspect.getfullargspec(f).args)
                 if n_args < len(dispatch_args):
                     raise TypeError(
                         '%s has not enough arguments (got %d, expected %d)' %
@@ -376,7 +385,7 @@ def dispatch_on(*dispatch_args):
                 pass
             else:
                 return f(*args, **kw)
-            for types_ in itertools.product(*mros(*types)):
+            for types_ in itertools.product(*vmros(*types)):
                 f = typemap.get(types_)
                 if f is not None:
                     return f(*args, **kw)
@@ -387,7 +396,7 @@ def dispatch_on(*dispatch_args):
         return FunctionMaker.create(
             func, 'return _f_(%s, %%(shortsignature)s)' % dispatch_str,
             dict(_f_=_dispatch), register=register, default=func,
-            typemap=typemap, vancestors=vancestors, mros=mros,
+            typemap=typemap, vancestors=vancestors, vmros=vmros,
             __wrapped__=func)
 
     gen_func_dec.__name__ = 'dispatch_on' + dispatch_str
