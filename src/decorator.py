@@ -42,13 +42,7 @@ import itertools
 import collections
 
 if sys.version >= '3':
-    # getargspec has been deprecated in Python 3.5
-    ArgSpec = collections.namedtuple(
-        'ArgSpec', 'args varargs varkw defaults')
-
-    def getargspec(f):
-        spec = inspect.getfullargspec(f)
-        return ArgSpec(spec.args, spec.varargs, spec.varkw, spec.defaults)
+    from inspect import getfullargspec
 
     def get_init(cls):
         return cls.__init__
@@ -72,6 +66,15 @@ else:
     def get_init(cls):
         return cls.__init__.__func__
 
+# getargspec has been deprecated in Python 3.5
+ArgSpec = collections.namedtuple(
+    'ArgSpec', 'args varargs varkw defaults')
+
+
+def getargspec(f):
+    """A replacement for inspect.getargspec"""
+    spec = getfullargspec(f)
+    return ArgSpec(spec.args, spec.varargs, spec.varkw, spec.defaults)
 
 DEF = re.compile('\s*def\s*([_\w][_\w\d]*)\s*\(')
 
@@ -94,7 +97,7 @@ class FunctionMaker(object):
             self.doc = func.__doc__
             self.module = func.__module__
             if inspect.isfunction(func):
-                argspec = inspect.getfullargspec(func)
+                argspec = getfullargspec(func)
                 self.annotations = getattr(func, '__annotations__', {})
                 for a in ('args', 'varargs', 'varkw', 'defaults', 'kwonlyargs',
                           'kwonlydefaults'):
@@ -232,7 +235,7 @@ def decorator(caller, _func=None):
         callerfunc = get_init(caller)
         doc = 'decorator(%s) converts functions/generators into ' \
             'factories of %s objects' % (caller.__name__, caller.__name__)
-        fun = inspect.getfullargspec(callerfunc).args[1]  # second arg
+        fun = getfullargspec(callerfunc).args[1]  # second arg
     elif inspect.isfunction(caller):
         if caller.__name__ == '<lambda>':
             name = '_lambda_'
@@ -240,12 +243,12 @@ def decorator(caller, _func=None):
             name = caller.__name__
         callerfunc = caller
         doc = caller.__doc__
-        fun = inspect.getfullargspec(callerfunc).args[0]  # first arg
+        fun = getfullargspec(callerfunc).args[0]  # first arg
     else:  # assume caller is an object with a __call__ method
         name = caller.__class__.__name__.lower()
         callerfunc = caller.__call__.__func__
         doc = caller.__call__.__doc__
-        fun = inspect.getfullargspec(callerfunc).args[1]  # second arg
+        fun = getfullargspec(callerfunc).args[1]  # second arg
     evaldict = callerfunc.__globals__.copy()
     evaldict['_call_'] = caller
     evaldict['_decorate_'] = decorate
@@ -271,7 +274,7 @@ class ContextManager(_GeneratorContextManager):
             func, "with _self_: return _func_(%(shortsignature)s)",
             dict(_self_=self, _func_=func), __wrapped__=func)
 
-init = inspect.getfullargspec(_GeneratorContextManager.__init__)
+init = getfullargspec(_GeneratorContextManager.__init__)
 n_args = len(init.args)
 if n_args == 2 and not init.varargs:  # (self, genobj) Python 2.7
     def __init__(self, g, *a, **k):
@@ -325,7 +328,7 @@ def dispatch_on(*dispatch_args):
         """Decorator turning a function into a generic function"""
 
         # first check the dispatch arguments
-        argset = set(inspect.getfullargspec(func).args)
+        argset = set(getfullargspec(func).args)
         if not set(dispatch_args) <= argset:
             raise NameError('Unknown dispatch arguments %s' % dispatch_str)
 
@@ -367,7 +370,7 @@ def dispatch_on(*dispatch_args):
             check(types)
 
             def dec(f):
-                n_args = len(inspect.getfullargspec(f).args)
+                n_args = len(getfullargspec(f).args)
                 if n_args < len(dispatch_args):
                     raise TypeError(
                         '%s has not enough arguments (got %d, expected %d)' %
