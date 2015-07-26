@@ -51,7 +51,7 @@ There are various versions of the documentation:
 -  `HTML version`_ 
 -  `PDF version`_ 
 
-.. _HTML version: http://pypi.python.org/pypi/decorator/documentation.html
+.. _HTML version: http://pythonhosted.org/decorator/documentation.html
 .. _PDF version: https://github.com/micheles/decorator/blob/4.0.1/documentation.pdf
 
 Repository
