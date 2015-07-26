@@ -25,7 +25,7 @@ the documentation, download the tarball_, unpack it and run
 in the main directory, possibly as superuser.
 
 .. _tarball: http://pypi.python.org/pypi/decorator
-.. _distribute: http://packages.python.org/distribute/
+
 
 Testing
 --------
@@ -51,8 +51,8 @@ There are various versions of the documentation:
 -  `HTML version`_ 
 -  `PDF version`_ 
 
-.. _HTML version: https://github.com/micheles/decorator/blob/4.0.0/docs/documentation.rst
-.. _PDF version: https://github.com/micheles/decorator/blob/4.0.0/docs/documentation.pdf
+.. _HTML version: http://pypi.python.org/pypi/decorator/documentation.html
+.. _PDF version: https://github.com/micheles/decorator/blob/4.0.1/documentation.pdf
 
 Repository
 ---------------
