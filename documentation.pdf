@@ -265,7 +265,7 @@ endobj
 << /Outlines 82 0 R /PageLabels 123 0 R /PageMode /UseNone /Pages 102 0 R /Type /Catalog >>
 endobj
 81 0 obj
-<< /Author (Michele Simionato) /CreationDate (D:20150726073553-01'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
+<< /Author (Michele Simionato) /CreationDate (D:20150728053248-01'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
   /Title (The decorator module) >>
 endobj
 82 0 obj
@@ -398,7 +398,7 @@ q
 1 0 0 1 91.03937 3 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (4.0.0 \(2015-07-25\)) Tj T* ET
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (4.0.0 \(2015-07-28\)) Tj T* ET
 Q
 Q
 q
@@ -2252,7 +2252,7 @@ Q
 endstream
 endobj
 108 0 obj
-<< /Length 20133 >>
+<< /Length 19973 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -2837,9 +2837,9 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 92.02362 cm
+1 0 0 1 62.69291 104.0236 cm
 q
-BT 1 0 0 1 0 38 Tm .84284 Tw 12 TL /F1 10 Tf 0 0 0 rg (Here ) Tj /F3 10 Tf 0 0 0 rg (f.__wrapped__ ) Tj /F1 10 Tf 0 0 0 rg (is the original undecorated function. Such an attribute is added to be consistent) Tj T* 0 Tw 1.36998 Tw (with the way ) Tj /F3 10 Tf 0 0 0 rg (functools.update_wrapper ) Tj /F1 10 Tf 0 0 0 rg (work. Another attribute which is copied from the original) Tj T* 0 Tw .41881 Tw (function is ) Tj /F3 10 Tf 0 0 0 rg (__qualname__) Tj /F1 10 Tf 0 0 0 rg (, the qualified name. This is a concept introduced in Python 3. In Python 2 the) Tj T* 0 Tw (decorator module will still add a qualified name, but its value will always be ) Tj /F3 10 Tf 0 0 0 rg (None) Tj /F1 10 Tf 0 0 0 rg (.) Tj T* ET
+BT 1 0 0 1 0 26 Tm .84284 Tw 12 TL /F1 10 Tf 0 0 0 rg (Here ) Tj /F3 10 Tf 0 0 0 rg (f.__wrapped__ ) Tj /F1 10 Tf 0 0 0 rg (is the original undecorated function. Such an attribute is added to be consistent) Tj T* 0 Tw 1.36998 Tw (with the way ) Tj /F3 10 Tf 0 0 0 rg (functools.update_wrapper ) Tj /F1 10 Tf 0 0 0 rg (work. Another attribute which is copied from the original) Tj T* 0 Tw (function is ) Tj /F3 10 Tf 0 0 0 rg (__qualname__) Tj /F1 10 Tf 0 0 0 rg (, the qualified name. This is an attribute which is present only in Python 3.) Tj T* ET
 Q
 Q
  
@@ -8715,46 +8715,46 @@ xref
 0000045327 00000 n
 0000061191 00000 n
 0000078919 00000 n
-0000099111 00000 n
-0000119525 00000 n
-0000138280 00000 n
-0000153002 00000 n
-0000167390 00000 n
-0000185809 00000 n
-0000202420 00000 n
-0000214835 00000 n
-0000231896 00000 n
-0000245618 00000 n
-0000258764 00000 n
-0000270899 00000 n
-0000283212 00000 n
-0000294537 00000 n
-0000306904 00000 n
-0000307162 00000 n
-0000307200 00000 n
-0000307238 00000 n
-0000307276 00000 n
-0000307314 00000 n
-0000307352 00000 n
-0000307390 00000 n
-0000307428 00000 n
-0000307466 00000 n
-0000307504 00000 n
-0000307543 00000 n
-0000307582 00000 n
-0000307621 00000 n
-0000307660 00000 n
-0000307699 00000 n
-0000307738 00000 n
-0000307777 00000 n
-0000307816 00000 n
-0000307855 00000 n
-0000307894 00000 n
+0000098951 00000 n
+0000119365 00000 n
+0000138120 00000 n
+0000152842 00000 n
+0000167230 00000 n
+0000185649 00000 n
+0000202260 00000 n
+0000214675 00000 n
+0000231736 00000 n
+0000245458 00000 n
+0000258604 00000 n
+0000270739 00000 n
+0000283052 00000 n
+0000294377 00000 n
+0000306744 00000 n
+0000307002 00000 n
+0000307040 00000 n
+0000307078 00000 n
+0000307116 00000 n
+0000307154 00000 n
+0000307192 00000 n
+0000307230 00000 n
+0000307268 00000 n
+0000307306 00000 n
+0000307344 00000 n
+0000307383 00000 n
+0000307422 00000 n
+0000307461 00000 n
+0000307500 00000 n
+0000307539 00000 n
+0000307578 00000 n
+0000307617 00000 n
+0000307656 00000 n
+0000307695 00000 n
+0000307734 00000 n
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com)
- [(\324>EL\326}\272\001]o/\2719G\020a) (\324>EL\326}\272\001]o/\2719G\020a)]
+ [(\217R\305\230\016\277\270\201\253\034\343\264\364\312{\234) (\217R\305\230\016\277\270\201\253\034\343\264\364\312{\234)]
  /Info 81 0 R /Root 80 0 R /Size 144 >>
 startxref
-307933
+307773
 %%EOF

@@ -219,10 +219,12 @@ def decorate(func, caller):
     evaldict = func.__globals__.copy()
     evaldict['_call_'] = caller
     evaldict['_func_'] = func
-    qn = getattr(func, '__qualname__', None)
-    return FunctionMaker.create(
+    fun = FunctionMaker.create(
         func, "return _call_(_func_, %(shortsignature)s)",
-        evaldict, __wrapped__=func, __qualname__=qn)
+        evaldict, __wrapped__=func)
+    if hasattr(func, '__qualname__'):
+        fun.__qualname__ = func.__qualname__
+    return fun
 
 
 def decorator(caller, _func=None):

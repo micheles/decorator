@@ -1121,9 +1121,8 @@ You can check that the ``__annotations__`` dictionary is preserved:
 Here ``f.__wrapped__`` is the original undecorated function. Such an attribute
 is added to be consistent with the way ``functools.update_wrapper`` work.
 Another attribute which is copied from the original function is
-``__qualname__``, the qualified name. This is a concept introduced
-in Python 3. In Python 2 the decorator module will still add a
-qualified name, but its value will always be ``None``.
+``__qualname__``, the qualified name. This is an attribute which is
+present only in Python 3.
 """
 
 import sys
