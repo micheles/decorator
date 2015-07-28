@@ -41,12 +41,12 @@ class DocumentationTestCase(unittest.TestCase):
 
 class ExtraTestCase(unittest.TestCase):
     def test_qualname(self):
-        if sys.version >= '3':
+        if sys.version >= '3.3':
             self.assertEqual(doc.hello.__qualname__, 'hello')
         else:
             with assertRaises(AttributeError):
                 doc.hello.__qualname__
-        
+
     def test_signature(self):
         if hasattr(inspect, 'signature'):
             sig = inspect.signature(doc.f1)

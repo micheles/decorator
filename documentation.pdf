@@ -265,7 +265,7 @@ endobj
 << /Outlines 82 0 R /PageLabels 123 0 R /PageMode /UseNone /Pages 102 0 R /Type /Catalog >>
 endobj
 81 0 obj
-<< /Author (Michele Simionato) /CreationDate (D:20150728053248-01'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
+<< /Author (Michele Simionato) /CreationDate (D:20150728053759-01'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
   /Title (The decorator module) >>
 endobj
 82 0 obj
@@ -2252,7 +2252,7 @@ Q
 endstream
 endobj
 108 0 obj
-<< /Length 19973 >>
+<< /Length 20005 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -2837,9 +2837,9 @@ Q
 Q
 Q
 q
-1 0 0 1 62.69291 104.0236 cm
+1 0 0 1 62.69291 92.02362 cm
 q
-BT 1 0 0 1 0 26 Tm .84284 Tw 12 TL /F1 10 Tf 0 0 0 rg (Here ) Tj /F3 10 Tf 0 0 0 rg (f.__wrapped__ ) Tj /F1 10 Tf 0 0 0 rg (is the original undecorated function. Such an attribute is added to be consistent) Tj T* 0 Tw 1.36998 Tw (with the way ) Tj /F3 10 Tf 0 0 0 rg (functools.update_wrapper ) Tj /F1 10 Tf 0 0 0 rg (work. Another attribute which is copied from the original) Tj T* 0 Tw (function is ) Tj /F3 10 Tf 0 0 0 rg (__qualname__) Tj /F1 10 Tf 0 0 0 rg (, the qualified name. This is an attribute which is present only in Python 3.) Tj T* ET
+BT 1 0 0 1 0 38 Tm .84284 Tw 12 TL /F1 10 Tf 0 0 0 rg (Here ) Tj /F3 10 Tf 0 0 0 rg (f.__wrapped__ ) Tj /F1 10 Tf 0 0 0 rg (is the original undecorated function. Such an attribute is added to be consistent) Tj T* 0 Tw 1.36998 Tw (with the way ) Tj /F3 10 Tf 0 0 0 rg (functools.update_wrapper ) Tj /F1 10 Tf 0 0 0 rg (work. Another attribute which is copied from the original) Tj T* 0 Tw .588651 Tw (function is ) Tj /F3 10 Tf 0 0 0 rg (__qualname__) Tj /F1 10 Tf 0 0 0 rg (, the qualified name. This is an attribute which is present starting from Python) Tj T* 0 Tw (3.3.) Tj T* ET
 Q
 Q
  
@@ -5152,7 +5152,7 @@ Q
 endstream
 endobj
 114 0 obj
-<< /Length 16552 >>
+<< /Length 16578 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -5246,7 +5246,7 @@ Q
 q
 1 0 0 1 62.69291 611.8236 cm
 q
-BT 1 0 0 1 0 26 Tm .079982 Tw 12 TL /F3 10 Tf 0 0 0 rg (decorator_apply ) Tj /F1 10 Tf 0 0 0 rg (sets the attribute ) Tj /F3 10 Tf 0 0 0 rg (__wrapped__ ) Tj /F1 10 Tf 0 0 0 rg (of the generated function to the original function, so) Tj T* 0 Tw .028935 Tw (that you can get the right source code. If you are using Python 3, you should also set the ) Tj /F3 10 Tf 0 0 0 rg (__qualname__) Tj T* 0 Tw /F1 10 Tf 0 0 0 rg (attribute to preserve the qualified name of the original function.) Tj T* ET
+BT 1 0 0 1 0 26 Tm .079982 Tw 12 TL /F3 10 Tf 0 0 0 rg (decorator_apply ) Tj /F1 10 Tf 0 0 0 rg (sets the attribute ) Tj /F3 10 Tf 0 0 0 rg (__wrapped__ ) Tj /F1 10 Tf 0 0 0 rg (of the generated function to the original function, so) Tj T* 0 Tw .00856 Tw (that you can get the right source code. If you are using a Python more recent than 3.2, you should also set) Tj T* 0 Tw (the ) Tj /F3 10 Tf 0 0 0 rg (__qualname__ ) Tj /F1 10 Tf 0 0 0 rg (attribute to preserve the qualified name of the original function.) Tj T* ET
 Q
 Q
 q
@@ -8715,46 +8715,46 @@ xref
 0000045327 00000 n
 0000061191 00000 n
 0000078919 00000 n
-0000098951 00000 n
-0000119365 00000 n
-0000138120 00000 n
-0000152842 00000 n
-0000167230 00000 n
-0000185649 00000 n
-0000202260 00000 n
-0000214675 00000 n
-0000231736 00000 n
-0000245458 00000 n
-0000258604 00000 n
-0000270739 00000 n
-0000283052 00000 n
-0000294377 00000 n
-0000306744 00000 n
-0000307002 00000 n
-0000307040 00000 n
-0000307078 00000 n
-0000307116 00000 n
-0000307154 00000 n
-0000307192 00000 n
-0000307230 00000 n
-0000307268 00000 n
-0000307306 00000 n
-0000307344 00000 n
-0000307383 00000 n
-0000307422 00000 n
-0000307461 00000 n
-0000307500 00000 n
-0000307539 00000 n
-0000307578 00000 n
-0000307617 00000 n
-0000307656 00000 n
-0000307695 00000 n
-0000307734 00000 n
+0000098983 00000 n
+0000119397 00000 n
+0000138152 00000 n
+0000152874 00000 n
+0000167262 00000 n
+0000185681 00000 n
+0000202318 00000 n
+0000214733 00000 n
+0000231794 00000 n
+0000245516 00000 n
+0000258662 00000 n
+0000270797 00000 n
+0000283110 00000 n
+0000294435 00000 n
+0000306802 00000 n
+0000307060 00000 n
+0000307098 00000 n
+0000307136 00000 n
+0000307174 00000 n
+0000307212 00000 n
+0000307250 00000 n
+0000307288 00000 n
+0000307326 00000 n
+0000307364 00000 n
+0000307402 00000 n
+0000307441 00000 n
+0000307480 00000 n
+0000307519 00000 n
+0000307558 00000 n
+0000307597 00000 n
+0000307636 00000 n
+0000307675 00000 n
+0000307714 00000 n
+0000307753 00000 n
+0000307792 00000 n
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com)
- [(\217R\305\230\016\277\270\201\253\034\343\264\364\312{\234) (\217R\305\230\016\277\270\201\253\034\343\264\364\312{\234)]
+ [(\034\315\274\355b[\330\010`\222E\372#\000b]) (\034\315\274\355b[\330\010`\222E\372#\000b])]
  /Info 81 0 R /Root 80 0 R /Size 144 >>
 startxref
-307773
+307831
 %%EOF

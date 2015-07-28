@@ -611,11 +611,11 @@ having to rewrite them in terms of ``decorator``. You can use a
 
 $$decorator_apply
 
-``decorator_apply`` sets the attribute ``__wrapped__`` of the generated
-function to the original function, so that you can get the right
-source code. If you are using Python 3, you should also set the
-``__qualname__`` attribute to preserve the qualified name of the
-original function.
+``decorator_apply`` sets the attribute ``__wrapped__`` of the
+generated function to the original function, so that you can get the
+right source code. If you are using a Python more recent than 3.2, you
+should also set the ``__qualname__`` attribute to preserve the
+qualified name of the original function.
 
 Notice that I am not providing this functionality in the ``decorator``
 module directly since I think it is best to rewrite the decorator rather
@@ -1122,7 +1122,7 @@ Here ``f.__wrapped__`` is the original undecorated function. Such an attribute
 is added to be consistent with the way ``functools.update_wrapper`` work.
 Another attribute which is copied from the original function is
 ``__qualname__``, the qualified name. This is an attribute which is
-present only in Python 3.
+present starting from Python 3.3.
 """
 
 import sys
