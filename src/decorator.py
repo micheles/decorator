@@ -33,7 +33,7 @@ for the documentation.
 """
 from __future__ import print_function
 
-__version__ = '4.0.1'
+__version__ = '4.0.2'
 
 import re
 import sys

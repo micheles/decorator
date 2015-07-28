@@ -1,6 +1,8 @@
 HISTORY
 --------
 
+4.0.2 Fix: docs/README.rst was not included in MANIFEST.in by accident,
+     thus breaking the source installation (2015/07/28)
 4.0.1 Added docs directory and upload_docs command. Fixed bug with
      `__qualname__`, reported by Lucian Petrut (2015/07/28)
 4.0.0 Removed the need for 2to3 by dropping the support for Python 2.5.
