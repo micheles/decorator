@@ -16,7 +16,7 @@ endobj
 << /A << /S /URI /Type /Action /URI (mailto:michele.simionato@gmail.com) >> /Border [ 0 0 0 ] /Rect [ 153.7323 704.0236 289.4623 716.0236 ] /Subtype /Link /Type /Annot >>
 endobj
 6 0 obj
-<< /A << /S /URI /Type /Action /URI (http://pypi.python.org/pypi/decorator/4.0.0) >> /Border [ 0 0 0 ] /Rect [ 153.7323 659.7736 338.2823 671.7736 ] /Subtype /Link /Type /Annot >>
+<< /A << /S /URI /Type /Action /URI (http://pypi.python.org/pypi/decorator/4.0.1) >> /Border [ 0 0 0 ] /Rect [ 153.7323 659.7736 338.2823 671.7736 ] /Subtype /Link /Type /Annot >>
 endobj
 7 0 obj
 << /Border [ 0 0 0 ] /Contents () /Dest [ 52 0 R /XYZ 62.69291 765.0236 0 ] /Rect [ 62.69291 560.0236 121.0229 572.0236 ] /Subtype /Link /Type /Annot >>
@@ -265,7 +265,7 @@ endobj
 << /Outlines 82 0 R /PageLabels 123 0 R /PageMode /UseNone /Pages 102 0 R /Type /Catalog >>
 endobj
 81 0 obj
-<< /Author (Michele Simionato) /CreationDate (D:20150728053759-01'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
+<< /Author (Michele Simionato) /CreationDate (D:20150728054330-01'00') /Creator (\(unspecified\)) /Keywords () /Producer (ReportLab PDF Library - www.reportlab.com) /Subject (\(unspecified\)) 
   /Title (The decorator module) >>
 endobj
 82 0 obj
@@ -398,7 +398,7 @@ q
 1 0 0 1 91.03937 3 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (4.0.0 \(2015-07-28\)) Tj T* ET
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (4.0.1 \(2015-07-28\)) Tj T* ET
 Q
 Q
 q
@@ -441,7 +441,7 @@ q
 q
 0 0 .501961 rg
 0 0 .501961 RG
-BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (http://pypi.python.org/pypi/decorator/4.0.0) Tj T* ET
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (http://pypi.python.org/pypi/decorator/4.0.1) Tj T* ET
 Q
 Q
 q
@@ -8753,7 +8753,7 @@ xref
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com)
- [(\034\315\274\355b[\330\010`\222E\372#\000b]) (\034\315\274\355b[\330\010`\222E\372#\000b])]
+ [(=\334\327e\255\227\224\244%>\032\024fQ\012\203) (=\334\327e\255\227\224\244%>\032\024fQ\012\203)]
  /Info 81 0 R /Root 80 0 R /Size 144 >>
 startxref
 307831
