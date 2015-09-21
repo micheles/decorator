@@ -147,11 +147,14 @@ that depends on non-hashable arguments):
 
 $$memoize_uw
 
-Here i used the functools.update_wrapper_ utility, which has
+Here I used the functools.update_wrapper_ utility, which has
 been added in Python 2.5 expressly to simplify the definition of decorators
 (in older versions of Python you need to copy the function attributes
 ``__name__``, ``__doc__``, ``__module__`` and ``__dict__``
 from the original function to the decorated function by hand).
+Here is an example of usage:
+
+$$f1
 
 .. _functools.update_wrapper: https://docs.python.org/3/library/functools.html#functools.update_wrapper
 
