@@ -87,6 +87,10 @@ class FunctionMaker(object):
     It has attributes name, doc, module, signature, defaults, dict and
     methods update and make.
     """
+
+    # Atomic get-and-increment provided by the GIL
+    _compile_count = itertools.count()
+
     def __init__(self, func=None, name=None, signature=None,
                  defaults=None, doc=None, module=None, funcdict=None):
         self.shortsignature = signature
@@ -176,8 +180,13 @@ class FunctionMaker(object):
                 raise NameError('%s is overridden in\n%s' % (n, src))
         if not src.endswith('\n'):  # add a newline just for safety
             src += '\n'  # this is needed in old versions of Python
+
+        # Ensure each generated function has a unique filename for profilers
+        # (such as cProfile) that depend on the tuple of (<filename>,
+        # <definition line>, <function name>) being unique.
+        filename = '<decorator-gen-%d>' % (next(self._compile_count),)
         try:
-            code = compile(src, '<string>', 'single')
+            code = compile(src, filename, 'single')
             exec(code, evaldict)
         except:
             print('Error in generated code:', file=sys.stderr)
