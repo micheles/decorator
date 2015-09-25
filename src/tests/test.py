@@ -6,7 +6,7 @@ import decimal
 import inspect
 import functools
 import collections
-from decorator import dispatch_on, contextmanager
+from decorator import dispatch_on, contextmanager, decorator
 try:
     from . import documentation as doc
 except (SystemError, ValueError):
@@ -51,6 +51,33 @@ class ExtraTestCase(unittest.TestCase):
         if hasattr(inspect, 'signature'):
             sig = inspect.signature(doc.f1)
             self.assertEqual(str(sig), '(x)')
+
+    def test_unique_filenames(self):
+        @decorator
+        def d1(f, *args, **kwargs):
+            return f(*args, **kwargs)
+
+        @decorator
+        def d2(f, *args, **kwargs):
+            return f(*args, **kwargs)
+
+        @d1
+        def f1(x, y, z):
+            pass
+
+        @d2
+        def f2(x, y, z):
+            pass
+
+        f1_orig = f1
+
+        @d1
+        def f1(x, y, z):
+            pass
+
+        self.assertNotEqual(d1.__code__.co_filename, d2.__code__.co_filename)
+        self.assertNotEqual(f1.__code__.co_filename, f2.__code__.co_filename)
+        self.assertNotEqual(f1_orig.__code__.co_filename, f1.__code__.co_filename)
 
 # ################### test dispatch_on ############################# #
 # adapted from test_functools in Python 3.5
