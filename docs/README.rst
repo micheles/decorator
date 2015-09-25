@@ -52,7 +52,7 @@ There are various versions of the documentation:
 -  `PDF version`_ 
 
 .. _HTML version: http://pythonhosted.org/decorator/documentation.html
-.. _PDF version: https://github.com/micheles/decorator/blob/4.0.1/documentation.pdf
+.. _PDF version: https://github.com/micheles/decorator/blob/4.0.4/documentation.pdf
 
 Repository
 ---------------

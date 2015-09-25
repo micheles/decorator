@@ -1,6 +1,8 @@
 HISTORY
 --------
 
+4.0.4 Included a patch from Zev Benjamin: now decorated functions play well
+     with cProfile (2015/09/25)
 4.0.3 Added a warning about the memoize example, as requested by Robert
      Buchholz (2015/09/25)
 4.0.2 docs/README.rst was not included in MANIFEST.in by accident,
