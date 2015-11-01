@@ -93,6 +93,9 @@ class ExtraTestCase(unittest.TestCase):
             return sum(args) + sum(kwargs.values())
 
         self.assertEqual(f(1,2,3), 11)
+
+        # test that a keyword arg of decorated_function doesn't conflict with
+        # anything - since that name is used internally
         self.assertEqual(f(a=1, f=2, decorated_function=5), 13)
 
 # ################### test dispatch_on ############################# #
