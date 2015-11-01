@@ -79,6 +79,22 @@ class ExtraTestCase(unittest.TestCase):
         self.assertNotEqual(f1.__code__.co_filename, f2.__code__.co_filename)
         self.assertNotEqual(f1_orig.__code__.co_filename, f1.__code__.co_filename)
 
+    def test_positional_only_function(self):
+        @decorator
+        def plus5(*args, **kwargs):
+            # this pattern is useful so that any variable name can be used as a keyword
+            # whereas the usual pattern (def ...(f, *args, **kwargs)) makes "f" off limits
+            f = args[0]
+            args = args[1:]
+            return f(*args, **kwargs) + 5
+
+        @plus5
+        def f(*args, **kwargs):
+            return sum(args) + sum(kwargs.values())
+
+        self.assertEqual(f(1,2,3), 11)
+        self.assertEqual(f(a=1, f=2, decorated_function=5), 13)
+
 # ################### test dispatch_on ############################# #
 # adapted from test_functools in Python 3.5
 singledispatch = dispatch_on('obj')
