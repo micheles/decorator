@@ -262,7 +262,7 @@ def decorator(caller, _func=None):
     evaldict['_call_'] = caller
     evaldict['_decorate_'] = decorate
     return FunctionMaker.create(
-        '%s(_f_)' % name, 'return _decorate_(_f_, _call_)',
+        '%s(func)' % name, 'return _decorate_(func, _call_)',
         evaldict, doc=doc, module=caller.__module__,
         __wrapped__=caller)
 
