@@ -33,14 +33,14 @@ for the documentation.
 """
 from __future__ import print_function
 
-__version__ = '4.0.4'
-
 import re
 import sys
 import inspect
 import operator
 import itertools
 import collections
+
+__version__ = '4.0.5'
 
 if sys.version >= '3':
     from inspect import getfullargspec
@@ -247,7 +247,6 @@ def decorator(caller, _func=None):
         callerfunc = get_init(caller)
         doc = 'decorator(%s) converts functions/generators into ' \
             'factories of %s objects' % (caller.__name__, caller.__name__)
-        fun = getfullargspec(callerfunc).args[1]  # second arg
     elif inspect.isfunction(caller):
         if caller.__name__ == '<lambda>':
             name = '_lambda_'
@@ -255,18 +254,15 @@ def decorator(caller, _func=None):
             name = caller.__name__
         callerfunc = caller
         doc = caller.__doc__
-        fun = getfullargspec(callerfunc).args[0]  # first arg
     else:  # assume caller is an object with a __call__ method
         name = caller.__class__.__name__.lower()
         callerfunc = caller.__call__.__func__
         doc = caller.__call__.__doc__
-        fun = getfullargspec(callerfunc).args[1]  # second arg
     evaldict = callerfunc.__globals__.copy()
     evaldict['_call_'] = caller
     evaldict['_decorate_'] = decorate
     return FunctionMaker.create(
-        '%s(%s)' % (name, fun),
-        'return _decorate_(%s, _call_)' % fun,
+        '%s(_f_)' % name, 'return _decorate_(_f_, _call_)',
         evaldict, doc=doc, module=caller.__module__,
         __wrapped__=caller)
 
