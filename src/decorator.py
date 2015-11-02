@@ -255,7 +255,10 @@ def decorator(caller, _func=None):
             name = caller.__name__
         callerfunc = caller
         doc = caller.__doc__
-        fun = getfullargspec(callerfunc).args[0]  # first arg
+        # this name is arbitrary.  We don't use the first arg of the
+        # argspec so that we support functions with no named positional arguments
+        # - so the function can be positional-only.
+        fun = 'decorated_function'  # first arg
     else:  # assume caller is an object with a __call__ method
         name = caller.__class__.__name__.lower()
         callerfunc = caller.__call__.__func__
