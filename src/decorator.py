@@ -165,21 +165,24 @@ class FunctionMaker(object):
         func.__module__ = getattr(self, 'module', callermodule)
         func.__dict__.update(kw)
 
-    def make(self, src_templ, evaldict=None, addsource=False, **attrs):
+    def make(self, src_templ, evaldict=None, addsource=False, closure=None, **attrs):
         "Make a new function from a given template and update the signature"
-        src = src_templ % vars(self)  # expand name and signature
+        inner_src = src_templ % vars(self)  # expand name and signature
         evaldict = evaldict or {}
-        mo = DEF.match(src)
+        mo = DEF.match(inner_src)
         if mo is None:
             raise SyntaxError('not a valid function template\n%s' % src)
         name = mo.group(1)  # extract the function name
         names = set([name] + [arg.strip(' *') for arg in
                               self.shortsignature.split(',')])
-        for n in names:
-            if n in ('_func_', '_call_'):
-                raise NameError('%s is overridden in\n%s' % (n, src))
-        if not src.endswith('\n'):  # add a newline just for safety
-            src += '\n'  # this is needed in old versions of Python
+        if closure is None:
+            closure = {}
+        else:
+            for n in names:
+                if n in closure:
+                    raise NameError('%s is overridden in\n%s' % (n, inner_src))
+        outer_args = ", ".join(closure)
+        src = 'def _decorator_outer_(%s):\n  %s\n  return %s\n' % (outer_args, inner_src, name)
 
         # Ensure each generated function has a unique filename for profilers
         # (such as cProfile) that depend on the tuple of (<filename>,
@@ -192,15 +195,20 @@ class FunctionMaker(object):
             print('Error in generated code:', file=sys.stderr)
             print(src, file=sys.stderr)
             raise
-        func = evaldict[name]
+        func = evaldict['_decorator_outer_'](**closure)
+        del evaldict['_decorator_outer_']
+        if hasattr(func, '__qualname__'):
+            func.__qualname__ = func.__qualname__.replace('_decorator_outer_.<locals>.', '')
         if addsource:
-            attrs['__source__'] = src
+            if not inner_src.endswith('\n'):
+                inner_src += '\n'
+            attrs['__source__'] = inner_src
         self.update(func, **attrs)
         return func
 
     @classmethod
     def create(cls, obj, body, evaldict, defaults=None,
-               doc=None, module=None, addsource=True, **attrs):
+               doc=None, module=None, addsource=True, closure=None, **attrs):
         """
         Create a function from the strings name, signature and body.
         evaldict is the evaluation dictionary. If addsource is true an
@@ -218,19 +226,21 @@ class FunctionMaker(object):
         self = cls(func, name, signature, defaults, doc, module)
         ibody = '\n'.join('    ' + line for line in body.splitlines())
         return self.make('def %(name)s(%(signature)s):\n' + ibody,
-                         evaldict, addsource, **attrs)
+                         evaldict, addsource, closure=closure, **attrs)
 
 
 def decorate(func, caller):
     """
     decorate(func, caller) decorates a function using a caller.
     """
-    evaldict = func.__globals__.copy()
-    evaldict['_call_'] = caller
-    evaldict['_func_'] = func
+    evaldict = func.__globals__
+    closure = {
+        '_call_': caller,
+        '_func_': func,
+    }
     fun = FunctionMaker.create(
         func, "return _call_(_func_, %(shortsignature)s)",
-        evaldict, __wrapped__=func)
+        evaldict, __wrapped__=func, closure=closure)
     if hasattr(func, '__qualname__'):
         fun.__qualname__ = func.__qualname__
     return fun
@@ -261,14 +271,16 @@ def decorator(caller, _func=None):
         callerfunc = caller.__call__.__func__
         doc = caller.__call__.__doc__
         fun = getfullargspec(callerfunc).args[1]  # second arg
-    evaldict = callerfunc.__globals__.copy()
-    evaldict['_call_'] = caller
-    evaldict['_decorate_'] = decorate
+    evaldict = callerfunc.__globals__
+    closure = {
+        '_call_': caller,
+        '_decorate_': decorate,
+    }
     return FunctionMaker.create(
         '%s(%s)' % (name, fun),
         'return _decorate_(%s, _call_)' % fun,
         evaldict, doc=doc, module=caller.__module__,
-        __wrapped__=caller)
+        __wrapped__=caller, closure=closure)
 
 
 # ####################### contextmanager ####################### #
