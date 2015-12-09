@@ -242,7 +242,6 @@ def decorator(caller, _func=None):
     # else return a decorator function
     if inspect.isclass(caller):
         name = caller.__name__.lower()
-        callerfunc = get_init(caller)
         doc = 'decorator(%s) converts functions/generators into ' \
             'factories of %s objects' % (caller.__name__, caller.__name__)
     elif inspect.isfunction(caller):
@@ -250,11 +249,9 @@ def decorator(caller, _func=None):
             name = '_lambda_'
         else:
             name = caller.__name__
-        callerfunc = caller
         doc = caller.__doc__
     else:  # assume caller is an object with a __call__ method
         name = caller.__class__.__name__.lower()
-        callerfunc = caller.__call__.__func__
         doc = caller.__call__.__doc__
     evaldict = dict(_call_=caller, _decorate_=decorate)
     return FunctionMaker.create(
