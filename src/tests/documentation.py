@@ -1011,7 +1011,7 @@ arguments, if one of such arguments has the same name used in the
 caller function for the first argument. The quirk was reported by
 David Goldstein and here is an example where it is manifest:
 
-.. code-block: python
+.. code-block:: python
 
    >>> @memoize
    ... def getkeys(**kw):
@@ -1028,7 +1028,7 @@ keywork arguments. The solution is to change the name of the
 first argument in `_memoize`, or to change the implementation as
 follows:
 
-.. code-block: python
+.. code-block:: python
 
    def _memoize(*all_args, **kw):
        func = all_args[0]
