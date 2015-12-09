@@ -178,8 +178,6 @@ class FunctionMaker(object):
         for n in names:
             if n in ('_func_', '_call_'):
                 raise NameError('%s is overridden in\n%s' % (n, src))
-        if not src.endswith('\n'):  # add a newline just for safety
-            src += '\n'  # this is needed in old versions of Python
 
         # Ensure each generated function has a unique filename for profilers
         # (such as cProfile) that depend on the tuple of (<filename>,

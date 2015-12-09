@@ -77,7 +77,19 @@ class ExtraTestCase(unittest.TestCase):
 
         self.assertNotEqual(d1.__code__.co_filename, d2.__code__.co_filename)
         self.assertNotEqual(f1.__code__.co_filename, f2.__code__.co_filename)
-        self.assertNotEqual(f1_orig.__code__.co_filename, f1.__code__.co_filename)
+        self.assertNotEqual(f1_orig.__code__.co_filename,
+                            f1.__code__.co_filename)
+
+    def test_no_first_arg(self):
+        @decorator
+        def example(*args, **kw):
+            return args[0](*args[1:], **kw)
+
+        @example
+        def func(**kw):
+            return kw
+
+        self.assertEqual(func(f='a'), {'f': 'a'})
 
 # ################### test dispatch_on ############################# #
 # adapted from test_functools in Python 3.5

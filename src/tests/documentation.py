@@ -526,7 +526,6 @@ be added to the generated function:
  >>> print(f1.__source__)
  def f1(a, b):
      f(a, b)
- <BLANKLINE>
 
 ``FunctionMaker.create`` can take as first argument a string,
 as in the examples before, or a function. This is the most common
@@ -1007,9 +1006,49 @@ callable objects, nor on built-in functions, due to limitations of the
 ``inspect`` module in the standard library, especially for Python 2.X
 (in Python 3.5 a lot of such limitations have been removed).
 
-There is a restriction on the names of the arguments: for instance,
-if try to call an argument ``_call_`` or ``_func_``
-you will get a ``NameError``:
+There is a strange quirk when decorating functions that take keyword
+arguments, if one of such arguments has the same name used in the
+caller function for the first argument. The quirk was reported by
+David Goldstein and here is an example where it is manifest:
+
+.. code-block: python
+
+   >>> @memoize
+   ... def getkeys(**kw):
+   ...     return kw.keys()
+   >>> getkeys(func='a')
+   Traceback (most recent call last):
+    ...
+   TypeError: _memoize() got multiple values for argument 'func'
+
+The error message looks really strange until you realize that
+the caller function `_memoize` uses `func` as first argument,
+so there is a confusion between the positional argument and the
+keywork arguments. The solution is to change the name of the
+first argument in `_memoize`, or to change the implementation as
+follows:
+
+.. code-block: python
+
+   def _memoize(*all_args, **kw):
+       func = all_args[0]
+       args = all_args[1:]
+       if kw:  # frozenset is used to ensure hashability
+           key = args, frozenset(kw.items())
+       else:
+           key = args
+       cache = func.cache  # attribute added by memoize
+       if key not in cache:
+           cache[key] = func(*args, **kw)
+       return cache[key]
+
+We have avoided the need to name the first argument, so the problem
+simply disappear. This is a technique that you should keep in mind
+when writing decorator for functions with keyword arguments.
+
+On a similar tone, there is a restriction on the names of the
+arguments: for instance, if try to call an argument ``_call_`` or
+``_func_`` you will get a ``NameError``:
 
 .. code-block:: python
 
