@@ -89,7 +89,8 @@ class ExtraTestCase(unittest.TestCase):
         def func(**kw):
             return kw
 
-        self.assertEqual(func(f='a'), {'f': 'a'})
+        # there is no confusion when passing args as a keyword argument
+        self.assertEqual(func(args='a'), {'args': 'a'})
 
 # ################### test dispatch_on ############################# #
 # adapted from test_functools in Python 3.5

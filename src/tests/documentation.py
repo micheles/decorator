@@ -1016,10 +1016,10 @@ David Goldstein and here is an example where it is manifest:
    >>> @memoize
    ... def getkeys(**kw):
    ...     return kw.keys()
-   >>> getkeys(func='a')
+   >>> getkeys(func='a') # doctest: +ELLIPSIS
    Traceback (most recent call last):
     ...
-   TypeError: _memoize() got multiple values for argument 'func'
+   TypeError: _memoize() got multiple values for ... 'func'
 
 The error message looks really strange until you realize that
 the caller function `_memoize` uses `func` as first argument,
@@ -1043,8 +1043,8 @@ follows:
        return cache[key]
 
 We have avoided the need to name the first argument, so the problem
-simply disappear. This is a technique that you should keep in mind
-when writing decorator for functions with keyword arguments.
+simply disappears. This is a technique that you should keep in mind
+when writing decorators for functions with keyword arguments.
 
 On a similar tone, there is a restriction on the names of the
 arguments: for instance, if try to call an argument ``_call_`` or
