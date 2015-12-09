@@ -33,14 +33,14 @@ for the documentation.
 """
 from __future__ import print_function
 
-__version__ = '4.0.4'
-
 import re
 import sys
 import inspect
 import operator
 import itertools
 import collections
+
+__version__ = '4.0.5'
 
 if sys.version >= '3':
     from inspect import getfullargspec
@@ -178,8 +178,6 @@ class FunctionMaker(object):
         for n in names:
             if n in ('_func_', '_call_'):
                 raise NameError('%s is overridden in\n%s' % (n, src))
-        if not src.endswith('\n'):  # add a newline just for safety
-            src += '\n'  # this is needed in old versions of Python
 
         # Ensure each generated function has a unique filename for profilers
         # (such as cProfile) that depend on the tuple of (<filename>,
@@ -225,9 +223,7 @@ def decorate(func, caller):
     """
     decorate(func, caller) decorates a function using a caller.
     """
-    evaldict = func.__globals__.copy()
-    evaldict['_call_'] = caller
-    evaldict['_func_'] = func
+    evaldict = dict(_call_=caller, _func_=func)
     fun = FunctionMaker.create(
         func, "return _call_(_func_, %(shortsignature)s)",
         evaldict, __wrapped__=func)
@@ -244,29 +240,20 @@ def decorator(caller, _func=None):
     # else return a decorator function
     if inspect.isclass(caller):
         name = caller.__name__.lower()
-        callerfunc = get_init(caller)
         doc = 'decorator(%s) converts functions/generators into ' \
             'factories of %s objects' % (caller.__name__, caller.__name__)
-        fun = getfullargspec(callerfunc).args[1]  # second arg
     elif inspect.isfunction(caller):
         if caller.__name__ == '<lambda>':
             name = '_lambda_'
         else:
             name = caller.__name__
-        callerfunc = caller
         doc = caller.__doc__
-        fun = getfullargspec(callerfunc).args[0]  # first arg
     else:  # assume caller is an object with a __call__ method
         name = caller.__class__.__name__.lower()
-        callerfunc = caller.__call__.__func__
         doc = caller.__call__.__doc__
-        fun = getfullargspec(callerfunc).args[1]  # second arg
-    evaldict = callerfunc.__globals__.copy()
-    evaldict['_call_'] = caller
-    evaldict['_decorate_'] = decorate
+    evaldict = dict(_call_=caller, _decorate_=decorate)
     return FunctionMaker.create(
-        '%s(%s)' % (name, fun),
-        'return _decorate_(%s, _call_)' % fun,
+        '%s(func)' % name, 'return _decorate_(func, _call_)',
         evaldict, doc=doc, module=caller.__module__,
         __wrapped__=caller)
 

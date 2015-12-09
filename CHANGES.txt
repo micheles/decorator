@@ -1,6 +1,9 @@
 HISTORY
 --------
 
+4.0.5 Documented a quirk signaled by David Goldstein when writing decorators
+      for functions with keyword arguments. Avoided copying the globals,
+      as signaled by Benjamin Peterson (2015/12/09)
 4.0.4 Included a patch from Zev Benjamin: now decorated functions play well
      with cProfile (2015/09/25)
 4.0.3 Added a warning about the memoize example, as requested by Robert
