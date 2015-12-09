@@ -225,9 +225,7 @@ def decorate(func, caller):
     """
     decorate(func, caller) decorates a function using a caller.
     """
-    evaldict = func.__globals__.copy()
-    evaldict['_call_'] = caller
-    evaldict['_func_'] = func
+    evaldict = dict(_call_=caller, _func_=func)
     fun = FunctionMaker.create(
         func, "return _call_(_func_, %(shortsignature)s)",
         evaldict, __wrapped__=func)
@@ -258,9 +256,7 @@ def decorator(caller, _func=None):
         name = caller.__class__.__name__.lower()
         callerfunc = caller.__call__.__func__
         doc = caller.__call__.__doc__
-    evaldict = callerfunc.__globals__.copy()
-    evaldict['_call_'] = caller
-    evaldict['_decorate_'] = decorate
+    evaldict = dict(_call_=caller, _decorate_=decorate)
     return FunctionMaker.create(
         '%s(func)' % name, 'return _decorate_(func, _call_)',
         evaldict, doc=doc, module=caller.__module__,

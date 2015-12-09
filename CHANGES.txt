@@ -2,7 +2,8 @@ HISTORY
 --------
 
 4.0.5 Fixed a bug signaled by David Goldstein: now you can use the name `f`
-      as a keyword argument of decorated functions (2015/11/02)
+      as a keyword argument of decorated functions. Avoid copying the globals,
+      as signaled by Benjamin Patterson (2015/12/09)
 4.0.4 Included a patch from Zev Benjamin: now decorated functions play well
      with cProfile (2015/09/25)
 4.0.3 Added a warning about the memoize example, as requested by Robert
