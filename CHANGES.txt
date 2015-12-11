@@ -1,6 +1,7 @@
 HISTORY
 --------
 
+4.0.6 Removed a file x.py accidentally entered in the tarball (2015/12/11)
 4.0.5 Documented a quirk signaled by David Goldstein when writing decorators
       for functions with keyword arguments. Avoided copying the globals,
       as signaled by Benjamin Peterson (2015/12/09)
