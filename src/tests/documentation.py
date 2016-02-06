@@ -526,6 +526,7 @@ be added to the generated function:
  >>> print(f1.__source__)
  def f1(a, b):
      f(a, b)
+ <BLANKLINE>
 
 ``FunctionMaker.create`` can take as first argument a string,
 as in the examples before, or a function. This is the most common
