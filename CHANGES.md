@@ -1,6 +1,12 @@
 HISTORY
 --------
 
+## 4.0.7 (2016-02-06)
+
+Switched to a new changelog format (the one in http://keepachangelog.com/)
+since it was contributed by Alexander Artemenko. Re-added a newline to support
+old version of Python, as requested by [azjps](https://github.com/azjps).
+
 ## 4.0.6 (2015-12-11)
 
 Removed a file x.py accidentally entered in the tarball.
