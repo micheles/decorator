@@ -1,2 +1,2 @@
-include docs/README.rst LICENSE.txt CHANGES.txt performance.sh documentation.pdf
+include docs/README.rst LICENSE.txt CHANGES.md performance.sh documentation.pdf
 recursive-include src/tests *.py
