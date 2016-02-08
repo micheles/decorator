@@ -1,6 +1,10 @@
 HISTORY
 --------
 
+## 4.0.9 (2016-02-08)
+
+Same as 4.0.7 and 4.0.8, re-uploaded due to issues on PyPI
+
 ## 4.0.7 (2016-02-06)
 
 Switched to a new changelog format (the one in http://keepachangelog.com/)
