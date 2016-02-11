@@ -33,8 +33,7 @@ trivial to distribute the module as an universal wheel_ since 2to3 is no more
 required. Since Python 2.5 has been released 9 years ago, I felt that
 it was reasonable to drop the support for it. If you need to support
 ancient versions of Python, stick with the decorator module version
-3.4.2.  This version supports all Python releases from 2.6 up to 3.5,
-which currently is still in beta status.
+3.4.2.  This version supports all Python releases from 2.6 up to 3.5.
 
 .. _wheel: http://pythonwheels.com/
 
@@ -45,30 +44,30 @@ What's New
   There is now a single manual for all Python versions, so I took the
   opportunity to overhaul the documentation. So, even if you are
   a long-time user, you may want to revisit the docs, since several
-  examples have been improved. 
+  examples have been improved.
 
 - **Packaging improvements**
   The code is now also available in wheel format. Integration with
-  setuptools is also improved: you can now run tests with the command 
-  ``python setup.py test``.  
+  setuptools is also improved: you can now run tests with the command
+  ``python setup.py test``.
 
 - **Code changes**
-  A new utility function ``decorate(func, caller)`` has been added. 
-  It does the same job that was performed by thd older 
+  A new utility function ``decorate(func, caller)`` has been added.
+  It does the same job that was performed by the older
   ``decorator(caller, func)``. The old functionality is now deprecated
   and no longer documented, but still available for now.
 
 - **New experimental feature**
-  The decorator module now includes an implementation of generic 
-  functions (sometimes called "multiple dispatch functions"). 
-  The API is designed to mimic ``functools.singledispatch`` (added 
-  in Python 3.4), but the implementation is much simpler. 
-  Moreover, all decorators involved preserve the signature of the 
-  decorated functions. For now, this exists mostly to demonstrate 
-  the power of the module. In the future it could be enhanced/optimized; 
-  however, both it and its API could change. (Such is the fate of 
-  experimental features!) In any case, it is very short and compact 
-  (less then 100 lines), so you can extract it for your own use. 
+  The decorator module now includes an implementation of generic
+  functions (sometimes called "multiple dispatch functions").
+  The API is designed to mimic ``functools.singledispatch`` (added
+  in Python 3.4), but the implementation is much simpler.
+  Moreover, all decorators involved preserve the signature of the
+  decorated functions. For now, this exists mostly to demonstrate
+  the power of the module. In the future it could be enhanced/optimized;
+  however, both it and its API could change. (Such is the fate of
+  experimental features!) In any case, it is very short and compact
+  (less then 100 lines), so you can extract it for your own use.
   Take it as food for thought.
 
 Usefulness of decorators
@@ -111,10 +110,10 @@ to be really useful. It is more convenient to split the generic class of
 decorators in two subclasses:
 
 *signature-preserving* decorators :
-    Callable objects which accept a function as input and return 
+    Callable objects which accept a function as input and return
     a function *with the same signature*.
-*signature-changing* decorators : 
-    Decorators which change the signature of their input function, 
+*signature-changing* decorators :
+    Decorators which change the signature of their input function,
     or decorators that return non-callable objects.
 
 **Signature-changing** decorators have their use: for instance, the
@@ -122,7 +121,7 @@ builtin classes ``staticmethod`` and ``classmethod`` are in this
 group. They take functions and return descriptor objects which
 are neither functions, nor callables.
 
-Still, **signature-preserving** decorators are more common, and easier 
+Still, **signature-preserving** decorators are more common, and easier
 to reason about. In particular, they can be composed together,
 whereas other decorators generally cannot.
 
@@ -138,22 +137,22 @@ A very common use case for decorators is the memoization of functions.
 A ``memoize`` decorator works by caching
 the result of the function call in a dictionary, so that the next time
 the function is called with the same input parameters the result is retrieved
-from the cache and not recomputed. 
+from the cache and not recomputed.
 
-There are many implementations of ``memoize`` in 
+There are many implementations of ``memoize`` in
 http://www.python.org/moin/PythonDecoratorLibrary,
 but they do not preserve the signature. In recent versions of
 Python you can find a sophisticated ``lru_cache`` decorator
 in the standard library's ``functools``. Here I am just
 interested in giving an example.
 
-Consider the following simple implementation (note that it is 
+Consider the following simple implementation (note that it is
 generally impossible to *correctly* memoize correctly something
 that depends on non-hashable arguments):
 
 $$memoize_uw
 
-Here I used the functools.update_wrapper_ utility, which was added 
+Here I used the functools.update_wrapper_ utility, which was added
 in Python 2.5 to simplify the writing of decorators.
 (Previously, you needed to manually copy the function attributes
 ``__name__``, ``__doc__``, ``__module__``, and ``__dict__``
@@ -165,9 +164,9 @@ $$f1
 
 .. _functools.update_wrapper: https://docs.python.org/3/library/functools.html#functools.update_wrapper
 
-This works insofar as the decorator accepts functions with generic signatures. 
-Unfortunately, it is *not* a signature-preserving decorator, since 
-``memoize_uw`` generally returns a function with a *different signature* 
+This works insofar as the decorator accepts functions with generic signatures.
+Unfortunately, it is *not* a signature-preserving decorator, since
+``memoize_uw`` generally returns a function with a *different signature*
 from the original.
 
 Consider for instance the following case:
@@ -187,7 +186,7 @@ keyword arguments:
 This means that introspection tools (like ``pydoc``) will give false
 information about the signature of ``f1`` (unless you are using
 Python 3.5)! This is pretty bad: ``pydoc`` will tell you that the
-function accepts the generic signature ``*args, **kw``, but 
+function accepts the generic signature ``*args, **kw``, but
 calling the function with more than one argument raises an error:
 
 .. code-block:: python
@@ -461,7 +460,7 @@ use of the ``with`` statement:
 Basically, it is as if the content of the ``with`` block was executed
 in the place of the ``yield`` expression in the generator function.
 
-In Python 3.2, ``GeneratorContextManager`` objects were enhanced with 
+In Python 3.2, ``GeneratorContextManager`` objects were enhanced with
 a ``__call__`` method, so that they can be used as decorators, like so:
 
 .. code-block:: python
@@ -476,26 +475,27 @@ a ``__call__`` method, so that they can be used as decorators, like so:
  AFTER
 
 The ``ba`` decorator basically inserts a ``with ba:`` block
-inside the function.  
+inside the function. 
 
-However, there two issues: 
+However, there two issues:
 
 1. ``GeneratorContextManager`` objects are only callable in Python 3.2,
-   so the previous example breaks in older versions of Python. 
+   so the previous example breaks in older versions of Python.
    (You can solve this by installing ``contextlib2``, which backports
    the Python 3 functionality to Python 2.)
-1. ``GeneratorContextManager`` objects do not preserve the signature of
+
+2. ``GeneratorContextManager`` objects do not preserve the signature of
    the decorated functions! The decorated ``hello`` function above will
    have the generic signature ``hello(*args, **kwargs)``, but fails if
-   called with more than zero arguments. 
+   called with more than zero arguments.
 
 For these reasons, decorator module (as of release 3.4) offers a
-``decorator.contextmanager`` decorator that solves both problems, 
-*and* works in all supported Python versions.  Its usage is identical, 
+``decorator.contextmanager`` decorator that solves both problems,
+*and* works in all supported Python versions.  Its usage is identical,
 and factories decorated with ``decorator.contextmanager`` will return
 instances of ``ContextManager``, a subclass of the standard library's
 ``contextlib.GeneratorContextManager`` class. The subclass includes
-an improved ``__call__`` method, which acts as a signature-preserving 
+an improved ``__call__`` method, which acts as a signature-preserving
 decorator.
 
 The ``FunctionMaker`` class
@@ -503,11 +503,11 @@ The ``FunctionMaker`` class
 
 You may wonder how the functionality of the ``decorator`` module
 is implemented. The basic building block is
-a ``FunctionMaker`` class. It generates on-the-fly functions 
+a ``FunctionMaker`` class. It generates on-the-fly functions
 with a given name and signature from a function template
-passed as a string. 
+passed as a string.
 
-If you're just writing ordinary decorators, then you probably won't 
+If you're just writing ordinary decorators, then you probably won't
 need to use ``FunctionMaker`` directly. But in some circumstances, it
 can be handy. You will see an example shortly--in
 the implementation of a cool decorator utility (``decorator_apply``).
@@ -515,7 +515,7 @@ the implementation of a cool decorator utility (``decorator_apply``).
 ``FunctionMaker`` provides the ``.create`` classmethod, which
 accepts the *name*, *signature*, and *body* of the function
 you want to generate, as well as the execution environment
-where the function is generated by ``exec``. 
+where the function is generated by ``exec``.
 
 Here's an example:
 
@@ -531,8 +531,8 @@ Here's an example:
 It is important to notice that the function body is interpolated
 before being executed; **be careful** with the ``%`` sign!
 
-``FunctionMaker.create`` also accepts keyword arguments. 
-The keyword arguments are attached to the generated function. 
+``FunctionMaker.create`` also accepts keyword arguments.
+The keyword arguments are attached to the generated function.
 This is useful if you want to set some function attributes
 (e.g., the docstring ``__doc__``).
 
@@ -550,33 +550,34 @@ a ``__source__`` attribute:
      f(a, b)
  <BLANKLINE>
 
-The first argument to ``FunctionMaker.create`` can be a string (as above), 
-or a function. This is the most common usage, since you typically decorate 
-pre-existing functions. 
+The first argument to ``FunctionMaker.create`` can be a string (as above),
+or a function. This is the most common usage, since you typically decorate
+pre-existing functions.
 
-If you're writing a framework, however, you may want to use 
-``FunctionMaker.create`` directly, rather than ``decorator``, because it gives 
-you direct access to the body of the generated function. 
+If you're writing a framework, however, you may want to use
+``FunctionMaker.create`` directly, rather than ``decorator``, because it gives
+you direct access to the body of the generated function.
 
-For instance, suppose you want to instrument the ``__init__`` methods of a 
-set of classes, by preserving their signature. 
-(This use case is not made up. This is done by SQAlchemy, and other frameworks, 
+For instance, suppose you want to instrument the ``__init__`` methods of a
+set of classes, by preserving their signature.
+(This use case is not made up. This is done by SQAlchemy, and other frameworks,
 too.)
 Here is what happens:
 
-- If first argument of ``FunctionMaker.create`` is a function, 
-  an instance of ``FunctionMaker`` is created with the attributes 
-  ``args``, ``varargs``, ``keywords``, and ``defaults``. 
-  (These mirror the return values of the standard library's ``inspect.getargspec``.)
+- If first argument of ``FunctionMaker.create`` is a function,
+  an instance of ``FunctionMaker`` is created with the attributes
+  ``args``, ``varargs``, ``keywords``, and ``defaults``.
+  (These mirror the return values of the standard library's
+  ``inspect.getargspec``.)
 
-- For each item in ``args`` (a list of strings of the names of all required 
+- For each item in ``args`` (a list of strings of the names of all required
   arguments), an attribute ``arg0``, ``arg1``, ..., ``argN`` is also generated.
 
-- Finally, there is a ``signature`` attribute, which is a string with the 
+- Finally, there is a ``signature`` attribute, which is a string with the
   signature of the original function.
 
 **NOTE:** You should not pass signature strings with default arguments
-(e.g., something like ``'f1(a, b=None)'``). Just pass ``'f1(a, b)'``, 
+(e.g., something like ``'f1(a, b=None)'``). Just pass ``'f1(a, b)'``,
 followed by a tuple of defaults:
 
 .. code-block:: python
@@ -591,14 +592,14 @@ Getting the source code
 ---------------------------------------------------
 
 Internally, ``FunctionMaker.create`` uses ``exec`` to generate the
-decorated function. Therefore ``inspect.getsource`` will not work for 
-decorated functions. In IPython, this means that the usual ``??`` trick 
-will give you the (right on the spot) message ``Dynamically generated 
-function. No source code available``.  
+decorated function. Therefore ``inspect.getsource`` will not work for
+decorated functions. In IPython, this means that the usual ``??`` trick
+will give you the (right on the spot) message ``Dynamically generated
+function. No source code available``.
 
-In the past, I have considered this acceptable, since ``inspect.getsource`` 
+In the past, I have considered this acceptable, since ``inspect.getsource``
 does not really work with "regular" decorators. In those cases,
-``inspect.getsource`` gives you the wrapper source code, which is probably 
+``inspect.getsource`` gives you the wrapper source code, which is probably
 not what you want:
 
 $$identity_dec
@@ -614,10 +615,10 @@ $$example
 
 (See bug report 1764286_ for an explanation of what is happening).
 Unfortunately the bug still exists in all versions of Python, except
-Python 3.5. 
+Python 3.5.
 
 However, there is a workaround. The decorated function has the ``__wrapped__``
-attribute, pointing to the original function. The simplest way to get the 
+attribute, pointing to the original function. The simplest way to get the
 source code is to call ``inspect.getsource`` on the undecorated function:
 
 .. code-block:: python
@@ -693,28 +694,28 @@ $$fact
 
 **Reminder:** A function is *tail recursive* if it does either of the following: 
 
-- returns a value without making a recursive call; or, 
+- returns a value without making a recursive call; or,
 - returns directly the result of a recursive call.
 
 Multiple dispatch
 -------------------------------------------
 
-There has been talk of implementing multiple dispatch functions 
-(i.e. "generic functions") in Python for over ten years. Last year, 
+There has been talk of implementing multiple dispatch functions
+(i.e. "generic functions") in Python for over ten years. Last year,
 something concrete was done for the first time--and as of Python 3.4,
 we have the decorator ``functools.singledispatch`` to implement generic
-functions! 
+functions!
 
 As its name implies, it is limited to *single dispatch*; in other words,
-it is able to dispatch on the first argument of the function only.  
+it is able to dispatch on the first argument of the function only.
 
 The ``decorator`` module provides the decorator factory ``dispatch_on``,
-which can be used to implement generic functions dispatching on *any* argument. 
-Moreover, it can manage dispatching on more than one argument. 
+which can be used to implement generic functions dispatching on *any* argument.
+Moreover, it can manage dispatching on more than one argument.
 (And, of course, it is signature-preserving.)
 
-Here is a concrete example (from a real-life use case) where it is desiderable 
-to dispatch on the second argument. 
+Here is a concrete example (from a real-life use case) where it is desiderable
+to dispatch on the second argument.
 
 Suppose you have an ``XMLWriter`` class, which is instantiated
 with some configuration parameters, and has the ``.write`` method which
@@ -724,15 +725,15 @@ $$XMLWriter
 
 Here, you want to dispatch on the *second* argument; the first is already
 taken by ``self``. The ``dispatch_on`` decorator factory allows you to specify
-the dispatch argument simplpy by passing its name as a string. (Note 
-that if you mispell the name you will get an error.) 
+the dispatch argument simplpy by passing its name as a string. (Note
+that if you mispell the name you will get an error.)
 
 The decorated function decorated is turned into a generic function,
-and it is called if there are no more specialized implementations. 
+and it is called if there are no more specialized implementations.
 
-Usually, default functions should raise a ``NotImplementedError``, thus 
-forcing people to register some implementation. You can perform the registration 
-with a decorator:
+Usually, default functions should raise a ``NotImplementedError``, thus
+forcing people to register some implementation.
+You can perform the registration with a decorator:
 
 $$writefloat
 
@@ -747,7 +748,7 @@ Now XMLWriter can serialize floats:
 I could give a down-to-earth example of situations in which it is desiderable
 to dispatch on more than one argument--for instance, I once implemented
 a database-access library where the first dispatching argument was the
-the database driver, and the second was the database record--but here 
+the database driver, and the second was the database record--but here
 I will follow tradition, and show the time-honored Rock-Paper-Scissors example:
 
 $$Rock
@@ -758,16 +759,16 @@ I have added an ordinal to the Rock-Paper-Scissors classes to simplify
 the implementation. The idea is to define a generic function (``win(a,
 b)``) of two arguments corresponding to the *moves* of the first and
 second players. The *moves* are instances of the classes
-Rock, Paper, and Scissors. 
+Rock, Paper, and Scissors.
 
-Paper wins over Rock; 
-Scissors wins over Paper; and 
-Rock wins over Scissors. 
+Paper wins over Rock;
+Scissors wins over Paper; and
+Rock wins over Scissors.
 
-The function will return +1 for a win, -1 for a loss, and 0 for parity. 
-There are 9 combinations, but combinations with the same ordinal 
-(i.e. the same class) return 0. Moreover, by exchanging the order of the 
-arguments, the sign of the result changes. Therefore, it is sufficient to 
+The function will return +1 for a win, -1 for a loss, and 0 for parity.
+There are 9 combinations, but combinations with the same ordinal
+(i.e. the same class) return 0. Moreover, by exchanging the order of the
+arguments, the sign of the result changes. Therefore, it is sufficient to
 directly specify only 3 implementations:
 
 $$win
@@ -832,8 +833,8 @@ MRO_ for short) of ``StrongRock`` and ``Scissors``, respectively.
 Generic functions and virtual ancestors
 -------------------------------------------------
 
-In Python, generic functions are complicated by the existence of 
-"virtual ancestors": superclasses which are not in the class hierarchy.  
+In Python, generic functions are complicated by the existence of
+"virtual ancestors": superclasses which are not in the class hierarchy.
 
 Consider this class:
 
@@ -875,14 +876,14 @@ builtin ``len``--but you should get the idea.
 Since in Python it is possible to consider any instance of ``ABCMeta``
 as a virtual ancestor of any other class (it is enough to register it
 as ``ancestor.register(cls)``), any implementation of generic functions
-must take virtual ancestors into account. 
+must take virtual ancestors into account.
 
 For example, suppose you are using a third-party set-like class, like
 the following:
 
 $$SomeSet
 
-Here, the author of ``SomeSet`` made a mistake by inheriting from 
+Here, the author of ``SomeSet`` made a mistake by inheriting from
 ``collections.Sized`` (instead of ``collections.Set``).
 
 This is not a problem. You can register *a posteriori*
@@ -898,8 +899,8 @@ Now, let's define an implementation of ``get_length`` specific to set:
 
 $$get_length_set
 
-The current implementation (and ``functools.singledispatch`` too) 
-is able to discern that a ``Set`` is a ``Sized`` object, 
+The current implementation (and ``functools.singledispatch`` too)
+is able to discern that a ``Set`` is a ``Sized`` object,
 so it uses the more specific implementation for ``Set``:
 
 .. code-block:: python
@@ -911,10 +912,11 @@ Sometimes it is not clear how to dispatch. For instance, consider the
 class ``C``: it is registered both as ``collections.Iterable`` and
 ``collections.Sized``, and defines the generic function ``g`` with
 implementations for both ``collections.Iterable`` *and*
-``collections.Sized``. 
+``collections.Sized``.
 
-It is impossible to decide which implementation to use, since the ancestors 
-are independent. The following function will raise a ``RuntimeError`` when called:
+It is impossible to decide which implementation to use, since the ancestors
+are independent. The following function will raise a ``RuntimeError``
+when called:
 
 $$singledispatch_example1
 
@@ -922,22 +924,22 @@ This is consistent with the "refuse the temptation to guess"
 philosophy. ``functools.singledispatch`` would raise a similar error.
 
 It would be easy to rely on the order of registration to decide the
-precedence order. This is reasonable, but also fragile: 
+precedence order. This is reasonable, but also fragile:
 
-- if, during some refactoring, you change the registration order by mistake, 
-  a different implementation could be taken; 
-- if implementations of the generic functions are distributed across modules, 
-  and you change the import order, a different implementation could be taken. 
+- if, during some refactoring, you change the registration order by mistake,
+  a different implementation could be taken;
+- if implementations of the generic functions are distributed across modules,
+  and you change the import order, a different implementation could be taken.
 
-So the ``decorator`` module prefers to raise an error in the face of ambiguity. 
+So the ``decorator`` module prefers to raise an error in the face of ambiguity.
 This is the same approach taken by the standard library.
 
-However, it should be noted that the *dispatch algorithm* used by the decorator 
-module is different from the one used by the standard library, so in certain  
-cases you will get different answers. The difference is that 
-``functools.singledispatch`` tries to insert the virtual ancestors *before* the 
-base classes, whereas ``decorator.dispatch_on`` tries to insert them *after* the 
-base classes.
+However, it should be noted that the *dispatch algorithm* used by the decorator
+module is different from the one used by the standard library, so in certain
+cases you will get different answers. The difference is that
+``functools.singledispatch`` tries to insert the virtual ancestors *before* the
+base classes, whereas ``decorator.dispatch_on`` tries to insert them *after*
+the base classes.
 
 Here's an example that shows the difference:
 
@@ -959,7 +961,7 @@ head by looking at the implementations. I will just notice that
   [('V',), ('Sized',), ('S',), ('Container',)]
 
 The current implementation does not implement any kind of cooperation
-between implementations. In other words, nothing is akin either to 
+between implementations. In other words, nothing is akin either to
 call-next-method in Lisp, or to ``super`` in Python.
 
 Finally, let me notice that the decorator module implementation does
@@ -969,7 +971,9 @@ Caveats and limitations
 -------------------------------------------
 
 One thing you should be aware of is the performance penalty of decorators.
-The worse case is shown by the following example::
+The worse case is shown by the following example:
+
+.. code-block:: bash
 
  $ cat performance.sh
  python3 -m timeit -s "
@@ -1141,7 +1145,7 @@ a (shallow) copy of the original function dictionary:
 LICENSE
 ---------------------------------------------
 
-Copyright (c) 2005-2015, Michele Simionato
+Copyright (c) 2005-2016, Michele Simionato
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
