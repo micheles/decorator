@@ -1108,7 +1108,7 @@ simply disappears. This is a technique that you should keep in mind
 when writing decorators for functions with keyword arguments.
 
 On a similar note, there is a restriction on argument names. For instance, 
-if name an argument ``_call_`` or ``_func_``, you will get a ``NameError``:
+if you name an argument ``_call_`` or ``_func_``, you will get a ``NameError``:
 
 .. code-block:: python
 
