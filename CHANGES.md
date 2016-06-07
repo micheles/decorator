@@ -3,12 +3,14 @@ HISTORY
 
 ## Unreleased
 
+## 4.0.10 (2016-06-07)
+
 Improved the documentation thanks to Tony Goodchild (zearin) who also
-provided a much better CSS than the one I was using (2016-02-11)
+provided a much better CSS than the one I was using.
 
 ## 4.0.9 (2016-02-08)
 
-Same as 4.0.7 and 4.0.8, re-uploaded due to issues on PyPI
+Same as 4.0.7 and 4.0.8, re-uploaded due to issues on PyPI.
 
 ## 4.0.7 (2016-02-06)
 
