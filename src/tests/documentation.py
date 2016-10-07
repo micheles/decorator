@@ -476,7 +476,7 @@ a ``__call__`` method, so that they can be used as decorators, like so:
 The ``ba`` decorator basically inserts a ``with ba:`` block
 inside the function. 
 
-However, there two issues:
+However, there are two issues:
 
 1. ``GeneratorContextManager`` objects are only callable in Python 3.2,
    so the previous example breaks in older versions of Python.
