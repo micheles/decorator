@@ -726,7 +726,7 @@ $$XMLWriter
 Here, you want to dispatch on the *second* argument; the first is already
 taken by ``self``. The ``dispatch_on`` decorator factory allows you to specify
 the dispatch argument simplpy by passing its name as a string. (Note
-that if you mispell the name you will get an error.)
+that if you misspell the name you will get an error.)
 
 The decorated function decorated is turned into a generic function,
 and it is called if there are no more specialized implementations.
@@ -1038,7 +1038,7 @@ You see here the inner call to the decorator ``trace``, which calls
 
 This latter reference is due to the fact that internally, the decorator
 module uses ``exec`` to generate the decorated function. Notice that
-``exec`` is *not* responsibile for the performance penalty, since is the
+``exec`` is *not* responsible for the performance penalty, since is the
 called *only once* (at function decoration time); it is *not* called
 each time the decorated function is called.
 
@@ -1341,7 +1341,7 @@ def memoize(f):
     """
     A simple memoize implementation. It works by adding a .cache dictionary
     to the decorated function. The cache will grow indefinitely, so it is
-    your responsability to clear it, if needed.
+    your responsibility to clear it, if needed.
     """
     f.cache = {}
     return decorate(f, _memoize)
