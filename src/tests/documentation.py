@@ -1481,6 +1481,7 @@ def a_test_for_pylons():
     'The good old factorial'
     """
 
+
 if sys.version >= '3':  # tests for signatures specific to Python 3
 
     def test_kwonlydefaults():
@@ -1528,6 +1529,7 @@ def before_after(before, after):
     print(before)
     yield
     print(after)
+
 
 ba = before_after('BEFORE', 'AFTER')  # ContextManager instance
 
@@ -1636,6 +1638,8 @@ def get_length_set(obj):
 
 class C(object):
     "Registered as Sized and Iterable"
+
+
 collections.Sized.register(C)
 collections.Iterable.register(C)
 

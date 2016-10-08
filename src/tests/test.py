@@ -92,6 +92,7 @@ class ExtraTestCase(unittest.TestCase):
         # there is no confusion when passing args as a keyword argument
         self.assertEqual(func(args='a'), {'args': 'a'})
 
+
 # ################### test dispatch_on ############################# #
 # adapted from test_functools in Python 3.5
 singledispatch = dispatch_on('obj')
@@ -409,6 +410,7 @@ class TestSingleDispatch(unittest.TestCase):
         # There is no preference for registered versus inferred ABCs.
         with assertRaises(RuntimeError):
             h(u)
+
 
 if __name__ == '__main__':
     unittest.main()
