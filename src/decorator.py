@@ -108,7 +108,7 @@ class FunctionMaker(object):
                 if sys.version < '3':  # easy way
                     self.shortsignature = self.signature = (
                         inspect.formatargspec(
-                            formatvalue=lambda val: "", *argspec)[1:-1])
+                            formatvalue=lambda val: "", *argspec[:-2])[1:-1])
                 else:  # Python 3 way
                     allargs = list(self.args)
                     allshortargs = list(self.args)
