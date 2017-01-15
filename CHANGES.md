@@ -3,6 +3,10 @@ HISTORY
 
 ## Unreleased
 
+## 4.0.11 (2017-01-15)
+
+Small improvements to the documentation and tested with Python 3.6
+
 ## 4.0.10 (2016-06-07)
 
 Improved the documentation thanks to Tony Goodchild (zearin) who also

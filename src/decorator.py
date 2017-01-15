@@ -1,6 +1,6 @@
 # #########################     LICENSE     ############################ #
 
-# Copyright (c) 2005-2016, Michele Simionato
+# Copyright (c) 2005-2017, Michele Simionato
 # All rights reserved.
 
 # Redistribution and use in source and binary forms, with or without
@@ -40,7 +40,7 @@ import operator
 import itertools
 import collections
 
-__version__ = '4.0.10'
+__version__ = '4.0.11'
 
 if sys.version >= '3':
     from inspect import getfullargspec
@@ -48,21 +48,13 @@ if sys.version >= '3':
     def get_init(cls):
         return cls.__init__
 else:
-    class getfullargspec(object):
+    FullArgSpec = collections.namedtuple(
+        'FullArgSpec', 'args varargs varkw defaults '
+        'kwonlyargs kwonlydefaults')
+
+    def getfullargspec(f):
         "A quick and dirty replacement for getfullargspec for Python 2.X"
-        def __init__(self, f):
-            self.args, self.varargs, self.varkw, self.defaults = \
-                inspect.getargspec(f)
-            self.kwonlyargs = []
-            self.kwonlydefaults = None
-
-        def __iter__(self):
-            yield self.args
-            yield self.varargs
-            yield self.varkw
-            yield self.defaults
-
-        getargspec = inspect.getargspec
+        return FullArgSpec._make(inspect.getargspec(f) + ([], None))
 
     def get_init(cls):
         return cls.__init__.__func__
@@ -78,7 +70,7 @@ def getargspec(f):
     return ArgSpec(spec.args, spec.varargs, spec.varkw, spec.defaults)
 
 
-DEF = re.compile('\s*def\s*([_\w][_\w\d]*)\s*\(')
+DEF = re.compile(r'\s*def\s*([_\w][_\w\d]*)\s*\(')
 
 
 # basic functionality
@@ -91,6 +83,9 @@ class FunctionMaker(object):
 
     # Atomic get-and-increment provided by the GIL
     _compile_count = itertools.count()
+
+    # make pylint happy
+    args = varargs = varkw = defaults = kwonlyargs = kwonlydefaults = ()
 
     def __init__(self, func=None, name=None, signature=None,
                  defaults=None, doc=None, module=None, funcdict=None):
@@ -154,8 +149,8 @@ class FunctionMaker(object):
         func.__name__ = self.name
         func.__doc__ = getattr(self, 'doc', None)
         func.__dict__ = getattr(self, 'dict', {})
-        func.__defaults__ = getattr(self, 'defaults', ())
-        func.__kwdefaults__ = getattr(self, 'kwonlydefaults', None)
+        func.__defaults__ = self.defaults
+        func.__kwdefaults__ = self.kwonlydefaults or None
         func.__annotations__ = getattr(self, 'annotations', None)
         try:
             frame = sys._getframe(3)
@@ -346,7 +341,7 @@ def dispatch_on(*dispatch_args):
             ras = [[] for _ in range(len(dispatch_args))]
             for types_ in typemap:
                 for t, type_, ra in zip(types, types_, ras):
-                    if issubclass(t, type_) and type_ not in t.__mro__:
+                    if issubclass(t, type_) and type_ not in t.mro():
                         append(type_, ra)
             return [set(ra) for ra in ras]
 
@@ -363,9 +358,9 @@ def dispatch_on(*dispatch_args):
                         'Ambiguous dispatch for %s: %s' % (t, vas))
                 elif n_vas == 1:
                     va, = vas
-                    mro = type('t', (t, va), {}).__mro__[1:]
+                    mro = type('t', (t, va), {}).mro()[1:]
                 else:
-                    mro = t.__mro__
+                    mro = t.mro()
                 lists.append(mro[:-1])  # discard t and object
             return lists
 
