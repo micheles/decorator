@@ -9,7 +9,7 @@ import collections
 from decorator import dispatch_on, contextmanager, decorator
 try:
     from . import documentation as doc
-except (SystemError, ValueError):
+except:
     import documentation as doc
 
 
