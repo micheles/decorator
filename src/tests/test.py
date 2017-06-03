@@ -23,6 +23,21 @@ def assertRaises(etype):
     else:
         raise Exception('Expected %s' % etype.__name__)
 
+if sys.version >= '3.5':
+    exec('''\
+class CoroutineTestCase(unittest.TestCase):
+    def test(self):
+        async def cor():
+            pass
+        self.assertTrue(inspect.iscoroutinefunction(cor))
+
+        @decorator
+        def identity(f, *args, **kwargs):
+            return f(*args, **kwargs)
+
+        self.assertTrue(inspect.iscoroutinefunction(identity(cor)))
+''')
+
 
 class DocumentationTestCase(unittest.TestCase):
     def test(self):

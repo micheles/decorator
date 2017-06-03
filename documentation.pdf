@@ -280,7 +280,7 @@ endobj
 << /Outlines 86 0 R /PageLabels 129 0 R /PageMode /UseNone /Pages 106 0 R /Type /Catalog >>
 endobj
 85 0 obj
-<< /Author () /CreationDate (D:20170115100338-01'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20170115100338-01'00') /Producer (ReportLab PDF Library - www.reportlab.com) 
+<< /Author () /CreationDate (D:20170116054911-01'00') /Creator (\(unspecified\)) /Keywords () /ModDate (D:20170116054911-01'00') /Producer (ReportLab PDF Library - www.reportlab.com) 
   /Subject (\(unspecified\)) /Title () /Trapped /False >>
 endobj
 86 0 obj
@@ -419,7 +419,7 @@ q
 1 0 0 1 91.03937 3 cm
 q
 0 0 0 rg
-BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (4.0.11 \(2017-01-15\)) Tj T* ET
+BT 1 0 0 1 0 2 Tm /F1 10 Tf 12 TL (4.0.11 \(2017-01-16\)) Tj T* ET
 Q
 Q
 q
@@ -8922,7 +8922,7 @@ Q
 endstream
 endobj
 127 0 obj
-<< /Length 14045 >>
+<< /Length 14063 >>
 stream
 1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
 q
@@ -8934,7 +8934,7 @@ Q
 q
 1 0 0 1 62.69291 663.0236 cm
 q
-BT 1 0 0 1 0 50 Tm .155251 Tw 12 TL /F1 10 Tf 0 0 0 rg (It should be noted that in Python 3.5, a ) Tj /F4 10 Tf (lot ) Tj /F1 10 Tf (of improvements have been made: you can decorate a function) Tj T* 0 Tw 2.710976 Tw (with ) Tj /F2 10 Tf 0 0 0 rg (func_tools.update_wrapper) Tj /F1 10 Tf 0 0 0 rg (, and ) Tj /F2 10 Tf 0 0 0 rg (pydoc ) Tj /F1 10 Tf 0 0 0 rg (will see the correct signature. Unfortunately, the) Tj T* 0 Tw 9.38229 Tw (function will still have an incorrect signature internally, as you can see by using) Tj T* 0 Tw .243307 Tw /F2 10 Tf 0 0 0 rg (inspect.getfullargspec) Tj /F1 10 Tf 0 0 0 rg (; so, all documentation tools using ) Tj 1 0 0 rg (``) Tj 0 0 0 rg (inspect.getfullargspec`- which has been) Tj T* 0 Tw (rightly deprecated - will see the wrong signature.) Tj T* ET
+BT 1 0 0 1 0 50 Tm .155251 Tw 12 TL /F1 10 Tf 0 0 0 rg (It should be noted that in Python 3.5, a ) Tj /F4 10 Tf (lot ) Tj /F1 10 Tf (of improvements have been made: you can decorate a function) Tj T* 0 Tw 2.710976 Tw (with ) Tj /F2 10 Tf 0 0 0 rg (func_tools.update_wrapper) Tj /F1 10 Tf 0 0 0 rg (, and ) Tj /F2 10 Tf 0 0 0 rg (pydoc ) Tj /F1 10 Tf 0 0 0 rg (will see the correct signature. Unfortunately, the) Tj T* 0 Tw 9.38229 Tw (function will still have an incorrect signature internally, as you can see by using) Tj T* 0 Tw 1.85122 Tw /F2 10 Tf 0 0 0 rg (inspect.getfullargspec) Tj /F1 10 Tf 0 0 0 rg (; so, all documentation tools using ) Tj /F2 10 Tf 0 0 0 rg (inspect.getfullargspec ) Tj /F1 10 Tf 0 0 0 rg (- which) Tj T* 0 Tw (has been rightly deprecated - will see the wrong signature.) Tj T* ET
 Q
 Q
 q
@@ -9766,35 +9766,35 @@ xref
 0000281234 00000 n
 0000294965 00000 n
 0000305969 00000 n
-0000320073 00000 n
-0000331748 00000 n
-0000332032 00000 n
-0000332070 00000 n
-0000332108 00000 n
-0000332146 00000 n
-0000332184 00000 n
-0000332222 00000 n
-0000332260 00000 n
-0000332298 00000 n
-0000332336 00000 n
-0000332374 00000 n
-0000332413 00000 n
-0000332452 00000 n
-0000332491 00000 n
-0000332530 00000 n
-0000332569 00000 n
-0000332608 00000 n
-0000332647 00000 n
-0000332686 00000 n
-0000332725 00000 n
-0000332764 00000 n
-0000332803 00000 n
-0000332842 00000 n
+0000320091 00000 n
+0000331766 00000 n
+0000332050 00000 n
+0000332088 00000 n
+0000332126 00000 n
+0000332164 00000 n
+0000332202 00000 n
+0000332240 00000 n
+0000332278 00000 n
+0000332316 00000 n
+0000332354 00000 n
+0000332392 00000 n
+0000332431 00000 n
+0000332470 00000 n
+0000332509 00000 n
+0000332548 00000 n
+0000332587 00000 n
+0000332626 00000 n
+0000332665 00000 n
+0000332704 00000 n
+0000332743 00000 n
+0000332782 00000 n
+0000332821 00000 n
+0000332860 00000 n
 trailer
 << /ID 
  % ReportLab generated PDF document -- digest (http://www.reportlab.com)
- [(d\361p`_\330\303@\326\177hR\227\011V\331) (d\361p`_\330\303@\326\177hR\227\011V\331)]
+ [(@\364"\)l\303 \016L\245\020\343x\243\3645) (@\364"\)l\303 \016L\245\020\343x\243\3645)]
  /Info 85 0 R /Root 84 0 R /Size 152 >>
 startxref
-332881
+332899
 %%EOF

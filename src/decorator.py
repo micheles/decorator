@@ -59,6 +59,13 @@ else:
     def get_init(cls):
         return cls.__init__.__func__
 
+try:
+    iscoroutinefunction = inspect.iscoroutinefunction
+except AttributeError:
+    # let's assume there are no coroutine functions in old Python
+    def iscoroutinefunction(f):
+        return False
+
 # getargspec has been deprecated in Python 3.5
 ArgSpec = collections.namedtuple(
     'ArgSpec', 'args varargs varkw defaults')
@@ -90,6 +97,7 @@ class FunctionMaker(object):
     def __init__(self, func=None, name=None, signature=None,
                  defaults=None, doc=None, module=None, funcdict=None):
         self.shortsignature = signature
+        self.coro = False
         if func:
             # func can be a class or a callable, but not an instance method
             self.name = func.__name__
@@ -98,6 +106,7 @@ class FunctionMaker(object):
             self.doc = func.__doc__
             self.module = func.__module__
             if inspect.isfunction(func):
+                self.coro = iscoroutinefunction(func)
                 argspec = getfullargspec(func)
                 self.annotations = getattr(func, '__annotations__', {})
                 for a in ('args', 'varargs', 'varkw', 'defaults', 'kwonlyargs',
@@ -165,7 +174,7 @@ class FunctionMaker(object):
         "Make a new function from a given template and update the signature"
         src = src_templ % vars(self)  # expand name and signature
         evaldict = evaldict or {}
-        mo = DEF.match(src)
+        mo = DEF.search(src)
         if mo is None:
             raise SyntaxError('not a valid function template\n%s' % src)
         name = mo.group(1)  # extract the function name
@@ -214,7 +223,8 @@ class FunctionMaker(object):
             func = obj
         self = cls(func, name, signature, defaults, doc, module)
         ibody = '\n'.join('    ' + line for line in body.splitlines())
-        return self.make('def %(name)s(%(signature)s):\n' + ibody,
+        coro = 'async ' if self.coro else ''
+        return self.make(coro + 'def %(name)s(%(signature)s):\n' + ibody,
                          evaldict, addsource, **attrs)
 
 
