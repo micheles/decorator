@@ -223,9 +223,12 @@ class FunctionMaker(object):
             func = obj
         self = cls(func, name, signature, defaults, doc, module)
         ibody = '\n'.join('    ' + line for line in body.splitlines())
-        coro = 'async ' if self.coro else ''
-        return self.make(coro + 'def %(name)s(%(signature)s):\n' + ibody,
-                         evaldict, addsource, **attrs)
+        if self.coro:
+            body = ('async def %(name)s(%(signature)s):\n' + ibody).replace(
+                'return', 'return await')
+        else:
+            body = 'def %(name)s(%(signature)s):\n' + ibody
+        return self.make(body, evaldict, addsource, **attrs)
 
 
 def decorate(func, caller):

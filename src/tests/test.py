@@ -24,18 +24,21 @@ def assertRaises(etype):
         raise Exception('Expected %s' % etype.__name__)
 
 if sys.version >= '3.5':
-    exec('''\
+    exec('''from asyncio import get_event_loop
+
+@decorator
+async def before_after(coro, *args, **kwargs):
+    return "<before>" + (await coro(*args, **kwargs)) + "<after>"
+
+
 class CoroutineTestCase(unittest.TestCase):
     def test(self):
-        async def cor():
-            pass
-        self.assertTrue(inspect.iscoroutinefunction(cor))
-
-        @decorator
-        def identity(f, *args, **kwargs):
-            return f(*args, **kwargs)
-
-        self.assertTrue(inspect.iscoroutinefunction(identity(cor)))
+        @before_after
+        async def coro(x):
+           return x
+        self.assertTrue(inspect.iscoroutinefunction(coro))
+        out = get_event_loop().run_until_complete(coro('x'))
+        self.assertEqual(out, '<before>x<after>')
 ''')
 
 

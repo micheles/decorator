@@ -3,6 +3,12 @@ HISTORY
 
 ## Unreleased
 
+## 4.1.0 (2017-06-04)
+
+Support for Python 3.5 coroutines defined with `async def`, thanks to
+Victor-Nicolae Savu who raised the issue of `iscoroutinefunction` not
+giving the right answer for coroutines decorated with the decorator module.
+
 ## 4.0.11 (2017-01-15)
 
 Small improvements to the documentation and tested with Python 3.6
