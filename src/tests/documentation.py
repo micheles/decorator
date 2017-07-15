@@ -738,7 +738,7 @@ write code like the following:
      tasks = [make_task(3), make_task(2), make_task(1)]
      get_event_loop().run_until_complete(wait(tasks))
 
-and you will get at output like this::
+and you will get an output like this::
 
  INFO:root:Starting make_task(1,)
  INFO:root:Starting make_task(3,)
