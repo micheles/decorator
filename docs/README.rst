@@ -54,3 +54,4 @@ Documentation
 ---------------
 
 The documentation has been moved to http://decorator.readthedocs.io/en/latest/
+You can download a PDF version of it from http://media.readthedocs.org/pdf/decorator/latest/decorator.pdf
