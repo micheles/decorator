@@ -18,14 +18,14 @@ If you are lazy, just perform
 which will install just the module on your system.
 
 If you prefer to install the full distribution from source, including
-the documentation, clone the [GitHub repo](https://github.com/micheles/decorator) or download the tarball_, unpack it and run
+the documentation, clone the `GitHub repo`_ or download the tarball_, unpack it and run
 
  `$ pip install .`
 
 in the main directory, possibly as superuser.
 
 .. _tarball: http://pypi.python.org/pypi/decorator
-
+.. _GitHub repo: https://github.com/micheles/decorator
 
 Testing
 --------
