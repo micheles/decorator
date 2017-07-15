@@ -1,6 +1,5 @@
 \
 The ``decorator`` module
-------------------------
 
 :Author: Michele Simionato
 :E-mail: michele.simionato@gmail.com
