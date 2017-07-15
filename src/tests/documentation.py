@@ -2,7 +2,6 @@ from __future__ import print_function
 
 doc = r"""\
 The ``decorator`` module
-------------------------
 
 :Author: Michele Simionato
 :E-mail: michele.simionato@gmail.com
