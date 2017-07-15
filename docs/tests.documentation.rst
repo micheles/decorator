@@ -1,14 +1,12 @@
-from __future__ import print_function
-
-doc = r"""\
+\
 The ``decorator`` module
-------------------------
+=============================================================
 
 :Author: Michele Simionato
 :E-mail: michele.simionato@gmail.com
-:Version: $VERSION ($DATE)
+:Version: 4.1.0 (2017-07-15)
 :Supports: Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6
-:Download page: http://pypi.python.org/pypi/decorator/$VERSION
+:Download page: http://pypi.python.org/pypi/decorator/4.1.0
 :Installation: ``pip install decorator``
 :License: BSD license
 
@@ -155,17 +153,38 @@ Consider the following simple implementation (note that it is
 generally impossible to *correctly* memoize something
 that depends on non-hashable arguments):
 
-$$memoize_uw
+.. code-block:: python
+
+ def memoize_uw(func):
+     func.cache = {}
+ 
+     def memoize(*args, **kw):
+         if kw:  # frozenset is used to ensure hashability
+             key = args, frozenset(kw.items())
+         else:
+             key = args
+         if key not in func.cache:
+             func.cache[key] = func(*args, **kw)
+         return func.cache[key]
+     return functools.update_wrapper(memoize, func)
+
 
 Here I used the functools.update_wrapper_ utility, which was added
 in Python 2.5 to simplify the writing of decorators.
 (Previously, you needed to manually copy the function attributes
 ``__name__``, ``__doc__``, ``__module__``, and ``__dict__``
-to the decorated function by hand).
+to the decorated function by hand.)
 
 Here is an example of usage:
 
-$$f1
+.. code-block:: python
+
+ @memoize_uw
+ def f1(x):
+     "Simulate some long computation"
+     time.sleep(1)
+     return x
+
 
 .. _functools.update_wrapper: https://docs.python.org/3/library/functools.html#functools.update_wrapper
 
@@ -176,7 +195,14 @@ from the original.
 
 Consider for instance the following case:
 
-$$f1
+.. code-block:: python
+
+ @memoize_uw
+ def f1(x):
+     "Simulate some long computation"
+     time.sleep(1)
+     return x
+
 
 Here, the original function takes a single argument named ``x``,
 but the decorated function takes any number of arguments and
@@ -196,7 +222,7 @@ calling the function with more than one argument raises an error:
 
 .. code-block:: python
 
- >>> f1(0, 1) # doctest: +IGNORE_EXCEPTION_DETAIL
+ >>> f1(0, 1) 
  Traceback (most recent call last):
     ...
  TypeError: f1() takes exactly 1 positional argument (2 given)
@@ -228,11 +254,32 @@ The caller function must have signature ``(f, *args, **kw)``, and it
 must call the original function ``f`` with arguments ``args`` and ``kw``,
 implementing the wanted capability (in this case, memoization):
 
-$$_memoize
+.. code-block:: python
+
+ def _memoize(func, *args, **kw):
+     if kw:  # frozenset is used to ensure hashability
+         key = args, frozenset(kw.items())
+     else:
+         key = args
+     cache = func.cache  # attribute added by memoize
+     if key not in cache:
+         cache[key] = func(*args, **kw)
+     return cache[key]
+
 
 Now, you can define your decorator as follows:
 
-$$memoize
+.. code-block:: python
+
+ def memoize(f):
+     """
+     A simple memoize implementation. It works by adding a .cache dictionary
+     to the decorated function. The cache will grow indefinitely, so it is
+     your responsibility to clear it, if needed.
+     """
+     f.cache = {}
+     return decorate(f, _memoize)
+
 
 The difference from the nested function approach of ``memoize_uw``
 is that the decorator module forces you to lift the inner function
@@ -267,9 +314,19 @@ A ``trace`` decorator
 Here is an example of how to define a simple ``trace`` decorator,
 which prints a message whenever the traced function is called:
 
-$$_trace
+.. code-block:: python
 
-$$trace
+ def _trace(f, *args, **kw):
+     kwstr = ', '.join('%r: %r' % (k, kw[k]) for k in sorted(kw))
+     print("calling %s with args %s, {%s}" % (f.__name__, args, kwstr))
+     return f(*args, **kw)
+
+
+.. code-block:: python
+
+ def trace(f):
+     return decorate(f, _trace)
+
 
 Here is an example of usage:
 
@@ -307,7 +364,57 @@ The decorator works with functions of any signature:
  >>> print(getargspec(f))
  ArgSpec(args=['x', 'y', 'z'], varargs='args', varkw='kw', defaults=(1, 2))
 
-$FUNCTION_ANNOTATIONS
+Function annotations
+---------------------------------------------
+
+Python 3 introduced the concept of `function annotations`_: the ability
+to annotate the signature of a function with additional information,
+stored in a dictionary named ``__annotations__``. The ``decorator`` module
+(starting from release 3.3) will understand and preserve these annotations.
+
+Here is an example:
+
+.. code-block:: python
+
+ >>> @trace
+ ... def f(x: 'the first argument', y: 'default argument'=1, z=2,
+ ...       *args: 'varargs', **kw: 'kwargs'):
+ ...     pass
+
+In order to introspect functions with annotations, one needs the
+utility ``inspect.getfullargspec`` (introduced in Python 3, then
+deprecated in Python 3.5, in favor of ``inspect.signature``):
+
+.. code-block:: python
+
+ >>> from inspect import getfullargspec
+ >>> argspec = getfullargspec(f)
+ >>> argspec.args
+ ['x', 'y', 'z']
+ >>> argspec.varargs
+ 'args'
+ >>> argspec.varkw
+ 'kw'
+ >>> argspec.defaults
+ (1, 2)
+ >>> argspec.kwonlyargs
+ []
+ >>> argspec.kwonlydefaults
+
+You can check that the ``__annotations__`` dictionary is preserved:
+
+.. code-block:: python
+
+  >>> f.__annotations__ is f.__wrapped__.__annotations__
+  True
+
+Here ``f.__wrapped__`` is the original undecorated function.
+This attribute exists for consistency with the behavior of
+``functools.update_wrapper``.
+
+Another attribute copied from the original function is ``__qualname__``,
+the qualified name. This attribute was introduced in Python 3.3.
+
 
 ``decorator.decorator``
 ---------------------------------------------
@@ -346,7 +453,7 @@ And ``trace`` is now a decorator!
 
 .. code-block:: python
 
- >>> trace # doctest: +ELLIPSIS
+ >>> trace 
  <function trace at 0x...>
 
 Here is an example of usage:
@@ -368,7 +475,23 @@ everything.
 This can be accomplished with a suitable family of decorators,
 where the parameter is the busy message:
 
-$$blocking
+.. code-block:: python
+
+ def blocking(not_avail):
+     def _blocking(f, *args, **kw):
+         if not hasattr(f, "thread"):  # no thread running
+             def set_result():
+                 f.result = f(*args, **kw)
+             f.thread = threading.Thread(None, set_result)
+             f.thread.start()
+             return not_avail
+         elif f.thread.isAlive():
+             return not_avail
+         else:  # the thread is ended, return the stored result
+             del f.thread
+             return f.result
+     return decorator(_blocking)
+
 
 Functions decorated with ``blocking`` will return a busy message if
 the resource is unavailable, and the intended result if the resource is
@@ -412,7 +535,29 @@ the function is called, it is executed in a separate thread.
 But I don't recommend that you implement futures this way; this is just an
 example.)
 
-$$Future
+.. code-block:: python
+
+ class Future(threading.Thread):
+     """
+     A class converting blocking functions into asynchronous
+     functions by using threads.
+     """
+     def __init__(self, func, *args, **kw):
+         try:
+             counter = func.counter
+         except AttributeError:  # instantiate the counter at the first call
+             counter = func.counter = itertools.count(1)
+         name = '%s-%s' % (func.__name__, next(counter))
+ 
+         def func_wrapper():
+             self._result = func(*args, **kw)
+         super(Future, self).__init__(target=func_wrapper, name=name)
+         self.start()
+ 
+     def result(self):
+         self.join()
+         return self._result
+
 
 The decorated function returns a ``Future`` object. It has a ``.result()``
 method which blocks until the underlying thread finishes and returns
@@ -469,11 +614,11 @@ a ``__call__`` method, so that they can be used as decorators, like so:
 
 .. code-block:: python
 
- >>> @ba # doctest: +SKIP
+ >>> @ba 
  ... def hello():
  ...     print('hello')
  ...
- >>> hello() # doctest: +SKIP
+ >>> hello() 
  BEFORE
  hello
  AFTER
@@ -606,8 +751,18 @@ does not really work with "regular" decorators. In those cases,
 ``inspect.getsource`` gives you the wrapper source code, which is probably
 not what you want:
 
-$$identity_dec
-$$example
+.. code-block:: python
+
+ def identity_dec(func):
+     def wrapper(*args, **kw):
+         return func(*args, **kw)
+     return wrapper
+
+.. code-block:: python
+
+     def wrapper(*args, **kw):
+         return func(*args, **kw)
+
 
 .. code-block:: python
 
@@ -618,7 +773,8 @@ $$example
  <BLANKLINE>
 
 (See bug report 1764286_ for an explanation of what is happening).
-Unfortunately the bug still exists in all versions of Python < 3.5.
+Unfortunately the bug still exists in all versions of Python, except
+Python 3.5.
 
 However, there is a workaround. The decorated function has the ``__wrapped__``
 attribute, pointing to the original function. The simplest way to get the
@@ -648,7 +804,17 @@ upgrade third party decorators to signature-preserving decorators...
 
 You can use a ``FunctionMaker`` to implement that functionality as follows:
 
-$$decorator_apply
+.. code-block:: python
+
+ def decorator_apply(dec, func):
+     """
+     Decorate a function by preserving the signature even if dec
+     is not a signature-preserving decorator.
+     """
+     return FunctionMaker.create(
+         func, 'return decfunc(%(signature)s)',
+         dict(decfunc=dec(func)), __wrapped__=func)
+
 
 ``decorator_apply`` sets the generated function's ``__wrapped__`` attribute
 to the original function, so you can get the right source code.
@@ -668,16 +834,59 @@ I have shamelessly stolen the core concept from Kay Schluehr's recipe
 in the Python Cookbook,
 http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691.
 
-$$TailRecursive
+.. code-block:: python
+
+ class TailRecursive(object):
+     """
+     tail_recursive decorator based on Kay Schluehr's recipe
+     http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691
+     with improvements by me and George Sakkis.
+     """
+ 
+     def __init__(self, func):
+         self.func = func
+         self.firstcall = True
+         self.CONTINUE = object()  # sentinel
+ 
+     def __call__(self, *args, **kwd):
+         CONTINUE = self.CONTINUE
+         if self.firstcall:
+             func = self.func
+             self.firstcall = False
+             try:
+                 while True:
+                     result = func(*args, **kwd)
+                     if result is CONTINUE:  # update arguments
+                         args, kwd = self.argskwd
+                     else:  # last call
+                         return result
+             finally:
+                 self.firstcall = True
+         else:  # return the arguments of the tail call
+             self.argskwd = args, kwd
+             return CONTINUE
+
 
 Here the decorator is implemented as a class returning callable
 objects.
 
-$$tail_recursive
+.. code-block:: python
+
+ def tail_recursive(func):
+     return decorator_apply(TailRecursive, func)
+
 
 Here is how you apply the upgraded decorator to the good old factorial:
 
-$$factorial
+.. code-block:: python
+
+ @tail_recursive
+ def factorial(n, acc=1):
+     "The good old factorial"
+     if n == 0:
+         return acc
+     return factorial(n-1, n*acc)
+
 
 .. code-block:: python
 
@@ -693,7 +902,13 @@ Notice that there is no recursion limit now; you can easily compute
 Notice also that the decorator will *not* work on functions which
 are not tail recursive, such as the following:
 
-$$fact
+.. code-block:: python
+
+ def fact(n):  # this is not tail-recursive
+     if n == 0:
+         return 1
+     return n * fact(n-1)
+
 
 **Reminder:** A function is *tail recursive* if it does either of the
 following:
@@ -780,7 +995,16 @@ Suppose you have an ``XMLWriter`` class, which is instantiated
 with some configuration parameters, and has the ``.write`` method which
 serializes objects to XML:
 
-$$XMLWriter
+.. code-block:: python
+
+ class XMLWriter(object):
+     def __init__(self, **config):
+         self.cfg = config
+ 
+     @dispatch_on('obj')
+     def write(self, obj):
+         raise NotImplementedError(type(obj))
+
 
 Here, you want to dispatch on the *second* argument; the first is already
 taken by ``self``. The ``dispatch_on`` decorator factory allows you to specify
@@ -796,7 +1020,12 @@ Usually, default functions should raise a ``NotImplementedError``, thus
 forcing people to register some implementation.
 You can perform the registration with a decorator:
 
-$$writefloat
+.. code-block:: python
+
+ @XMLWriter.write.register(float)
+ def writefloat(self, obj):
+     return '<float>%s</float>' % obj
+
 
 Now XMLWriter can serialize floats:
 
@@ -812,9 +1041,21 @@ a database-access library where the first dispatching argument was the
 the database driver, and the second was the database record--but here
 I will follow tradition, and show the time-honored Rock-Paper-Scissors example:
 
-$$Rock
-$$Paper
-$$Scissors
+.. code-block:: python
+
+ class Rock(object):
+     ordinal = 0
+
+.. code-block:: python
+
+ class Paper(object):
+     ordinal = 1
+
+.. code-block:: python
+
+ class Scissors(object):
+     ordinal = 2
+
 
 I have added an ordinal to the Rock-Paper-Scissors classes to simplify
 the implementation. The idea is to define a generic function (``win(a,
@@ -832,10 +1073,34 @@ There are 9 combinations, but combinations with the same ordinal
 arguments, the sign of the result changes. Therefore, it is sufficient to
 directly specify only 3 implementations:
 
-$$win
-$$winRockPaper
-$$winPaperScissors
-$$winRockScissors
+.. code-block:: python
+
+ @dispatch_on('a', 'b')
+ def win(a, b):
+     if a.ordinal == b.ordinal:
+         return 0
+     elif a.ordinal > b.ordinal:
+         return -win(b, a)
+     raise NotImplementedError((type(a), type(b)))
+
+.. code-block:: python
+
+ @win.register(Rock, Paper)
+ def winRockPaper(a, b):
+     return -1
+
+.. code-block:: python
+
+ @win.register(Paper, Scissors)
+ def winPaperScissors(a, b):
+     return -1
+
+.. code-block:: python
+
+ @win.register(Rock, Scissors)
+ def winRockScissors(a, b):
+     return 1
+
 
 Here is the result:
 
@@ -864,8 +1129,17 @@ The point of generic functions is that they play well with subclassing.
 For instance, suppose we define a ``StrongRock``, which does not lose against
 Paper:
 
-$$StrongRock
-$$winStrongRockPaper
+.. code-block:: python
+
+ class StrongRock(Rock):
+     pass
+
+.. code-block:: python
+
+ @win.register(StrongRock, Paper)
+ def winStrongRockPaper(a, b):
+     return 0
+
 
 Then you do not need to define other implementations; they are
 inherited from the parent:
@@ -899,7 +1173,12 @@ In Python, generic functions are complicated by the existence of
 
 Consider this class:
 
-$$WithLength
+.. code-block:: python
+
+ class WithLength(object):
+     def __len__(self):
+         return 0
+
 
 This class defines a ``__len__`` method, and is therefore
 considered to be a subclass of the abstract base class ``collections.Sized``:
@@ -916,11 +1195,21 @@ account the virtual ancestors.
 
 In particular, if we define a generic function...
 
-$$get_length
+.. code-block:: python
+
+ @dispatch_on('obj')
+ def get_length(obj):
+     raise NotImplementedError(type(obj))
+
 
 ...implemented on all classes with a length...
 
-$$get_length_sized
+.. code-block:: python
+
+ @get_length.register(collections.Sized)
+ def get_length_sized(obj):
+     return len(obj)
+
 
 ...then ``get_length`` must be defined on ``WithLength`` instances...
 
@@ -942,7 +1231,14 @@ must be aware of the registration mechanism.
 For example, suppose you are using a third-party set-like class, like
 the following:
 
-$$SomeSet
+.. code-block:: python
+
+ class SomeSet(collections.Sized):
+     # methods that make SomeSet set-like
+     # not shown ...
+     def __len__(self):
+         return 0
+
 
 Here, the author of ``SomeSet`` made a mistake by inheriting from
 ``collections.Sized`` (instead of ``collections.Set``).
@@ -958,7 +1254,12 @@ This is not a problem. You can register *a posteriori*
 
 Now, let's define an implementation of ``get_length`` specific to set:
 
-$$get_length_set
+.. code-block:: python
+
+ @get_length.register(collections.Set)
+ def get_length_set(obj):
+     return 1
+
 
 The current implementation (and ``functools.singledispatch`` too)
 is able to discern that a ``Set`` is a ``Sized`` object, by looking at
@@ -975,7 +1276,25 @@ class ``C`` registered both as ``collections.Iterable`` and
 implementations for both ``collections.Iterable`` *and*
 ``collections.Sized``:
 
-$$singledispatch_example1
+.. code-block:: python
+
+ def singledispatch_example1():
+     singledispatch = dispatch_on('obj')
+ 
+     @singledispatch
+     def g(obj):
+         raise NotImplementedError(type(g))
+ 
+     @g.register(collections.Sized)
+     def g_sized(object):
+         return "sized"
+ 
+     @g.register(collections.Iterable)
+     def g_iterable(object):
+         return "iterable"
+ 
+     g(C())  # RuntimeError: Ambiguous dispatch: Iterable or Sized?
+
 
 It is impossible to decide which implementation to use, since the ancestors
 are independent. The following function will raise a ``RuntimeError``
@@ -1002,7 +1321,37 @@ the base classes.
 
 Here's an example that shows the difference:
 
-$$singledispatch_example2
+.. code-block:: python
+
+ def singledispatch_example2():
+     # adapted from functools.singledispatch test case
+     singledispatch = dispatch_on('arg')
+ 
+     class S(object):
+         pass
+ 
+     class V(c.Sized, S):
+         def __len__(self):
+             return 0
+ 
+     @singledispatch
+     def g(arg):
+         return "base"
+ 
+     @g.register(S)
+     def g_s(arg):
+         return "s"
+ 
+     @g.register(c.Container)
+     def g_container(arg):
+         return "container"
+ 
+     v = V()
+     assert g(v) == "s"
+     c.Container.register(V)  # add c.Container to the virtual mro of V
+     assert g(v) == "s"  # since the virtual mro is V, Sized, S, Container
+     return g, V
+
 
 If you play with this example and replace the ``singledispatch`` definition
 with ``functools.singledispatch``, the assertion will break: ``g`` will return
@@ -1084,7 +1433,7 @@ But since the function is decorated, the traceback is longer:
 
 .. code-block:: python
 
- >>> f() # doctest: +ELLIPSIS
+ >>> f() 
  Traceback (most recent call last):
    ...
       File "<string>", line 2, in f
@@ -1147,7 +1496,7 @@ Here is an example where it is manifest:
    >>> @memoize
    ... def getkeys(**kw):
    ...     return kw.keys()
-   >>> getkeys(func='a') # doctest: +ELLIPSIS
+   >>> getkeys(func='a') 
    Traceback (most recent call last):
     ...
    TypeError: _memoize() got multiple values for ... 'func'
@@ -1249,519 +1598,3 @@ DAMAGE.
 If you use this software and you are happy with it, consider sending me a
 note, just to gratify my ego. On the other hand, if you use this software and
 you are unhappy with it, send me a patch!
-"""
-
-function_annotations = """Function annotations
----------------------------------------------
-
-Python 3 introduced the concept of `function annotations`_: the ability
-to annotate the signature of a function with additional information,
-stored in a dictionary named ``__annotations__``. The ``decorator`` module
-(starting from release 3.3) will understand and preserve these annotations.
-
-Here is an example:
-
-.. code-block:: python
-
- >>> @trace
- ... def f(x: 'the first argument', y: 'default argument'=1, z=2,
- ...       *args: 'varargs', **kw: 'kwargs'):
- ...     pass
-
-In order to introspect functions with annotations, one needs the
-utility ``inspect.getfullargspec`` (introduced in Python 3, then
-deprecated in Python 3.5, in favor of ``inspect.signature``):
-
-.. code-block:: python
-
- >>> from inspect import getfullargspec
- >>> argspec = getfullargspec(f)
- >>> argspec.args
- ['x', 'y', 'z']
- >>> argspec.varargs
- 'args'
- >>> argspec.varkw
- 'kw'
- >>> argspec.defaults
- (1, 2)
- >>> argspec.kwonlyargs
- []
- >>> argspec.kwonlydefaults
-
-You can check that the ``__annotations__`` dictionary is preserved:
-
-.. code-block:: python
-
-  >>> f.__annotations__ is f.__wrapped__.__annotations__
-  True
-
-Here ``f.__wrapped__`` is the original undecorated function.
-This attribute exists for consistency with the behavior of
-``functools.update_wrapper``.
-
-Another attribute copied from the original function is ``__qualname__``,
-the qualified name. This attribute was introduced in Python 3.3.
-"""
-
-import sys
-import threading
-import time
-import functools
-import itertools
-import collections
-import collections as c
-from decorator import (decorator, decorate, FunctionMaker, contextmanager,
-                       dispatch_on, __version__)
-
-if sys.version < '3':
-    function_annotations = ''
-
-today = time.strftime('%Y-%m-%d')
-
-__doc__ = (doc.replace('$VERSION', __version__).replace('$DATE', today)
-           .replace('$FUNCTION_ANNOTATIONS', function_annotations))
-
-
-def decorator_apply(dec, func):
-    """
-    Decorate a function by preserving the signature even if dec
-    is not a signature-preserving decorator.
-    """
-    return FunctionMaker.create(
-        func, 'return decfunc(%(signature)s)',
-        dict(decfunc=dec(func)), __wrapped__=func)
-
-
-def _trace(f, *args, **kw):
-    kwstr = ', '.join('%r: %r' % (k, kw[k]) for k in sorted(kw))
-    print("calling %s with args %s, {%s}" % (f.__name__, args, kwstr))
-    return f(*args, **kw)
-
-
-def trace(f):
-    return decorate(f, _trace)
-
-
-class Future(threading.Thread):
-    """
-    A class converting blocking functions into asynchronous
-    functions by using threads.
-    """
-    def __init__(self, func, *args, **kw):
-        try:
-            counter = func.counter
-        except AttributeError:  # instantiate the counter at the first call
-            counter = func.counter = itertools.count(1)
-        name = '%s-%s' % (func.__name__, next(counter))
-
-        def func_wrapper():
-            self._result = func(*args, **kw)
-        super(Future, self).__init__(target=func_wrapper, name=name)
-        self.start()
-
-    def result(self):
-        self.join()
-        return self._result
-
-
-def identity_dec(func):
-    def wrapper(*args, **kw):
-        return func(*args, **kw)
-    return wrapper
-
-
-@identity_dec
-def example():
-    pass
-
-
-def memoize_uw(func):
-    func.cache = {}
-
-    def memoize(*args, **kw):
-        if kw:  # frozenset is used to ensure hashability
-            key = args, frozenset(kw.items())
-        else:
-            key = args
-        if key not in func.cache:
-            func.cache[key] = func(*args, **kw)
-        return func.cache[key]
-    return functools.update_wrapper(memoize, func)
-
-
-@memoize_uw
-def f1(x):
-    "Simulate some long computation"
-    time.sleep(1)
-    return x
-
-
-def _memoize(func, *args, **kw):
-    if kw:  # frozenset is used to ensure hashability
-        key = args, frozenset(kw.items())
-    else:
-        key = args
-    cache = func.cache  # attribute added by memoize
-    if key not in cache:
-        cache[key] = func(*args, **kw)
-    return cache[key]
-
-
-def memoize(f):
-    """
-    A simple memoize implementation. It works by adding a .cache dictionary
-    to the decorated function. The cache will grow indefinitely, so it is
-    your responsibility to clear it, if needed.
-    """
-    f.cache = {}
-    return decorate(f, _memoize)
-
-
-def blocking(not_avail):
-    def _blocking(f, *args, **kw):
-        if not hasattr(f, "thread"):  # no thread running
-            def set_result():
-                f.result = f(*args, **kw)
-            f.thread = threading.Thread(None, set_result)
-            f.thread.start()
-            return not_avail
-        elif f.thread.isAlive():
-            return not_avail
-        else:  # the thread is ended, return the stored result
-            del f.thread
-            return f.result
-    return decorator(_blocking)
-
-
-class User(object):
-    "Will just be able to see a page"
-
-
-class PowerUser(User):
-    "Will be able to add new pages too"
-
-
-class Admin(PowerUser):
-    "Will be able to delete pages too"
-
-
-def get_userclass():
-    return User
-
-
-class PermissionError(Exception):
-    pass
-
-
-def restricted(user_class):
-    def restricted(func, *args, **kw):
-        "Restrict access to a given class of users"
-        userclass = get_userclass()
-        if issubclass(userclass, user_class):
-            return func(*args, **kw)
-        else:
-            raise PermissionError(
-                '%s does not have the permission to run %s!'
-                % (userclass.__name__, func.__name__))
-    return decorator(restricted)
-
-
-class Action(object):
-    """
-    >>> a = Action()
-    >>> a.view() # ok
-    >>> a.insert() # doctest: +IGNORE_EXCEPTION_DETAIL
-    Traceback (most recent call last):
-       ...
-    PermissionError: User does not have the permission to run insert!
-    """
-    @restricted(User)
-    def view(self):
-        pass
-
-    @restricted(PowerUser)
-    def insert(self):
-        pass
-
-    @restricted(Admin)
-    def delete(self):
-        pass
-
-
-class TailRecursive(object):
-    """
-    tail_recursive decorator based on Kay Schluehr's recipe
-    http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691
-    with improvements by me and George Sakkis.
-    """
-
-    def __init__(self, func):
-        self.func = func
-        self.firstcall = True
-        self.CONTINUE = object()  # sentinel
-
-    def __call__(self, *args, **kwd):
-        CONTINUE = self.CONTINUE
-        if self.firstcall:
-            func = self.func
-            self.firstcall = False
-            try:
-                while True:
-                    result = func(*args, **kwd)
-                    if result is CONTINUE:  # update arguments
-                        args, kwd = self.argskwd
-                    else:  # last call
-                        return result
-            finally:
-                self.firstcall = True
-        else:  # return the arguments of the tail call
-            self.argskwd = args, kwd
-            return CONTINUE
-
-
-def tail_recursive(func):
-    return decorator_apply(TailRecursive, func)
-
-
-@tail_recursive
-def factorial(n, acc=1):
-    "The good old factorial"
-    if n == 0:
-        return acc
-    return factorial(n-1, n*acc)
-
-
-def fact(n):  # this is not tail-recursive
-    if n == 0:
-        return 1
-    return n * fact(n-1)
-
-
-def a_test_for_pylons():
-    """
-    In version 3.1.0 decorator(caller) returned a nameless partial
-    object, thus breaking Pylons. That must not happen again.
-
-    >>> decorator(_memoize).__name__
-    '_memoize'
-
-    Here is another bug of version 3.1.1 missing the docstring:
-
-    >>> factorial.__doc__
-    'The good old factorial'
-    """
-
-
-if sys.version >= '3':  # tests for signatures specific to Python 3
-
-    def test_kwonlydefaults():
-        """
-        >>> @trace
-        ... def f(arg, defarg=1, *args, kwonly=2): pass
-        ...
-        >>> f.__kwdefaults__
-        {'kwonly': 2}
-        """
-
-    def test_kwonlyargs():
-        """
-        >>> @trace
-        ... def func(a, b, *args, y=2, z=3, **kwargs):
-        ...     return y, z
-        ...
-        >>> func('a', 'b', 'c', 'd', 'e', y='y', z='z', cat='dog')
-        calling func with args ('a', 'b', 'c', 'd', 'e'), {'cat': 'dog', 'y': 'y', 'z': 'z'}
-        ('y', 'z')
-        """
-
-    def test_kwonly_no_args():
-        """# this was broken with decorator 3.3.3
-        >>> @trace
-        ... def f(**kw): pass
-        ...
-        >>> f()
-        calling f with args (), {}
-        """
-
-    def test_kwonly_star_notation():
-        """
-        >>> @trace
-        ... def f(*, a=1, **kw): pass
-        ...
-        >>> import inspect
-        >>> inspect.getfullargspec(f)
-        FullArgSpec(args=[], varargs=None, varkw='kw', defaults=None, kwonlyargs=['a'], kwonlydefaults={'a': 1}, annotations={})
-        """
-
-
-@contextmanager
-def before_after(before, after):
-    print(before)
-    yield
-    print(after)
-
-
-ba = before_after('BEFORE', 'AFTER')  # ContextManager instance
-
-
-@ba
-def hello(user):
-    """
-    >>> ba.__class__.__name__
-    'ContextManager'
-    >>> hello('michele')
-    BEFORE
-    hello michele
-    AFTER
-    """
-    print('hello %s' % user)
-
-
-# #######################  multiple dispatch ############################ #
-
-
-class XMLWriter(object):
-    def __init__(self, **config):
-        self.cfg = config
-
-    @dispatch_on('obj')
-    def write(self, obj):
-        raise NotImplementedError(type(obj))
-
-
-@XMLWriter.write.register(float)
-def writefloat(self, obj):
-    return '<float>%s</float>' % obj
-
-
-class Rock(object):
-    ordinal = 0
-
-
-class Paper(object):
-    ordinal = 1
-
-
-class Scissors(object):
-    ordinal = 2
-
-
-class StrongRock(Rock):
-    pass
-
-
-@dispatch_on('a', 'b')
-def win(a, b):
-    if a.ordinal == b.ordinal:
-        return 0
-    elif a.ordinal > b.ordinal:
-        return -win(b, a)
-    raise NotImplementedError((type(a), type(b)))
-
-
-@win.register(Rock, Paper)
-def winRockPaper(a, b):
-    return -1
-
-
-@win.register(Rock, Scissors)
-def winRockScissors(a, b):
-    return 1
-
-
-@win.register(Paper, Scissors)
-def winPaperScissors(a, b):
-    return -1
-
-
-@win.register(StrongRock, Paper)
-def winStrongRockPaper(a, b):
-    return 0
-
-
-class WithLength(object):
-    def __len__(self):
-        return 0
-
-
-class SomeSet(collections.Sized):
-    # methods that make SomeSet set-like
-    # not shown ...
-    def __len__(self):
-        return 0
-
-
-@dispatch_on('obj')
-def get_length(obj):
-    raise NotImplementedError(type(obj))
-
-
-@get_length.register(collections.Sized)
-def get_length_sized(obj):
-    return len(obj)
-
-
-@get_length.register(collections.Set)
-def get_length_set(obj):
-    return 1
-
-
-class C(object):
-    "Registered as Sized and Iterable"
-
-
-collections.Sized.register(C)
-collections.Iterable.register(C)
-
-
-def singledispatch_example1():
-    singledispatch = dispatch_on('obj')
-
-    @singledispatch
-    def g(obj):
-        raise NotImplementedError(type(g))
-
-    @g.register(collections.Sized)
-    def g_sized(object):
-        return "sized"
-
-    @g.register(collections.Iterable)
-    def g_iterable(object):
-        return "iterable"
-
-    g(C())  # RuntimeError: Ambiguous dispatch: Iterable or Sized?
-
-
-def singledispatch_example2():
-    # adapted from functools.singledispatch test case
-    singledispatch = dispatch_on('arg')
-
-    class S(object):
-        pass
-
-    class V(c.Sized, S):
-        def __len__(self):
-            return 0
-
-    @singledispatch
-    def g(arg):
-        return "base"
-
-    @g.register(S)
-    def g_s(arg):
-        return "s"
-
-    @g.register(c.Container)
-    def g_container(arg):
-        return "container"
-
-    v = V()
-    assert g(v) == "s"
-    c.Container.register(V)  # add c.Container to the virtual mro of V
-    assert g(v) == "s"  # since the virtual mro is V, Sized, S, Container
-    return g, V
-
-
-if __name__ == '__main__':
-    import doctest
-    doctest.testmod()
