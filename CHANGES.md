@@ -3,6 +3,11 @@ HISTORY
 
 ## Unreleased
 
+## 4.1.1 (2017-06-15)
+
+Changed the documentation build system to sphinx and uploaded the docs
+on readthedocs.org.
+
 ## 4.1.0 (2017-06-15)
 
 Support for Python 3.5 coroutines defined with `async def`, thanks to

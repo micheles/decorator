@@ -49,3 +49,8 @@ Repository
 The project is hosted on GitHub. You can look at the source here:
 
  https://github.com/micheles/decorator
+
+Documentation
+---------------
+
+The documentation has been moved to http://decorator.readthedocs.io/en/latest/
