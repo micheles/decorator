@@ -3,7 +3,7 @@ HISTORY
 
 ## Unreleased
 
-## 4.1.0 (2017-06-04)
+## 4.1.0 (2017-06-15)
 
 Support for Python 3.5 coroutines defined with `async def`, thanks to
 Victor-Nicolae Savu who raised the issue of `iscoroutinefunction` not

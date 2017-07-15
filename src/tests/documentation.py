@@ -7,7 +7,7 @@ The ``decorator`` module
 :Author: Michele Simionato
 :E-mail: michele.simionato@gmail.com
 :Version: $VERSION ($DATE)
-:Supports: Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5
+:Supports: Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6
 :Download page: http://pypi.python.org/pypi/decorator/$VERSION
 :Installation: ``pip install decorator``
 :License: BSD license
@@ -57,7 +57,7 @@ What's New in version 4
   ``decorator(caller, func)``. The old functionality is now deprecated
   and no longer documented, but still available for now.
 
-- **New experimental feature**
+- **Multiple dispatch**
   The decorator module now includes an implementation of generic
   functions (sometimes called "multiple dispatch functions").
   The API is designed to mimic ``functools.singledispatch`` (added
@@ -69,6 +69,11 @@ What's New in version 4
   experimental features!) In any case, it is very short and compact
   (less then 100 lines), so you can extract it for your own use.
   Take it as food for thought.
+
+- **Python 3.5 coroutines**
+  From version 4.1 it is possible to decorate coroutines, i.e. functions
+  defined with the `async def` syntax, and to mantain the
+  `inspect.iscoroutinefunction` check working for the decorated function.
 
 Usefulness of decorators
 ------------------------------------------------
@@ -696,6 +701,61 @@ following:
 
 - returns a value without making a recursive call; or,
 - returns directly the result of a recursive call.
+
+Python 3.5 coroutines
+-----------------------
+
+I am personally not using Python 3.5 coroutines yet, because at work we are
+still maintaining compatibility with Python 2.7. However, some users requested
+support for coroutines and since version 4.1 the decorator module has it.
+You should consider the support experimental and kindly report issues if
+you find any.
+
+Here I will give a single example of usage. Suppose you want to log the moment
+a coroutine starts and the moment it stops for debugging purposes. You could
+write code like the following:
+
+.. code-block:: python
+
+ import time
+ import logging
+ from asyncio import get_event_loop, sleep, wait
+ from decorator import decorator
+
+ @decorator
+ async def log_start_stop(coro, *args, **kwargs):
+     logging.info('Starting %s%s', coro.__name__, args)
+     t0 = time.time()
+     await coro(*args, **kwargs)
+     dt = time.time() - t0
+     logging.info('Ending %s%s after %d seconds', coro.__name__, args, dt)
+
+ @log_start_stop
+ async def make_task(n):
+     for i in range(n):
+         await sleep(1)
+
+ if __name__ == '__main__':
+     logging.basicConfig(level=logging.INFO)
+     tasks = [make_task(3), make_task(2), make_task(1)]
+     get_event_loop().run_until_complete(wait(tasks))
+
+and you will get at output like this::
+
+ INFO:root:Starting make_task(1,)
+ INFO:root:Starting make_task(3,)
+ INFO:root:Starting make_task(2,)
+ INFO:root:Ending make_task(1,) after 1 seconds
+ INFO:root:Ending make_task(2,) after 2 seconds
+ INFO:root:Ending make_task(3,) after 3 seconds
+
+This may be handy if you have trouble understanding what it going on
+with a particularly complex chain of coroutines. With a single line you
+can decorate the troubling coroutine function, understand what happens, fix the
+issue and then remove the decorator (or keep it if continuous monitoring
+of the coroutines makes sense). Notice that
+`inspect.iscoroutinefunction(make_task)`
+will return then right answer (i.e. `True`).
 
 Multiple dispatch
 -------------------------------------------
