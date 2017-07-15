@@ -18,7 +18,7 @@ If you are lazy, just perform
 which will install just the module on your system.
 
 If you prefer to install the full distribution from source, including
-the documentation, download the tarball_, unpack it and run
+the documentation, clone the [GitHub repo](https://github.com/micheles/decorator) or download the tarball_, unpack it and run
 
  `$ pip install .`
 
@@ -30,7 +30,7 @@ in the main directory, possibly as superuser.
 Testing
 --------
 
-Run
+If you have the source code installtion you can run the tests with
 
  `$ python src/tests/test.py -v`
 

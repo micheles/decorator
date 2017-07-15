@@ -1,12 +1,12 @@
 \
 The ``decorator`` module
-=============================================================
+------------------------
 
 :Author: Michele Simionato
 :E-mail: michele.simionato@gmail.com
-:Version: 4.1.0 (2017-07-15)
+:Version: 4.1.1 (2017-07-15)
 :Supports: Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6
-:Download page: http://pypi.python.org/pypi/decorator/4.1.0
+:Download page: http://pypi.python.org/pypi/decorator/4.1.1
 :Installation: ``pip install decorator``
 :License: BSD license
 
@@ -173,7 +173,7 @@ Here I used the functools.update_wrapper_ utility, which was added
 in Python 2.5 to simplify the writing of decorators.
 (Previously, you needed to manually copy the function attributes
 ``__name__``, ``__doc__``, ``__module__``, and ``__dict__``
-to the decorated function by hand.)
+to the decorated function by hand).
 
 Here is an example of usage:
 
@@ -773,8 +773,7 @@ not what you want:
  <BLANKLINE>
 
 (See bug report 1764286_ for an explanation of what is happening).
-Unfortunately the bug still exists in all versions of Python, except
-Python 3.5.
+Unfortunately the bug still exists in all versions of Python < 3.5.
 
 However, there is a workaround. The decorated function has the ``__wrapped__``
 attribute, pointing to the original function. The simplest way to get the
