@@ -3,7 +3,7 @@ The ``decorator`` module
 
 :Author: Michele Simionato
 :E-mail: michele.simionato@gmail.com
-:Version: 4.1.1 (2017-07-15)
+:Version: 4.1.1 (2017-07-16)
 :Supports: Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6
 :Download page: http://pypi.python.org/pypi/decorator/4.1.1
 :Installation: ``pip install decorator``
@@ -19,7 +19,7 @@ kicking. It is used by several frameworks (IPython, scipy, authkit,
 pylons, pycuda, sugar, ...) and has been stable for a *long*
 time. It is your best option if you want to preserve the signature of
 decorated functions in a consistent way across Python
-releases. Version 4.0 is fully compatible with the past, except for
+releases. Version 4 is fully compatible with the past, except for
 one thing: support for Python 2.4 and 2.5 has been dropped. That
 decision made it possible to use a single code base both for Python
 2.X and Python 3.X. This is a *huge* bonus, since I could remove over
@@ -69,7 +69,7 @@ What's New in version 4
 
 - **Python 3.5 coroutines**
   From version 4.1 it is possible to decorate coroutines, i.e. functions
-  defined with the `async def` syntax, and to mantain the
+  defined with the `async def` syntax, and to maintain the
   `inspect.iscoroutinefunction` check working for the decorated function.
 
 Usefulness of decorators
