@@ -30,7 +30,7 @@ in the main directory, possibly as superuser.
 Testing
 --------
 
-If you have the source code installtion you can run the tests with
+If you have the source code installation you can run the tests with
 
  `$ python src/tests/test.py -v`
 
