@@ -223,7 +223,8 @@ class FunctionMaker(object):
             func = obj
         self = cls(func, name, signature, defaults, doc, module)
         ibody = '\n'.join('    ' + line for line in body.splitlines())
-        if self.coro:
+        caller = evaldict.get('_call_')  # when called from `decorate`
+        if caller and iscoroutinefunction(caller):
             body = ('async def %(name)s(%(signature)s):\n' + ibody).replace(
                 'return', 'return await')
         else:
@@ -263,9 +264,9 @@ def decorator(caller, _func=None):
     else:  # assume caller is an object with a __call__ method
         name = caller.__class__.__name__.lower()
         doc = caller.__call__.__doc__
-    evaldict = dict(_call_=caller, _decorate_=decorate)
+    evaldict = dict(_call=caller, _decorate_=decorate)
     return FunctionMaker.create(
-        '%s(func)' % name, 'return _decorate_(func, _call_)',
+        '%s(func)' % name, 'return _decorate_(func, _call)',
         evaldict, doc=doc, module=caller.__module__,
         __wrapped__=caller)
 

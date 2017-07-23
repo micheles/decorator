@@ -92,7 +92,6 @@ class ExtraTestCase(unittest.TestCase):
         @d1
         def f1(x, y, z):
             pass
-
         self.assertNotEqual(d1.__code__.co_filename, d2.__code__.co_filename)
         self.assertNotEqual(f1.__code__.co_filename, f2.__code__.co_filename)
         self.assertNotEqual(f1_orig.__code__.co_filename,
