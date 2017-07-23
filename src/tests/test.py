@@ -30,15 +30,25 @@ if sys.version >= '3.5':
 async def before_after(coro, *args, **kwargs):
     return "<before>" + (await coro(*args, **kwargs)) + "<after>"
 
+@decorator
+def coro_to_func(coro, *args, **kw):
+    return get_event_loop().run_until_complete(coro(*args, **kw))
 
 class CoroutineTestCase(unittest.TestCase):
-    def test(self):
+    def test_before_after(self):
         @before_after
         async def coro(x):
            return x
         self.assertTrue(inspect.iscoroutinefunction(coro))
         out = get_event_loop().run_until_complete(coro('x'))
         self.assertEqual(out, '<before>x<after>')
+
+    def test_coro_to_func(self):
+        @coro_to_func
+        async def coro(x):
+            return x
+        self.assertFalse(inspect.iscoroutinefunction(coro))
+        self.assertEqual(coro('x'), 'x')
 ''')
 
 
@@ -92,7 +102,6 @@ class ExtraTestCase(unittest.TestCase):
         @d1
         def f1(x, y, z):
             pass
-
         self.assertNotEqual(d1.__code__.co_filename, d2.__code__.co_filename)
         self.assertNotEqual(f1.__code__.co_filename, f2.__code__.co_filename)
         self.assertNotEqual(f1_orig.__code__.co_filename,
