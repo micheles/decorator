@@ -3,7 +3,12 @@ HISTORY
 
 ## Unreleased
 
-## 4.1.1 (2017-06-15)
+## 4.1.2 (2017-07-23)
+
+Made it possible to define decorators converting coroutines into regular
+functions, as requested by Itaï Ben Yaacov.
+
+## 4.1.1 (2017-06-16)
 
 Changed the documentation build system to sphinx and uploaded the docs
 on readthedocs.org.

@@ -3,9 +3,9 @@ The ``decorator`` module
 
 :Author: Michele Simionato
 :E-mail: michele.simionato@gmail.com
-:Version: 4.1.1 (2017-07-16)
+:Version: 4.1.2 (2017-07-23)
 :Supports: Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6
-:Download page: http://pypi.python.org/pypi/decorator/4.1.1
+:Download page: http://pypi.python.org/pypi/decorator/4.1.2
 :Installation: ``pip install decorator``
 :License: BSD license
 
@@ -966,8 +966,23 @@ with a particularly complex chain of coroutines. With a single line you
 can decorate the troubling coroutine function, understand what happens, fix the
 issue and then remove the decorator (or keep it if continuous monitoring
 of the coroutines makes sense). Notice that
-`inspect.iscoroutinefunction(make_task)`
-will return then right answer (i.e. `True`).
+``inspect.iscoroutinefunction(make_task)``
+will return the right answer (i.e. ``True``).
+
+It is also possible to define decorators converting coroutine functions
+into regular functions, such as the following:
+
+.. code-block:: python
+
+ @decorator
+ def coro_to_func(coro, *args, **kw):
+     "Convert a coroutine into a function"
+     return get_event_loop().run_until_complete(coro(*args, **kw))
+
+Notice the diffence: the caller in ``log_start_stop`` was a coroutine
+function and the associate decorator was converting coroutines->coroutines;
+the caller in ``coro_to_func`` is a regular function and converts
+coroutines -> functions.
 
 Multiple dispatch
 -------------------------------------------

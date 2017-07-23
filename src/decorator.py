@@ -40,7 +40,7 @@ import operator
 import itertools
 import collections
 
-__version__ = '4.1.1'
+__version__ = '4.1.2'
 
 if sys.version >= '3':
     from inspect import getfullargspec
@@ -97,7 +97,6 @@ class FunctionMaker(object):
     def __init__(self, func=None, name=None, signature=None,
                  defaults=None, doc=None, module=None, funcdict=None):
         self.shortsignature = signature
-        self.coro = False
         if func:
             # func can be a class or a callable, but not an instance method
             self.name = func.__name__
@@ -106,7 +105,6 @@ class FunctionMaker(object):
             self.doc = func.__doc__
             self.module = func.__module__
             if inspect.isfunction(func):
-                self.coro = iscoroutinefunction(func)
                 argspec = getfullargspec(func)
                 self.annotations = getattr(func, '__annotations__', {})
                 for a in ('args', 'varargs', 'varkw', 'defaults', 'kwonlyargs',
