@@ -8,12 +8,12 @@ HISTORY
 Made it possible to define decorators converting coroutines into regular
 functions, as requested by Itaï Ben Yaacov.
 
-## 4.1.1 (2017-06-16)
+## 4.1.1 (2017-07-16)
 
 Changed the documentation build system to sphinx and uploaded the docs
 on readthedocs.org.
 
-## 4.1.0 (2017-06-15)
+## 4.1.0 (2017-07-15)
 
 Support for Python 3.5 coroutines defined with `async def`, thanks to
 Victor-Nicolae Savu who raised the issue of `iscoroutinefunction` not
