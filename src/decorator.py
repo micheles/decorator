@@ -230,13 +230,18 @@ class FunctionMaker(object):
         return self.make(body, evaldict, addsource, **attrs)
 
 
-def decorate(func, caller):
+def decorate(func, caller, extras=()):
     """
     decorate(func, caller) decorates a function using a caller.
     """
     evaldict = dict(_call_=caller, _func_=func)
+    es = ''
+    for i, extra in enumerate(extras):
+        ex = '_e%d_' % i
+        evaldict[ex] = extra
+        es += ex + ', '
     fun = FunctionMaker.create(
-        func, "return _call_(_func_, %(shortsignature)s)",
+        func, "return _call_(_func_, {}%(shortsignature)s)".format(es),
         evaldict, __wrapped__=func)
     if hasattr(func, '__qualname__'):
         fun.__qualname__ = func.__qualname__
@@ -249,6 +254,7 @@ def decorator(caller, _func=None):
         # this is obsolete behavior; you should use decorate instead
         return decorate(_func, caller)
     # else return a decorator function
+    defaultargs, defaults = '', ()
     if inspect.isclass(caller):
         name = caller.__name__.lower()
         doc = 'decorator(%s) converts functions/generators into ' \
@@ -259,15 +265,23 @@ def decorator(caller, _func=None):
         else:
             name = caller.__name__
         doc = caller.__doc__
+        nargs = caller.__code__.co_argcount
+        defaultargs = ', '.join(caller.__code__.co_varnames[1:nargs])
+        if defaultargs:
+            defaultargs += ','
+        defaults = caller.__defaults__
     else:  # assume caller is an object with a __call__ method
         name = caller.__class__.__name__.lower()
         doc = caller.__call__.__doc__
     evaldict = dict(_call=caller, _decorate_=decorate)
-    return FunctionMaker.create(
-        '%s(func)' % name, 'return _decorate_(func, _call)',
-        evaldict, doc=doc, module=caller.__module__,
-        __wrapped__=caller)
-
+    dec = FunctionMaker.create(
+        '%s(func, %s)' % (name, defaultargs),
+        'if func is None: return lambda func:  _decorate_(func, _call, (%s))\n'
+        'return _decorate_(func, _call, (%s))' % (defaultargs, defaultargs),
+        evaldict, doc=doc, module=caller.__module__, __wrapped__=caller)
+    if defaults:
+        dec.__defaults__ = (None,) + defaults
+    return dec
 
 # ####################### contextmanager ####################### #
 

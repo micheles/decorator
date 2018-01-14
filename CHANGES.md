@@ -3,6 +3,11 @@ HISTORY
 
 ## Unreleased
 
+## 4.2.0 (2018-01-14)
+
+Added a facility to define families of decorators (aka decorators with
+arguments) as requested by several users.
+
 ## 4.1.2 (2017-07-23)
 
 Made it possible to define decorators converting coroutines into regular
