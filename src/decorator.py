@@ -40,7 +40,7 @@ import operator
 import itertools
 import collections
 
-__version__ = '4.1.2'
+__version__ = '4.2.0'
 
 if sys.version >= '3':
     from inspect import getfullargspec
@@ -241,7 +241,7 @@ def decorate(func, caller, extras=()):
         evaldict[ex] = extra
         es += ex + ', '
     fun = FunctionMaker.create(
-        func, "return _call_(_func_, {}%(shortsignature)s)".format(es),
+        func, "return _call_(_func_, %s%%(shortsignature)s)" % es,
         evaldict, __wrapped__=func)
     if hasattr(func, '__qualname__'):
         fun.__qualname__ = func.__qualname__
