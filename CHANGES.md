@@ -5,7 +5,7 @@ HISTORY
 
 ## 4.2.1 (2018-01-14)
 
-Fixed a regression breaking IPython and discovered by https://github.com/spapini
+Fixed a regression breaking IPython reported by https://github.com/spapini .
 
 ## 4.2.0 (2018-01-14)
 

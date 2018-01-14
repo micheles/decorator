@@ -126,6 +126,17 @@ class ExtraTestCase(unittest.TestCase):
             return method(app)
         catch_config_error(lambda app: None)
 
+    def test_add1(self):
+        # similar to what IPython is doing in traitlets.config.application
+        @decorator
+        def add(func, const=1, *args, **kwargs):
+            return const + func(*args, **kwargs)
+
+        def f(x):
+            return x
+        self.assertEqual(add(f)(0), 1)
+        self.assertEqual(add(f, 2)(0), 2)
+
 # ################### test dispatch_on ############################# #
 # adapted from test_functools in Python 3.5
 singledispatch = dispatch_on('obj')
