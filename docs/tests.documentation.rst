@@ -3,9 +3,9 @@ The ``decorator`` module
 
 :Author: Michele Simionato
 :E-mail: michele.simionato@gmail.com
-:Version: 4.1.2 (2017-07-23)
+:Version: 4.2.0 (2018-01-14)
 :Supports: Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6
-:Download page: http://pypi.python.org/pypi/decorator/4.1.2
+:Download page: http://pypi.python.org/pypi/decorator/4.2.0
 :Installation: ``pip install decorator``
 :License: BSD license
 
@@ -27,7 +27,7 @@ decision made it possible to use a single code base both for Python
 separate docs for Python 2 and Python 3 effectively stopped any
 development on the module for several years. Moreover, it is now
 trivial to distribute the module as an universal wheel_ since 2to3 is no more
-required. Since Python 2.5 has been released 9 years ago, I felt that
+required. Since Python 2.5 has been released ages ago (in 2006), I felt that
 it was reasonable to drop the support for it. If you need to support
 ancient versions of Python, stick with the decorator module version
 3.4.2.  The current version supports all Python releases from 2.6 up to 3.6.
@@ -39,9 +39,9 @@ What's New in version 4
 
 - **New documentation**
   There is now a single manual for all Python versions, so I took the
-  opportunity to overhaul the documentation. So, even if you are
-  a long-time user, you may want to revisit the docs, since several
-  examples have been improved.
+  opportunity to overhaul the documentation and to move it to readthedocs.org.
+  Even if you are a long-time user, you may want to revisit the docs, since
+  several examples have been improved.
 
 - **Packaging improvements**
   The code is now also available in wheel format. Integration with
@@ -61,16 +61,18 @@ What's New in version 4
   in Python 3.4), but the implementation is much simpler.
   Moreover, all decorators involved preserve the signature of the
   decorated functions. For now, this exists mostly to demonstrate
-  the power of the module. In the future it could be enhanced/optimized;
-  however, its API could change. (Such is the fate of
-  experimental features!) In any case, it is very short and compact
-  (less then 100 lines), so you can extract it for your own use.
-  Take it as food for thought.
+  the power of the module. In the future it could be enhanced/optimized.
+  In any case, it is very short and compact (less then 100 lines), so you
+  can extract it for your own use. Take it as food for thought.
 
 - **Python 3.5 coroutines**
   From version 4.1 it is possible to decorate coroutines, i.e. functions
   defined with the `async def` syntax, and to maintain the
   `inspect.iscoroutinefunction` check working for the decorated function.
+
+- **Decorator factories**
+  From version 4.2 there is facility to define factories of decorators in
+  a simple way, a feature requested by the users since a long time.
 
 Usefulness of decorators
 ------------------------------------------------
@@ -465,31 +467,66 @@ Here is an example of usage:
  >>> func()
  calling func with args (), {}
 
+The `decorator` function can also be used to define factories of decorators,
+i.e. functions returning decorators. In general you can just write something
+like this:
+
+.. code-block:: python
+
+   def decfactory(param1, param2, ...):
+      def caller(f, *args, **kw):
+          return somefunc(f, param1, param2, .., *args, **kw)
+      return decorator(caller)
+
+This is fully general but requires an additional level of nesting. For this
+reasone since version 4.2 there is a facility to build
+decorator factories by using a single caller with default arguments i.e.
+writing something like this:
+
+.. code-block:: python
+
+   def caller(f, param1=default1, param2=default2, ..., *args, **kw):
+       return somefunc(f, param1, param2, *args, **kw)
+   decfactory = decorator(caller)
+
+Notice that this simplified approach *only works with default arguments*,
+i.e. `param1`, `param2` etc must have known defaults. Thanks to this
+restriction, there exists an unique default decorator, i.e. the member
+of the family which uses the default values for all parameters. Such
+decorator can be written as `decfactory()` with no parameters specified;
+moreover, as a shortcut, it is also possible to elide the parenthesis,
+a feature much requested by the users. For years I have been opposite
+to this feature request, since having expliciti parenthesis to me is more clear
+and less magic; however once this feature entered in decorators of
+the Python standard library (I am referring to the `dataclass` decorator
+https://www.python.org/dev/peps/pep-0557/) I finally gave up.
+
+The example below will show how it works in practice.
+
 ``blocking``
 -------------------------------------------
 
 Sometimes one has to deal with blocking resources, such as ``stdin``.
 Sometimes it is better to receive a "busy" message than just blocking
 everything.
-This can be accomplished with a suitable family of decorators,
-where the parameter is the busy message:
+This can be accomplished with a suitable family of decorators (decorator
+factory), parameterize by a string, the busy message:
 
 .. code-block:: python
 
- def blocking(not_avail):
-     def _blocking(f, *args, **kw):
-         if not hasattr(f, "thread"):  # no thread running
-             def set_result():
-                 f.result = f(*args, **kw)
-             f.thread = threading.Thread(None, set_result)
-             f.thread.start()
-             return not_avail
-         elif f.thread.isAlive():
-             return not_avail
-         else:  # the thread is ended, return the stored result
-             del f.thread
-             return f.result
-     return decorator(_blocking)
+ @decorator
+ def blocking(f, msg='blocking', *args, **kw):
+     if not hasattr(f, "thread"):  # no thread running
+         def set_result():
+             f.result = f(*args, **kw)
+         f.thread = threading.Thread(None, set_result)
+         f.thread.start()
+         return msg
+     elif f.thread.isAlive():
+         return msg
+     else:  # the thread is ended, return the stored result
+         del f.thread
+         return f.result
 
 
 Functions decorated with ``blocking`` will return a busy message if
@@ -498,7 +535,7 @@ available. For instance:
 
 .. code-block:: python
 
- >>> @blocking("Please wait ...")
+ >>> @blocking(msg="Please wait ...")
  ... def read_data():
  ...     time.sleep(3) # simulate a blocking resource
  ...     return "some data"
@@ -1040,7 +1077,7 @@ You can perform the registration with a decorator:
      return '<float>%s</float>' % obj
 
 
-Now XMLWriter can serialize floats:
+Now ``XMLWriter`` can serialize floats:
 
 .. code-block:: python
 
@@ -1074,11 +1111,11 @@ I have added an ordinal to the Rock-Paper-Scissors classes to simplify
 the implementation. The idea is to define a generic function (``win(a,
 b)``) of two arguments corresponding to the *moves* of the first and
 second players. The *moves* are instances of the classes
-Rock, Paper, and Scissors.
+Rock, Paper, and Scissors:
 
-Paper wins over Rock;
-Scissors wins over Paper; and
-Rock wins over Scissors.
+- Paper wins over Rock
+- Scissors wins over Paper
+- Rock wins over Scissors
 
 The function will return +1 for a win, -1 for a loss, and 0 for parity.
 There are 9 combinations, but combinations with the same ordinal
