@@ -53,5 +53,5 @@ The project is hosted on GitHub. You can look at the source here:
 Documentation
 ---------------
 
-The documentation has been moved to http://decorator.readthedocs.io/en/stable/
-You can download a PDF version of it from http://media.readthedocs.org/pdf/decorator/stable/decorator.pdf
+The documentation has been moved to http://decorator.readthedocs.io/en/latest/
+You can download a PDF version of it from http://media.readthedocs.org/pdf/decorator/latest/decorator.pdf
