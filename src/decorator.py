@@ -1,6 +1,6 @@
 # #########################     LICENSE     ############################ #
 
-# Copyright (c) 2005-2017, Michele Simionato
+# Copyright (c) 2005-2018, Michele Simionato
 # All rights reserved.
 
 # Redistribution and use in source and binary forms, with or without
@@ -112,26 +112,21 @@ class FunctionMaker(object):
                     setattr(self, a, getattr(argspec, a))
                 for i, arg in enumerate(self.args):
                     setattr(self, 'arg%d' % i, arg)
-                if sys.version < '3':  # easy way
-                    self.shortsignature = self.signature = (
-                        inspect.formatargspec(
-                            formatvalue=lambda val: "", *argspec[:-2])[1:-1])
-                else:  # Python 3 way
-                    allargs = list(self.args)
-                    allshortargs = list(self.args)
-                    if self.varargs:
-                        allargs.append('*' + self.varargs)
-                        allshortargs.append('*' + self.varargs)
-                    elif self.kwonlyargs:
-                        allargs.append('*')  # single star syntax
-                    for a in self.kwonlyargs:
-                        allargs.append('%s=None' % a)
-                        allshortargs.append('%s=%s' % (a, a))
-                    if self.varkw:
-                        allargs.append('**' + self.varkw)
-                        allshortargs.append('**' + self.varkw)
-                    self.signature = ', '.join(allargs)
-                    self.shortsignature = ', '.join(allshortargs)
+                allargs = list(self.args)
+                allshortargs = list(self.args)
+                if self.varargs:
+                    allargs.append('*' + self.varargs)
+                    allshortargs.append('*' + self.varargs)
+                elif self.kwonlyargs:
+                    allargs.append('*')  # single star syntax
+                for a in self.kwonlyargs:
+                    allargs.append('%s=None' % a)
+                    allshortargs.append('%s=%s' % (a, a))
+                if self.varkw:
+                    allargs.append('**' + self.varkw)
+                    allshortargs.append('**' + self.varkw)
+                self.signature = ', '.join(allargs)
+                self.shortsignature = ', '.join(allshortargs)
                 self.dict = func.__dict__.copy()
         # func=None happens when decorating a caller
         if name:
