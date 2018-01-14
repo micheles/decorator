@@ -312,7 +312,12 @@ elif n_args == 4:  # (self, gen, args, kwds) Python 3.5
         return _GeneratorContextManager.__init__(self, g, a, k)
     ContextManager.__init__ = __init__
 
-contextmanager = decorator(ContextManager)
+_contextmanager = decorator(ContextManager)
+
+
+def contextmanager(func):
+    # Enable Pylint config: contextmanager-decorators=decorator.contextmanager
+    return _contextmanager(func)
 
 
 # ############################ dispatch_on ############################ #
