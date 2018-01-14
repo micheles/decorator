@@ -6,7 +6,8 @@ HISTORY
 ## 4.2.0 (2018-01-14)
 
 Added a facility to define families of decorators (aka decorators with
-arguments) as requested by several users.
+arguments) as requested by several users. Accepted a pylint patch by
+David Allouche.
 
 ## 4.1.2 (2017-07-23)
 

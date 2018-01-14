@@ -3,9 +3,9 @@ The ``decorator`` module
 
 :Author: Michele Simionato
 :E-mail: michele.simionato@gmail.com
-:Version: 4.1.2 (2018-01-14)
+:Version: 4.2.0 (2018-01-14)
 :Supports: Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6
-:Download page: http://pypi.python.org/pypi/decorator/4.1.2
+:Download page: http://pypi.python.org/pypi/decorator/4.2.0
 :Installation: ``pip install decorator``
 :License: BSD license
 
@@ -27,7 +27,7 @@ decision made it possible to use a single code base both for Python
 separate docs for Python 2 and Python 3 effectively stopped any
 development on the module for several years. Moreover, it is now
 trivial to distribute the module as an universal wheel_ since 2to3 is no more
-required. Since Python 2.5 has been released 9 years ago, I felt that
+required. Since Python 2.5 has been released ages ago (in 2006), I felt that
 it was reasonable to drop the support for it. If you need to support
 ancient versions of Python, stick with the decorator module version
 3.4.2.  The current version supports all Python releases from 2.6 up to 3.6.
@@ -61,11 +61,9 @@ What's New in version 4
   in Python 3.4), but the implementation is much simpler.
   Moreover, all decorators involved preserve the signature of the
   decorated functions. For now, this exists mostly to demonstrate
-  the power of the module. In the future it could be enhanced/optimized;
-  however, its API could change. (Such is the fate of
-  experimental features!) In any case, it is very short and compact
-  (less then 100 lines), so you can extract it for your own use.
-  Take it as food for thought.
+  the power of the module. In the future it could be enhanced/optimized.
+  In any case, it is very short and compact (less then 100 lines), so you
+  can extract it for your own use. Take it as food for thought.
 
 - **Python 3.5 coroutines**
   From version 4.1 it is possible to decorate coroutines, i.e. functions
@@ -73,7 +71,6 @@ What's New in version 4
   `inspect.iscoroutinefunction` check working for the decorated function.
 
 - **Decorator factories**
-
   From version 4.2 there is facility to define factories of decorators in
   a simple way, a feature requested by the users since a long time.
 
@@ -501,7 +498,7 @@ moreover, as a shortcut, it is also possible to elide the parenthesis,
 a feature much requested by the users. For years I have been opposite
 to this feature request, since having expliciti parenthesis to me is more clear
 and less magic; however once this feature entered in decorators of
-the Python standard library (I am referring to the dataclass decorator
+the Python standard library (I am referring to the `dataclass` decorator
 https://www.python.org/dev/peps/pep-0557/) I finally gave up.
 
 The example below will show how it works in practice.
@@ -1080,7 +1077,7 @@ You can perform the registration with a decorator:
      return '<float>%s</float>' % obj
 
 
-Now XMLWriter can serialize floats:
+Now ``XMLWriter`` can serialize floats:
 
 .. code-block:: python
 
@@ -1114,11 +1111,11 @@ I have added an ordinal to the Rock-Paper-Scissors classes to simplify
 the implementation. The idea is to define a generic function (``win(a,
 b)``) of two arguments corresponding to the *moves* of the first and
 second players. The *moves* are instances of the classes
-Rock, Paper, and Scissors.
+Rock, Paper, and Scissors:
 
-Paper wins over Rock;
-Scissors wins over Paper; and
-Rock wins over Scissors.
+- Paper wins over Rock
+- Scissors wins over Paper
+- Rock wins over Scissors
 
 The function will return +1 for a win, -1 for a loss, and 0 for parity.
 There are 9 combinations, but combinations with the same ordinal
