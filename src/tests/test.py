@@ -119,6 +119,12 @@ class ExtraTestCase(unittest.TestCase):
         # there is no confusion when passing args as a keyword argument
         self.assertEqual(func(args='a'), {'args': 'a'})
 
+    def test_decorator_factory(self):
+        # similar to what IPython is doing in traitlets.config.application
+        @decorator
+        def catch_config_error(method, app, *args, **kwargs):
+            return method(app)
+        catch_config_error(lambda app: None)
 
 # ################### test dispatch_on ############################# #
 # adapted from test_functools in Python 3.5

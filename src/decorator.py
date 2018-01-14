@@ -40,7 +40,7 @@ import operator
 import itertools
 import collections
 
-__version__ = '4.2.0'
+__version__ = '4.2.1'
 
 if sys.version >= '3':
     from inspect import getfullargspec
@@ -261,7 +261,8 @@ def decorator(caller, _func=None):
             name = caller.__name__
         doc = caller.__doc__
         nargs = caller.__code__.co_argcount
-        defaultargs = ', '.join(caller.__code__.co_varnames[1:nargs])
+        ndefs = len(caller.__defaults__ or ())
+        defaultargs = ', '.join(caller.__code__.co_varnames[nargs-ndefs:nargs])
         if defaultargs:
             defaultargs += ','
         defaults = caller.__defaults__
