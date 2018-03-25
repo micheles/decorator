@@ -66,16 +66,6 @@ except AttributeError:
     def iscoroutinefunction(f):
         return False
 
-# getargspec has been deprecated in Python 3.5
-ArgSpec = collections.namedtuple(
-    'ArgSpec', 'args varargs varkw defaults')
-
-
-def getargspec(f):
-    """A replacement for inspect.getargspec"""
-    spec = getfullargspec(f)
-    return ArgSpec(spec.args, spec.varargs, spec.varkw, spec.defaults)
-
 
 DEF = re.compile(r'\s*def\s*([_\w][_\w\d]*)\s*\(')
 
@@ -260,9 +250,13 @@ def decorator(caller, _func=None):
         else:
             name = caller.__name__
         doc = caller.__doc__
-        nargs = caller.__code__.co_argcount
+        a = getfullargspec(caller)
+        defargs = a.args[1:]
+        nargs = len(a.args[1:])
         ndefs = len(caller.__defaults__ or ())
-        defaultargs = ', '.join(caller.__code__.co_varnames[nargs-ndefs:nargs])
+        if ndefs < nargs:
+            caller.__defaults__ = (None,) * (nargs - ndefs)
+        defaultargs = ', '.join(defargs)
         if defaultargs:
             defaultargs += ','
         defaults = caller.__defaults__
@@ -278,6 +272,7 @@ def decorator(caller, _func=None):
     if defaults:
         dec.__defaults__ = (None,) + defaults
     return dec
+
 
 # ####################### contextmanager ####################### #
 

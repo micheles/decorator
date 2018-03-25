@@ -185,9 +185,9 @@ keyword arguments:
 
 .. code-block:: python
 
- >>> from decorator import getargspec  # akin to inspect.getargspec
- >>> print(getargspec(f1))
- ArgSpec(args=[], varargs='args', varkw='kw', defaults=None)
+ >>> from decorator import getfullargspec
+ >>> print(getfullargspec(f1))
+ FullArgSpec(args=[], varargs='args', varkw='kw', defaults=None, kwonlyargs=[], kwonlydefaults=None, annotations={})
 
 This means that introspection tools (like ``pydoc``) will give false
 information about the signature of ``f1`` -- unless you are using
@@ -202,7 +202,7 @@ calling the function with more than one argument raises an error:
     ...
  TypeError: f1() takes exactly 1 positional argument (2 given)
 
-Notice that ``inspect.getargspec`` and ``inspect.getfullargspec``
+Notice that ``inspect.getfullargspec``
 will give the wrong signature. This even occurs in Python 3.5,
 although both functions were deprecated in that release.
 
@@ -259,8 +259,8 @@ The signature of ``heavy_computation`` is the one you would expect:
 
 .. code-block:: python
 
- >>> print(getargspec(heavy_computation))
- ArgSpec(args=[], varargs=None, varkw=None, defaults=None)
+ >>> print(getfullargspec(heavy_computation))
+ FullArgSpec(args=[], varargs=None, varkw=None, defaults=None, kwonlyargs=[], kwonlydefaults=None, annotations={})
 
 A ``trace`` decorator
 ------------------------------------------------------
@@ -291,8 +291,8 @@ It is immediate to verify that ``f1`` works...
 
 .. code-block:: python
 
- >>> print(getargspec(f1))
- ArgSpec(args=['x'], varargs=None, varkw=None, defaults=None)
+ >>> print(getfullargspec(f1))
+ FullArgSpec(args=['x'], varargs=None, varkw=None, defaults=None, kwonlyargs=[], kwonlydefaults=None, annotations={})
 
 The decorator works with functions of any signature:
 
@@ -305,8 +305,8 @@ The decorator works with functions of any signature:
  >>> f(0, 3)
  calling f with args (0, 3, 2), {}
 
- >>> print(getargspec(f))
- ArgSpec(args=['x', 'y', 'z'], varargs='args', varkw='kw', defaults=(1, 2))
+ >>> print(getfullargspec(f))
+ FullArgSpec(args=['x', 'y', 'z'], varargs='args', varkw='kw', defaults=(1, 2), kwonlyargs=[], kwonlydefaults=None, annotations={})
 
 $FUNCTION_ANNOTATIONS
 
@@ -413,7 +413,7 @@ available. For instance:
 
 .. code-block:: python
 
- >>> @blocking(msg="Please wait ...")
+ >>> @blocking("Please wait ...")
  ... def read_data():
  ...     time.sleep(3) # simulate a blocking resource
  ...     return "some data"
