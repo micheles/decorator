@@ -433,10 +433,24 @@ available. For instance:
  some data
 
 Decorator factories are most useful to framework builders. Here is an example
-that gives an idea of how you could manage permissions in a Web framework:
+that gives an idea of how you could manage permissions in a framework:
+
+$$Action
+
+where `restricted` is a decorator factory defined as follows
 
 $$restricted
-$$Action
+
+In general a decorator factory has a signature
+
+.. code-block:: python
+
+  def decfactory(func, param1=default1, .., paramN=defaultN, *args, **kw):
+      ...
+
+Each parameter must have a default, so that `decfactory` can work
+as an alias for `decfactory()`, i.e. the decorator in which are parameters
+have the default value.
 
 ``decorator(cls)``
 --------------------------------------------
@@ -1528,15 +1542,15 @@ def restricted(func, user_class=User, *args, **kw):
 class Action(object):
     @restricted(User)
     def view(self):
-        pass
+        "Any user can view objects"
 
     @restricted(PowerUser)
     def insert(self):
-        pass
+        "Only power users can insert objects"
 
     @restricted(Admin)
     def delete(self):
-        pass
+        "Only the admin can delete objects"
 
 
 class TailRecursive(object):

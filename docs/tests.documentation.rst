@@ -555,7 +555,25 @@ available. For instance:
  some data
 
 Decorator factories are most useful to framework builders. Here is an example
-that gives an idea of how you could manage permissions in a Web framework:
+that gives an idea of how you could manage permissions in a framework:
+
+.. code-block:: python
+
+ class Action(object):
+     @restricted(User)
+     def view(self):
+         "Any user can view objects"
+ 
+     @restricted(PowerUser)
+     def insert(self):
+         "Only power users can insert objects"
+ 
+     @restricted(Admin)
+     def delete(self):
+         "Only the admin can delete objects"
+
+
+where `restricted` is a decorator factory defined as follows
 
 .. code-block:: python
 
@@ -569,21 +587,6 @@ that gives an idea of how you could manage permissions in a Web framework:
          raise PermissionError(
              '%s does not have the permission to run %s!'
              % (self.user, func.__name__))
-
-.. code-block:: python
-
- class Action(object):
-     @restricted(User)
-     def view(self):
-         pass
- 
-     @restricted(PowerUser)
-     def insert(self):
-         pass
- 
-     @restricted(Admin)
-     def delete(self):
-         pass
 
 
 ``decorator(cls)``
