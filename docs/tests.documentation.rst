@@ -478,7 +478,7 @@ like this:
       return decorator(caller)
 
 This is fully general but requires an additional level of nesting. For this
-reasone since version 4.2 there is a facility to build
+reason since version 4.2 there is a facility to build
 decorator factories by using a single caller with default arguments i.e.
 writing something like this:
 
@@ -492,7 +492,7 @@ Notice that this simplified approach *only works with default arguments*,
 i.e. `param1`, `param2` etc must have known defaults. Thanks to this
 restriction, there exists an unique default decorator, i.e. the member
 of the family which uses the default values for all parameters. Such
-decorator can be written as `decfactory()` with no parameters specified;
+decorator can be written as ``decfactory()`` with no parameters specified;
 moreover, as a shortcut, it is also possible to elide the parenthesis,
 a feature much requested by the users. For years I have been opposite
 to this feature request, since having expliciti parenthesis to me is more clear
@@ -588,17 +588,6 @@ where ``restricted`` is a decorator factory defined as follows
              '%s does not have the permission to run %s!'
              % (self.user, func.__name__))
 
-
-In general a decorator factory has a signature
-
-.. code-block:: python
-
-  def decfactory(func, par1=default1, .., parN=defaultN, *a, **k):
-      ...
-
-Each parameter must have a default, so that ``decfactory`` can work
-as an alias for ``decfactory()``, i.e. the decorator in which all parameters
-have the default value.
 
 ``decorator(cls)``
 --------------------------------------------
