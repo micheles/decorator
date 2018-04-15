@@ -269,6 +269,7 @@ def decorator(caller, _func=None):
         dec.__defaults__ = (None,) + defaults
     return dec
 
+
 # ####################### contextmanager ####################### #
 
 try:  # Python >= 3.2
