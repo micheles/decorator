@@ -203,9 +203,8 @@ calling the function with more than one argument raises an error:
  TypeError: f1() takes exactly 1 positional argument (2 given)
 
 Notice that ``inspect.getfullargspec``
-will give the wrong signature. This even occurs in Python 3.5,
-although both functions were deprecated in that release.
-
+will give the wrong signature, even in the latest Python, i.e. version 3.6
+at the time of writing.
 
 The solution
 -----------------------------------------
@@ -413,7 +412,7 @@ available. For instance:
 
 .. code-block:: python
 
- >>> @blocking("Please wait ...")
+ >>> @blocking(msg="Please wait ...")
  ... def read_data():
  ...     time.sleep(3) # simulate a blocking resource
  ...     return "some data"
@@ -609,7 +608,7 @@ Here is what happens:
   an instance of ``FunctionMaker`` is created with the attributes
   ``args``, ``varargs``, ``keywords``, and ``defaults``.
   (These mirror the return values of the standard library's
-  ``inspect.getargspec``.)
+  ``inspect.getfullargspec``.)
 
 - For each item in ``args`` (a list of strings of the names of all required
   arguments), an attribute ``arg0``, ``arg1``, ..., ``argN`` is also generated.
@@ -625,8 +624,8 @@ followed by a tuple of defaults:
 
  >>> f1 = FunctionMaker.create(
  ...     'f1(a, b)', 'f(a, b)', dict(f=f), addsource=True, defaults=(None,))
- >>> print(getargspec(f1))
- ArgSpec(args=['a', 'b'], varargs=None, varkw=None, defaults=(None,))
+ >>> print(getfullargspec(f1))
+ FullArgSpec(args=['a', 'b'], varargs=None, varkw=None, defaults=(None,), kwonlyargs=[], kwonlydefaults=None, annotations={})
 
 
 Getting the source code
@@ -1322,7 +1321,7 @@ Here is an example:
 
 In order to introspect functions with annotations, one needs the
 utility ``inspect.getfullargspec`` (introduced in Python 3, then
-deprecated in Python 3.5, in favor of ``inspect.signature``):
+deprecated in Python 3.5, then undeprecated in Python 3.6):
 
 .. code-block:: python
 

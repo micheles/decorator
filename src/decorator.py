@@ -250,13 +250,9 @@ def decorator(caller, _func=None):
         else:
             name = caller.__name__
         doc = caller.__doc__
-        a = getfullargspec(caller)
-        defargs = a.args[1:]
-        nargs = len(a.args[1:])
+        nargs = caller.__code__.co_argcount
         ndefs = len(caller.__defaults__ or ())
-        if ndefs < nargs:
-            caller.__defaults__ = (None,) * (nargs - ndefs)
-        defaultargs = ', '.join(defargs)
+        defaultargs = ', '.join(caller.__code__.co_varnames[nargs-ndefs:nargs])
         if defaultargs:
             defaultargs += ','
         defaults = caller.__defaults__
@@ -272,7 +268,6 @@ def decorator(caller, _func=None):
     if defaults:
         dec.__defaults__ = (None,) + defaults
     return dec
-
 
 # ####################### contextmanager ####################### #
 
