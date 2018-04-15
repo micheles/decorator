@@ -437,7 +437,7 @@ that gives an idea of how you could manage permissions in a framework:
 
 $$Action
 
-where `restricted` is a decorator factory defined as follows
+where ``restricted`` is a decorator factory defined as follows
 
 $$restricted
 
@@ -445,11 +445,11 @@ In general a decorator factory has a signature
 
 .. code-block:: python
 
-  def decfactory(func, param1=default1, .., paramN=defaultN, *args, **kw):
+  def decfactory(func, par1=default1, .., parN=defaultN, *a, **k):
       ...
 
-Each parameter must have a default, so that `decfactory` can work
-as an alias for `decfactory()`, i.e. the decorator in which are parameters
+Each parameter must have a default, so that ``decfactory`` can work
+as an alias for ``decfactory()``, i.e. the decorator in which all parameters
 have the default value.
 
 ``decorator(cls)``
