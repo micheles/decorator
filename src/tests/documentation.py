@@ -1503,17 +1503,16 @@ class PermissionError(Exception):
     pass
 
 
-def restricted(user_class):
-    def restricted(func, *args, **kw):
-        "Restrict access to a given class of users"
-        userclass = get_userclass()
-        if issubclass(userclass, user_class):
-            return func(*args, **kw)
-        else:
-            raise PermissionError(
-                '%s does not have the permission to run %s!'
-                % (userclass.__name__, func.__name__))
-    return decorator(restricted)
+@decorator
+def restricted(func, user_class=User, *args, **kw):
+    "Restrict access to a given class of users"
+    userclass = get_userclass()
+    if issubclass(userclass, user_class):
+        return func(*args, **kw)
+    else:
+        raise PermissionError(
+            '%s does not have the permission to run %s!'
+            % (userclass.__name__, func.__name__))
 
 
 class Action(object):
@@ -1525,15 +1524,15 @@ class Action(object):
        ...
     PermissionError: User does not have the permission to run insert!
     """
-    @restricted(User)
+    @restricted(user_class=User)
     def view(self):
         pass
 
-    @restricted(PowerUser)
+    @restricted(user_class=PowerUser)
     def insert(self):
         pass
 
-    @restricted(Admin)
+    @restricted(user_class=Admin)
     def delete(self):
         pass
 
