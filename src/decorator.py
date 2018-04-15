@@ -261,12 +261,12 @@ def decorator(caller, _func=None):
         doc = caller.__call__.__doc__
     evaldict = dict(_call=caller, _decorate_=decorate)
     dec = FunctionMaker.create(
-        '%s(func, %s)' % (name, defaultargs),
+        '%s(%s func)' % (name, defaultargs),
         'if func is None: return lambda func:  _decorate_(func, _call, (%s))\n'
         'return _decorate_(func, _call, (%s))' % (defaultargs, defaultargs),
         evaldict, doc=doc, module=caller.__module__, __wrapped__=caller)
     if defaults:
-        dec.__defaults__ = (None,) + defaults
+        dec.__defaults__ = defaults + (None,)
     return dec
 
 

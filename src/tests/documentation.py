@@ -412,7 +412,7 @@ available. For instance:
 
 .. code-block:: python
 
- >>> @blocking(msg="Please wait ...")
+ >>> @blocking("Please wait ...")
  ... def read_data():
  ...     time.sleep(3) # simulate a blocking resource
  ...     return "some data"
@@ -1524,15 +1524,15 @@ class Action(object):
        ...
     PermissionError: User does not have the permission to run insert!
     """
-    @restricted(user_class=User)
+    @restricted(User)
     def view(self):
         pass
 
-    @restricted(user_class=PowerUser)
+    @restricted(PowerUser)
     def insert(self):
         pass
 
-    @restricted(user_class=Admin)
+    @restricted(Admin)
     def delete(self):
         pass
 
