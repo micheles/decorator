@@ -3,9 +3,9 @@ The ``decorator`` module
 
 :Author: Michele Simionato
 :E-mail: michele.simionato@gmail.com
-:Version: 4.2.1 (2018-01-14)
+:Version: 4.3.0 (2018-04-15)
 :Supports: Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6
-:Download page: http://pypi.python.org/pypi/decorator/4.2.1
+:Download page: http://pypi.python.org/pypi/decorator/4.3.0
 :Installation: ``pip install decorator``
 :License: BSD license
 
@@ -211,9 +211,9 @@ keyword arguments:
 
 .. code-block:: python
 
- >>> from decorator import getargspec  # akin to inspect.getargspec
- >>> print(getargspec(f1))
- ArgSpec(args=[], varargs='args', varkw='kw', defaults=None)
+ >>> from decorator import getfullargspec
+ >>> print(getfullargspec(f1))
+ FullArgSpec(args=[], varargs='args', varkw='kw', defaults=None, kwonlyargs=[], kwonlydefaults=None, annotations={})
 
 This means that introspection tools (like ``pydoc``) will give false
 information about the signature of ``f1`` -- unless you are using
@@ -228,10 +228,9 @@ calling the function with more than one argument raises an error:
     ...
  TypeError: f1() takes exactly 1 positional argument (2 given)
 
-Notice that ``inspect.getargspec`` and ``inspect.getfullargspec``
-will give the wrong signature. This even occurs in Python 3.5,
-although both functions were deprecated in that release.
-
+Notice that ``inspect.getfullargspec``
+will give the wrong signature, even in the latest Python, i.e. version 3.6
+at the time of writing.
 
 The solution
 -----------------------------------------
@@ -306,8 +305,8 @@ The signature of ``heavy_computation`` is the one you would expect:
 
 .. code-block:: python
 
- >>> print(getargspec(heavy_computation))
- ArgSpec(args=[], varargs=None, varkw=None, defaults=None)
+ >>> print(getfullargspec(heavy_computation))
+ FullArgSpec(args=[], varargs=None, varkw=None, defaults=None, kwonlyargs=[], kwonlydefaults=None, annotations={})
 
 A ``trace`` decorator
 ------------------------------------------------------
@@ -348,8 +347,8 @@ It is immediate to verify that ``f1`` works...
 
 .. code-block:: python
 
- >>> print(getargspec(f1))
- ArgSpec(args=['x'], varargs=None, varkw=None, defaults=None)
+ >>> print(getfullargspec(f1))
+ FullArgSpec(args=['x'], varargs=None, varkw=None, defaults=None, kwonlyargs=[], kwonlydefaults=None, annotations={})
 
 The decorator works with functions of any signature:
 
@@ -362,8 +361,8 @@ The decorator works with functions of any signature:
  >>> f(0, 3)
  calling f with args (0, 3, 2), {}
 
- >>> print(getargspec(f))
- ArgSpec(args=['x', 'y', 'z'], varargs='args', varkw='kw', defaults=(1, 2))
+ >>> print(getfullargspec(f))
+ FullArgSpec(args=['x', 'y', 'z'], varargs='args', varkw='kw', defaults=(1, 2), kwonlyargs=[], kwonlydefaults=None, annotations={})
 
 Function annotations
 ---------------------------------------------
@@ -384,7 +383,7 @@ Here is an example:
 
 In order to introspect functions with annotations, one needs the
 utility ``inspect.getfullargspec`` (introduced in Python 3, then
-deprecated in Python 3.5, in favor of ``inspect.signature``):
+deprecated in Python 3.5, then undeprecated in Python 3.6):
 
 .. code-block:: python
 
@@ -503,7 +502,7 @@ https://www.python.org/dev/peps/pep-0557/) I finally gave up.
 
 The example below will show how it works in practice.
 
-``blocking``
+Decorator factories
 -------------------------------------------
 
 Sometimes one has to deal with blocking resources, such as ``stdin``.
@@ -535,7 +534,7 @@ available. For instance:
 
 .. code-block:: python
 
- >>> @blocking(msg="Please wait ...")
+ >>> @blocking("Please wait ...")
  ... def read_data():
  ...     time.sleep(3) # simulate a blocking resource
  ...     return "some data"
@@ -554,6 +553,38 @@ available. For instance:
  >>> time.sleep(1.1)  # after 3.1 seconds, data is available
  >>> print(read_data())
  some data
+
+Decorator factories are most useful to framework builders. Here is an example
+that gives an idea of how you could manage permissions in a Web framework:
+
+.. code-block:: python
+
+ @decorator
+ def restricted(func, user_class=User, *args, **kw):
+     "Restrict access to a given class of users"
+     self = args[0]
+     if isinstance(self.user, user_class):
+         return func(*args, **kw)
+     else:
+         raise PermissionError(
+             '%s does not have the permission to run %s!'
+             % (self.user, func.__name__))
+
+.. code-block:: python
+
+ class Action(object):
+     @restricted(User)
+     def view(self):
+         pass
+ 
+     @restricted(PowerUser)
+     def insert(self):
+         pass
+ 
+     @restricted(Admin)
+     def delete(self):
+         pass
+
 
 ``decorator(cls)``
 --------------------------------------------
@@ -753,7 +784,7 @@ Here is what happens:
   an instance of ``FunctionMaker`` is created with the attributes
   ``args``, ``varargs``, ``keywords``, and ``defaults``.
   (These mirror the return values of the standard library's
-  ``inspect.getargspec``.)
+  ``inspect.getfullargspec``.)
 
 - For each item in ``args`` (a list of strings of the names of all required
   arguments), an attribute ``arg0``, ``arg1``, ..., ``argN`` is also generated.
@@ -769,8 +800,8 @@ followed by a tuple of defaults:
 
  >>> f1 = FunctionMaker.create(
  ...     'f1(a, b)', 'f(a, b)', dict(f=f), addsource=True, defaults=(None,))
- >>> print(getargspec(f1))
- ArgSpec(args=['a', 'b'], varargs=None, varkw=None, defaults=(None,))
+ >>> print(getfullargspec(f1))
+ FullArgSpec(args=['a', 'b'], varargs=None, varkw=None, defaults=(None,), kwonlyargs=[], kwonlydefaults=None, annotations={})
 
 
 Getting the source code

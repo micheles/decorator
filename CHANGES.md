@@ -3,6 +3,14 @@ HISTORY
 
 ## Unreleased
 
+## 4.3.0 (2018-04-15)
+
+Extended the decorator family facility to work with positional
+arguments and updated the documentation. Removed
+`decorator.getargspec` and provided `decorator.getfullargspec`
+instead.  This is convenient for users of Python 2.6/2.7, the others
+can just use `inspect.getfullargspec`.
+
 ## 4.2.1 (2018-01-14)
 
 Fixed a regression breaking IPython reported by https://github.com/spapini .

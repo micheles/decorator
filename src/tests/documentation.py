@@ -395,7 +395,7 @@ https://www.python.org/dev/peps/pep-0557/) I finally gave up.
 
 The example below will show how it works in practice.
 
-``blocking``
+Decorator factories
 -------------------------------------------
 
 Sometimes one has to deal with blocking resources, such as ``stdin``.
@@ -431,6 +431,12 @@ available. For instance:
  >>> time.sleep(1.1)  # after 3.1 seconds, data is available
  >>> print(read_data())
  some data
+
+Decorator factories are most useful to framework builders. Here is an example
+that gives an idea of how you could manage permissions in a Web framework:
+
+$$restricted
+$$Action
 
 ``decorator(cls)``
 --------------------------------------------
@@ -1495,35 +1501,31 @@ class Admin(PowerUser):
     "Will be able to delete pages too"
 
 
-def get_userclass():
-    return User
-
-
 class PermissionError(Exception):
-    pass
-
-
-@decorator
-def restricted(func, user_class=User, *args, **kw):
-    "Restrict access to a given class of users"
-    userclass = get_userclass()
-    if issubclass(userclass, user_class):
-        return func(*args, **kw)
-    else:
-        raise PermissionError(
-            '%s does not have the permission to run %s!'
-            % (userclass.__name__, func.__name__))
-
-
-class Action(object):
     """
     >>> a = Action()
+    >>> a.user = User()
     >>> a.view() # ok
     >>> a.insert() # doctest: +IGNORE_EXCEPTION_DETAIL
     Traceback (most recent call last):
        ...
     PermissionError: User does not have the permission to run insert!
     """
+
+
+@decorator
+def restricted(func, user_class=User, *args, **kw):
+    "Restrict access to a given class of users"
+    self = args[0]
+    if isinstance(self.user, user_class):
+        return func(*args, **kw)
+    else:
+        raise PermissionError(
+            '%s does not have the permission to run %s!'
+            % (self.user, func.__name__))
+
+
+class Action(object):
     @restricted(User)
     def view(self):
         pass
