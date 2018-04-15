@@ -589,6 +589,17 @@ where `restricted` is a decorator factory defined as follows
              % (self.user, func.__name__))
 
 
+In general a decorator factory has a signature
+
+.. code-block:: python
+
+  def decfactory(func, param1=default1, .., paramN=defaultN, *args, **kw):
+      ...
+
+Each parameter must have a default, so that `decfactory` can work
+as an alias for `decfactory()`, i.e. the decorator in which are parameters
+have the default value.
+
 ``decorator(cls)``
 --------------------------------------------
 
