@@ -50,11 +50,11 @@ if sys.version >= '3':
 else:
     FullArgSpec = collections.namedtuple(
         'FullArgSpec', 'args varargs varkw defaults '
-        'kwonlyargs kwonlydefaults')
+        'kwonlyargs kwonlydefaults annotations')
 
     def getfullargspec(f):
         "A quick and dirty replacement for getfullargspec for Python 2.X"
-        return FullArgSpec._make(inspect.getargspec(f) + ([], None))
+        return FullArgSpec._make(inspect.getargspec(f) + ([], None, {}))
 
     def get_init(cls):
         return cls.__init__.__func__
