@@ -62,7 +62,7 @@ For the impatient
 Here is an example of how to define a family of decorators tracing slow
 operations:
 
-.. code-block::
+.. code-block:: python
 
    from decorator import decorator
    
