@@ -4,8 +4,8 @@ rst: src/tests/documentation.py
 	PYTHONPATH=src:$(S) $(S)/ms/tools/minidoc.py -d tests.documentation
 	cp /tmp/tests.documentation.rst docs
 
-html: /tmp/tests.documentation.rst docs/README.rst
+html: /tmp/tests.documentation.rst
 	sphinx-build docs docs/_build
 
-upload: docs/README.rst
+upload: README.rst
 	python3 setup.py sdist bdist_wheel upload

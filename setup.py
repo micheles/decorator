@@ -9,7 +9,7 @@ if __name__ == '__main__':
     setup(name='decorator',
           version=VERSION,
           description='Better living through Python with decorators',
-          long_description=open('docs/README.rst').read(),
+          long_description=open('README.rst').read(),
           author='Michele Simionato',
           author_email='michele.simionato@gmail.com',
           url='https://github.com/micheles/decorator',
