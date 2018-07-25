@@ -208,7 +208,7 @@ Added a note on 'inspect.getsource' not working for decorated
 functions; referenced PEP 326; highlighted the snippets in the 
 documentation with pygments; slightly simplified the code.
 
-## 2.1.0. (3/07/2007)
+## 2.1.0. (2007-07-03)
 
 Replaced the utility 'update_wrapper' with 'new_wrapper' and
 updated the documentation accordingly; fixed and improved the 
