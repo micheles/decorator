@@ -48,6 +48,7 @@ For instance
 - Python 3.5/3.6 async/await => decorator 4.1
 - Python 3.7 dataclasses => decorator 4.2
 
+Check http://decorator.readthedocs.io/en/latest/
 ---
 
 The recommended way to write decorators in Python
