@@ -130,8 +130,8 @@ def deprecated(func, message='', *args, **kw):
         func.called = 0
     func.called += 1
     return func(*args, **kw)
-
 ```
++++
 Usage with an without parenthesis
 ```
 @deprecated('Use new_function instead')
