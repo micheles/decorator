@@ -142,4 +142,5 @@ def old_function():
 def another_old_function():
    'Do something else'
 ```
-http://decorator.readthedocs.io/en/latest/
+
+See more examples on http://decorator.readthedocs.io/en/latest/
