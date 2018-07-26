@@ -75,7 +75,9 @@ The problem is that it does not really work
 FullArgSpec(args=[], varargs='args', varkw='kwds',
             defaults=None, kwonlyargs=[],
             kwonlydefaults=None, annotations={})
-
+```
+`inspect.getfullargspec` is telling the truth
+```
 >>> add.__code__.co_varnames
 ('args', 'kwds')
 ```
