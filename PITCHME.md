@@ -28,7 +28,7 @@ in the next release of Python*
 
 +++
 
-# or maybe no
+# or maybe not
 
 +++?image=releases.png
 
