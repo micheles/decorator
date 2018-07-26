@@ -40,15 +40,6 @@ in the next release of Python*
 - I get very few questions
 - I usually implement something new only when there is new Python release
 
-+++
-
-For instance
-
-- Python 3.4 generic functions => decorator 4.0
-- Python 3.5/3.6 async/await => decorator 4.1
-- Python 3.7 dataclasses => decorator 4.2
-
-Check http://decorator.readthedocs.io/en/latest/
 ---
 
 The recommended way to write decorators in Python
