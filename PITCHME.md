@@ -22,7 +22,7 @@ downloaded packages on PyPI
 
 +++
 
-It is joy to maintain
+**It is joy to maintain**
 
 - next to zero bugs
 - few questions
@@ -37,6 +37,8 @@ For instance
 - Python 3.7 dataclasses => decorator 4.2
 
 ---
+
+The recommended way to write decorators in Python
 
 ```python
 from functools import wraps
