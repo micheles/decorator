@@ -102,6 +102,7 @@ def add(a, b):
 
 ---
 
+Since 2017 you can also decorate coroutines
 ```python
 @decorator
 async def trace(coro, *args, **kwargs):
