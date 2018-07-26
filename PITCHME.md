@@ -37,7 +37,7 @@ in the next release of Python*
 **It is joy to maintain**
 
 - next to zero bugs
-- I get few questions
+- I get very few questions
 - I usually implement something new only when there is new Python release
 
 +++
