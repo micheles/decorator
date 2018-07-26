@@ -1,6 +1,6 @@
 # The decorator module is alive and kicking
 
----
++++
 
 Have you ever heard of the decorator module?
 
@@ -17,6 +17,8 @@ the decorator module :-)
 
 Several frameworks and tools depend on it, so it is one of the most
 downloaded packages on PyPI
+
++++?image=releases.png
 
 +++
 
