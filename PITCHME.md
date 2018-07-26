@@ -19,6 +19,8 @@ Several frameworks and tools depend on it, so it is one of the most
 downloaded packages on PyPI
 
 +++
+**Famous last words**
+
 decorator 0.1, May 2005: *this is a hack, surely they will fix the signature
 in the next release of Python*
 
