@@ -115,8 +115,7 @@ async def do_nothing(n):
 
 ```
 +++
-Since 2018 you can define families of decorators with and without
-parenthesis like `@dataclass`
+Since 2018 you can define families of decorators with default arguments
 
 ```python
 import warnings
