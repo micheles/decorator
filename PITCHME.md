@@ -99,9 +99,7 @@ def add(a, b):
 >>> add.__code__.co_varnames
 ('a', 'b')
 ```
-
----
-
++++
 Since 2017 you can also decorate coroutines
 ```python
 @decorator
@@ -110,12 +108,14 @@ async def trace(coro, *args, **kwargs):
     await coro(*args, **kwargs)
 
 @trace
-async def make_task(n):
+async def do_nothing(n):
     for i in range(n):
         await asyncio.sleep(1)
 
 ```
----
++++
+Since 2018 you can define families of decorators with and without
+parenthesis like `@dataclass`
 
 ```python
 import warnings
