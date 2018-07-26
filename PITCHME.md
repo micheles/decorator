@@ -37,7 +37,7 @@ in the next release of Python*
 **It is joy to maintain**
 
 - next to zero bugs
-- few questions
+- I get few questions
 - I usually implement something new only when there is new Python release
 
 +++
@@ -67,13 +67,14 @@ def add(x, y):
     """Sum two numbers"""
     return x + y
 ```
----
-
++++
 The problem is that it does not really work
 
 ```python
 >>> inspect.getfullargspec(add)
-FullArgSpec(args=[], varargs='args', varkw='kwds', defaults=None, kwonlyargs=[], kwonlydefaults=None, annotations={})
+FullArgSpec(args=[], varargs='args', varkw='kwds',
+            defaults=None, kwonlyargs=[],
+            kwonlydefaults=None, annotations={})
 
 >>> add.__code__.co_varnames
 ('args', 'kwds')
