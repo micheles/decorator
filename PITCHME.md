@@ -10,7 +10,7 @@ Have you ever heard of IPython?
 
 +++
 
-Every time to fire an IPython instance you are importing
+Every time you fire an IPython instance you are importing
 the decorator module :-)
 
 +++
