@@ -131,9 +131,16 @@ def deprecated(func, message='', *args, **kw):
     func.called += 1
     return func(*args, **kw)
 
+```
+Usage with an without parenthesis
+```
 @deprecated('Use new_function instead')
 def old_function():
    'Do something'
+
+@deprecated
+def another_old_function():
+   'Do something else'
 ```
 ---
 http://decorator.readthedocs.io/en/latest/
