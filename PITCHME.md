@@ -18,6 +18,16 @@ the decorator module :-)
 Several frameworks and tools depend on it, so it is one of the most
 downloaded packages on PyPI
 
++++
+decorator 0.1, May 2005: *this is a hack, surely they will fix the signature
+in the next release of Python*
+
+...
+
++++
+
+# or maybe no
+
 +++?image=releases.png
 
 +++
@@ -66,17 +76,6 @@ FullArgSpec(args=[], varargs='args', varkw='kwds', defaults=None, kwonlyargs=[],
 >>> add.__code__.co_varnames
 ('args', 'kwds')
 ```
----
-
-decorator 0.1, May 2005: *this is a hack, surely they will fix the signature
-in the next release of Python*
-
-...
-
-+++
-
-# or maybe no
-
 ---
 
 ```python
