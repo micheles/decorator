@@ -1,6 +1,6 @@
 from setuptools import setup
 
-dic = {}
+dic = dict(__file__=None)
 exec(open('src/decorator.py').read(), dic)
 VERSION = dic['__version__']
 

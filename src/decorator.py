@@ -173,7 +173,8 @@ class FunctionMaker(object):
         # Ensure each generated function has a unique filename for profilers
         # (such as cProfile) that depend on the tuple of (<filename>,
         # <definition line>, <function name>) being unique.
-        filename = '<decorator-gen-%d>' % (next(self._compile_count),)
+        filename = '<%s:decorator-gen-%d>' % (
+            __file__, next(self._compile_count))
         try:
             code = compile(src, filename, 'single')
             exec(code, evaldict)
