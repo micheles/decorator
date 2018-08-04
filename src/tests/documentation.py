@@ -1,4 +1,16 @@
 from __future__ import print_function
+import sys
+import threading
+import time
+import functools
+import itertools
+import collections
+try:
+    import collections.abc as c
+except ImportError:
+    c = collections
+from decorator import (decorator, decorate, FunctionMaker, contextmanager,
+                       dispatch_on, __version__)
 
 doc = r"""\
 The ``decorator`` module
@@ -6,7 +18,7 @@ The ``decorator`` module
 :Author: Michele Simionato
 :E-mail: michele.simionato@gmail.com
 :Version: $VERSION ($DATE)
-:Supports: Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6
+:Supports: Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7
 :Download page: http://pypi.python.org/pypi/decorator/$VERSION
 :Installation: ``pip install decorator``
 :License: BSD license
@@ -1362,16 +1374,6 @@ This attribute exists for consistency with the behavior of
 Another attribute copied from the original function is ``__qualname__``,
 the qualified name. This attribute was introduced in Python 3.3.
 """
-
-import sys
-import threading
-import time
-import functools
-import itertools
-import collections
-import collections as c
-from decorator import (decorator, decorate, FunctionMaker, contextmanager,
-                       dispatch_on, __version__)
 
 if sys.version < '3':
     function_annotations = ''

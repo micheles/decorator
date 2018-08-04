@@ -1,10 +1,10 @@
 HISTORY
 --------
 
-## Unreleased
+## 4.4.0 (2018-08-04)
 
 Added a section "For the impatient" to the README, addressing an issue
-raised by Amir Malekpour.
+raised by Amir Malekpour. Added support for Python 3.7.
 
 ## 4.3.0 (2018-04-15)
 

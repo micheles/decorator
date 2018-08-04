@@ -6,10 +6,15 @@ import decimal
 import inspect
 import functools
 import collections
+from collections import defaultdict
+try:
+    c = collections.abc
+except AttributeError:
+    c = collections
 from decorator import dispatch_on, contextmanager, decorator
 try:
     from . import documentation as doc
-except:
+except ImportError:
     import documentation as doc
 
 
@@ -22,6 +27,7 @@ def assertRaises(etype):
         pass
     else:
         raise Exception('Expected %s' % etype.__name__)
+
 
 if sys.version >= '3.5':
     exec('''from asyncio import get_event_loop
@@ -237,7 +243,6 @@ class TestSingleDispatch(unittest.TestCase):
         self.assertEqual(g(rnd), ("Number got rounded",))
 
     def test_register_abc(self):
-        c = collections
         d = {"a": "b"}
         l = [1, 2, 3]
         s = set([object(), None])
@@ -348,8 +353,6 @@ class TestSingleDispatch(unittest.TestCase):
         self.assertEqual(g(t), "tuple")
 
     def test_mro_conflicts(self):
-        c = collections
-
         @singledispatch
         def g(obj):
             return "base"
@@ -410,9 +413,9 @@ class TestSingleDispatch(unittest.TestCase):
         # MutableMapping's bases implicit as well from defaultdict's
         # perspective.
         with assertRaises(RuntimeError):
-            self.assertEqual(h(c.defaultdict(lambda: 0)), "sized")
+            self.assertEqual(h(defaultdict(lambda: 0)), "sized")
 
-        class R(c.defaultdict):
+        class R(defaultdict):
             pass
         c.MutableSequence.register(R)
 

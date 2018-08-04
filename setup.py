@@ -1,7 +1,7 @@
 from setuptools import setup
 
 dic = dict(__file__=None)
-exec(open('src/decorator.py').read(), dic)
+exec(open('src/decorator.py').read(), dic)  # extract the __version__
 VERSION = dic['__version__']
 
 
@@ -33,6 +33,7 @@ if __name__ == '__main__':
                        'Programming Language :: Python :: 3.4',
                        'Programming Language :: Python :: 3.5',
                        'Programming Language :: Python :: 3.6',
+                       'Programming Language :: Python :: 3.7',
                        'Programming Language :: Python :: Implementation :: CPython',
                        'Topic :: Software Development :: Libraries',
                        'Topic :: Utilities'],
