@@ -14,7 +14,7 @@ except AttributeError:
 from decorator import dispatch_on, contextmanager, decorator
 try:
     from . import documentation as doc
-except ValueError:
+except (ImportError, ValueError, SystemError):  # depending on the py-version
     import documentation as doc
 
 
