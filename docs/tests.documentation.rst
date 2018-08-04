@@ -3,9 +3,9 @@ The ``decorator`` module
 
 :Author: Michele Simionato
 :E-mail: michele.simionato@gmail.com
-:Version: 4.4.0 (2018-08-04)
+:Version: 4.3.1 (2018-08-04)
 :Supports: Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7
-:Download page: http://pypi.python.org/pypi/decorator/4.4.0
+:Download page: http://pypi.python.org/pypi/decorator/4.3.1
 :Installation: ``pip install decorator``
 :License: BSD license
 

@@ -1,10 +1,12 @@
 HISTORY
 --------
 
-## 4.4.0 (2018-08-04)
+## 4.3.1 (2018-08-04)
 
 Added a section "For the impatient" to the README, addressing an issue
-raised by Amir Malekpour. Added support for Python 3.7.
+raised by Amir Malekpour. Added support for Python 3.7. Now 
+the path to the decorator module appears in the tracebacks, as suggested
+by an user at EuroPython 2018.
 
 ## 4.3.0 (2018-04-15)
 
