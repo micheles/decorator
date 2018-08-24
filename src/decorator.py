@@ -220,7 +220,7 @@ def decorate(func, caller, extras=()):
     """
     decorate(func, caller) decorates a function using a caller.
     """
-    evaldict = dict(_call_=caller, _func_=func)
+    evaldict = {'_call_': caller, '_func_': func}
     es = ''
     for i, extra in enumerate(extras):
         ex = '_e%d_' % i
@@ -260,7 +260,7 @@ def decorator(caller, _func=None):
     else:  # assume caller is an object with a __call__ method
         name = caller.__class__.__name__.lower()
         doc = caller.__call__.__doc__
-    evaldict = dict(_call=caller, _decorate_=decorate)
+    evaldict = {"_call": caller, "_decorate_": decorate}
     dec = FunctionMaker.create(
         '{}({} func)'.format(name, defaultargs),
         'if func is None: return lambda func:  _decorate_(func, _call, (%s))\n'
@@ -284,7 +284,7 @@ class ContextManager(_GeneratorContextManager):
         """Context manager decorator"""
         return FunctionMaker.create(
             func, "with _self_: return _func_(%(shortsignature)s)",
-            dict(_self_=self, _func_=func), __wrapped__=func)
+            {"_self_": self, "_func_": func}, __wrapped__=func)
 
 
 init = getfullargspec(_GeneratorContextManager.__init__)
@@ -425,7 +425,7 @@ def dispatch_on(*dispatch_args):
 
         return FunctionMaker.create(
             func, 'return _f_(%s, %%(shortsignature)s)' % dispatch_str,
-            dict(_f_=_dispatch), register=register, default=func,
+            {'_f_': _dispatch}, register=register, default=func,
             typemap=typemap, vancestors=vancestors, ancestors=ancestors,
             dispatch_info=dispatch_info, __wrapped__=func)
 

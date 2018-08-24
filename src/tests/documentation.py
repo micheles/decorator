@@ -1391,7 +1391,7 @@ def decorator_apply(dec, func):
     """
     return FunctionMaker.create(
         func, 'return decfunc(%(signature)s)',
-        dict(decfunc=dec(func)), __wrapped__=func)
+        {'decfunc': dec(func)}, __wrapped__=func)
 
 
 def _trace(f, *args, **kw):
