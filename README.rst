@@ -3,7 +3,7 @@ Decorator module
 
 :Author: Michele Simionato
 :E-mail: michele.simionato@gmail.com
-:Requires: Python from 2.6 to 3.6
+:Requires: Python 2.7 or 3.4+
 :Download page: http://pypi.python.org/pypi/decorator
 :Installation: ``pip install decorator``
 :License: BSD license

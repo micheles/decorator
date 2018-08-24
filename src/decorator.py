@@ -273,9 +273,9 @@ def decorator(caller, _func=None):
 
 # ####################### contextmanager ####################### #
 
-try:  # Python >= 3.2
+try:  # Python 3
     from contextlib import _GeneratorContextManager
-except ImportError:  # Python >= 2.5
+except ImportError:  # Python 2.7
     from contextlib import GeneratorContextManager as _GeneratorContextManager
 
 

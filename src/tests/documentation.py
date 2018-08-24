@@ -18,7 +18,7 @@ The ``decorator`` module
 :Author: Michele Simionato
 :E-mail: michele.simionato@gmail.com
 :Version: $VERSION ($DATE)
-:Supports: Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7
+:Supports: Python 2.7, 3.4, 3.5, 3.6, 3.7
 :Download page: http://pypi.python.org/pypi/decorator/$VERSION
 :Installation: ``pip install decorator``
 :License: BSD license
@@ -44,7 +44,7 @@ trivial to distribute the module as an universal wheel_ since 2to3 is no more
 required. Since Python 2.5 has been released ages ago (in 2006), I felt that
 it was reasonable to drop the support for it. If you need to support
 ancient versions of Python, stick with the decorator module version
-3.4.2.  The current version supports all Python releases from 2.6 up to 3.6.
+3.4.2.  The current version supports Python 2.7 and 3.4+.
 
 .. _wheel: http://pythonwheels.com/
 

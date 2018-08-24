@@ -11,22 +11,11 @@ try:
     c = collections.abc
 except AttributeError:
     c = collections
-from decorator import dispatch_on, contextmanager, decorator
+from decorator import dispatch_on, decorator
 try:
     from . import documentation as doc
 except (ImportError, ValueError, SystemError):  # depending on the py-version
     import documentation as doc
-
-
-@contextmanager
-def assertRaises(etype):
-    """This works in Python 2.6 too"""
-    try:
-        yield
-    except etype:
-        pass
-    else:
-        raise Exception('Expected %s' % etype.__name__)
 
 
 if sys.version >= '3.5':
@@ -65,7 +54,7 @@ class DocumentationTestCase(unittest.TestCase):
 
     def test_singledispatch1(self):
         if hasattr(functools, 'singledispatch'):
-            with assertRaises(RuntimeError):
+            with self.assertRaises(RuntimeError):
                 doc.singledispatch_example1()
 
     def test_singledispatch2(self):
@@ -75,10 +64,10 @@ class DocumentationTestCase(unittest.TestCase):
 
 class ExtraTestCase(unittest.TestCase):
     def test_qualname(self):
-        if sys.version >= '3.3':
+        if sys.version >= '3':
             self.assertEqual(doc.hello.__qualname__, 'hello')
         else:
-            with assertRaises(AttributeError):
+            with self.assertRaises(AttributeError):
                 doc.hello.__qualname__
 
     def test_signature(self):
@@ -208,7 +197,7 @@ class TestSingleDispatch(unittest.TestCase):
         def g(obj):
             return "base"
 
-        with assertRaises(TypeError):
+        with self.assertRaises(TypeError):
             # wrong number of arguments
             @g.register(int)
             def g_int():
@@ -370,7 +359,7 @@ class TestSingleDispatch(unittest.TestCase):
         c.Iterable.register(O)
         self.assertEqual(g(o), "sized")
         c.Container.register(O)
-        with assertRaises(RuntimeError):  # was "sized" because in mro
+        with self.assertRaises(RuntimeError):  # was "sized" because in mro
             self.assertEqual(g(o), "sized")
         c.Set.register(O)
         self.assertEqual(g(o), "set")
@@ -383,7 +372,7 @@ class TestSingleDispatch(unittest.TestCase):
         self.assertEqual(g(p), "iterable")
         c.Container.register(P)
 
-        with assertRaises(RuntimeError):
+        with self.assertRaises(RuntimeError):
             self.assertEqual(g(p), "iterable")
 
         class Q(c.Sized):
@@ -412,7 +401,7 @@ class TestSingleDispatch(unittest.TestCase):
         # this ABC is implicitly registered on defaultdict which makes all of
         # MutableMapping's bases implicit as well from defaultdict's
         # perspective.
-        with assertRaises(RuntimeError):
+        with self.assertRaises(RuntimeError):
             self.assertEqual(h(defaultdict(lambda: 0)), "sized")
 
         class R(defaultdict):
@@ -431,7 +420,7 @@ class TestSingleDispatch(unittest.TestCase):
         def i_sequence(arg):
             return "sequence"
         r = R()
-        with assertRaises(RuntimeError):  # was no error
+        with self.assertRaises(RuntimeError):  # was no error
             self.assertEqual(i(r), "sequence")
 
         class S(object):
@@ -455,7 +444,7 @@ class TestSingleDispatch(unittest.TestCase):
 
         c.Container.register(U)
         # There is no preference for registered versus inferred ABCs.
-        with assertRaises(RuntimeError):
+        with self.assertRaises(RuntimeError):
             h(u)
 
 
