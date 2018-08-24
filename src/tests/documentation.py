@@ -1395,8 +1395,8 @@ def decorator_apply(dec, func):
 
 
 def _trace(f, *args, **kw):
-    kwstr = ', '.join('%r: %r' % (k, kw[k]) for k in sorted(kw))
-    print("calling %s with args %s, {%s}" % (f.__name__, args, kwstr))
+    kwstr = ', '.join('{!r}: {!r}'.format(k, kw[k]) for k in sorted(kw))
+    print("calling {} with args {}, {{{}}}".format(f.__name__, args, kwstr))
     return f(*args, **kw)
 
 
@@ -1414,7 +1414,7 @@ class Future(threading.Thread):
             counter = func.counter
         except AttributeError:  # instantiate the counter at the first call
             counter = func.counter = itertools.count(1)
-        name = '%s-%s' % (func.__name__, next(counter))
+        name = '{}-{}'.format(func.__name__, next(counter))
 
         def func_wrapper():
             self._result = func(*args, **kw)

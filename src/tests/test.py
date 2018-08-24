@@ -188,7 +188,7 @@ class TestSingleDispatch(unittest.TestCase):
 
         @g.register(int)
         def g_int(i):
-            return "int %s" % (i,)
+            return "int {}".format(i)
         self.assertEqual(g(""), "base")
         self.assertEqual(g(12), "int 12")
 
@@ -234,7 +234,7 @@ class TestSingleDispatch(unittest.TestCase):
     def test_register_abc(self):
         d = {"a": "b"}
         l = [1, 2, 3]
-        s = set([object(), None])
+        s = {object(), None}
         f = frozenset(s)
         t = (1, 2, 3)
 
