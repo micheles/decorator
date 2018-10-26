@@ -216,9 +216,19 @@ class FunctionMaker(object):
         return self.make(body, evaldict, addsource, **attrs)
 
 
+try:
+    from inspect import isgeneratorfunction
+except ImportError:
+    # assume no generator function in very old python versions
+    def isgeneratorfunction():
+        return False
+
+
 def decorate(func, caller, extras=()):
     """
     decorate(func, caller) decorates a function using a caller.
+    If the caller is a generator function, the resulting function
+    will be a generator function.
     """
     evaldict = dict(_call_=caller, _func_=func)
     es = ''
@@ -226,9 +236,14 @@ def decorate(func, caller, extras=()):
         ex = '_e%d_' % i
         evaldict[ex] = extra
         es += ex + ', '
-    fun = FunctionMaker.create(
-        func, "return _call_(_func_, %s%%(shortsignature)s)" % es,
-        evaldict, __wrapped__=func)
+    if isgeneratorfunction(caller):
+        fun = FunctionMaker.create(
+            func, "for res in _call_(_func_, %s%%(shortsignature)s):\n"
+                  "    yield res" % es, evaldict, __wrapped__=func)
+    else:
+        fun = FunctionMaker.create(
+            func, "return _call_(_func_, %s%%(shortsignature)s)" % es,
+            evaldict, __wrapped__=func)
     if hasattr(func, '__qualname__'):
         fun.__qualname__ = func.__qualname__
     return fun
