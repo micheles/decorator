@@ -102,21 +102,7 @@ class FunctionMaker(object):
                     setattr(self, a, getattr(argspec, a))
                 for i, arg in enumerate(self.args):
                     setattr(self, 'arg%d' % i, arg)
-                allargs = list(self.args)
-                allshortargs = list(self.args)
-                if self.varargs:
-                    allargs.append('*' + self.varargs)
-                    allshortargs.append('*' + self.varargs)
-                elif self.kwonlyargs:
-                    allargs.append('*')  # single star syntax
-                for a in self.kwonlyargs:
-                    allargs.append('%s=None' % a)
-                    allshortargs.append('%s=%s' % (a, a))
-                if self.varkw:
-                    allargs.append('**' + self.varkw)
-                    allshortargs.append('**' + self.varkw)
-                self.signature = ', '.join(allargs)
-                self.shortsignature = ', '.join(allshortargs)
+                self.refresh_signature()
                 self.dict = func.__dict__.copy()
         # func=None happens when decorating a caller
         if name:
@@ -152,6 +138,24 @@ class FunctionMaker(object):
             callermodule = frame.f_globals.get('__name__', '?')
         func.__module__ = getattr(self, 'module', callermodule)
         func.__dict__.update(kw)
+
+    def refresh_signature(self):
+        "Update self.signature and self.shortsignature based on self.args, self.varargs, self.varkw"
+        allargs = list(self.args)
+        allshortargs = list(self.args)
+        if self.varargs:
+            allargs.append('*' + self.varargs)
+            allshortargs.append('*' + self.varargs)
+        elif self.kwonlyargs:
+            allargs.append('*')  # single star syntax
+        for a in self.kwonlyargs:
+            allargs.append('%s=None' % a)
+            allshortargs.append('%s=%s' % (a, a))
+        if self.varkw:
+            allargs.append('**' + self.varkw)
+            allshortargs.append('**' + self.varkw)
+        self.signature = ', '.join(allargs)
+        self.shortsignature = ', '.join(allshortargs)
 
     def make(self, src_templ, evaldict=None, addsource=False, **attrs):
         "Make a new function from a given template and update the signature"
@@ -190,12 +194,15 @@ class FunctionMaker(object):
 
     @classmethod
     def create(cls, obj, body, evaldict, defaults=None,
-               doc=None, module=None, addsource=True, **attrs):
+               doc=None, module=None, addsource=True, add_args=(), **attrs):
         """
         Create a function from the strings name, signature and body.
         evaldict is the evaluation dictionary. If addsource is true an
         attribute __source__ is added to the result. The attributes attrs
         are added, if any.
+
+        If add_args is not empty, these arguments will be prepended to the
+        positional arguments.
         """
         if isinstance(obj, str):  # "name(signature)"
             name, rest = obj.strip().split('(', 1)
@@ -213,8 +220,32 @@ class FunctionMaker(object):
                 'return', 'return await')
         else:
             body = 'def %(name)s(%(signature)s):\n' + ibody
-        return self.make(body, evaldict, addsource, **attrs)
 
+        # Handle possible signature changes
+        sig_modded = False
+        if len(add_args) > 0:
+            # add them as positional args at the beginning - hence the reversed()
+            for arg in reversed(add_args):
+                if arg not in self.args:
+                    self.args = [arg] + self.args
+                    sig_modded = True
+                else:
+                    # the argument already exists in the wrapped
+                    # function, nothing to do.
+                    pass
+        if sig_modded:
+            self.refresh_signature()
+
+        # make the function
+        func = self.make(body, evaldict, addsource, **attrs)
+
+        if sig_modded:
+            # delete this annotation otherwise inspect.signature
+            # will wrongly return the signature of func.__wrapped__
+            # instead of the signature of func
+            del func.__wrapped__
+
+        return func
 
 try:
     from inspect import isgeneratorfunction
@@ -224,7 +255,7 @@ except ImportError:
         return False
 
 
-def decorate(func, caller, extras=()):
+def decorate(func, caller, extras=(), additional_args=()):
     """
     decorate(func, caller) decorates a function using a caller.
     If the caller is a generator function, the resulting function
@@ -250,11 +281,12 @@ def decorate(func, caller, extras=()):
     if create_generator:
         fun = FunctionMaker.create(
             func, "for res in _call_(_func_, %s%%(shortsignature)s):\n"
-                  "    yield res" % es, evaldict, __wrapped__=func)
+                  "    yield res" % es, evaldict,
+            add_args=additional_args, __wrapped__=func)
     else:
         fun = FunctionMaker.create(
             func, "return _call_(_func_, %s%%(shortsignature)s)" % es,
-            evaldict, __wrapped__=func)
+            evaldict, add_args=additional_args, __wrapped__=func)
     if hasattr(func, '__qualname__'):
         fun.__qualname__ = func.__qualname__
     return fun
