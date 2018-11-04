@@ -58,6 +58,23 @@ class CoroutineTestCase(unittest.TestCase):
 ''')
 
 
+def gen123():
+    yield 1
+    yield 2
+    yield 3
+
+
+class GeneratorCallerTestCase(unittest.TestCase):
+    def test_gen123(self):
+        @decorator
+        def square(func, *args, **kw):
+            for x in gen123():
+                yield x * x
+        new = square(gen123)
+        self.assertTrue(inspect.isgeneratorfunction(new))
+        self.assertEqual(list(new()), [1, 4, 9])
+
+
 class DocumentationTestCase(unittest.TestCase):
     def test(self):
         err = doctest.testmod(doc)[0]

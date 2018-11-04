@@ -1,6 +1,12 @@
 HISTORY
 --------
 
+## unreleased
+
+Accepted a patch from Sylvain Marie (https://github.com/smarie): now the
+decorator module can decorate generator functions by preserving their
+being generator functions.
+
 ## 4.3.1 (2018-08-04)
 
 Added a section "For the impatient" to the README, addressing an issue
