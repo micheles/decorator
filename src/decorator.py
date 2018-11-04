@@ -235,10 +235,10 @@ def decorate(func, caller, extras=()):
         evaldict[ex] = extra
         es += ex + ', '
 
-    if sys.version_info[2:] == (3, 5):
-        # With Python 3.5 isgeneratorfunction returns True for all coroutines
-        # However we know that it is NOT possible to have a generator
-        # coroutine in python 3.5: PEP525 was not there yet.
+    if '3.5' <= sys.version < '3.6':
+        # with Python 3.5 isgeneratorfunction returns True for all coroutines
+        # however we know that it is NOT possible to have a generator
+        # coroutine in python 3.5: PEP525 was not there yet
         generatorcaller = isgeneratorfunction(
             caller) and not iscoroutinefunction(caller)
     else:
