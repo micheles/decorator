@@ -18,6 +18,7 @@ if __name__ == '__main__':
           py_modules=['decorator'],
           keywords="decorators generic utility",
           platforms=["All"],
+          python_requires='>=2.6, !=3.0.*, !=3.1.*',
           classifiers=['Development Status :: 5 - Production/Stable',
                        'Intended Audience :: Developers',
                        'License :: OSI Approved :: BSD License',

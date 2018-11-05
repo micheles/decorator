@@ -65,6 +65,12 @@ except AttributeError:
     # let's assume there are no coroutine functions in old Python
     def iscoroutinefunction(f):
         return False
+try:
+    from inspect import isgeneratorfunction
+except ImportError:
+    # assume no generator function in old Python versions
+    def isgeneratorfunction():
+        return False
 
 
 DEF = re.compile(r'\s*def\s*([_\w][_\w\d]*)\s*\(')
@@ -247,13 +253,6 @@ class FunctionMaker(object):
 
         return func
 
-try:
-    from inspect import isgeneratorfunction
-except ImportError:
-    # assume no generator function in very old python versions
-    def isgeneratorfunction():
-        return False
-
 
 def decorate(func, caller, extras=(), additional_args=()):
     """
@@ -268,17 +267,15 @@ def decorate(func, caller, extras=(), additional_args=()):
         evaldict[ex] = extra
         es += ex + ', '
 
-    if not ('3.5' <= sys.version < '3.6'):
-        create_generator = isgeneratorfunction(caller)
+    if '3.5' <= sys.version < '3.6':
+        # with Python 3.5 isgeneratorfunction returns True for all coroutines
+        # however we know that it is NOT possible to have a generator
+        # coroutine in python 3.5: PEP525 was not there yet
+        generatorcaller = isgeneratorfunction(
+            caller) and not iscoroutinefunction(caller)
     else:
-        # With Python 3.5: apparently isgeneratorfunction returns
-        # True for all coroutines
-
-        # However we know that it is NOT possible to have a generator
-        # coroutine in python 3.5: PEP525 was not there yet.
-        create_generator = isgeneratorfunction(caller) and not iscoroutinefunction(caller)
-
-    if create_generator:
+        generatorcaller = isgeneratorfunction(caller)
+    if generatorcaller:
         fun = FunctionMaker.create(
             func, "for res in _call_(_func_, %s%%(shortsignature)s):\n"
                   "    yield res" % es, evaldict,

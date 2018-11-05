@@ -1,6 +1,13 @@
 HISTORY
 --------
 
+## unreleased
+
+Accepted a patch from Sylvain Marie (https://github.com/smarie): now the
+decorator module can decorate generator functions by preserving their
+being generator functions. Set python_requires='>=2.6, !=3.0.*, !=3.1.*'
+in setup.py, as suggested by https://github.com/hugovk.
+
 ## 4.3.1 (2018-08-04)
 
 Added a section "For the impatient" to the README, addressing an issue
