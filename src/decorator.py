@@ -72,6 +72,11 @@ except ImportError:
     def isgeneratorfunction():
         return False
 
+try:  # python 3.3+
+    from inspect import signature
+except ImportError:
+    from funcsigs import signature
+
 
 DEF = re.compile(r'\s*def\s*([_\w][_\w\d]*)\s*\(')
 
@@ -146,7 +151,8 @@ class FunctionMaker(object):
         func.__dict__.update(kw)
 
     def refresh_signature(self):
-        "Update self.signature and self.shortsignature based on self.args, self.varargs, self.varkw"
+        """Update self.signature and self.shortsignature based on self.args,
+        self.varargs, self.varkw"""
         allargs = list(self.args)
         allshortargs = list(self.args)
         if self.varargs:
@@ -230,7 +236,7 @@ class FunctionMaker(object):
         # Handle possible signature changes
         sig_modded = False
         if len(add_args) > 0:
-            # add them as positional args at the beginning - hence the reversed()
+            # prepend them as positional args - hence the reversed()
             for arg in reversed(add_args):
                 if arg not in self.args:
                     self.args = [arg] + self.args
@@ -254,12 +260,108 @@ class FunctionMaker(object):
         return func
 
 
+def _extract_additional_args(f_sig, add_args_names, args, kwargs):
+    """
+    Processes the arguments received by our caller so that at the end, args
+    and kwargs only contain what is needed by f (according to f_sig). All
+    additional arguments are returned separately, in order described by
+    `add_args_names`. If some names in `add_args_names` are present in `f_sig`,
+    then the arguments will appear both in the additional arguments and in
+    *args, **kwargs.
+
+    In the end, only *args can possibly be modified by the procedure (by removing
+    from it all additional arguments that were not in f_sig and were prepended).
+
+    So the result is a tuple (add_args, args)
+
+    :return: a tuple (add_args, args) where `add_args` are the values of
+        arguments named in `add_args_names` in the same order ; and `args` is
+        the positional arguments to send to the wrapped function together with
+        kwargs (args now only contains the positional args that are required by
+        f, without the extra ones)
+    """
+    # -- first the 'truly' additional ones (the ones not in the signature)
+    add_args = [None] * len(add_args_names)
+    for i, arg_name in enumerate(add_args_names):
+        if arg_name not in f_sig.parameters:
+            # remove this argument from the args and put it in the right place
+            add_args[i] = args[0]
+            args = args[1:]
+
+    # -- then the ones that already exist in the signature. Thanks,inspect pkg!
+    bound = f_sig.bind(*args, **kwargs)
+    for i, arg_name in enumerate(add_args_names):
+        if arg_name in f_sig.parameters:
+            add_args[i] = bound.arguments[arg_name]
+
+    return add_args, args
+
+
+def _wrap_caller_for_additional_args(func, caller, additional_args):
+    """
+    This internal function wraps the caller so as to handle all cases
+    (if some additional args are already present in the signature or not)
+    so as to ensure a consistent caller signature.
+
+    :return: a new caller wrapping the caller, to be used in `decorate`
+    """
+    f_sig = signature(func)
+
+    # We will create a caller above the original caller in order to check
+    # if additional_args are already present in the signature or not, and
+    # act accordingly
+    original_caller = caller
+
+    # -- then create the appropriate function signature according to
+    # wrapped function signature assume that original_caller has all
+    # additional args as first positional arguments, in order
+    if not isgeneratorfunction(original_caller):
+        def caller(f, *args, **kwargs):
+            # Retrieve the values for additional args.
+            add_args, args = _extract_additional_args(f_sig, additional_args,
+                                                      args, kwargs)
+
+            # Call the original caller
+            return original_caller(f, *itertools.chain(add_args, args),
+                                   **kwargs)
+    else:
+        def caller(f, *args, **kwargs):
+            # Retrieve the value for additional args.
+            add_args, args = _extract_additional_args(f_sig, additional_args,
+                                                      args, kwargs)
+
+            # Call the original caller
+            for res in original_caller(f, *itertools.chain(add_args, args),
+                                       **kwargs):
+                yield res
+
+    return caller
+
+
 def decorate(func, caller, extras=(), additional_args=()):
     """
     decorate(func, caller) decorates a function using a caller.
     If the caller is a generator function, the resulting function
     will be a generator function.
+
+    You can provide additional arguments with `additional_args`. In that case
+    the caller's signature should be
+
+        `caller(f, <additional_args_in_order>, *args, **kwargs)`.
+
+    `*args, **kwargs` will always contain the arguments required by the inner
+    function `f`. If `additional_args` contains argument names that are already
+    present in `func`, they will be present both in <additional_args_in_order>
+    AND in `*args, **kwargs` so that it remains easy for the `caller` both to
+    get the additional arguments' values directly, and to call `f` with the
+    right arguments.
     """
+    if len(additional_args) > 0:
+        # wrap the caller so as to handle all cases
+        # (if some additional args are already present in the signature or not)
+        # so as to ensure a consistent caller signature
+        caller = _wrap_caller_for_additional_args(func, caller, additional_args)
+
     evaldict = dict(_call_=caller, _func_=func)
     es = ''
     for i, extra in enumerate(extras):
