@@ -3,7 +3,7 @@ Decorator module
 
 :Author: Michele Simionato
 :E-mail: michele.simionato@gmail.com
-:Requires: Python from 2.6 to 3.6
+:Requires: Python from 2.6 to 3.7
 :Download page: http://pypi.python.org/pypi/decorator
 :Installation: ``pip install decorator``
 :License: BSD license
@@ -65,7 +65,7 @@ operations:
 .. code-block:: python
 
    from decorator import decorator
-   
+
    @decorator
    def warn_slow(func, timelimit=60, *args, **kw):
        t0 = time.time()
@@ -76,11 +76,11 @@ operations:
        else:
            logging.info('%s took %d seconds', func.__name__, dt)
        return result
-   
+
    @warn_slow  # warn if it takes more than 1 minute
    def preprocess_input_files(inputdir, tempdir):
        ...
-   
+
    @warn_slow(timelimit=600)  # warn if it takes more than 10 minutes
    def run_calculation(tempdir, outdir):
        ...
