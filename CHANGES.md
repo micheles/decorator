@@ -3,6 +3,8 @@ HISTORY
 
 ## unreleased
 
+## 4.3.2 (2019-01-24)
+
 Accepted a patch from Sylvain Marie (https://github.com/smarie): now the
 decorator module can decorate generator functions by preserving their
 being generator functions. Set `python_requires='>=2.6, !=3.0.*, !=3.1.*'`

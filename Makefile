@@ -8,4 +8,4 @@ html: /tmp/tests.documentation.rst
 	sphinx-build docs docs/_build
 
 upload: README.rst
-	python3 setup.py sdist bdist_wheel upload
+	python setup.py sdist bdist_wheel upload
