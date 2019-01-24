@@ -8,6 +8,9 @@ Decorator module
 :Installation: ``pip install decorator``
 :License: BSD license
 
+The goal of the decorator module is to make it easy to define
+signature-preserving function decorators.
+
 Installation
 -------------
 
