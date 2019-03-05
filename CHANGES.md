@@ -3,6 +3,9 @@ HISTORY
 
 ## unreleased
 
+Accepted a small fix from Eric Larson (https://github.com/larsoner) affecting
+the replacement of `isgeneratorfunction` for old Python versions
+
 ## 4.3.2 (2019-01-24)
 
 Accepted a patch from Sylvain Marie (https://github.com/smarie): now the
