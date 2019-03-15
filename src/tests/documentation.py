@@ -1818,6 +1818,24 @@ def singledispatch_example2():
     return g, V
 
 
+@decorator
+def warn_slow(func, duration=0, *args, **kwargs):
+    t0 = time.time()
+    res = func(*args, **kwargs)
+    dt = time.time() - t0
+    if dt > duration:
+        print('%s is slow' % func.__name__)
+    return res
+
+
+@warn_slow()
+def operation():
+    """
+    >>> operation()
+    operation is slow
+    """
+
+
 if __name__ == '__main__':
     import doctest
     doctest.testmod()
