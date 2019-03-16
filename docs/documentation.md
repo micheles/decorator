@@ -30,7 +30,7 @@ trivial to distribute the module as an universal
 required. Since Python 2.5 has been released ages ago (in 2006), I felt that
 it was reasonable to drop the support for it. If you need to support
 ancient versions of Python, stick with the decorator module version
-3.4.2.  The current version supports all Python releases from 2.6 up to 3.6.
+3.4.2.  The current version supports all Python releases from 2.6 up.
 
 What's New in version 4
 -----------------------

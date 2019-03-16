@@ -53,6 +53,7 @@ Documentation
 ---------------
 
 The documentation has been moved to GitHub: https://raw.githubusercontent.com/micheles/decorator/master/docs/documentation.md
+
 From there you can get a PDF version by simply using the print
 functionality of your browser.
 
