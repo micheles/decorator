@@ -63,6 +63,7 @@ Here is the documentation for previous versions of the module:
 https://github.com/micheles/decorator/blob/4.3.2/docs/tests.documentation.rst
 https://github.com/micheles/decorator/blob/4.2.1/docs/tests.documentation.rst
 https://github.com/micheles/decorator/blob/4.1.2/docs/tests.documentation.rst
+https://github.com/micheles/decorator/blob/4.0.0/documentation.rst
 https://github.com/micheles/decorator/blob/3.4.2/documentation.rst
 
 For the impatient
