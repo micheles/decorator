@@ -157,7 +157,7 @@ class ExtraTestCase(unittest.TestCase):
 
         def f(x):
             return x
-        self.assertEqual(add(2, f)(0), 2)
+        self.assertEqual(add(f, 2)(0), 2)
 
 
 # ################### test dispatch_on ############################# #
