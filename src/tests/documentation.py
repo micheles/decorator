@@ -125,19 +125,20 @@ can be used as a decorator. However, this definition is somewhat too large
 to be really useful. It is more convenient to split the generic class of
 decorators in two subclasses:
 
-*signature-preserving* decorators:
-    Callable objects which accept a function as input and return
-    a function as output, *with the same signature*.
-*signature-changing* decorators:
-    Decorators which change the signature of their input function,
-    or decorators that return non-callable objects.
+1. **signature-preserving decorators**, callable objects which accept
+    a function as input and return a function as output, *with the
+    same signature*
 
-**Signature-changing** decorators have their use: for instance, the
+2. **signature-changing** decorators, i.e. decorators
+    which change the signature of their input function, or decorators
+    that return non-callable objects
+
+Signature-changing decorators have their use: for instance, the
 builtin classes ``staticmethod`` and ``classmethod`` are in this
 group. They take functions and return descriptor objects which
 are neither functions, nor callables.
 
-Still, **signature-preserving** decorators are more common, and easier
+Still, signature-preserving decorators are more common, and easier
 to reason about. In particular, they can be composed together,
 whereas other decorators generally cannot.
 
@@ -204,7 +205,7 @@ Python 3.5. This is pretty bad: ``pydoc`` will tell you that the
 function accepts the generic signature ``*args, **kw``, but
 calling the function with more than one argument raises an error:
 
-```
+```python
 >>> f1(0, 1) # doctest: +IGNORE_EXCEPTION_DETAIL
 Traceback (most recent call last):
    ...
@@ -469,6 +470,8 @@ will get an error
 TypeError: You are decorating a non function: <class '__main__.User'>
 
 ```
+
+Be careful!
 
 ``decorator(cls)``
 --------------------------------------------
@@ -1361,7 +1364,8 @@ you are unhappy with it, send me a patch!
 function_annotations = """Function annotations
 ---------------------------------------------
 
-Python 3 introduced the concept of `function annotations`_: the ability
+Python 3 introduced the concept of [function annotations](
+http://www.python.org/dev/peps/pep-3107/): the ability
 to annotate the signature of a function with additional information,
 stored in a dictionary named ``__annotations__``. The ``decorator`` module
 (starting from release 3.3) will understand and preserve these annotations.
