@@ -1573,15 +1573,15 @@ def restricted(func, user_class=User, *args, **kw):
 
 
 class Action(object):
-    @restricted(user_class=User)
+    @restricted.arg(User)
     def view(self):
         "Any user can view objects"
 
-    @restricted(user_class=PowerUser)
+    @restricted.arg(PowerUser)
     def insert(self):
         "Only power users can insert objects"
 
-    @restricted(user_class=Admin)
+    @restricted.arg(Admin)
     def delete(self):
         "Only the admin can delete objects"
 
