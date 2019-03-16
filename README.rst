@@ -58,3 +58,33 @@ The documentation has been moved to https://raw.githubusercontent.com/micheles/d
 From there you can get a PDF version by simply using the print
 functionality of your browser.
 
+For the impatient
+-----------------
+
+Here is an example of how to define a family of decorators tracing slow
+operations:
+
+.. code-block:: python
+
+   from decorator import decorator
+
+   @decorator
+   def warn_slow(func, timelimit=60, *args, **kw):
+       t0 = time.time()
+       result = func(*args, **kw)
+       dt = time.time() - t0
+       if dt > timelimit:
+           logging.warn('%s took %d seconds', func.__name__, dt)
+       else:
+           logging.info('%s took %d seconds', func.__name__, dt)
+       return result
+
+   @warn_slow  # warn if it takes more than 1 minute
+   def preprocess_input_files(inputdir, tempdir):
+       ...
+
+   @warn_slow(timelimit=600)  # warn if it takes more than 10 minutes
+   def run_calculation(tempdir, outdir):
+       ...
+
+Enjoy!
