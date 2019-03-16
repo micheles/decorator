@@ -52,9 +52,8 @@ https://github.com/micheles/decorator
 Documentation
 ---------------
 
-The documentation has been moved to GitHub:
-http://micheles.github.io/decorator/index.md.
-From there you can get a nice PDF version by simply using the print
+The documentation has been moved to GitHub: https://raw.githubusercontent.com/micheles/decorator/master/docs/documentation.md
+From there you can get a PDF version by simply using the print
 functionality of your browser.
 
 For the impatient
