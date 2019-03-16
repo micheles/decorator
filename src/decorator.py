@@ -39,6 +39,7 @@ import inspect
 import operator
 import itertools
 import collections
+from functools import partial
 
 __version__ = '4.4.0'
 
@@ -256,6 +257,19 @@ def decorate(func, caller, extras=()):
     return fun
 
 
+class Decorator(object):
+    def __init__(self, caller, *args):
+        self.caller = caller
+        self.args = args
+
+    def __call__(self, func):
+        return decorate(func, self.caller, self.args)
+
+    def __repr__(self):
+        return '<%s %s%r>' % (self.__class__.__name__, self.caller.__name__,
+                              self.args)
+
+
 def decorator(caller, _func=None):
     """decorator(caller) converts a caller function into a decorator"""
     if _func is not None:  # return a decorated function
@@ -282,14 +296,15 @@ def decorator(caller, _func=None):
     else:  # assume caller is an object with a __call__ method
         name = caller.__class__.__name__.lower()
         doc = caller.__call__.__doc__
-    evaldict = dict(_call=caller, _decorate_=decorate)
+    evaldict = dict(_call=caller, _decorate_=decorate, Decorator=Decorator)
     dec = FunctionMaker.create(
         '%s(func, %s)' % (name, defaultargs),
-        'if func is None: return lambda func:  _decorate_(func, _call, (%s))\n'
+        'if func is None: return Decorator(_call, %s)\n'
         'return _decorate_(func, _call, (%s))' % (defaultargs, defaultargs),
         evaldict, doc=doc, module=caller.__module__, __wrapped__=caller)
     if defaults:
         dec.__defaults__ = (None,) + defaults
+    dec.arg = partial(Decorator, caller)
     return dec
 
 
