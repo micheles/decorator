@@ -13,30 +13,29 @@ Installation
 
 If you are lazy, just perform
 
- `$ pip install decorator`
+``$ pip install decorator``
 
 which will install just the module on your system.
 
 If you prefer to install the full distribution from source, including
-the documentation, clone the `GitHub repo`_ or download the tarball_, unpack it and run
+the documentation, clone the [GitHub repo](
+https://github.com/micheles/decorator) or download the
+[tarball](http://pypi.python.org/pypi/decorator), unpack it and run
 
- `$ pip install -e .`
+``$ pip install .``
 
 in the main directory, possibly as superuser.
-
-.. _tarball: http://pypi.python.org/pypi/decorator
-.. _GitHub repo: https://github.com/micheles/decorator
 
 Testing
 --------
 
 If you have the source code installation you can run the tests with
 
- `$ python src/tests/test.py -v`
+``$ python src/tests/test.py -v``
 
 or (if you have setuptools installed)
 
- `$ python setup.py test`
+``$ python setup.py test``
 
 Notice that you may run into trouble if in your system there
 is an older version of the decorator module; in such a case remove the
@@ -48,7 +47,7 @@ Repository
 
 The project is hosted on GitHub. You can look at the source here:
 
- https://github.com/micheles/decorator
+https://github.com/micheles/decorator
 
 Documentation
 ---------------
@@ -85,6 +84,6 @@ def preprocess_input_files(inputdir, tempdir):
 @warn_slow(timelimit=600)  # warn if it takes more than 10 minutes
 def run_calculation(tempdir, outdir):
     ...
+```
 
 Enjoy!
-
