@@ -258,6 +258,15 @@ def decorate(func, caller, extras=()):
 
 
 class Decorator(object):
+    """
+    Decorators with a ``__repr__`` showing the instantiation parameters:
+
+    >>> @Decorator
+    ... def dec(f, *a, **k):
+    ...     return f(*a, **k)
+    >>> dec
+    <Decorator dec()>
+    """
     def __init__(self, caller, *args):
         self.caller = caller
         self.args = args
