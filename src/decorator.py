@@ -278,6 +278,12 @@ class Decorator(object):
         return '<%s %s%r>' % (self.__class__.__name__, self.caller.__name__,
                               self.args)
 
+    def kwargs(self):
+        nargs = self.caller.__code__.co_argcount
+        argvalues = self.caller.__defaults__ or ()
+        argnames = self.caller.__code__.co_varnames[nargs-len(argvalues):nargs]
+        return dict(zip(argnames, argvalues))
+
 
 def decorator(caller, _func=None):
     """decorator(caller) converts a caller function into a decorator"""
@@ -291,17 +297,13 @@ def decorator(caller, _func=None):
         doc = 'decorator(%s) converts functions/generators into ' \
             'factories of %s objects' % (caller.__name__, caller.__name__)
     elif inspect.isfunction(caller):
-        if caller.__name__ == '<lambda>':
-            name = '_lambda_'
-        else:
-            name = caller.__name__
+        name = caller.__name__
         doc = caller.__doc__
-        nargs = caller.__code__.co_argcount
-        ndefs = len(caller.__defaults__ or ())
-        defaultargs = ', '.join(caller.__code__.co_varnames[nargs-ndefs:nargs])
+        kw = Decorator(caller).kwargs()
+        defaults = tuple(kw.values())
+        defaultargs = ', '.join(kw.keys())
         if defaultargs:
             defaultargs += ','
-        defaults = caller.__defaults__
     else:  # assume caller is an object with a __call__ method
         name = caller.__class__.__name__.lower()
         doc = caller.__call__.__doc__
@@ -312,7 +314,7 @@ def decorator(caller, _func=None):
         'return _decorate_(func, _call, (%s))' % (defaultargs, defaultargs),
         evaldict, doc=doc, module=caller.__module__, __wrapped__=caller)
     if defaults:
-        dec.__defaults__ = (None,) + defaults
+        dec.__defaults__ = (None,) + defaults or ()
     dec.arg = partial(Decorator, caller)
     return dec
 
