@@ -40,7 +40,7 @@ import operator
 import itertools
 import collections
 
-__version__ = '4.3.2'
+__version__ = '4.4.0'
 
 if sys.version >= '3':
     from inspect import getfullargspec
@@ -284,12 +284,12 @@ def decorator(caller, _func=None):
         doc = caller.__call__.__doc__
     evaldict = dict(_call=caller, _decorate_=decorate)
     dec = FunctionMaker.create(
-        '%s(%s func)' % (name, defaultargs),
+        '%s(func, %s)' % (name, defaultargs),
         'if func is None: return lambda func:  _decorate_(func, _call, (%s))\n'
         'return _decorate_(func, _call, (%s))' % (defaultargs, defaultargs),
         evaldict, doc=doc, module=caller.__module__, __wrapped__=caller)
     if defaults:
-        dec.__defaults__ = defaults + (None,)
+        dec.__defaults__ = (None,) + defaults
     return dec
 
 

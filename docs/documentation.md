@@ -1,15 +1,14 @@
-\
 The ``decorator`` module
+----------------------------------
 
-:Author: Michele Simionato
-:E-mail: michele.simionato@gmail.com
-:Version: 4.3.2 (2019-01-24)
-:Supports: Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7
-:Download page: http://pypi.python.org/pypi/decorator/4.3.2
-:Installation: ``pip install decorator``
-:License: BSD license
-
-.. contents::
+|Author | Michele Simionato|
+|---|---|
+|E-mail | michele.simionato@gmail.com|
+|Version| 4.3.2 (2019-03-16)|
+|Supports| Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7|
+|Download page| http://pypi.python.org/pypi/decorator/4.3.2|
+|Installation| ``pip install decorator``|
+|License | BSD license|
 
 Introduction
 -----------------------------------------
@@ -26,13 +25,12 @@ decision made it possible to use a single code base both for Python
 2,000 lines of duplicated documentation/doctests. Having to maintain
 separate docs for Python 2 and Python 3 effectively stopped any
 development on the module for several years. Moreover, it is now
-trivial to distribute the module as an universal wheel_ since 2to3 is no more
+trivial to distribute the module as an universal
+ [wheel](http://pythonwheels.com) since 2to3 is no more
 required. Since Python 2.5 has been released ages ago (in 2006), I felt that
 it was reasonable to drop the support for it. If you need to support
 ancient versions of Python, stick with the decorator module version
 3.4.2.  The current version supports all Python releases from 2.6 up to 3.6.
-
-.. _wheel: http://pythonwheels.com/
 
 What's New in version 4
 -----------------------
@@ -154,7 +152,7 @@ Consider the following simple implementation (note that it is
 generally impossible to *correctly* memoize something
 that depends on non-hashable arguments):
 
-.. code-block:: python
+```python
 
  def memoize_uw(func):
      func.cache = {}
@@ -168,7 +166,7 @@ that depends on non-hashable arguments):
              func.cache[key] = func(*args, **kw)
          return func.cache[key]
      return functools.update_wrapper(memoize, func)
-
+```
 
 Here I used the functools.update_wrapper_ utility, which was added
 in Python 2.5 to simplify the writing of decorators.
@@ -178,16 +176,14 @@ to the decorated function by hand).
 
 Here is an example of usage:
 
-.. code-block:: python
+```python
 
  @memoize_uw
  def f1(x):
      "Simulate some long computation"
      time.sleep(1)
      return x
-
-
-.. _functools.update_wrapper: https://docs.python.org/3/library/functools.html#functools.update_wrapper
+```
 
 This works insofar as the decorator accepts functions with generic signatures.
 Unfortunately, it is *not* a signature-preserving decorator, since
@@ -196,24 +192,25 @@ from the original.
 
 Consider for instance the following case:
 
-.. code-block:: python
+```python
 
  @memoize_uw
  def f1(x):
      "Simulate some long computation"
      time.sleep(1)
      return x
-
+```
 
 Here, the original function takes a single argument named ``x``,
 but the decorated function takes any number of arguments and
 keyword arguments:
 
-.. code-block:: python
+```python
+>>> from decorator import getfullargspec
+>>> print(getfullargspec(f1))
+FullArgSpec(args=[], varargs='args', varkw='kw', defaults=None, kwonlyargs=[], kwonlydefaults=None, annotations={})
 
- >>> from decorator import getfullargspec
- >>> print(getfullargspec(f1))
- FullArgSpec(args=[], varargs='args', varkw='kw', defaults=None, kwonlyargs=[], kwonlydefaults=None, annotations={})
+```
 
 This means that introspection tools (like ``pydoc``) will give false
 information about the signature of ``f1`` -- unless you are using
@@ -221,12 +218,13 @@ Python 3.5. This is pretty bad: ``pydoc`` will tell you that the
 function accepts the generic signature ``*args, **kw``, but
 calling the function with more than one argument raises an error:
 
-.. code-block:: python
+```
+>>> f1(0, 1) 
+Traceback (most recent call last):
+   ...
+TypeError: f1() takes exactly 1 positional argument (2 given)
 
- >>> f1(0, 1) 
- Traceback (most recent call last):
-    ...
- TypeError: f1() takes exactly 1 positional argument (2 given)
+```
 
 Notice that ``inspect.getfullargspec``
 will give the wrong signature, even in the latest Python, i.e. version 3.6
@@ -240,9 +238,10 @@ hides the complexity of making signature-preserving decorators
 from the application programmer. The ``decorate`` function in
 the ``decorator`` module is such a factory:
 
-.. code-block:: python
+```python
+>>> from decorator import decorate
 
- >>> from decorator import decorate
+```
 
 ``decorate`` takes two arguments:
 
@@ -254,7 +253,7 @@ The caller function must have signature ``(f, *args, **kw)``, and it
 must call the original function ``f`` with arguments ``args`` and ``kw``,
 implementing the wanted capability (in this case, memoization):
 
-.. code-block:: python
+```python
 
  def _memoize(func, *args, **kw):
      if kw:  # frozenset is used to ensure hashability
@@ -265,11 +264,11 @@ implementing the wanted capability (in this case, memoization):
      if key not in cache:
          cache[key] = func(*args, **kw)
      return cache[key]
-
+```
 
 Now, you can define your decorator as follows:
 
-.. code-block:: python
+```python
 
  def memoize(f):
      """
@@ -279,7 +278,7 @@ Now, you can define your decorator as follows:
      """
      f.cache = {}
      return decorate(f, _memoize)
-
+```
 
 The difference from the nested function approach of ``memoize_uw``
 is that the decorator module forces you to lift the inner function
@@ -288,25 +287,27 @@ function you want to decorate; there are no closures.
 
 Here is a test of usage:
 
-.. code-block:: python
+```python
+>>> @memoize
+... def heavy_computation():
+...     time.sleep(2)
+...     return "done"
 
- >>> @memoize
- ... def heavy_computation():
- ...     time.sleep(2)
- ...     return "done"
+>>> print(heavy_computation()) # the first time it will take 2 seconds
+done
 
- >>> print(heavy_computation()) # the first time it will take 2 seconds
- done
+>>> print(heavy_computation()) # the second time it will be instantaneous
+done
 
- >>> print(heavy_computation()) # the second time it will be instantaneous
- done
+```
 
 The signature of ``heavy_computation`` is the one you would expect:
 
-.. code-block:: python
+```python
+>>> print(getfullargspec(heavy_computation))
+FullArgSpec(args=[], varargs=None, varkw=None, defaults=None, kwonlyargs=[], kwonlydefaults=None, annotations={})
 
- >>> print(getfullargspec(heavy_computation))
- FullArgSpec(args=[], varargs=None, varkw=None, defaults=None, kwonlyargs=[], kwonlydefaults=None, annotations={})
+```
 
 A ``trace`` decorator
 ------------------------------------------------------
@@ -314,56 +315,59 @@ A ``trace`` decorator
 Here is an example of how to define a simple ``trace`` decorator,
 which prints a message whenever the traced function is called:
 
-.. code-block:: python
+```python
 
  def _trace(f, *args, **kw):
      kwstr = ', '.join('%r: %r' % (k, kw[k]) for k in sorted(kw))
      print("calling %s with args %s, {%s}" % (f.__name__, args, kwstr))
      return f(*args, **kw)
+```
 
-
-.. code-block:: python
+```python
 
  def trace(f):
      return decorate(f, _trace)
-
+```
 
 Here is an example of usage:
 
-.. code-block:: python
+```python
+>>> @trace
+... def f1(x):
+...     pass
 
- >>> @trace
- ... def f1(x):
- ...     pass
+```
 
 It is immediate to verify that ``f1`` works...
 
-.. code-block:: python
+```python
+>>> f1(0)
+calling f1 with args (0,), {}
 
- >>> f1(0)
- calling f1 with args (0,), {}
+```
 
 ...and it that it has the correct signature:
 
-.. code-block:: python
+```python
+>>> print(getfullargspec(f1))
+FullArgSpec(args=['x'], varargs=None, varkw=None, defaults=None, kwonlyargs=[], kwonlydefaults=None, annotations={})
 
- >>> print(getfullargspec(f1))
- FullArgSpec(args=['x'], varargs=None, varkw=None, defaults=None, kwonlyargs=[], kwonlydefaults=None, annotations={})
+```
 
 The decorator works with functions of any signature:
 
-.. code-block:: python
+```python
+>>> @trace
+... def f(x, y=1, z=2, *args, **kw):
+...     pass
 
- >>> @trace
- ... def f(x, y=1, z=2, *args, **kw):
- ...     pass
+>>> f(0, 3)
+calling f with args (0, 3, 2), {}
 
- >>> f(0, 3)
- calling f with args (0, 3, 2), {}
+>>> print(getfullargspec(f))
+FullArgSpec(args=['x', 'y', 'z'], varargs='args', varkw='kw', defaults=(1, 2), kwonlyargs=[], kwonlydefaults=None, annotations={})
 
- >>> print(getfullargspec(f))
- FullArgSpec(args=['x', 'y', 'z'], varargs='args', varkw='kw', defaults=(1, 2), kwonlyargs=[], kwonlydefaults=None, annotations={})
-
+```
 Function annotations
 ---------------------------------------------
 
@@ -374,39 +378,42 @@ stored in a dictionary named ``__annotations__``. The ``decorator`` module
 
 Here is an example:
 
-.. code-block:: python
+```python
+>>> @trace
+... def f(x: 'the first argument', y: 'default argument'=1, z=2,
+...       *args: 'varargs', **kw: 'kwargs'):
+...     pass
 
- >>> @trace
- ... def f(x: 'the first argument', y: 'default argument'=1, z=2,
- ...       *args: 'varargs', **kw: 'kwargs'):
- ...     pass
+```
 
 In order to introspect functions with annotations, one needs the
 utility ``inspect.getfullargspec`` (introduced in Python 3, then
 deprecated in Python 3.5, then undeprecated in Python 3.6):
 
-.. code-block:: python
+```python
+>>> from inspect import getfullargspec
+>>> argspec = getfullargspec(f)
+>>> argspec.args
+['x', 'y', 'z']
+>>> argspec.varargs
+'args'
+>>> argspec.varkw
+'kw'
+>>> argspec.defaults
+(1, 2)
+>>> argspec.kwonlyargs
+[]
+>>> argspec.kwonlydefaults
 
- >>> from inspect import getfullargspec
- >>> argspec = getfullargspec(f)
- >>> argspec.args
- ['x', 'y', 'z']
- >>> argspec.varargs
- 'args'
- >>> argspec.varkw
- 'kw'
- >>> argspec.defaults
- (1, 2)
- >>> argspec.kwonlyargs
- []
- >>> argspec.kwonlydefaults
+```
 
 You can check that the ``__annotations__`` dictionary is preserved:
 
-.. code-block:: python
+```python
+>>> f.__annotations__ is f.__wrapped__.__annotations__
+True
 
-  >>> f.__annotations__ is f.__wrapped__.__annotations__
-  True
+```
 
 Here ``f.__wrapped__`` is the original undecorated function.
 This attribute exists for consistency with the behavior of
@@ -427,12 +434,12 @@ to convert the caller function into a signature-preserving decorator.
 
 It is the ``decorator`` function:
 
-.. code-block:: python
+```python
+>>> from decorator import decorator
+>>> print(decorator.__doc__)
+decorator(caller) converts a caller function into a decorator
 
- >>> from decorator import decorator
- >>> print(decorator.__doc__)
- decorator(caller) converts a caller function into a decorator
-
+```
 The ``decorator`` function can be used as a signature-changing
 decorator, just like ``classmethod`` and ``staticmethod``.
 But ``classmethod`` and ``staticmethod`` return generic
@@ -441,52 +448,55 @@ signature-preserving decorators (i.e. functions with a single argument).
 
 For instance, you can write:
 
-.. code-block:: python
+```python
+>>> @decorator
+... def trace(f, *args, **kw):
+...     kwstr = ', '.join('%r: %r' % (k, kw[k]) for k in sorted(kw))
+...     print("calling %s with args %s, {%s}" % (f.__name__, args, kwstr))
+...     return f(*args, **kw)
 
- >>> @decorator
- ... def trace(f, *args, **kw):
- ...     kwstr = ', '.join('%r: %r' % (k, kw[k]) for k in sorted(kw))
- ...     print("calling %s with args %s, {%s}" % (f.__name__, args, kwstr))
- ...     return f(*args, **kw)
+```
 
 And ``trace`` is now a decorator!
 
-.. code-block:: python
+```python
+>>> trace 
+<function trace at 0x...>
 
- >>> trace 
- <function trace at 0x...>
+```
 
 Here is an example of usage:
 
-.. code-block:: python
+```python
+>>> @trace
+... def func(): pass
 
- >>> @trace
- ... def func(): pass
+>>> func()
+calling func with args (), {}
 
- >>> func()
- calling func with args (), {}
+```
 
 The `decorator` function can also be used to define factories of decorators,
 i.e. functions returning decorators. In general you can just write something
 like this:
 
-.. code-block:: python
-
-   def decfactory(param1, param2, ...):
-      def caller(f, *args, **kw):
-          return somefunc(f, param1, param2, .., *args, **kw)
-      return decorator(caller)
+```python
+def decfactory(param1, param2, ...):
+    def caller(f, *args, **kw):
+        return somefunc(f, param1, param2, .., *args, **kw)
+    return decorator(caller)
+```
 
 This is fully general but requires an additional level of nesting. For this
 reason since version 4.2 there is a facility to build
 decorator factories by using a single caller with default arguments i.e.
 writing something like this:
 
-.. code-block:: python
-
-   def caller(f, param1=default1, param2=default2, ..., *args, **kw):
-       return somefunc(f, param1, param2, *args, **kw)
-   decfactory = decorator(caller)
+```python
+def caller(f, param1=default1, param2=default2, ..., *args, **kw):
+    return somefunc(f, param1, param2, *args, **kw)
+decfactory = decorator(caller)
+```
 
 Notice that this simplified approach *only works with default arguments*,
 i.e. `param1`, `param2` etc must have known defaults. Thanks to this
@@ -495,10 +505,10 @@ of the family which uses the default values for all parameters. Such
 decorator can be written as ``decfactory()`` with no parameters specified;
 moreover, as a shortcut, it is also possible to elide the parenthesis,
 a feature much requested by the users. For years I have been opposite
-to this feature request, since having expliciti parenthesis to me is more clear
+to this feature request, since having explicit parenthesis to me is more clear
 and less magic; however once this feature entered in decorators of
-the Python standard library (I am referring to the `dataclass` decorator
-https://www.python.org/dev/peps/pep-0557/) I finally gave up.
+the Python standard library (I am referring to the [dataclass decorator](
+https://www.python.org/dev/peps/pep-0557/)) I finally gave up.
 
 The example below will show how it works in practice.
 
@@ -511,7 +521,7 @@ everything.
 This can be accomplished with a suitable family of decorators (decorator
 factory), parameterize by a string, the busy message:
 
-.. code-block:: python
+```python
 
  @decorator
  def blocking(f, msg='blocking', *args, **kw):
@@ -526,56 +536,57 @@ factory), parameterize by a string, the busy message:
      else:  # the thread is ended, return the stored result
          del f.thread
          return f.result
-
+```
 
 Functions decorated with ``blocking`` will return a busy message if
 the resource is unavailable, and the intended result if the resource is
 available. For instance:
 
-.. code-block:: python
+```python
+>>> @blocking(msg="Please wait ...")
+... def read_data():
+...     time.sleep(3) # simulate a blocking resource
+...     return "some data"
 
- >>> @blocking("Please wait ...")
- ... def read_data():
- ...     time.sleep(3) # simulate a blocking resource
- ...     return "some data"
+>>> print(read_data())  # data is not available yet
+Please wait ...
 
- >>> print(read_data())  # data is not available yet
- Please wait ...
+>>> time.sleep(1)
+>>> print(read_data())  # data is not available yet
+Please wait ...
 
- >>> time.sleep(1)
- >>> print(read_data())  # data is not available yet
- Please wait ...
+>>> time.sleep(1)
+>>> print(read_data())  # data is not available yet
+Please wait ...
 
- >>> time.sleep(1)
- >>> print(read_data())  # data is not available yet
- Please wait ...
+>>> time.sleep(1.1)  # after 3.1 seconds, data is available
+>>> print(read_data())
+some data
 
- >>> time.sleep(1.1)  # after 3.1 seconds, data is available
- >>> print(read_data())
- some data
+```
 
 Decorator factories are most useful to framework builders. Here is an example
 that gives an idea of how you could manage permissions in a framework:
 
-.. code-block:: python
+```python
 
  class Action(object):
-     @restricted(User)
+     @restricted(user_class=User)
      def view(self):
          "Any user can view objects"
  
-     @restricted(PowerUser)
+     @restricted(user_class=PowerUser)
      def insert(self):
          "Only power users can insert objects"
  
-     @restricted(Admin)
+     @restricted(user_class=Admin)
      def delete(self):
          "Only the admin can delete objects"
-
+```
 
 where ``restricted`` is a decorator factory defined as follows
 
-.. code-block:: python
+```python
 
  @decorator
  def restricted(func, user_class=User, *args, **kw):
@@ -587,7 +598,16 @@ where ``restricted`` is a decorator factory defined as follows
          raise PermissionError(
              '%s does not have the permission to run %s!'
              % (self.user, func.__name__))
+```
 
+Notice that if you forget to use the keyword argument notation, i.e. if you
+write ``restricted(User)`` instead of ``restricted(user_class=User)`` you
+will get an error
+
+```python
+TypeError: You are decorating a non function: <class '__main__.User'>
+
+```
 
 ``decorator(cls)``
 --------------------------------------------
@@ -605,7 +625,7 @@ the function is called, it is executed in a separate thread.
 But I don't recommend that you implement futures this way; this is just an
 example.)
 
-.. code-block:: python
+```python
 
  class Future(threading.Thread):
      """
@@ -627,7 +647,7 @@ example.)
      def result(self):
          self.join()
          return self._result
-
+```
 
 The decorated function returns a ``Future`` object. It has a ``.result()``
 method which blocks until the underlying thread finishes and returns
@@ -635,17 +655,18 @@ the final result.
 
 Here is the minimalistic usage:
 
-.. code-block:: python
+```python
+>>> @decorator(Future)
+... def long_running(x):
+...     time.sleep(.5)
+...     return x
 
- >>> @decorator(Future)
- ... def long_running(x):
- ...     time.sleep(.5)
- ...     return x
+>>> fut1 = long_running(1)
+>>> fut2 = long_running(2)
+>>> fut1.result() + fut2.result()
+3
 
- >>> fut1 = long_running(1)
- >>> fut2 = long_running(2)
- >>> fut1.result() + fut2.result()
- 3
+```
 
 contextmanager
 -------------------------------------
@@ -654,27 +675,28 @@ Python's standard library has the ``contextmanager`` decorator,
 which converts a generator function into a ``GeneratorContextManager``
 factory. For instance, if you write this...
 
-.. code-block:: python
+```python
+>>> from contextlib import contextmanager
+>>> @contextmanager
+... def before_after(before, after):
+...     print(before)
+...     yield
+...     print(after)
 
- >>> from contextlib import contextmanager
- >>> @contextmanager
- ... def before_after(before, after):
- ...     print(before)
- ...     yield
- ...     print(after)
-
+```
 
 ...then ``before_after`` is a factory function that returns
 ``GeneratorContextManager`` objects, which provide the
 use of the ``with`` statement:
 
-.. code-block:: python
+```python
+>>> with before_after('BEFORE', 'AFTER'):
+...     print('hello')
+BEFORE
+hello
+AFTER
 
- >>> with before_after('BEFORE', 'AFTER'):
- ...     print('hello')
- BEFORE
- hello
- AFTER
+```
 
 Basically, it is as if the content of the ``with`` block was executed
 in the place of the ``yield`` expression in the generator function.
@@ -682,16 +704,17 @@ in the place of the ``yield`` expression in the generator function.
 In Python 3.2, ``GeneratorContextManager`` objects were enhanced with
 a ``__call__`` method, so that they can be used as decorators, like so:
 
-.. code-block:: python
+```python
+>>> @ba 
+... def hello():
+...     print('hello')
+...
+>>> hello() 
+BEFORE
+hello
+AFTER
 
- >>> @ba 
- ... def hello():
- ...     print('hello')
- ...
- >>> hello() 
- BEFORE
- hello
- AFTER
+```
 
 The ``ba`` decorator basically inserts a ``with ba:`` block
 inside the function.
@@ -738,14 +761,15 @@ where the function is generated by ``exec``.
 
 Here's an example:
 
-.. code-block:: python
+```python
+>>> def f(*args, **kw): # a function with a generic signature
+...     print(args, kw)
 
- >>> def f(*args, **kw): # a function with a generic signature
- ...     print(args, kw)
+>>> f1 = FunctionMaker.create('f1(a, b)', 'f(a, b)', dict(f=f))
+>>> f1(1,2)
+(1, 2) {}
 
- >>> f1 = FunctionMaker.create('f1(a, b)', 'f(a, b)', dict(f=f))
- >>> f1(1,2)
- (1, 2) {}
+```
 
 It is important to notice that the function body is interpolated
 before being executed; **be careful** with the ``%`` sign!
@@ -760,14 +784,15 @@ the source code of the generated function. To do this, just
 pass ``addsource=True``, and the generated function will get
 a ``__source__`` attribute:
 
-.. code-block:: python
+```python
+>>> f1 = FunctionMaker.create(
+...     'f1(a, b)', 'f(a, b)', dict(f=f), addsource=True)
+>>> print(f1.__source__)
+def f1(a, b):
+    f(a, b)
 
- >>> f1 = FunctionMaker.create(
- ...     'f1(a, b)', 'f(a, b)', dict(f=f), addsource=True)
- >>> print(f1.__source__)
- def f1(a, b):
-     f(a, b)
- <BLANKLINE>
+
+```
 
 The first argument to ``FunctionMaker.create`` can be a string (as above),
 or a function. This is the most common usage, since you typically decorate
@@ -799,13 +824,13 @@ Here is what happens:
 (e.g., something like ``'f1(a, b=None)'``). Just pass ``'f1(a, b)'``,
 followed by a tuple of defaults:
 
-.. code-block:: python
+```python
+>>> f1 = FunctionMaker.create(
+...     'f1(a, b)', 'f(a, b)', dict(f=f), addsource=True, defaults=(None,))
+>>> print(getfullargspec(f1))
+FullArgSpec(args=['a', 'b'], varargs=None, varkw=None, defaults=(None,), kwonlyargs=[], kwonlydefaults=None, annotations={})
 
- >>> f1 = FunctionMaker.create(
- ...     'f1(a, b)', 'f(a, b)', dict(f=f), addsource=True, defaults=(None,))
- >>> print(getfullargspec(f1))
- FullArgSpec(args=['a', 'b'], varargs=None, varkw=None, defaults=(None,), kwonlyargs=[], kwonlydefaults=None, annotations={})
-
+```
 
 Getting the source code
 ---------------------------------------------------
@@ -821,46 +846,47 @@ does not really work with "regular" decorators. In those cases,
 ``inspect.getsource`` gives you the wrapper source code, which is probably
 not what you want:
 
-.. code-block:: python
+```python
 
  def identity_dec(func):
      def wrapper(*args, **kw):
          return func(*args, **kw)
      return wrapper
-
-.. code-block:: python
+```
+```python
 
      def wrapper(*args, **kw):
          return func(*args, **kw)
+```
+
+```python
+>>> import inspect
+>>> print(inspect.getsource(example))
+    def wrapper(*args, **kw):
+        return func(*args, **kw)
 
 
-.. code-block:: python
+```
 
- >>> import inspect
- >>> print(inspect.getsource(example))
-     def wrapper(*args, **kw):
-         return func(*args, **kw)
- <BLANKLINE>
-
-(See bug report 1764286_ for an explanation of what is happening).
+(See bug report [1764286](http://bugs.python.org/issue1764286)
+for an explanation of what is happening).
 Unfortunately the bug still exists in all versions of Python < 3.5.
 
 However, there is a workaround. The decorated function has the ``__wrapped__``
 attribute, pointing to the original function. The simplest way to get the
 source code is to call ``inspect.getsource`` on the undecorated function:
 
-.. code-block:: python
+```python
+>>> print(inspect.getsource(factorial.__wrapped__))
+@tail_recursive
+def factorial(n, acc=1):
+    "The good old factorial"
+    if n == 0:
+        return acc
+    return factorial(n-1, n*acc)
 
- >>> print(inspect.getsource(factorial.__wrapped__))
- @tail_recursive
- def factorial(n, acc=1):
-     "The good old factorial"
-     if n == 0:
-         return acc
-     return factorial(n-1, n*acc)
- <BLANKLINE>
 
-.. _1764286: http://bugs.python.org/issue1764286
+```
 
 Dealing with third-party decorators
 -----------------------------------------------------------------
@@ -873,7 +899,7 @@ upgrade third party decorators to signature-preserving decorators...
 
 You can use a ``FunctionMaker`` to implement that functionality as follows:
 
-.. code-block:: python
+```python
 
  def decorator_apply(dec, func):
      """
@@ -883,7 +909,7 @@ You can use a ``FunctionMaker`` to implement that functionality as follows:
      return FunctionMaker.create(
          func, 'return decfunc(%(signature)s)',
          dict(decfunc=dec(func)), __wrapped__=func)
-
+```
 
 ``decorator_apply`` sets the generated function's ``__wrapped__`` attribute
 to the original function, so you can get the right source code.
@@ -903,7 +929,7 @@ I have shamelessly stolen the core concept from Kay Schluehr's recipe
 in the Python Cookbook,
 http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691.
 
-.. code-block:: python
+```python
 
  class TailRecursive(object):
      """
@@ -934,20 +960,20 @@ http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691.
          else:  # return the arguments of the tail call
              self.argskwd = args, kwd
              return CONTINUE
-
+```
 
 Here the decorator is implemented as a class returning callable
 objects.
 
-.. code-block:: python
+```python
 
  def tail_recursive(func):
      return decorator_apply(TailRecursive, func)
-
+```
 
 Here is how you apply the upgraded decorator to the good old factorial:
 
-.. code-block:: python
+```python
 
  @tail_recursive
  def factorial(n, acc=1):
@@ -955,12 +981,13 @@ Here is how you apply the upgraded decorator to the good old factorial:
      if n == 0:
          return acc
      return factorial(n-1, n*acc)
+```
 
+```python
+>>> print(factorial(4))
+24
 
-.. code-block:: python
-
- >>> print(factorial(4))
- 24
+```
 
 This decorator is pretty impressive, and should give you some food for
 thought! ;)
@@ -971,13 +998,13 @@ Notice that there is no recursion limit now; you can easily compute
 Notice also that the decorator will *not* work on functions which
 are not tail recursive, such as the following:
 
-.. code-block:: python
+```python
 
  def fact(n):  # this is not tail-recursive
      if n == 0:
          return 1
      return n * fact(n-1)
-
+```
 
 **Reminder:** A function is *tail recursive* if it does either of the
 following:
@@ -998,39 +1025,41 @@ Here I will give a single example of usage. Suppose you want to log the moment
 a coroutine starts and the moment it stops for debugging purposes. You could
 write code like the following:
 
-.. code-block:: python
-
- import time
- import logging
- from asyncio import get_event_loop, sleep, wait
- from decorator import decorator
+```python
+import time
+import logging
+from asyncio import get_event_loop, sleep, wait
+from decorator import decorator
 
  @decorator
- async def log_start_stop(coro, *args, **kwargs):
-     logging.info('Starting %s%s', coro.__name__, args)
-     t0 = time.time()
-     await coro(*args, **kwargs)
-     dt = time.time() - t0
-     logging.info('Ending %s%s after %d seconds', coro.__name__, args, dt)
+async def log_start_stop(coro, *args, **kwargs):
+    logging.info('Starting %s%s', coro.__name__, args)
+    t0 = time.time()
+    await coro(*args, **kwargs)
+    dt = time.time() - t0
+    logging.info('Ending %s%s after %d seconds', coro.__name__, args, dt)
 
- @log_start_stop
- async def make_task(n):
-     for i in range(n):
-         await sleep(1)
+@log_start_stop
+async def make_task(n):
+    for i in range(n):
+        await sleep(1)
 
- if __name__ == '__main__':
-     logging.basicConfig(level=logging.INFO)
-     tasks = [make_task(3), make_task(2), make_task(1)]
-     get_event_loop().run_until_complete(wait(tasks))
+if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO)
+    tasks = [make_task(3), make_task(2), make_task(1)]
+    get_event_loop().run_until_complete(wait(tasks))
+```
 
-and you will get an output like this::
+and you will get an output like this:
 
- INFO:root:Starting make_task(1,)
- INFO:root:Starting make_task(3,)
- INFO:root:Starting make_task(2,)
- INFO:root:Ending make_task(1,) after 1 seconds
- INFO:root:Ending make_task(2,) after 2 seconds
- INFO:root:Ending make_task(3,) after 3 seconds
+```bash
+INFO:root:Starting make_task(1,)
+INFO:root:Starting make_task(3,)
+INFO:root:Starting make_task(2,)
+INFO:root:Ending make_task(1,) after 1 seconds
+INFO:root:Ending make_task(2,) after 2 seconds
+INFO:root:Ending make_task(3,) after 3 seconds
+```
 
 This may be handy if you have trouble understanding what it going on
 with a particularly complex chain of coroutines. With a single line you
@@ -1043,12 +1072,12 @@ will return the right answer (i.e. ``True``).
 It is also possible to define decorators converting coroutine functions
 into regular functions, such as the following:
 
-.. code-block:: python
-
- @decorator
- def coro_to_func(coro, *args, **kw):
-     "Convert a coroutine into a function"
+```python
+@decorator
+def coro_to_func(coro, *args, **kw):
+    "Convert a coroutine into a function"
      return get_event_loop().run_until_complete(coro(*args, **kw))
+```
 
 Notice the diffence: the caller in ``log_start_stop`` was a coroutine
 function and the associate decorator was converting coroutines->coroutines;
@@ -1079,7 +1108,7 @@ Suppose you have an ``XMLWriter`` class, which is instantiated
 with some configuration parameters, and has the ``.write`` method which
 serializes objects to XML:
 
-.. code-block:: python
+```python
 
  class XMLWriter(object):
      def __init__(self, **config):
@@ -1088,7 +1117,7 @@ serializes objects to XML:
      @dispatch_on('obj')
      def write(self, obj):
          raise NotImplementedError(type(obj))
-
+```
 
 Here, you want to dispatch on the *second* argument; the first is already
 taken by ``self``. The ``dispatch_on`` decorator factory allows you to specify
@@ -1104,20 +1133,21 @@ Usually, default functions should raise a ``NotImplementedError``, thus
 forcing people to register some implementation.
 You can perform the registration with a decorator:
 
-.. code-block:: python
+```python
 
  @XMLWriter.write.register(float)
  def writefloat(self, obj):
      return '<float>%s</float>' % obj
-
+```
 
 Now ``XMLWriter`` can serialize floats:
 
-.. code-block:: python
+```python
+>>> writer = XMLWriter()
+>>> writer.write(2.3)
+'<float>2.3</float>'
 
- >>> writer = XMLWriter()
- >>> writer.write(2.3)
- '<float>2.3</float>'
+```
 
 I could give a down-to-earth example of situations in which it is desiderable
 to dispatch on more than one argument--for instance, I once implemented
@@ -1125,21 +1155,21 @@ a database-access library where the first dispatching argument was the
 the database driver, and the second was the database record--but here
 I will follow tradition, and show the time-honored Rock-Paper-Scissors example:
 
-.. code-block:: python
+```python
 
  class Rock(object):
      ordinal = 0
-
-.. code-block:: python
+```
+```python
 
  class Paper(object):
      ordinal = 1
-
-.. code-block:: python
+```
+```python
 
  class Scissors(object):
      ordinal = 2
-
+```
 
 I have added an ordinal to the Rock-Paper-Scissors classes to simplify
 the implementation. The idea is to define a generic function (``win(a,
@@ -1157,7 +1187,7 @@ There are 9 combinations, but combinations with the same ordinal
 arguments, the sign of the result changes. Therefore, it is sufficient to
 directly specify only 3 implementations:
 
-.. code-block:: python
+```python
 
  @dispatch_on('a', 'b')
  def win(a, b):
@@ -1166,88 +1196,90 @@ directly specify only 3 implementations:
      elif a.ordinal > b.ordinal:
          return -win(b, a)
      raise NotImplementedError((type(a), type(b)))
-
-.. code-block:: python
+```
+```python
 
  @win.register(Rock, Paper)
  def winRockPaper(a, b):
      return -1
-
-.. code-block:: python
+```
+```python
 
  @win.register(Paper, Scissors)
  def winPaperScissors(a, b):
      return -1
-
-.. code-block:: python
+```
+```python
 
  @win.register(Rock, Scissors)
  def winRockScissors(a, b):
      return 1
-
+```
 
 Here is the result:
 
-.. code-block:: python
+```python
+>>> win(Paper(), Rock())
+1
+>>> win(Scissors(), Paper())
+1
+>>> win(Rock(), Scissors())
+1
+>>> win(Paper(), Paper())
+0
+>>> win(Rock(), Rock())
+0
+>>> win(Scissors(), Scissors())
+0
+>>> win(Rock(), Paper())
+-1
+>>> win(Paper(), Scissors())
+-1
+>>> win(Scissors(), Rock())
+-1
 
- >>> win(Paper(), Rock())
- 1
- >>> win(Scissors(), Paper())
- 1
- >>> win(Rock(), Scissors())
- 1
- >>> win(Paper(), Paper())
- 0
- >>> win(Rock(), Rock())
- 0
- >>> win(Scissors(), Scissors())
- 0
- >>> win(Rock(), Paper())
- -1
- >>> win(Paper(), Scissors())
- -1
- >>> win(Scissors(), Rock())
- -1
+```
 
 The point of generic functions is that they play well with subclassing.
 For instance, suppose we define a ``StrongRock``, which does not lose against
 Paper:
 
-.. code-block:: python
+```python
 
  class StrongRock(Rock):
      pass
-
-.. code-block:: python
+```
+```python
 
  @win.register(StrongRock, Paper)
  def winStrongRockPaper(a, b):
      return 0
-
+```
 
 Then you do not need to define other implementations; they are
 inherited from the parent:
 
-.. code-block:: python
+```python
+>>> win(StrongRock(), Scissors())
+1
 
- >>> win(StrongRock(), Scissors())
- 1
+```
 
 You can introspect the precedence used by the dispath algorithm by
 calling ``.dispatch_info(*types)``:
 
-.. code-block:: python
+```python
+>>> win.dispatch_info(StrongRock, Scissors)
+[('StrongRock', 'Scissors'), ('Rock', 'Scissors')]
 
-  >>> win.dispatch_info(StrongRock, Scissors)
-  [('StrongRock', 'Scissors'), ('Rock', 'Scissors')]
+```
 
 Since there is no direct implementation for (``StrongRock``, ``Scissors``),
 the dispatcher will look at the implementation for (``Rock``, ``Scissors``)
 which is available. Internally, the algorithm is doing a cross
 product of the class precedence lists (or *Method Resolution Orders*,
-MRO_ for short) of ``StrongRock`` and ``Scissors``, respectively.
-
-.. _MRO: http://www.python.org/2.3/mro.html
+[MRO](http://www.python.org/2.3/mro.html) for short) of ``StrongRock``
+ and ``Scissors``, respectively.
 
 Generic functions and virtual ancestors
 -------------------------------------------------
@@ -1257,20 +1289,21 @@ In Python, generic functions are complicated by the existence of
 
 Consider this class:
 
-.. code-block:: python
+```python
 
  class WithLength(object):
      def __len__(self):
          return 0
-
+```
 
 This class defines a ``__len__`` method, and is therefore
 considered to be a subclass of the abstract base class ``collections.Sized``:
 
-.. code-block:: python
+```python
+>>> issubclass(WithLength, collections.Sized)
+True
 
- >>> issubclass(WithLength, collections.Sized)
- True
+```
 
 However, ``collections.Sized`` is not in the MRO_ of ``WithLength``; it
 is not a true ancestor. Any implementation of generic functions (even
@@ -1279,28 +1312,29 @@ account the virtual ancestors.
 
 In particular, if we define a generic function...
 
-.. code-block:: python
+```python
 
  @dispatch_on('obj')
  def get_length(obj):
      raise NotImplementedError(type(obj))
-
+```
 
 ...implemented on all classes with a length...
 
-.. code-block:: python
+```python
 
  @get_length.register(collections.Sized)
  def get_length_sized(obj):
      return len(obj)
-
+```
 
 ...then ``get_length`` must be defined on ``WithLength`` instances...
 
-.. code-block:: python
+```python
+>>> get_length(WithLength())
+0
 
- >>> get_length(WithLength())
- 0
+```
 
 ...even if ``collections.Sized`` is not a true ancestor of ``WithLength``.
 
@@ -1315,14 +1349,14 @@ must be aware of the registration mechanism.
 For example, suppose you are using a third-party set-like class, like
 the following:
 
-.. code-block:: python
+```python
 
  class SomeSet(collections.Sized):
      # methods that make SomeSet set-like
      # not shown ...
      def __len__(self):
          return 0
-
+```
 
 Here, the author of ``SomeSet`` made a mistake by inheriting from
 ``collections.Sized`` (instead of ``collections.Set``).
@@ -1330,29 +1364,31 @@ Here, the author of ``SomeSet`` made a mistake by inheriting from
 This is not a problem. You can register *a posteriori*
 ``collections.Set`` as a virtual ancestor of ``SomeSet``:
 
-.. code-block:: python
+```python
+>>> _ = collections.Set.register(SomeSet)
+>>> issubclass(SomeSet, collections.Set)
+True
 
- >>> _ = collections.Set.register(SomeSet)
- >>> issubclass(SomeSet, collections.Set)
- True
+```
 
 Now, let's define an implementation of ``get_length`` specific to set:
 
-.. code-block:: python
+```python
 
  @get_length.register(collections.Set)
  def get_length_set(obj):
      return 1
-
+```
 
 The current implementation (and ``functools.singledispatch`` too)
 is able to discern that a ``Set`` is a ``Sized`` object, by looking at
 the class registry, so it uses the more specific implementation for ``Set``:
 
-.. code-block:: python
+```python
+>>> get_length(SomeSet())  # NB: the implementation for Sized would give 0
+1
 
- >>> get_length(SomeSet())  # NB: the implementation for Sized would give 0
- 1
+```
 
 Sometimes it is not clear how to dispatch. For instance, consider a
 class ``C`` registered both as ``collections.Iterable`` and
@@ -1360,7 +1396,7 @@ class ``C`` registered both as ``collections.Iterable`` and
 implementations for both ``collections.Iterable`` *and*
 ``collections.Sized``:
 
-.. code-block:: python
+```python
 
  def singledispatch_example1():
      singledispatch = dispatch_on('obj')
@@ -1378,7 +1414,7 @@ implementations for both ``collections.Iterable`` *and*
          return "iterable"
  
      g(C())  # RuntimeError: Ambiguous dispatch: Iterable or Sized?
-
+```
 
 It is impossible to decide which implementation to use, since the ancestors
 are independent. The following function will raise a ``RuntimeError``
@@ -1405,7 +1441,7 @@ the base classes.
 
 Here's an example that shows the difference:
 
-.. code-block:: python
+```python
 
  def singledispatch_example2():
      # adapted from functools.singledispatch test case
@@ -1435,7 +1471,7 @@ Here's an example that shows the difference:
      c.Container.register(V)  # add c.Container to the virtual mro of V
      assert g(v) == "s"  # since the virtual mro is V, Sized, S, Container
      return g, V
-
+```
 
 If you play with this example and replace the ``singledispatch`` definition
 with ``functools.singledispatch``, the assertion will break: ``g`` will return
@@ -1450,11 +1486,12 @@ looking at the implementations. I will just notice that
 ``.dispatch_info`` is quite essential to see the class precedence
 list used by algorithm:
 
-.. code-block:: python
+```python
+>>> g, V = singledispatch_example2()
+>>> g.dispatch_info(V)
+[('V',), ('Sized',), ('S',), ('Container',)]
 
-  >>> g, V = singledispatch_example2()
-  >>> g.dispatch_info(V)
-  [('V',), ('Sized',), ('S',), ('Container',)]
+```
 
 The current implementation does not implement any kind of cooperation
 between implementations. In other words, nothing is akin either to
@@ -1469,8 +1506,7 @@ Caveats and limitations
 One thing you should be aware of, is the performance penalty of decorators.
 The worse case is shown by the following example:
 
-.. code-block:: bash
-
+```bash
  $ cat performance.sh
  python3 -m timeit -s "
  from decorator import decorator
@@ -1489,13 +1525,15 @@ The worse case is shown by the following example:
      pass
  " "f()"
 
+```
 On my laptop, using the ``do_nothing`` decorator instead of the
-plain function is five times slower::
+plain function is five times slower:
 
+```bash
  $ bash performance.sh
  1000000 loops, best of 3: 1.39 usec per loop
  1000000 loops, best of 3: 0.278 usec per loop
-
+```
 Of course, a real life function probably does something more useful
 than the function ``f`` here, so the real life performance penalty
 *could* be negligible.  As always, the only way to know if there is a
@@ -1506,26 +1544,28 @@ tracebacks longer and more difficult to understand.
 
 Consider this example:
 
-.. code-block:: python
+```python
+>>> @trace
+... def f():
+...     1/0
 
- >>> @trace
- ... def f():
- ...     1/0
+```
 
 Calling ``f()`` gives you a ``ZeroDivisionError``.
 But since the function is decorated, the traceback is longer:
 
-.. code-block:: python
+```python
+>>> f() 
+Traceback (most recent call last):
+  ...
+     File "<string>", line 2, in f
+     File "<doctest __main__[22]>", line 4, in trace
+       return f(*args, **kw)
+     File "<doctest __main__[51]>", line 3, in f
+       1/0
+ZeroDivisionError: ...
 
- >>> f() 
- Traceback (most recent call last):
-   ...
-      File "<string>", line 2, in f
-      File "<doctest __main__[22]>", line 4, in trace
-        return f(*args, **kw)
-      File "<doctest __main__[51]>", line 3, in f
-        1/0
- ZeroDivisionError: ...
+```
 
 You see here the inner call to the decorator ``trace``, which calls
 ``f(*args, **kw)``, and a reference to  ``File "<string>", line 2, in f``.
@@ -1554,8 +1594,6 @@ signature internally, as you can see by using
 ``inspect.getfullargspec`` - which has been rightly deprecated -
 will see the wrong signature.
 
-.. _362: http://www.python.org/dev/peps/pep-0362
-
 In the present implementation, decorators generated by ``decorator``
 can only be used on user-defined Python functions or methods.
 They cannot be used on generic callable objects or built-in functions,
@@ -1564,9 +1602,8 @@ for Python 2. In Python 3.5, many such limitations have been removed, but
 I still think that it is cleaner and safer to decorate only
 functions. If you want to decorate things like classmethods/staticmethods
 and general callables - which I will never support in the decorator module -
-I suggest you to look at the wrapt_ project by Graeme Dumpleton.
-
-.. _wrapt: https://wrapt.readthedocs.io/en/latest/
+I suggest you to look at the [wrapt](https://wrapt.readthedocs.io/en/latest/)
+project by Graeme Dumpleton.
 
 There is a strange quirk when decorating functions with keyword
 arguments, if one of the arguments has the same name used in the
@@ -1575,15 +1612,17 @@ David Goldstein.
 
 Here is an example where it is manifest:
 
-.. code-block:: python
+```python
+>>> @memoize
+... def getkeys(**kw):
+...     return kw.keys()
 
-   >>> @memoize
-   ... def getkeys(**kw):
-   ...     return kw.keys()
-   >>> getkeys(func='a') 
-   Traceback (most recent call last):
-    ...
-   TypeError: _memoize() got multiple values for ... 'func'
+>>> getkeys(func='a') 
+Traceback (most recent call last):
+ ...
+TypeError: _memoize() got multiple values for ... 'func'
+
+```
 
 The error message looks really strange... until you realize that
 the caller function `_memoize` uses `func` as first argument,
@@ -1593,19 +1632,20 @@ keywork arguments.
 The solution is to change the name of the first argument in `_memoize`,
 or to change the implementation like so:
 
-.. code-block:: python
+```python
 
-   def _memoize(*all_args, **kw):
-       func = all_args[0]
-       args = all_args[1:]
-       if kw:  # frozenset is used to ensure hashability
-           key = args, frozenset(kw.items())
-       else:
-           key = args
-       cache = func.cache  # attribute added by memoize
-       if key not in cache:
-           cache[key] = func(*args, **kw)
-       return cache[key]
+def _memoize(*all_args, **kw):
+    func = all_args[0]
+    args = all_args[1:]
+    if kw:  # frozenset is used to ensure hashability
+        key = args, frozenset(kw.items())
+    else:
+        key = args
+    cache = func.cache  # attribute added by memoize
+    if key not in cache:
+        cache[key] = func(*args, **kw)
+    return cache[key]
+```
 
 This avoids the need to name the first argument, so the problem
 simply disappears. This is a technique that you should keep in mind
@@ -1617,37 +1657,35 @@ that.
 On a similar note, there is a restriction on argument names. For instance,
 if you name an argument ``_call_`` or ``_func_``, you will get a ``NameError``:
 
-.. code-block:: python
+```python
+>>> @trace
+... def f(_func_): print(f)
+...
+Traceback (most recent call last):
+  ...
+NameError: _func_ is overridden in
+def f(_func_):
+    return _call_(_func_, _func_)
 
- >>> @trace
- ... def f(_func_): print(f)
- ...
- Traceback (most recent call last):
-   ...
- NameError: _func_ is overridden in
- def f(_func_):
-     return _call_(_func_, _func_)
+```
 
 Finally, the implementation is such that the decorated function makes
 a (shallow) copy of the original function dictionary:
 
-.. code-block:: python
+```python
+>>> def f(): pass # the original function
+>>> f.attr1 = "something" # setting an attribute
+>>> f.attr2 = "something else" # setting another attribute
 
- >>> def f(): pass # the original function
- >>> f.attr1 = "something" # setting an attribute
- >>> f.attr2 = "something else" # setting another attribute
+>>> traced_f = trace(f) # the decorated function
 
- >>> traced_f = trace(f) # the decorated function
+>>> traced_f.attr1
+'something'
+>>> traced_f.attr2 = "something different" # setting attr
+>>> f.attr2 # the original attribute did not change
+'something else'
 
- >>> traced_f.attr1
- 'something'
- >>> traced_f.attr2 = "something different" # setting attr
- >>> f.attr2 # the original attribute did not change
- 'something else'
-
-.. _function annotations: http://www.python.org/dev/peps/pep-3107/
-.. _docutils: http://docutils.sourceforge.net/
-.. _pygments: http://pygments.org/
+```
 
 LICENSE (2-clause BSD)
 ---------------------------------------------

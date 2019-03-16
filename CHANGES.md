@@ -3,8 +3,15 @@ HISTORY
 
 ## unreleased
 
+## 4.4.0 (2019-03-16)
+
+Fixed a regression with decorator factories breaking the case with no
+arguments by going back to the syntax used in version 4.2.
 Accepted a small fix from Eric Larson (https://github.com/larsoner) affecting
-the replacement of `isgeneratorfunction` for old Python versions
+`isgeneratorfunction` for old Python versions.
+Moved the documentation from ReadTheDocs to GitHub to simplify the
+release process and replaced ReStructuredText with Markdown: it is
+an inferior solution, but it works better with GitHub and it is good enough.
 
 ## 4.3.2 (2019-01-24)
 

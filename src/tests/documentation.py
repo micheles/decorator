@@ -430,7 +430,7 @@ the resource is unavailable, and the intended result if the resource is
 available. For instance:
 
 ```python
->>> @blocking("Please wait ...")
+>>> @blocking(msg="Please wait ...")
 ... def read_data():
 ...     time.sleep(3) # simulate a blocking resource
 ...     return "some data"
@@ -460,6 +460,15 @@ $$Action
 where ``restricted`` is a decorator factory defined as follows
 
 $$restricted
+
+Notice that if you forget to use the keyword argument notation, i.e. if you
+write ``restricted(User)`` instead of ``restricted(user_class=User)`` you
+will get an error
+
+```python
+TypeError: You are decorating a non function: <class '__main__.User'>
+
+```
 
 ``decorator(cls)``
 --------------------------------------------
@@ -1560,15 +1569,15 @@ def restricted(func, user_class=User, *args, **kw):
 
 
 class Action(object):
-    @restricted(User)
+    @restricted(user_class=User)
     def view(self):
         "Any user can view objects"
 
-    @restricted(PowerUser)
+    @restricted(user_class=PowerUser)
     def insert(self):
         "Only power users can insert objects"
 
-    @restricted(Admin)
+    @restricted(user_class=Admin)
     def delete(self):
         "Only the admin can delete objects"
 
@@ -1857,11 +1866,19 @@ def warn_slow(func, duration=0, *args, **kwargs):
     return res
 
 
-@warn_slow()
-def operation():
+@warn_slow()  # with parens
+def operation1():
     """
-    >>> operation()
-    operation is slow
+    >>> operation1()
+    operation1 is slow
+    """
+
+
+@warn_slow  # without parens
+def operation2():
+    """
+    >>> operation2()
+    operation2 is slow
     """
 
 

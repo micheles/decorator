@@ -1,15 +1,12 @@
 Decorator module
 =================
 
-:Author: Michele Simionato
-:E-mail: michele.simionato@gmail.com
-:Requires: Python from 2.6 to 3.7
-:Download page: http://pypi.python.org/pypi/decorator
-:Installation: ``pip install decorator``
-:License: BSD license
-
 The goal of the decorator module is to make it easy to define
-signature-preserving function decorators.
+signature-preserving function decorators and decorator factories.
+It also includes an implementation of multiple dispatch and other niceties
+(please check the docs). It is released under a two-clauses
+BSD license, i.e. basically you can do whatever you want with it but I am not
+responsible.
 
 Installation
 -------------
@@ -23,7 +20,7 @@ which will install just the module on your system.
 If you prefer to install the full distribution from source, including
 the documentation, clone the `GitHub repo`_ or download the tarball_, unpack it and run
 
- `$ pip install .`
+ `$ pip install -e .`
 
 in the main directory, possibly as superuser.
 
@@ -56,8 +53,10 @@ The project is hosted on GitHub. You can look at the source here:
 Documentation
 ---------------
 
-The documentation has been moved to http://decorator.readthedocs.io/en/latest/
-You can download a PDF version of it from http://media.readthedocs.org/pdf/decorator/latest/decorator.pdf
+The documentation has been moved to GitHub:
+http://micheles.github.io/decorator/index.md.
+From there you can get a nice PDF version by simply using the print
+functionality of your browser.
 
 For the impatient
 -----------------
@@ -65,28 +64,27 @@ For the impatient
 Here is an example of how to define a family of decorators tracing slow
 operations:
 
-.. code-block:: python
+```python
+from decorator import decorator
 
-   from decorator import decorator
-
-   @decorator
-   def warn_slow(func, timelimit=60, *args, **kw):
-       t0 = time.time()
-       result = func(*args, **kw)
-       dt = time.time() - t0
-       if dt > timelimit:
+@decorator
+def warn_slow(func, timelimit=60, *args, **kw):
+    t0 = time.time()
+    result = func(*args, **kw)
+    dt = time.time() - t0
+    if dt > timelimit:
            logging.warn('%s took %d seconds', func.__name__, dt)
        else:
            logging.info('%s took %d seconds', func.__name__, dt)
        return result
 
-   @warn_slow  # warn if it takes more than 1 minute
-   def preprocess_input_files(inputdir, tempdir):
-       ...
+@warn_slow  # warn if it takes more than 1 minute
+def preprocess_input_files(inputdir, tempdir):
+    ...
 
-   @warn_slow(timelimit=600)  # warn if it takes more than 10 minutes
-   def run_calculation(tempdir, outdir):
-       ...
+@warn_slow(timelimit=600)  # warn if it takes more than 10 minutes
+def run_calculation(tempdir, outdir):
+    ...
 
 Enjoy!
 
