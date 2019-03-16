@@ -58,6 +58,12 @@ The documentation has been moved to https://raw.githubusercontent.com/micheles/d
 From there you can get a PDF version by simply using the print
 functionality of your browser.
 
+Here is the documentation for previous versions of the module:
+
+https://github.com/micheles/decorator/blob/4.3.2/docs/tests.documentation.rst
+https://github.com/micheles/decorator/blob/4.2.1/docs/tests.documentation.rst
+https://github.com/micheles/decorator/blob/4.1.2/docs/tests.documentation.rst
+
 For the impatient
 -----------------
 
