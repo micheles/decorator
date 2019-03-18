@@ -602,15 +602,6 @@ where ``restricted`` is a decorator factory defined as follows
              % (self.user, func.__name__))
 ```
 
-By passing arguments to the decorator factory one gets Decorator objects
-which are callables taking in input a function:
-
-```python
->>> restricted(User)
-<Decorator restricted(<class '__main__.User'>,)>
-
-```
-
 ``decorator(cls)``
 --------------------------------------------
 
