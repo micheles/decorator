@@ -462,6 +462,12 @@ where ``restricted`` is a decorator factory defined as follows
 
 $$restricted
 
+```python
+>>> restricted(User)
+<Decorator restricted(<class '__main__.User'>,)>
+
+```
+
 ``decorator(cls)``
 --------------------------------------------
 

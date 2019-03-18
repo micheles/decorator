@@ -4,9 +4,9 @@ The ``decorator`` module
 |Author | Michele Simionato|
 |---|---|
 |E-mail | michele.simionato@gmail.com|
-|Version| 4.4.0 (2019-03-16)|
+|Version| 4.4.1 (2019-03-18)|
 |Supports| Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7|
-|Download page| http://pypi.python.org/pypi/decorator/4.4.0|
+|Download page| http://pypi.python.org/pypi/decorator/4.4.1|
 |Installation| ``pip install decorator``|
 |License | BSD license|
 
@@ -573,15 +573,15 @@ that gives an idea of how you could manage permissions in a framework:
 ```python
 
  class Action(object):
-     @restricted(user_class=User)
+     @restricted(User)
      def view(self):
          "Any user can view objects"
  
-     @restricted(user_class=PowerUser)
+     @restricted(PowerUser)
      def insert(self):
          "Only power users can insert objects"
  
-     @restricted(user_class=Admin)
+     @restricted(Admin)
      def delete(self):
          "Only the admin can delete objects"
 ```
@@ -591,7 +591,7 @@ where ``restricted`` is a decorator factory defined as follows
 ```python
 
  @decorator
- def restricted(func, user_class=User, *args, **kw):
+ def restricted(func, user_class, *args, **kw):
      "Restrict access to a given class of users"
      self = args[0]
      if isinstance(self.user, user_class):
@@ -602,16 +602,11 @@ where ``restricted`` is a decorator factory defined as follows
              % (self.user, func.__name__))
 ```
 
-Notice that if you forget to use the keyword argument notation, i.e. if you
-write ``restricted(User)`` instead of ``restricted(user_class=User)`` you
-will get an error
-
 ```python
-TypeError: You are decorating a non function: <class '__main__.User'>
+>>> restricted(User)
+<Decorator restricted(<class '__main__.User'>,)>
 
 ```
-
-Be careful!
 
 ``decorator(cls)``
 --------------------------------------------

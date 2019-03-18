@@ -39,9 +39,8 @@ import inspect
 import operator
 import itertools
 import collections
-from functools import partial
 
-__version__ = '4.4.0'
+__version__ = '4.4.1'
 
 if sys.version >= '3':
     from inspect import getfullargspec
@@ -258,15 +257,7 @@ def decorate(func, caller, extras=()):
 
 
 class Decorator(object):
-    """
-    Decorators with a ``__repr__`` showing the instantiation parameters:
-
-    >>> @Decorator
-    ... def dec(f, *a, **k):
-    ...     return f(*a, **k)
-    >>> dec
-    <Decorator dec()>
-    """
+    """Decorators with a ``__repr__`` showing the instantiation parameters"""
     def __init__(self, caller, *args):
         self.caller = caller
         self.args = args
@@ -279,13 +270,25 @@ class Decorator(object):
                               self.args)
 
     def inspect(self):
-        args = getfullargspec(self.caller).args
-        nargs = len(args)
-        defaults = self.caller.__defaults__ or ()
-        ndefs = len(defaults)
-        req_args = args[1:nargs-ndefs]
-        def_args = args[nargs-ndefs:]
-        return req_args, def_args, defaults
+        """Returns (name, doc, req_args, def_args, defaults)"""
+        if inspect.isclass(self.caller):
+            name = self.caller.__name__
+            doc = 'decorator(%s) converts functions/generators into ' \
+                  'factories of %s objects' % (name, name)
+            return name.lower(), doc, (), (), ()
+        elif inspect.isfunction(self.caller):
+            args = getfullargspec(self.caller).args
+            nargs = len(args)
+            defaults = self.caller.__defaults__ or ()
+            ndefs = len(defaults)
+            req_args = args[1:nargs-ndefs]
+            def_args = args[nargs-ndefs:]
+            return (self.caller.__name__, self.caller.__doc__,
+                    req_args, def_args, defaults)
+        else:  # assume caller is an object with a __call__ method
+            name = self.caller.__class__.__name__.lower()
+            doc = self.caller.__call__.__doc__
+            return name, doc, (), (), ()
 
 
 def decorator(caller, _func=None):
@@ -293,40 +296,28 @@ def decorator(caller, _func=None):
     if _func is not None:  # return a decorated function
         # this is obsolete behavior; you should use decorate instead
         return decorate(_func, caller)
-    # else return a decorator function
-    defaultargs, defaults = '', ()
-    if inspect.isclass(caller):
-        name = caller.__name__.lower()
-        doc = 'decorator(%s) converts functions/generators into ' \
-            'factories of %s objects' % (caller.__name__, caller.__name__)
-    elif inspect.isfunction(caller):
-        name = caller.__name__
-        doc = caller.__doc__
-        req_args, def_args, defaults = Decorator(caller).inspect()
-        defaultargs = ', '.join(def_args)
-        if defaultargs:
-            defaultargs += ','
-        if req_args:
-            allargs = ', '.join(req_args) + defaultargs
-            evaldict = dict(_call=caller, Decorator=Decorator)
-            dec = FunctionMaker.create(
-                '%s(%s)' % (name, allargs),
-                'return Decorator(_call, %s)\n' % allargs,
-                evaldict, doc=doc, module=caller.__module__,
-                __wrapped__=caller)
-            dec.__defaults__ = defaults
-            return dec
-    else:  # assume caller is an object with a __call__ method
-        name = caller.__class__.__name__.lower()
-        doc = caller.__call__.__doc__
+    name, doc, req_args, def_args, defaults = Decorator(caller).inspect()
+    defaultargs = ', '.join(def_args)
+    if defaultargs:
+        defaultargs += ','
     evaldict = dict(_call=caller, _decorate_=decorate, Decorator=Decorator)
-    dec = FunctionMaker.create(
-        '%s(func, %s)' % (name, defaultargs),
-        'if func is None: return Decorator(_call, %s)\n'
-        'return _decorate_(func, _call, (%s))' % (defaultargs, defaultargs),
-        evaldict, doc=doc, module=caller.__module__, __wrapped__=caller)
-    if defaults:
-        dec.__defaults__ = (None,) + defaults or ()
+    if req_args:
+        # return a factory of Decorators
+        allargs = ', '.join(req_args) + defaultargs
+        evaldict = dict(_call=caller, Decorator=Decorator)
+        dec = FunctionMaker.create(
+            '%s(%s)' % (name, allargs),
+            'return Decorator(_call, %s)\n' % allargs,
+            evaldict, doc=doc, module=caller.__module__, __wrapped__=caller)
+        dec.__defaults__ = defaults
+    else:
+        # return a decorator if there are no defaults or a Decorator factory
+        dec = FunctionMaker.create(
+            '%s(func, %s)' % (name, defaultargs),
+            ('if func is None: return Decorator(_call, %s)\n' % defaultargs +
+             'return _decorate_(func, _call, (%s))' % defaultargs),
+            evaldict, doc=doc, module=caller.__module__, __wrapped__=caller)
+        dec.__defaults__ = (None,) + defaults
     return dec
 
 
