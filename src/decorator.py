@@ -278,11 +278,14 @@ class Decorator(object):
         return '<%s %s%r>' % (self.__class__.__name__, self.caller.__name__,
                               self.args)
 
-    def kwargs(self):
-        nargs = self.caller.__code__.co_argcount
-        argvalues = self.caller.__defaults__ or ()
-        argnames = self.caller.__code__.co_varnames[nargs-len(argvalues):nargs]
-        return dict(zip(argnames, argvalues))
+    def inspect(self):
+        args = getfullargspec(self.caller).args
+        nargs = len(args)
+        defaults = self.caller.__defaults__ or ()
+        ndefs = len(defaults)
+        req_args = args[1:nargs-ndefs]
+        def_args = args[nargs-ndefs:]
+        return req_args, def_args, defaults
 
 
 def decorator(caller, _func=None):
@@ -299,11 +302,20 @@ def decorator(caller, _func=None):
     elif inspect.isfunction(caller):
         name = caller.__name__
         doc = caller.__doc__
-        kw = Decorator(caller).kwargs()
-        defaults = tuple(kw.values())
-        defaultargs = ', '.join(kw.keys())
+        req_args, def_args, defaults = Decorator(caller).inspect()
+        defaultargs = ', '.join(def_args)
         if defaultargs:
             defaultargs += ','
+        if req_args:
+            allargs = ', '.join(req_args) + defaultargs
+            evaldict = dict(_call=caller, Decorator=Decorator)
+            dec = FunctionMaker.create(
+                '%s(%s)' % (name, allargs),
+                'return Decorator(_call, %s)\n' % allargs,
+                evaldict, doc=doc, module=caller.__module__,
+                __wrapped__=caller)
+            dec.__defaults__ = defaults
+            return dec
     else:  # assume caller is an object with a __call__ method
         name = caller.__class__.__name__.lower()
         doc = caller.__call__.__doc__
@@ -315,7 +327,6 @@ def decorator(caller, _func=None):
         evaldict, doc=doc, module=caller.__module__, __wrapped__=caller)
     if defaults:
         dec.__defaults__ = (None,) + defaults or ()
-    dec.arg = partial(Decorator, caller)
     return dec
 
 

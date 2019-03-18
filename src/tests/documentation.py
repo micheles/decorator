@@ -462,17 +462,6 @@ where ``restricted`` is a decorator factory defined as follows
 
 $$restricted
 
-Notice that if you forget to use the keyword argument notation, i.e. if you
-write ``restricted(User)`` instead of ``restricted(user_class=User)`` you
-will get an error
-
-```python
-TypeError: You are decorating a non function: <class '__main__.User'>
-
-```
-
-Be careful!
-
 ``decorator(cls)``
 --------------------------------------------
 
@@ -1561,7 +1550,7 @@ class PermissionError(Exception):
 
 
 @decorator
-def restricted(func, user_class=User, *args, **kw):
+def restricted(func, user_class, *args, **kw):
     "Restrict access to a given class of users"
     self = args[0]
     if isinstance(self.user, user_class):
@@ -1573,15 +1562,15 @@ def restricted(func, user_class=User, *args, **kw):
 
 
 class Action(object):
-    @restricted.arg(User)
+    @restricted(User)
     def view(self):
         "Any user can view objects"
 
-    @restricted.arg(PowerUser)
+    @restricted(PowerUser)
     def insert(self):
         "Only power users can insert objects"
 
-    @restricted.arg(Admin)
+    @restricted(Admin)
     def delete(self):
         "Only the admin can delete objects"
 
