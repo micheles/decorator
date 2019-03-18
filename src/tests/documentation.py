@@ -1318,7 +1318,7 @@ a (shallow) copy of the original function dictionary:
 LICENSE (2-clause BSD)
 ---------------------------------------------
 
-Copyright (c) 2005-2017, Michele Simionato
+Copyright (c) 2005-2019, Michele Simionato
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
