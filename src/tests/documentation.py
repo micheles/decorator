@@ -1238,8 +1238,8 @@ can only be used on user-defined Python functions or methods.
 They cannot be used on generic callable objects or built-in functions,
 due to limitations of the standard library's ``inspect`` module, especially
 for Python 2. In Python 3.5, many such limitations have been removed, but
-I still think that it is cleaner and safer to decorate only
-functions. If you want to decorate things like classmethods/staticmethods
+I still think that it is cleaner and safer to decorate only functions and
+coroutines. If you want to decorate things like classmethods/staticmethods
 and general callables - which I will never support in the decorator module -
 I suggest you to look at the [wrapt](https://wrapt.readthedocs.io/en/latest/)
 project by Graeme Dumpleton.
