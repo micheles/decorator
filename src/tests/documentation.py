@@ -547,6 +547,8 @@ In Python 3.2, ``GeneratorContextManager`` objects were enhanced with
 a ``__call__`` method, so that they can be used as decorators, like so:
 
 ```python
+>>> ba = before_after('BEFORE', 'AFTER')
+>>>
 >>> @ba # doctest: +SKIP
 ... def hello():
 ...     print('hello')
