@@ -53,7 +53,7 @@ The project is hosted on GitHub. You can look at the source here:
 Documentation
 ---------------
 
-The documentation has been moved to https://raw.githubusercontent.com/micheles/decorator/master/docs/documentation.md
+The documentation has been moved to https://github.com/micheles/decorator/blob/master/docs/documentation.md
 
 From there you can get a PDF version by simply using the print
 functionality of your browser.
