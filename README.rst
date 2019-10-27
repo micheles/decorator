@@ -24,7 +24,7 @@ the documentation, clone the `GitHub repo`_ or download the tarball_, unpack it 
 
 in the main directory, possibly as superuser.
 
-.. _tarball: http://pypi.python.org/pypi/decorator
+.. _tarball: https://pypi.org/project/decorator/#files
 .. _GitHub repo: https://github.com/micheles/decorator
 
 Testing
