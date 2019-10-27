@@ -3,6 +3,11 @@ HISTORY
 
 ## unreleased
 
+## 4.4.1 (2019-10-27)
+
+Changed the description to "Decorators for Humans" are requested by
+several users. Fixed a .rst bug in the description as seen in PyPI.
+
 ## 4.4.0 (2019-03-16)
 
 Fixed a regression with decorator factories breaking the case with no

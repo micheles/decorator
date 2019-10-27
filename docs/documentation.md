@@ -1,12 +1,12 @@
-The ``decorator`` module
+Decorators for Humans
 ----------------------------------
 
 |Author | Michele Simionato|
 |---|---|
 |E-mail | michele.simionato@gmail.com|
-|Version| 4.4.0 (2019-03-16)|
-|Supports| Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7|
-|Download page| http://pypi.python.org/pypi/decorator/4.4.0|
+|Version| 4.4.1 (2019-10-27)|
+|Supports| Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8|
+|Download page| http://pypi.python.org/pypi/decorator/4.4.1|
 |Installation| ``pip install decorator``|
 |License | BSD license|
 
@@ -711,11 +711,11 @@ a ``__call__`` method, so that they can be used as decorators, like so:
 ```python
 >>> ba = before_after('BEFORE', 'AFTER')
 >>>
->>> @ba
+>>> @ba 
 ... def hello():
 ...     print('hello')
 ...
->>> hello()
+>>> hello() 
 BEFORE
 hello
 AFTER
@@ -1605,8 +1605,8 @@ can only be used on user-defined Python functions or methods.
 They cannot be used on generic callable objects or built-in functions,
 due to limitations of the standard library's ``inspect`` module, especially
 for Python 2. In Python 3.5, many such limitations have been removed, but
-I still think that it is cleaner and safer to decorate only
-functions. If you want to decorate things like classmethods/staticmethods
+I still think that it is cleaner and safer to decorate only functions and
+coroutines. If you want to decorate things like classmethods/staticmethods
 and general callables - which I will never support in the decorator module -
 I suggest you to look at the [wrapt](https://wrapt.readthedocs.io/en/latest/)
 project by Graeme Dumpleton.

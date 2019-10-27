@@ -40,7 +40,7 @@ import operator
 import itertools
 import collections
 
-__version__ = '4.4.0'
+__version__ = '4.4.1'
 
 if sys.version >= '3':
     from inspect import getfullargspec

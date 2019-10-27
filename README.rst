@@ -1,5 +1,5 @@
-Decorator module
-=================
+Decorators for Humans
+=====================
 
 The goal of the decorator module is to make it easy to define
 signature-preserving function decorators and decorator factories.

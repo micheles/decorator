@@ -12,14 +12,14 @@ except ImportError:
 from decorator import (decorator, decorate, FunctionMaker, contextmanager,
                        dispatch_on, __version__)
 
-doc = r"""The ``decorator`` module
+doc = r"""Decorators for Humans
 ----------------------------------
 
 |Author | Michele Simionato|
 |---|---|
 |E-mail | michele.simionato@gmail.com|
 |Version| $VERSION ($DATE)|
-|Supports| Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7|
+|Supports| Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8|
 |Download page| http://pypi.python.org/pypi/decorator/$VERSION|
 |Installation| ``pip install decorator``|
 |License | BSD license|

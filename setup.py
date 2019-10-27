@@ -8,7 +8,7 @@ VERSION = dic['__version__']
 if __name__ == '__main__':
     setup(name='decorator',
           version=VERSION,
-          description='Better living through Python with decorators',
+          description='Decorators for Humans',
           long_description=open('README.rst').read(),
           author='Michele Simionato',
           author_email='michele.simionato@gmail.com',
