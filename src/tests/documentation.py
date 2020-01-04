@@ -1531,7 +1531,7 @@ def blocking(f, msg='blocking', *args, **kw):
         f.thread = threading.Thread(None, set_result)
         f.thread.start()
         return msg
-    elif f.thread.isAlive():
+    elif f.thread.is_alive():
         return msg
     else:  # the thread is ended, return the stored result
         del f.thread
