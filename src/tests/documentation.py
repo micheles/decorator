@@ -9,6 +9,7 @@ try:
     import collections.abc as c
 except ImportError:
     c = collections
+    collections.abc = collections
 from decorator import (decorator, decorate, FunctionMaker, contextmanager,
                        dispatch_on, __version__)
 
@@ -1008,15 +1009,16 @@ Consider this class:
 $$WithLength
 
 This class defines a ``__len__`` method, and is therefore
-considered to be a subclass of the abstract base class ``collections.Sized``:
+considered to be a subclass of the abstract base class
+``collections.abc.Sized`` (``collections.Sized`` on Python 2):
 
 ```python
->>> issubclass(WithLength, collections.Sized)
+>>> issubclass(WithLength, collections.abc.Sized)
 True
 
 ```
 
-However, ``collections.Sized`` is not in the MRO_ of ``WithLength``; it
+However, ``collections.abc.Sized`` is not in the MRO_ of ``WithLength``; it
 is not a true ancestor. Any implementation of generic functions (even
 with single dispatch) must go through some contorsion to take into
 account the virtual ancestors.
@@ -1037,7 +1039,7 @@ $$get_length_sized
 
 ```
 
-...even if ``collections.Sized`` is not a true ancestor of ``WithLength``.
+...even if ``collections.abc.Sized`` is not a true ancestor of ``WithLength``.
 
 Of course, this is a contrived example--you could just use the
 builtin ``len``--but you should get the idea.
@@ -1053,14 +1055,14 @@ the following:
 $$SomeSet
 
 Here, the author of ``SomeSet`` made a mistake by inheriting from
-``collections.Sized`` (instead of ``collections.Set``).
+``collections.abc.Sized`` (instead of ``collections.abc.Set``).
 
 This is not a problem. You can register *a posteriori*
-``collections.Set`` as a virtual ancestor of ``SomeSet``:
+``collections.abc.Set`` as a virtual ancestor of ``SomeSet``:
 
 ```python
->>> _ = collections.Set.register(SomeSet)
->>> issubclass(SomeSet, collections.Set)
+>>> _ = collections.abc.Set.register(SomeSet)
+>>> issubclass(SomeSet, collections.abc.Set)
 True
 
 ```
@@ -1080,10 +1082,10 @@ the class registry, so it uses the more specific implementation for ``Set``:
 ```
 
 Sometimes it is not clear how to dispatch. For instance, consider a
-class ``C`` registered both as ``collections.Iterable`` and
-``collections.Sized``, and defines a generic function ``g`` with
-implementations for both ``collections.Iterable`` *and*
-``collections.Sized``:
+class ``C`` registered both as ``collections.abc.Iterable`` and
+``collections.abc.Sized``, and defines a generic function ``g`` with
+implementations for both ``collections.abc.Iterable`` *and*
+``collections.abc.Sized``:
 
 $$singledispatch_example1
 
@@ -1531,7 +1533,7 @@ def blocking(f, msg='blocking', *args, **kw):
         f.thread = threading.Thread(None, set_result)
         f.thread.start()
         return msg
-    elif f.thread.isAlive():
+    elif f.thread.is_alive():
         return msg
     else:  # the thread is ended, return the stored result
         del f.thread
@@ -1784,7 +1786,7 @@ class WithLength(object):
         return 0
 
 
-class SomeSet(collections.Sized):
+class SomeSet(collections.abc.Sized):
     # methods that make SomeSet set-like
     # not shown ...
     def __len__(self):
@@ -1796,12 +1798,12 @@ def get_length(obj):
     raise NotImplementedError(type(obj))
 
 
-@get_length.register(collections.Sized)
+@get_length.register(collections.abc.Sized)
 def get_length_sized(obj):
     return len(obj)
 
 
-@get_length.register(collections.Set)
+@get_length.register(collections.abc.Set)
 def get_length_set(obj):
     return 1
 
@@ -1810,8 +1812,8 @@ class C(object):
     "Registered as Sized and Iterable"
 
 
-collections.Sized.register(C)
-collections.Iterable.register(C)
+collections.abc.Sized.register(C)
+collections.abc.Iterable.register(C)
 
 
 def singledispatch_example1():
@@ -1821,11 +1823,11 @@ def singledispatch_example1():
     def g(obj):
         raise NotImplementedError(type(g))
 
-    @g.register(collections.Sized)
+    @g.register(collections.abc.Sized)
     def g_sized(object):
         return "sized"
 
-    @g.register(collections.Iterable)
+    @g.register(collections.abc.Iterable)
     def g_iterable(object):
         return "iterable"
 
