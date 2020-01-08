@@ -42,7 +42,7 @@ import collections
 
 __version__ = '4.4.1'
 
-if sys.version >= '3':
+if sys.version_info >= (3,):
     from inspect import getfullargspec
 
     def get_init(cls):

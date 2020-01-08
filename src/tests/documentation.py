@@ -1421,7 +1421,7 @@ Another attribute copied from the original function is ``__qualname__``,
 the qualified name. This attribute was introduced in Python 3.3.
 """
 
-if sys.version < '3':
+if sys.version_info < (3,):
     function_annotations = ''
 
 today = time.strftime('%Y-%m-%d')
@@ -1654,7 +1654,7 @@ def a_test_for_pylons():
     """
 
 
-if sys.version >= '3':  # tests for signatures specific to Python 3
+if sys.version_info >= (3,):  # tests for signatures specific to Python 3
 
     def test_kwonlydefaults():
         """
