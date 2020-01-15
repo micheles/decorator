@@ -29,7 +29,7 @@ def assertRaises(etype):
         raise Exception('Expected %s' % etype.__name__)
 
 
-if sys.version >= '3.5':
+if sys.version_info >= (3, 5):
     exec('''from asyncio import get_event_loop
 
 @decorator
@@ -92,7 +92,7 @@ class DocumentationTestCase(unittest.TestCase):
 
 class ExtraTestCase(unittest.TestCase):
     def test_qualname(self):
-        if sys.version >= '3.3':
+        if sys.version_info >= (3, 3):
             self.assertEqual(doc.hello.__qualname__, 'hello')
         else:
             with assertRaises(AttributeError):
