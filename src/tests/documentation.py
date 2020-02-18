@@ -1869,7 +1869,7 @@ def warn_slow(func, duration=0, *args, **kwargs):
     t0 = time.time()
     res = func(*args, **kwargs)
     dt = time.time() - t0
-    if dt > duration:
+    if dt >= duration:
         print('%s is slow' % func.__name__)
     return res
 
