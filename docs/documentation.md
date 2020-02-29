@@ -4,9 +4,9 @@ Decorators for Humans
 |Author | Michele Simionato|
 |---|---|
 |E-mail | michele.simionato@gmail.com|
-|Version| 4.4.1 (2019-10-27)|
+|Version| 4.4.2 (2020-02-29)|
 |Supports| Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8|
-|Download page| http://pypi.python.org/pypi/decorator/4.4.1|
+|Download page| http://pypi.python.org/pypi/decorator/4.4.2|
 |Installation| ``pip install decorator``|
 |License | BSD license|
 
@@ -533,7 +533,7 @@ factory), parameterize by a string, the busy message:
          f.thread = threading.Thread(None, set_result)
          f.thread.start()
          return msg
-     elif f.thread.isAlive():
+     elif f.thread.is_alive():
          return msg
      else:  # the thread is ended, return the stored result
          del f.thread
@@ -1697,7 +1697,7 @@ a (shallow) copy of the original function dictionary:
 LICENSE (2-clause BSD)
 ---------------------------------------------
 
-Copyright (c) 2005-2019, Michele Simionato
+Copyright (c) 2005-2020, Michele Simionato
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without

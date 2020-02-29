@@ -3,6 +3,17 @@ HISTORY
 
 ## unreleased
 
+## 4.4.2 (2020-02-29)
+
+Sylvan Mosberger (https://github.com/Infinisil) contributed a patch to
+some doctests that were breaking on NixOS.
+John Vandenberg (https://github.com/jayvdb) made a case for removing the usage
+of `__file__`, that was breaking PyOxidizer.
+Miro Hrončok (https://github.com/hroncok) contributed some fixes for the
+future Python 3.9.
+Hugo van Kemenade (https://github.com/hugovk) contributed some fixes for the
+future Python 3.10.
+
 ## 4.4.1 (2019-10-27)
 
 Changed the description to "Decorators for Humans" are requested by
