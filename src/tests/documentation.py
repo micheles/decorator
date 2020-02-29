@@ -1333,7 +1333,7 @@ a (shallow) copy of the original function dictionary:
 LICENSE (2-clause BSD)
 ---------------------------------------------
 
-Copyright (c) 2005-2019, Michele Simionato
+Copyright (c) 2005-2020, Michele Simionato
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -1880,6 +1880,7 @@ def operation1():
     >>> operation1()
     operation1 is slow
     """
+    time.sleep(.1)
 
 
 @warn_slow  # without parens
@@ -1888,6 +1889,7 @@ def operation2():
     >>> operation2()
     operation2 is slow
     """
+    time.sleep(.1)
 
 
 if __name__ == '__main__':
