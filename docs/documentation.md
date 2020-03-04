@@ -93,7 +93,7 @@ some experience and it is not as easy as it could be. For instance,
 typical implementations of decorators involve nested functions, and
 we all know that flat is better than nested.
 
-The aim of the ``decorator`` module it to simplify the usage of
+The aim of the ``decorator`` module is to simplify the usage of
 decorators for the average programmer, and to popularize decorators by
 showing various non-trivial examples. Of course, as all techniques,
 decorators can be abused (I have seen that) and you should not try to
