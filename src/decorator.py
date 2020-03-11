@@ -61,9 +61,9 @@ else:
             self.annotations = {}
 
         def __repr__(self):
-            return "FullArgSpec(args={args!r}, varargs={varargs!r}, varkw={varkw!r}, "\
-                   "defaults={defaults!r}, kwonlyargs={kwonlyargs!r}, "\
-                   "kwonlydefaults={kwonlydefaults!r}, annotations={annotations!r})".format(
+            return 'FullArgSpec(args={args!r}, varargs={varargs!r}, varkw={varkw!r}, '\
+                   'defaults={defaults!r}, kwonlyargs={kwonlyargs!r}, '\
+                   'kwonlydefaults={kwonlydefaults!r}, annotations={annotations!r})'.format(
                        **self.__dict__
                    )
 
