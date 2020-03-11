@@ -48,13 +48,28 @@ if sys.version_info >= (3,):
     def get_init(cls):
         return cls.__init__
 else:
-    FullArgSpec = collections.namedtuple(
-        'FullArgSpec', 'args varargs varkw defaults '
-        'kwonlyargs kwonlydefaults annotations')
+    class FullArgSpec(object):
+
+        def __init__(self, func):
+            argspec = inspect.getargspec(func)
+            self.args = argspec.args
+            self.varargs = argspec.varargs
+            self.varkw = argspec.keywords
+            self.defaults = argspec.defaults
+            self.kwonlyargs = []
+            self.kwonlydefaults = None
+            self.annotations = {}
+
+        def __repr__(self):
+            return "FullArgSpec(args={args!r}, varargs={varargs!r}, varkw={varkw!r}, "\
+                   "defaults={defaults!r}, kwonlyargs={kwonlyargs!r}, "\
+                   "kwonlydefaults={kwonlydefaults!r}, annotations={annotations!r})".format(
+                       **self.__dict__
+                   )
 
     def getfullargspec(f):
         "A quick and dirty replacement for getfullargspec for Python 2.X"
-        return FullArgSpec._make(inspect.getargspec(f) + ([], None, {}))
+        return FullArgSpec(f)
 
     def get_init(cls):
         return cls.__init__.__func__
@@ -91,7 +106,8 @@ class FunctionMaker(object):
     args = varargs = varkw = defaults = kwonlyargs = kwonlydefaults = ()
 
     def __init__(self, func=None, name=None, signature=None,
-                 defaults=None, doc=None, module=None, funcdict=None):
+                 defaults=None, doc=None, module=None, funcdict=None,
+                 patch_argspec=None):
         self.shortsignature = signature
         if func:
             # func can be a class or a callable, but not an instance method
@@ -102,6 +118,8 @@ class FunctionMaker(object):
             self.module = func.__module__
             if inspect.isfunction(func):
                 argspec = getfullargspec(func)
+                if patch_argspec is not None:
+                    argspec = patch_argspec(argspec)
                 self.annotations = getattr(func, '__annotations__', {})
                 for a in ('args', 'varargs', 'varkw', 'defaults', 'kwonlyargs',
                           'kwonlydefaults'):
@@ -195,7 +213,8 @@ class FunctionMaker(object):
 
     @classmethod
     def create(cls, obj, body, evaldict, defaults=None,
-               doc=None, module=None, addsource=True, **attrs):
+               doc=None, module=None, addsource=True,
+               patch_argspec=None, **attrs):
         """
         Create a function from the strings name, signature and body.
         evaldict is the evaluation dictionary. If addsource is true an
@@ -210,7 +229,7 @@ class FunctionMaker(object):
             name = None
             signature = None
             func = obj
-        self = cls(func, name, signature, defaults, doc, module)
+        self = cls(func, name, signature, defaults, doc, module, patch_argspec=patch_argspec)
         ibody = '\n'.join('    ' + line for line in body.splitlines())
         caller = evaldict.get('_call_')  # when called from `decorate`
         if caller and iscoroutinefunction(caller):

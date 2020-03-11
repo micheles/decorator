@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 import sys
+import copy
 import doctest
 import unittest
 import decimal
@@ -11,7 +12,7 @@ try:
     c = collections.abc
 except AttributeError:
     c = collections
-from decorator import dispatch_on, contextmanager, decorator
+from decorator import dispatch_on, contextmanager, decorator, FunctionMaker
 try:
     from . import documentation as doc
 except (ImportError, ValueError, SystemError):  # depending on the py-version
@@ -474,6 +475,60 @@ class TestSingleDispatch(unittest.TestCase):
         # There is no preference for registered versus inferred ABCs.
         with assertRaises(RuntimeError):
             h(u)
+
+    def test_patch_argspec(self):
+        def my_func(required_arg, optional_arg=0):
+            return required_arg + optional_arg
+
+        def create_method(func):
+            original_func = func
+            def decorator(self, *args, **kwargs):
+                return original_func(*args, **kwargs)
+
+            def add_self(argspec):
+                result = copy.deepcopy(argspec)
+                result.args.insert(0, "self")
+                return result
+
+            if sys.version_info[0] >= 3:
+                arg_spec = inspect.getfullargspec(func)
+            else:
+                arg_spec = inspect.getargspec(func)
+            arg_names = arg_spec.args
+
+            if arg_spec.varargs is not None:
+                arg_names.append("*" + arg_spec.varargs)
+
+            if sys.version_info[0] >= 3:
+                keywords = arg_spec.varkw
+            else:
+                keywords = arg_spec.keywords
+            if keywords is not None:
+                arg_names.append("**" + keywords)
+
+            evaldict = globals().copy()
+            evaldict["decorator"] = decorator
+
+            return FunctionMaker.create(
+                func,
+                "return decorator(self, {0})".format(", ".join(arg_names)),
+                evaldict,
+                undecorated=func,
+                __wrapped__=func,
+                patch_argspec=add_self)
+
+        class MyClass(object):
+            def __init__(self):
+                pass
+
+        setattr(MyClass, "my_func", create_method(my_func))
+
+        my_object = MyClass()
+        assert 3 == my_object.my_func(1, 2)
+        assert 1 == my_object.my_func(1)
+
+        with assertRaises(TypeError):
+            my_object.my_func()
 
 
 if __name__ == '__main__':
