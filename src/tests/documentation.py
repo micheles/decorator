@@ -1,5 +1,6 @@
 from __future__ import print_function
 import sys
+import inspect
 import threading
 import time
 import functools
@@ -1420,7 +1421,6 @@ This attribute exists for consistency with the behavior of
 Another attribute copied from the original function is ``__qualname__``,
 the qualified name. This attribute was introduced in Python 3.3.
 """
-
 if sys.version_info < (3,):
     function_annotations = ''
 
@@ -1891,6 +1891,52 @@ def operation2():
     """
     time.sleep(.1)
 
+# #######################  changing the signature ########################## #
+
+
+# see https://github.com/micheles/decorator/pull/85
+def to_method(f):
+    """
+    Takes a function with signature (..., context) and returns a new
+    function with signature (self, ...) to be used a a method in a
+    class with a .context attribute.
+    """
+    sig = inspect.signature(f)
+    params = list(sig.parameters.values())
+    assert params[-1].name == 'context'
+    self = inspect.Parameter('self', inspect.Parameter.POSITIONAL_OR_KEYWORD)
+    params.insert(0, self)  # insert self
+    del params[-1]  # remove context
+    newsig = sig.replace(parameters=params)
+    return FunctionMaker.create(
+        '%s%s' % (f.__name__, newsig),
+        'context = self.context; return _func_%s' % sig,
+        dict(_func_=f))
+
+
+def foo(x, context):
+    return x
+
+
+def bar(x, y, context):
+    return x + y
+
+
+class Client:
+    def __init__(self, context):
+        self.context = context
+
+
+if sys.version_info >= (3, 5):
+
+    def test_change_sig():
+        """
+        >>> Client.foo = to_method(foo)
+        >>> Client.bar = to_method(bar)
+        >>> c = Client(None)
+        >>> assert c.foo(1) == 1
+        >>> assert c.bar(1, 2) == 3
+        """
 
 if __name__ == '__main__':
     import doctest

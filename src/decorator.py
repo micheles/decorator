@@ -1,6 +1,6 @@
 # #########################     LICENSE     ############################ #
 
-# Copyright (c) 2005-2018, Michele Simionato
+# Copyright (c) 2005-2020, Michele Simionato
 # All rights reserved.
 
 # Redistribution and use in source and binary forms, with or without
@@ -28,7 +28,8 @@
 # DAMAGE.
 
 """
-Decorator module, see http://pypi.python.org/pypi/decorator
+Decorator module, see
+https://github.com/micheles/decorator/blob/master/docs/documentation.md
 for the documentation.
 """
 from __future__ import print_function
