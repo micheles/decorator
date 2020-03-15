@@ -235,24 +235,22 @@ def decorate(func, caller, extras=()):
         evaldict[ex] = extra
         es += ex + ', '
 
-    if '3.5' <= sys.version < '3.6':
-        # with Python 3.5 isgeneratorfunction returns True for all coroutines
-        # however we know that it is NOT possible to have a generator
-        # coroutine in python 3.5: PEP525 was not there yet
-        generatorcaller = isgeneratorfunction(
-            caller) and not iscoroutinefunction(caller)
+    if iscoroutinefunction(caller):
+        async def fun(*args, **kw):
+            return await caller(func, *(extras + args), **kw)
+    elif isgeneratorfunction(caller):
+        def fun(*args, **kw):
+            for res in caller(func, *(extras + args), **kw):
+                yield res
     else:
-        generatorcaller = isgeneratorfunction(caller)
-    if generatorcaller:
-        fun = FunctionMaker.create(
-            func, "for res in _call_(_func_, %s%%(shortsignature)s):\n"
-                  "    yield res" % es, evaldict, __wrapped__=func)
-    else:
-        fun = FunctionMaker.create(
-            func, "return _call_(_func_, %s%%(shortsignature)s)" % es,
-            evaldict, __wrapped__=func)
-    if hasattr(func, '__qualname__'):
+        def fun(*args, **kw):
+            return caller(func, *(extras + args), **kw)
+    fun.__signature__ = inspect.signature(func)
+    fun.__wrapped__ = func
+    if hasattr(func, '__qualname__'):  # >= Python 3.3
         fun.__qualname__ = func.__qualname__
+    fun.__annotations__ = func.__annotations__
+    fun.__dict__.update(func.__dict__)
     return fun
 
 

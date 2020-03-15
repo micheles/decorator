@@ -53,7 +53,7 @@ What's New in version 4
 
 - **New documentation**
   There is now a single manual for all Python versions, so I took the
-  opportunity to overhaul the documentation and to move it to readthedocs.org.
+  opportunity to overhaul the documentation.
   Even if you are a long-time user, you may want to revisit the docs, since
   several examples have been improved.
 
@@ -316,16 +316,17 @@ The decorator works with functions of any signature:
 
 ```python
 >>> @trace
-... def f(x, y=1, z=2, *args, **kw):
+... def f(x, y=1, *args, **kw):
 ...     pass
 
 >>> f(0, 3)
-calling f with args (0, 3, 2), {}
+calling f with args (0, 3), {}
 
 >>> print(getfullargspec(f))
-FullArgSpec(args=['x', 'y', 'z'], varargs='args', varkw='kw', defaults=(1, 2), kwonlyargs=[], kwonlydefaults=None, annotations={})
+FullArgSpec(args=['x', 'y'], varargs='args', varkw='kw', defaults=(1,), kwonlyargs=[], kwonlydefaults=None, annotations={})
 
 ```
+
 $FUNCTION_ANNOTATIONS
 
 ``decorator.decorator``
@@ -1298,20 +1299,11 @@ notice that lately I have come to believe that decorating functions with
 keyword arguments is not such a good idea, and you may want not to do
 that.
 
-On a similar note, there is a restriction on argument names. For instance,
-if you name an argument ``_call_`` or ``_func_``, you will get a ``NameError``:
-
-```python
->>> @trace
-... def f(_func_): print(f)
-...
-Traceback (most recent call last):
-  ...
-NameError: _func_ is overridden in
-def f(_func_):
-    return _call_(_func_, _func_)
-
-```
+On a similar note, for old versions of the decorator module (< 4.5)
+there is a restriction on argument names. For instance,
+if you have an argument cakked ``_call_`` or ``_func_``, you will get a
+``NameError`` when decorating the function. This restriction has been
+lifted in version 4.5.
 
 Finally, the implementation is such that the decorated function makes
 a (shallow) copy of the original function dictionary:
@@ -1655,15 +1647,6 @@ def a_test_for_pylons():
 
 
 if sys.version_info >= (3,):  # tests for signatures specific to Python 3
-
-    def test_kwonlydefaults():
-        """
-        >>> @trace
-        ... def f(arg, defarg=1, *args, kwonly=2): pass
-        ...
-        >>> f.__kwdefaults__
-        {'kwonly': 2}
-        """
 
     def test_kwonlyargs():
         """
