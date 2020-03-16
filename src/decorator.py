@@ -255,25 +255,6 @@ def decorator(caller, _func=None):
         # this is obsolete behavior; you should use decorate instead
         return decorate(_func, caller)
     # else return a decorator function
-    defaultargs = ''
-    if inspect.isclass(caller):
-        name = caller.__name__.lower()
-        doc = 'decorator(%s) converts functions/generators into ' \
-            'factories of %s objects' % (caller.__name__, caller.__name__)
-    elif inspect.isfunction(caller):
-        if caller.__name__ == '<lambda>':
-            name = '_lambda_'
-        else:
-            name = caller.__name__
-        doc = caller.__doc__
-        nargs = caller.__code__.co_argcount
-        ndefs = len(caller.__defaults__ or ())
-        defaultargs = ', '.join(caller.__code__.co_varnames[nargs-ndefs:nargs])
-        if defaultargs:
-            defaultargs += ','
-    else:  # assume caller is an object with a __call__ method
-        name = caller.__class__.__name__.lower()
-        doc = caller.__call__.__doc__
     sig = inspect.signature(caller)
     dec_params = [p for p in sig.parameters.values() if p.kind is POS]
 
@@ -286,8 +267,8 @@ def decorator(caller, _func=None):
         else:
             return decorate(func, caller, extras)
     dec.__signature__ = sig.replace(parameters=dec_params)
-    dec.__name__ = name
-    dec.__doc__ = doc
+    dec.__name__ = caller.__name__
+    dec.__doc__ = caller.__doc__
     dec.__wrapped__ = caller
     if hasattr(caller, '__qualname__'):  # >= Python 3.3
         dec.__qualname__ = caller.__qualname__
