@@ -75,6 +75,7 @@ except ImportError:
 
 
 DEF = re.compile(r'\s*def\s*([_\w][_\w\d]*)\s*\(')
+POS = inspect.Parameter.POSITIONAL_OR_KEYWORD
 
 
 # basic functionality
@@ -228,13 +229,6 @@ def decorate(func, caller, extras=()):
     If the caller is a generator function, the resulting function
     will be a generator function.
     """
-    evaldict = dict(_call_=caller, _func_=func)
-    es = ''
-    for i, extra in enumerate(extras):
-        ex = '_e%d_' % i
-        evaldict[ex] = extra
-        es += ex + ', '
-
     if iscoroutinefunction(caller):
         async def fun(*args, **kw):
             return await caller(func, *(extras + args), **kw)
@@ -245,6 +239,7 @@ def decorate(func, caller, extras=()):
     else:
         def fun(*args, **kw):
             return caller(func, *(extras + args), **kw)
+    fun.__name__ = func.__name__
     fun.__signature__ = inspect.signature(func)
     fun.__wrapped__ = func
     if hasattr(func, '__qualname__'):  # >= Python 3.3
@@ -260,7 +255,7 @@ def decorator(caller, _func=None):
         # this is obsolete behavior; you should use decorate instead
         return decorate(_func, caller)
     # else return a decorator function
-    defaultargs, defaults = '', ()
+    defaultargs = ''
     if inspect.isclass(caller):
         name = caller.__name__.lower()
         doc = 'decorator(%s) converts functions/generators into ' \
@@ -276,18 +271,27 @@ def decorator(caller, _func=None):
         defaultargs = ', '.join(caller.__code__.co_varnames[nargs-ndefs:nargs])
         if defaultargs:
             defaultargs += ','
-        defaults = caller.__defaults__
     else:  # assume caller is an object with a __call__ method
         name = caller.__class__.__name__.lower()
         doc = caller.__call__.__doc__
-    evaldict = dict(_call=caller, _decorate_=decorate)
-    dec = FunctionMaker.create(
-        '%s(func, %s)' % (name, defaultargs),
-        'if func is None: return lambda func:  _decorate_(func, _call, (%s))\n'
-        'return _decorate_(func, _call, (%s))' % (defaultargs, defaultargs),
-        evaldict, doc=doc, module=caller.__module__, __wrapped__=caller)
-    if defaults:
-        dec.__defaults__ = (None,) + defaults
+    sig = inspect.signature(caller)
+    dec_params = [p for p in sig.parameters.values() if p.kind is POS]
+
+    def dec(func=None, *args, **kw):
+        na = len(args) + 1
+        extras = args + tuple(kw.get(p.name, p.default)
+                              for p in dec_params[na:])
+        if func is None:
+            return lambda func: decorate(func, caller, extras)
+        else:
+            return decorate(func, caller, extras)
+    dec.__signature__ = sig.replace(parameters=dec_params)
+    dec.__name__ = name
+    dec.__doc__ = doc
+    dec.__wrapped__ = caller
+    if hasattr(caller, '__qualname__'):  # >= Python 3.3
+        dec.__qualname__ = caller.__qualname__
+    dec.__dict__.update(caller.__dict__)
     return dec
 
 
