@@ -76,6 +76,7 @@ except ImportError:
 
 DEF = re.compile(r'\s*def\s*([_\w][_\w\d]*)\s*\(')
 POS = inspect.Parameter.POSITIONAL_OR_KEYWORD
+EMPTY = inspect.Parameter.empty
 
 
 # basic functionality
@@ -261,7 +262,8 @@ def decorator(caller, _func=None):
     def dec(func=None, *args, **kw):
         na = len(args) + 1
         extras = args + tuple(kw.get(p.name, p.default)
-                              for p in dec_params[na:])
+                              for p in dec_params[na:]
+                              if p.default is not EMPTY)
         if func is None:
             return lambda func: decorate(func, caller, extras)
         else:

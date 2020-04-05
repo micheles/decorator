@@ -151,7 +151,7 @@ class ExtraTestCase(unittest.TestCase):
         @decorator
         def catch_config_error(method, app, *args, **kwargs):
             return method(app)
-        catch_config_error(lambda app: None)
+        catch_config_error(lambda app, **kw: None)(1)
 
     def test_add1(self):
         # similar to what IPython is doing in traitlets.config.application
