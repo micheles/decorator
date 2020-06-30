@@ -1131,7 +1131,7 @@ the dispatch argument simply by passing its name as a string. (Note
 that if you misspell the name you will get an error.)
 
 The decorated function `write` is turned into a generic function (
-`write` is a function at the idea it is decorated; it will be turned
+`write` is a function at the time it is decorated; it will be turned
 into a method later, at class instantiation time),
 and it is called if there are no more specialized implementations.
 
