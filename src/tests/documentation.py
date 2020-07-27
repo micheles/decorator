@@ -381,6 +381,9 @@ calling func with args (), {}
 
 ```
 
+Decorator factories
+-------------------------------------------
+
 The `decorator` function can also be used to define factories of decorators,
 i.e. functions returning decorators. In general you can just write something
 like this:
@@ -393,9 +396,8 @@ def decfactory(param1, param2, ...):
 ```
 
 This is fully general but requires an additional level of nesting. For this
-reason since version 4.2 there is a facility to build
-decorator factories by using a single caller with default arguments i.e.
-writing something like this:
+reason since version 4.2 there is a facility to build decorator factories by
+using a single caller with default arguments i.e. writing something like this:
 
 ```python
 def caller(f, param1=default1, param2=default2, ..., *args, **kw):
@@ -409,22 +411,17 @@ restriction, there exists an unique default decorator, i.e. the member
 of the family which uses the default values for all parameters. Such
 decorator can be written as ``decfactory()`` with no parameters specified;
 moreover, as a shortcut, it is also possible to elide the parenthesis,
-a feature much requested by the users. For years I have been opposite
-to this feature request, since having explicit parenthesis to me is more clear
+a feature much requested by the users. For years I have been opposing
+the request, since having explicit parenthesis to me is more clear
 and less magic; however once this feature entered in decorators of
 the Python standard library (I am referring to the [dataclass decorator](
 https://www.python.org/dev/peps/pep-0557/)) I finally gave up.
 
-The example below will show how it works in practice.
-
-Decorator factories
--------------------------------------------
-
-Sometimes one has to deal with blocking resources, such as ``stdin``.
-Sometimes it is better to receive a "busy" message than just blocking
-everything.
-This can be accomplished with a suitable family of decorators (decorator
-factory), parameterize by a string, the busy message:
+The example below shows how it works in practice. The goal is to
+convert a function relying on a blocking resource into a function
+returning a "busy" message if the resource is not available.
+This can be accomplished with a suitable family of decorators
+parameterize by a string, the busy message:
 
 $$blocking
 
