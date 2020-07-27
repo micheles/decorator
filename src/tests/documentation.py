@@ -53,7 +53,7 @@ What's New in version 4
 
 - **New documentation**
   There is now a single manual for all Python versions, so I took the
-  opportunity to overhaul the documentation and to move it to readthedocs.org.
+  opportunity to overhaul the documentation.
   Even if you are a long-time user, you may want to revisit the docs, since
   several examples have been improved.
 
