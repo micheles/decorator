@@ -3,6 +3,8 @@ HISTORY
 
 ## unreleased
 
+Ported CI from Travis to GitHub
+
 ## 4.4.2 (2020-02-29)
 
 Sylvan Mosberger (https://github.com/Infinisil) contributed a patch to
