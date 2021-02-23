@@ -369,6 +369,42 @@ calling f with args (0, 3, 2), {}
 FullArgSpec(args=['x', 'y', 'z'], varargs='args', varkw='kw', defaults=(1, 2), kwonlyargs=[], kwonlydefaults=None, annotations={})
 
 ```
+
+Class methods as decorators
+---------------------------------------------
+
+Since version 4.x.x, `decorator`s are not limited to functions only. You can also specify any
+static, class or instance method of a class.
+
+```python
+class SomeContext(object):
+    def __init__(self, func, *args, **kwds):
+        self.func, self.args, self.kwds = func, args, kwds
+  
+    def __call__(self):
+        return self.func(*self.args, *self.kwds)
+  
+    @decorator
+    @staticmethod
+    def build(func, *args, **kwds):
+        return SomeContext(func, *args, **kwds)
+```
+In the example, there is `@staticmethod` but you could also use `@classmethod` or any other method
+descriptor **as long as it is applied before `@decorator`**. This way you can encapsulate your code
+in classes as you please. 
+
+For instance methods, there is a difference.
+
+```python
+class MyFactory:
+    @methoddecorator
+    def decorate(self, func, *args, **kwds):
+        return func(*args, **kwds)
+```
+
+`@methoddecorator` is used with bound instance methods, since `@methoddecorator` is aware that the
+`self` argument will be passed as the first argument while `func` is the second.
+ 
 Function annotations
 ---------------------------------------------
 

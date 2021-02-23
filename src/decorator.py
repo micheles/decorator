@@ -101,7 +101,7 @@ class FunctionMaker(object):
                 self.name = '_lambda_'
             self.doc = func.__doc__
             self.module = func.__module__
-            if inspect.isfunction(func):
+            if inspect.isfunction(func) or inspect.ismethod(func):
                 argspec = getfullargspec(func)
                 self.annotations = getattr(func, '__annotations__', {})
                 for a in ('args', 'varargs', 'varkw', 'defaults', 'kwonlyargs',
@@ -235,14 +235,17 @@ def decorate(func, caller, extras=()):
         evaldict[ex] = extra
         es += ex + ', '
 
+    if inspect.ismethod(caller):
+        generatorcaller = isgeneratorfunction(caller.__func__)
+    else:
+        generatorcaller = isgeneratorfunction(caller)
+
     if '3.5' <= sys.version < '3.6':
         # with Python 3.5 isgeneratorfunction returns True for all coroutines
         # however we know that it is NOT possible to have a generator
         # coroutine in python 3.5: PEP525 was not there yet
-        generatorcaller = isgeneratorfunction(
-            caller) and not iscoroutinefunction(caller)
-    else:
-        generatorcaller = isgeneratorfunction(caller)
+        generatorcaller = generatorcaller and not iscoroutinefunction(caller)
+
     if generatorcaller:
         fun = FunctionMaker.create(
             func, "for res in _call_(_func_, %s%%(shortsignature)s):\n"
@@ -256,18 +259,65 @@ def decorate(func, caller, extras=()):
     return fun
 
 
-def decorator(caller, _func=None):
-    """decorator(caller) converts a caller function into a decorator"""
+def methoddecorator(caller):
+    """methoddecorator(caller) converts a caller method into a decorator.
+
+    Args:
+        caller: function - class method of form `caller(self, func, *args, **kwds)`
+
+    Example::
+        >>> class MyFactory
+                # @methoddecorator is applied to instance methods or before applying descriptors
+                @classmethod
+                @methoddecorator
+                def build(cls, *args, **kwds):
+                    return func(*args, **kwds)
+
+                @methoddecorator
+                def a_method(cls, *args, **kwds):
+                    return func(*args, **kwds)
+    """
+    return decorator(caller, _with_self=True)
+
+
+def decorator(caller, _func=None, _with_self=None):
+    """decorator(caller) converts a caller function into a decorator.
+
+    Args:
+        caller: function - function of form `caller(func, *args, **kwds)`
+
+    Example::
+        >>> @decorator
+            def a_decorator(func, msg="", *args, **kwds):
+                if msg: print(msg)
+                return func(*args, **kwds)
+
+            @a_decorator
+            def target_function(a, b):
+                return a + b
+
+        >>> class MyFactory:
+                # @decorator is applied after descriptors
+                @decorator
+                @classmethod
+                def build(cls, *args, **kwds):
+                    return func(*args, **kwds)
+    """
     if _func is not None:  # return a decorated function
         # this is obsolete behavior; you should use decorate instead
         return decorate(_func, caller)
     # else return a decorator function
     defaultargs, defaults = '', ()
-    if inspect.isclass(caller):
+    if inspect.ismethoddescriptor(caller):
+        class decorator_descriptor(object):
+            def __get__(self, instance, owner):
+                return decorator(caller.__get__(instance, owner))
+        return decorator_descriptor()
+    elif inspect.isclass(caller):
         name = caller.__name__.lower()
         doc = 'decorator(%s) converts functions/generators into ' \
             'factories of %s objects' % (caller.__name__, caller.__name__)
-    elif inspect.isfunction(caller):
+    elif inspect.isfunction(caller) or inspect.ismethod(caller):
         if caller.__name__ == '<lambda>':
             name = '_lambda_'
         else:
@@ -283,10 +333,12 @@ def decorator(caller, _func=None):
         name = caller.__class__.__name__.lower()
         doc = caller.__call__.__doc__
     evaldict = dict(_call=caller, _decorate_=decorate)
+    self_str = "self, " if _with_self else ""
+    call_str = "(lambda *args, **kwds: _call(self, *args, **kwds))" if _with_self else "_call"
     dec = FunctionMaker.create(
-        '%s(func, %s)' % (name, defaultargs),
-        'if func is None: return lambda func:  _decorate_(func, _call, (%s))\n'
-        'return _decorate_(func, _call, (%s))' % (defaultargs, defaultargs),
+        '%s(%sfunc, %s)' % (name, self_str, defaultargs),
+        'if func is None: return lambda func:  _decorate_(func, %s, (%s))\n'
+        'return _decorate_(func, %s, (%s))' % (call_str, defaultargs, call_str, defaultargs),
         evaldict, doc=doc, module=caller.__module__, __wrapped__=caller)
     if defaults:
         dec.__defaults__ = (None,) + defaults

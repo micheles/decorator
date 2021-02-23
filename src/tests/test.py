@@ -11,7 +11,7 @@ try:
     c = collections.abc
 except AttributeError:
     c = collections
-from decorator import dispatch_on, contextmanager, decorator
+from decorator import contextmanager, decorate, decorator, dispatch_on, methoddecorator
 try:
     from . import documentation as doc
 except (ImportError, ValueError, SystemError):  # depending on the py-version
@@ -159,6 +159,184 @@ class ExtraTestCase(unittest.TestCase):
             return x
         self.assertEqual(add(f, 2)(0), 2)
 
+
+class CustomDescriptor(object):
+    def __init__(self, fn):
+        self.fn = fn
+
+    def __get__(self, instance, owner):
+        return self.fn
+
+
+class TestMethodDescriptors(unittest.TestCase):
+    class CustomDescriptor(object):
+        def __init__(self, fn):
+            self.fn = fn
+
+        def __get__(self, instance, owner):
+            return self.fn
+
+    class StaticDecorator(object):
+        @decorator
+        @staticmethod
+        def descriptor(func, *args, **kwds):
+            return func(*args, **kwds)
+
+        @staticmethod
+        def expected(*args):
+            return args
+
+    class StaticDecoratorRev(object):
+        @staticmethod
+        @decorator
+        def descriptor(func, *args, **kwds):
+            return func(*args, **kwds)
+
+        @staticmethod
+        def expected(*args):
+            return args
+
+    class ClassDecorator(object):
+        @decorator
+        @classmethod
+        def descriptor(cls, func, *args, **kwds):
+            return func(cls, *args, **kwds)
+
+        @classmethod
+        def expected(*args):
+            return args
+
+    class ClassDecoratorREv(object):
+        @classmethod
+        @methoddecorator
+        def descriptor(cls, func, *args, **kwds):
+            return func(cls, *args, **kwds)
+
+        @classmethod
+        def expected(*args):
+            return args
+
+    class CustomDecorator(object):
+        @decorator
+        @CustomDescriptor
+        def descriptor(func, *args, **kwds):
+            return func(*args, **kwds)
+
+        @CustomDescriptor
+        def expected(*args):
+            return args
+
+    class CustomDecoratorRev(object):
+        @CustomDescriptor
+        @decorator
+        def descriptor(func, *args, **kwds):
+            return func(*args, **kwds)
+
+        @CustomDescriptor
+        def expected(*args):
+            return args
+
+    class MethodDecorator(object):
+        __name__ = "MethodDecorator"
+
+        @methoddecorator
+        def descriptor(self, func, *args, **kwds):
+            return func(self, *args, **kwds)
+
+        def expected(*args):
+            return args
+
+    def test_decorator(self):
+        cls = [
+            (self.MethodDecorator(), self._subtest_descriptor_instance),
+            (self.StaticDecorator, self._subtest_descriptor_class),
+            (self.ClassDecorator, self._subtest_descriptor_class),
+            (self.CustomDecorator, self._subtest_descriptor_class),
+            (self.StaticDecoratorRev, self._subtest_descriptor_class),
+            (self.ClassDecoratorREv, self._subtest_descriptor_class),
+            (self.CustomDecoratorRev, self._subtest_descriptor_class),
+        ]
+        for cls, method in cls:
+            with self.subTest(cls.__name__):
+                method(cls)
+
+    def _subtest_descriptor_class(self, dec_cls):
+        @dec_cls.descriptor
+        def a0(*args):
+            return args
+
+        @dec_cls.descriptor
+        def b0(*args):
+            yield args
+
+        self.assertEqual(a0(6), dec_cls.expected(6))
+        self.assertEqual(next(b0(5)), dec_cls.expected(5))
+        self._subtest_descriptor_instance(dec_cls())
+
+    def _subtest_descriptor_instance(self, dec_instance):
+        @dec_instance.descriptor
+        def a1(*args):
+            return args
+
+        @dec_instance.descriptor
+        def b1(*args):
+            yield args
+
+        self.assertEqual(a1(6), dec_instance.expected(6))
+        self.assertEqual(next(b1(5)), dec_instance.expected(5))
+
+    class StaticTarget:
+        @staticmethod
+        def t0(*args):
+            return args
+
+        @staticmethod
+        def t1(*args):
+            yield args
+
+    class ClassTarget:
+        @classmethod
+        def t0(*args):
+            return args
+
+        @classmethod
+        def t1(*args):
+            yield args
+
+    class CustomTarget:
+        def t0(*args):
+            return args
+
+        def t1(*args):
+            yield args
+
+    def test_decorate(self):
+        for target_cls in (self.StaticTarget, self.ClassTarget, self.CustomTarget):
+            with self.subTest(target_cls.__name__):
+                self._subtest_decorate(target_cls)
+
+    def _subtest_decorate(self, target_cls):
+        def _decorator(func, *args, **kwds):
+            return func(*args, **kwds)
+
+        target_instance = target_cls()
+        t0c = decorate(target_cls.t0, _decorator)
+        t1c = decorate(target_cls.t1, _decorator)
+        t0i = decorate(target_instance.t0, _decorator)
+        t1i = decorate(target_instance.t1, _decorator)
+
+        self.assertEqual(t0c(target_instance, 6), target_cls.t0(target_instance, 6))
+        self.assertEqual(t0i(6), target_instance.t0(6))
+        self.assertEqual(next(t1c(target_instance, 5)), next(target_cls.t1(target_instance, 5)))
+        self.assertEqual(next(t1i(5)), next(target_instance.t1(5)))
+
+    def subTest(self, name):
+        try:
+            return super(TestMethodDescriptors, self).subTest(name)
+        except AttributeError:
+            def py2_fallback():
+                yield
+            return contextmanager(py2_fallback)()
 
 # ################### test dispatch_on ############################# #
 # adapted from test_functools in Python 3.5
