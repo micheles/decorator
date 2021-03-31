@@ -6,11 +6,7 @@ import time
 import functools
 import itertools
 import collections
-try:
-    import collections.abc as c
-except ImportError:
-    c = collections
-    collections.abc = collections
+import collections.abc as c
 from decorator import (decorator, decorate, FunctionMaker, contextmanager,
                        dispatch_on, __version__)
 
@@ -1643,37 +1639,47 @@ def a_test_for_pylons():
     """
 
 
-if sys.version_info >= (3,):  # tests for signatures specific to Python 3
+def test_kwonlydefaults():
+    """
+    >>> @trace
+    ... def f(arg, defarg=1, *args, kwonly=2): pass
+    ...
+    >>> f.__kwdefaults__
+    {'kwonly': 2}
+    """
 
-    def test_kwonlyargs():
-        """
-        >>> @trace
-        ... def func(a, b, *args, y=2, z=3, **kwargs):
-        ...     return y, z
-        ...
-        >>> func('a', 'b', 'c', 'd', 'e', y='y', z='z', cat='dog')
-        calling func with args ('a', 'b', 'c', 'd', 'e'), {'cat': 'dog', 'y': 'y', 'z': 'z'}
-        ('y', 'z')
-        """
 
-    def test_kwonly_no_args():
-        """# this was broken with decorator 3.3.3
-        >>> @trace
-        ... def f(**kw): pass
-        ...
-        >>> f()
-        calling f with args (), {}
-        """
+def test_kwonlyargs():
+    """
+    >>> @trace
+    ... def func(a, b, *args, y=2, z=3, **kwargs):
+    ...     return y, z
+    ...
+    >>> func('a', 'b', 'c', 'd', 'e', y='y', z='z', cat='dog')
+    calling func with args ('a', 'b', 'c', 'd', 'e'), {'cat': 'dog', 'y': 'y', 'z': 'z'}
+    ('y', 'z')
+    """
 
-    def test_kwonly_star_notation():
-        """
-        >>> @trace
-        ... def f(*, a=1, **kw): pass
-        ...
-        >>> import inspect
-        >>> inspect.getfullargspec(f)
-        FullArgSpec(args=[], varargs=None, varkw='kw', defaults=None, kwonlyargs=['a'], kwonlydefaults={'a': 1}, annotations={})
-        """
+
+def test_kwonly_no_args():
+    """# this was broken with decorator 3.3.3
+    >>> @trace
+    ... def f(**kw): pass
+    ...
+    >>> f()
+    calling f with args (), {}
+    """
+
+
+def test_kwonly_star_notation():
+    """
+    >>> @trace
+    ... def f(*, a=1, **kw): pass
+    ...
+    >>> import inspect
+    >>> inspect.getfullargspec(f)
+    FullArgSpec(args=[], varargs=None, varkw='kw', defaults=None, kwonlyargs=['a'], kwonlydefaults={'a': 1}, annotations={})
+    """
 
 
 @contextmanager

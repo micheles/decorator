@@ -213,6 +213,7 @@ def decorate(func, caller, extras=()):
     fun.__wrapped__ = func
     fun.__qualname__ = func.__qualname__
     fun.__annotations__ = func.__annotations__
+    fun.__kwdefaults__ = func.__kwdefaults__
     fun.__dict__.update(func.__dict__)
     return fun
 

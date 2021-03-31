@@ -1,21 +1,13 @@
-from __future__ import absolute_import
 import sys
 import doctest
 import unittest
 import decimal
 import inspect
 import functools
-import collections
-from collections import defaultdict
-try:
-    c = collections.abc
-except AttributeError:
-    c = collections
+from asyncio import get_event_loop
+from collections import defaultdict, abc as c
 from decorator import dispatch_on, contextmanager, decorator
-try:
-    from . import documentation as doc
-except (ImportError, ValueError, SystemError):  # depending on the py-version
-    import documentation as doc
+import documentation as doc
 
 
 @contextmanager
@@ -29,22 +21,21 @@ def assertRaises(etype):
         raise Exception('Expected %s' % etype.__name__)
 
 
-if sys.version_info >= (3, 5):
-    exec('''from asyncio import get_event_loop
-
 @decorator
 async def before_after(coro, *args, **kwargs):
     return "<before>" + (await coro(*args, **kwargs)) + "<after>"
+
 
 @decorator
 def coro_to_func(coro, *args, **kw):
     return get_event_loop().run_until_complete(coro(*args, **kw))
 
+
 class CoroutineTestCase(unittest.TestCase):
     def test_before_after(self):
         @before_after
         async def coro(x):
-           return x
+            return x
         self.assertTrue(inspect.iscoroutinefunction(coro))
         out = get_event_loop().run_until_complete(coro('x'))
         self.assertEqual(out, '<before>x<after>')
@@ -55,7 +46,6 @@ class CoroutineTestCase(unittest.TestCase):
             return x
         self.assertFalse(inspect.iscoroutinefunction(coro))
         self.assertEqual(coro('x'), 'x')
-''')
 
 
 def gen123():
