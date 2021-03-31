@@ -1298,7 +1298,7 @@ that.
 
 On a similar note, for old versions of the decorator module (< 4.5)
 there is a restriction on argument names. For instance,
-if you have an argument cakked ``_call_`` or ``_func_``, you will get a
+if you have an argument called ``_call_`` or ``_func_``, you will get a
 ``NameError`` when decorating the function. This restriction has been
 lifted in version 4.5.
 

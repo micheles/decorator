@@ -32,47 +32,15 @@ Decorator module, see
 https://github.com/micheles/decorator/blob/master/docs/documentation.md
 for the documentation.
 """
-from __future__ import print_function
-
 import re
 import sys
 import inspect
 import operator
 import itertools
-import collections
+from contextlib import _GeneratorContextManager
+from inspect import getfullargspec, iscoroutinefunction, isgeneratorfunction
 
-__version__ = '4.4.2'
-
-if sys.version_info >= (3,):
-    from inspect import getfullargspec
-
-    def get_init(cls):
-        return cls.__init__
-else:
-    FullArgSpec = collections.namedtuple(
-        'FullArgSpec', 'args varargs varkw defaults '
-        'kwonlyargs kwonlydefaults annotations')
-
-    def getfullargspec(f):
-        "A quick and dirty replacement for getfullargspec for Python 2.X"
-        return FullArgSpec._make(inspect.getargspec(f) + ([], None, {}))
-
-    def get_init(cls):
-        return cls.__init__.__func__
-
-try:
-    iscoroutinefunction = inspect.iscoroutinefunction
-except AttributeError:
-    # let's assume there are no coroutine functions in old Python
-    def iscoroutinefunction(f):
-        return False
-try:
-    from inspect import isgeneratorfunction
-except ImportError:
-    # assume no generator function in old Python versions
-    def isgeneratorfunction(caller):
-        return False
-
+__version__ = '4.5.0'
 
 DEF = re.compile(r'\s*def\s*([_\w][_\w\d]*)\s*\(')
 POS = inspect.Parameter.POSITIONAL_OR_KEYWORD
@@ -243,8 +211,7 @@ def decorate(func, caller, extras=()):
     fun.__name__ = func.__name__
     fun.__signature__ = inspect.signature(func)
     fun.__wrapped__ = func
-    if hasattr(func, '__qualname__'):  # >= Python 3.3
-        fun.__qualname__ = func.__qualname__
+    fun.__qualname__ = func.__qualname__
     fun.__annotations__ = func.__annotations__
     fun.__dict__.update(func.__dict__)
     return fun
@@ -272,40 +239,24 @@ def decorator(caller, _func=None):
     dec.__name__ = caller.__name__
     dec.__doc__ = caller.__doc__
     dec.__wrapped__ = caller
-    if hasattr(caller, '__qualname__'):  # >= Python 3.3
-        dec.__qualname__ = caller.__qualname__
+    dec.__qualname__ = caller.__qualname__
     dec.__dict__.update(caller.__dict__)
     return dec
 
 
 # ####################### contextmanager ####################### #
 
-try:  # Python >= 3.2
-    from contextlib import _GeneratorContextManager
-except ImportError:  # Python >= 2.5
-    from contextlib import GeneratorContextManager as _GeneratorContextManager
-
 
 class ContextManager(_GeneratorContextManager):
+    def __init__(self, g, *a, **k):
+        return _GeneratorContextManager.__init__(self, g, a, k)
+
     def __call__(self, func):
         """Context manager decorator"""
         return FunctionMaker.create(
             func, "with _self_: return _func_(%(shortsignature)s)",
             dict(_self_=self, _func_=func), __wrapped__=func)
 
-
-init = getfullargspec(_GeneratorContextManager.__init__)
-n_args = len(init.args)
-if n_args == 2 and not init.varargs:  # (self, genobj) Python 2.7
-    def __init__(self, g, *a, **k):
-        return _GeneratorContextManager.__init__(self, g(*a, **k))
-    ContextManager.__init__ = __init__
-elif n_args == 2 and init.varargs:  # (self, gen, *a, **k) Python 3.4
-    pass
-elif n_args == 4:  # (self, gen, args, kwds) Python 3.5
-    def __init__(self, g, *a, **k):
-        return _GeneratorContextManager.__init__(self, g, a, k)
-    ContextManager.__init__ = __init__
 
 _contextmanager = decorator(ContextManager)
 
