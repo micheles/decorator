@@ -6,11 +6,7 @@ import time
 import functools
 import itertools
 import collections
-try:
-    import collections.abc as c
-except ImportError:
-    c = collections
-    collections.abc = collections
+import collections.abc as c
 from decorator import (decorator, decorate, FunctionMaker, contextmanager,
                        dispatch_on, __version__)
 
@@ -21,7 +17,7 @@ doc = r"""Decorators for Humans
 |---|---|
 |E-mail | michele.simionato@gmail.com|
 |Version| $VERSION ($DATE)|
-|Supports| Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8|
+|Supports| Python 3.5, 3.6, 3.7, 3.8, 3.9|
 |Download page| http://pypi.python.org/pypi/decorator/$VERSION|
 |Installation| ``pip install decorator``|
 |License | BSD license|
@@ -31,22 +27,12 @@ Introduction
 
 The ``decorator`` module is over ten years old, but still alive and
 kicking. It is used by several frameworks (IPython, scipy, authkit,
-pylons, pycuda, sugar, ...) and has been stable for a *long*
-time. It is your best option if you want to preserve the signature of
-decorated functions in a consistent way across Python
-releases. Version 4 is fully compatible with the past, except for
-one thing: support for Python 2.4 and 2.5 has been dropped. That
-decision made it possible to use a single code base both for Python
-2.X and Python 3.X. This is a *huge* bonus, since I could remove over
-2,000 lines of duplicated documentation/doctests. Having to maintain
-separate docs for Python 2 and Python 3 effectively stopped any
-development on the module for several years. Moreover, it is now
-trivial to distribute the module as an universal
- [wheel](http://pythonwheels.com) since 2to3 is no more
-required. Since Python 2.5 has been released ages ago (in 2006), I felt that
-it was reasonable to drop the support for it. If you need to support
-ancient versions of Python, stick with the decorator module version
-3.4.2.  The current version supports all Python releases from 2.6 up.
+pylons, pycuda, sugar, ...) and has been stable for a *long* time. It
+is your best option if you want to preserve the signature of decorated
+functions in a consistent way across Python releases. Version 5.X
+requires Python versions greater than 3.4, but you can support back to
+Python 2.6 by using version 4.X and version 3.X is able to support
+even Python 2.4 and 2.5.
 
 What's New in version 4
 -----------------------
@@ -316,16 +302,17 @@ The decorator works with functions of any signature:
 
 ```python
 >>> @trace
-... def f(x, y=1, z=2, *args, **kw):
+... def f(x, y=1, *args, **kw):
 ...     pass
 
 >>> f(0, 3)
-calling f with args (0, 3, 2), {}
+calling f with args (0, 3), {}
 
 >>> print(getfullargspec(f))
-FullArgSpec(args=['x', 'y', 'z'], varargs='args', varkw='kw', defaults=(1, 2), kwonlyargs=[], kwonlydefaults=None, annotations={})
+FullArgSpec(args=['x', 'y'], varargs='args', varkw='kw', defaults=(1,), kwonlyargs=[], kwonlydefaults=None, annotations={})
 
 ```
+
 $FUNCTION_ANNOTATIONS
 
 ``decorator.decorator``
@@ -1295,21 +1282,6 @@ notice that lately I have come to believe that decorating functions with
 keyword arguments is not such a good idea, and you may want not to do
 that.
 
-On a similar note, there is a restriction on argument names. For instance,
-if you name an argument ``_call_`` or ``_func_``, you will get a ``NameError``:
-
-```python
->>> @trace
-... def f(_func_): print(f)
-...
-Traceback (most recent call last):
-  ...
-NameError: _func_ is overridden in
-def f(_func_):
-    return _call_(_func_, _func_)
-
-```
-
 Finally, the implementation is such that the decorated function makes
 a (shallow) copy of the original function dictionary:
 
@@ -1651,46 +1623,47 @@ def a_test_for_pylons():
     """
 
 
-if sys.version_info >= (3,):  # tests for signatures specific to Python 3
+def test_kwonlydefaults():
+    """
+    >>> @trace
+    ... def f(arg, defarg=1, *args, kwonly=2): pass
+    ...
+    >>> f.__kwdefaults__
+    {'kwonly': 2}
+    """
 
-    def test_kwonlydefaults():
-        """
-        >>> @trace
-        ... def f(arg, defarg=1, *args, kwonly=2): pass
-        ...
-        >>> f.__kwdefaults__
-        {'kwonly': 2}
-        """
 
-    def test_kwonlyargs():
-        """
-        >>> @trace
-        ... def func(a, b, *args, y=2, z=3, **kwargs):
-        ...     return y, z
-        ...
-        >>> func('a', 'b', 'c', 'd', 'e', y='y', z='z', cat='dog')
-        calling func with args ('a', 'b', 'c', 'd', 'e'), {'cat': 'dog', 'y': 'y', 'z': 'z'}
-        ('y', 'z')
-        """
+def test_kwonlyargs():
+    """
+    >>> @trace
+    ... def func(a, b, *args, y=2, z=3, **kwargs):
+    ...     return y, z
+    ...
+    >>> func('a', 'b', 'c', 'd', 'e', y='y', z='z', cat='dog')
+    calling func with args ('a', 'b', 'c', 'd', 'e'), {'cat': 'dog', 'y': 'y', 'z': 'z'}
+    ('y', 'z')
+    """
 
-    def test_kwonly_no_args():
-        """# this was broken with decorator 3.3.3
-        >>> @trace
-        ... def f(**kw): pass
-        ...
-        >>> f()
-        calling f with args (), {}
-        """
 
-    def test_kwonly_star_notation():
-        """
-        >>> @trace
-        ... def f(*, a=1, **kw): pass
-        ...
-        >>> import inspect
-        >>> inspect.getfullargspec(f)
-        FullArgSpec(args=[], varargs=None, varkw='kw', defaults=None, kwonlyargs=['a'], kwonlydefaults={'a': 1}, annotations={})
-        """
+def test_kwonly_no_args():
+    """# this was broken with decorator 3.3.3
+    >>> @trace
+    ... def f(**kw): pass
+    ...
+    >>> f()
+    calling f with args (), {}
+    """
+
+
+def test_kwonly_star_notation():
+    """
+    >>> @trace
+    ... def f(*, a=1, **kw): pass
+    ...
+    >>> import inspect
+    >>> inspect.getfullargspec(f)
+    FullArgSpec(args=[], varargs=None, varkw='kw', defaults=None, kwonlyargs=['a'], kwonlydefaults={'a': 1}, annotations={})
+    """
 
 
 @contextmanager

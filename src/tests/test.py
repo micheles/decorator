@@ -1,21 +1,13 @@
-from __future__ import absolute_import
 import sys
 import doctest
 import unittest
 import decimal
 import inspect
 import functools
-import collections
-from collections import defaultdict
-try:
-    c = collections.abc
-except AttributeError:
-    c = collections
+from asyncio import get_event_loop
+from collections import defaultdict, abc as c
 from decorator import dispatch_on, contextmanager, decorator
-try:
-    from . import documentation as doc
-except (ImportError, ValueError, SystemError):  # depending on the py-version
-    import documentation as doc
+import documentation as doc
 
 
 @contextmanager
@@ -29,22 +21,21 @@ def assertRaises(etype):
         raise Exception('Expected %s' % etype.__name__)
 
 
-if sys.version_info >= (3, 5):
-    exec('''from asyncio import get_event_loop
-
 @decorator
 async def before_after(coro, *args, **kwargs):
     return "<before>" + (await coro(*args, **kwargs)) + "<after>"
+
 
 @decorator
 def coro_to_func(coro, *args, **kw):
     return get_event_loop().run_until_complete(coro(*args, **kw))
 
+
 class CoroutineTestCase(unittest.TestCase):
     def test_before_after(self):
         @before_after
         async def coro(x):
-           return x
+            return x
         self.assertTrue(inspect.iscoroutinefunction(coro))
         out = get_event_loop().run_until_complete(coro('x'))
         self.assertEqual(out, '<before>x<after>')
@@ -55,7 +46,6 @@ class CoroutineTestCase(unittest.TestCase):
             return x
         self.assertFalse(inspect.iscoroutinefunction(coro))
         self.assertEqual(coro('x'), 'x')
-''')
 
 
 def gen123():
@@ -125,10 +115,13 @@ class ExtraTestCase(unittest.TestCase):
         @d1
         def f1(x, y, z):
             pass
-        self.assertNotEqual(d1.__code__.co_filename, d2.__code__.co_filename)
-        self.assertNotEqual(f1.__code__.co_filename, f2.__code__.co_filename)
-        self.assertNotEqual(f1_orig.__code__.co_filename,
-                            f1.__code__.co_filename)
+
+        self.assertEqual(d1.__code__.co_filename,
+                         d2.__code__.co_filename)
+        self.assertEqual(f1.__code__.co_filename,
+                         f2.__code__.co_filename)
+        self.assertEqual(f1_orig.__code__.co_filename,
+                         f1.__code__.co_filename)
 
     def test_no_first_arg(self):
         @decorator
@@ -147,7 +140,7 @@ class ExtraTestCase(unittest.TestCase):
         @decorator
         def catch_config_error(method, app, *args, **kwargs):
             return method(app)
-        catch_config_error(lambda app: None)
+        catch_config_error(lambda app, **kw: None)(1)
 
     def test_add1(self):
         # similar to what IPython is doing in traitlets.config.application
