@@ -79,19 +79,29 @@ class DocumentationTestCase(unittest.TestCase):
         if hasattr(functools, 'singledispatch'):
             doc.singledispatch_example2()
 
+    def test_context_manager(self):
+
+        @contextmanager
+        def before_after(before, after):
+            print(before)
+            yield
+            print(after)
+
+        @before_after('BEFORE', 'AFTER')
+        def hello_user(user):
+            print('hello %s' % user)
+
+        argspec = inspect.getfullargspec(hello_user)
+        self.assertEqual(argspec.args, ['user'])
+
 
 class ExtraTestCase(unittest.TestCase):
     def test_qualname(self):
-        if sys.version_info >= (3, 3):
-            self.assertEqual(doc.hello.__qualname__, 'hello')
-        else:
-            with assertRaises(AttributeError):
-                doc.hello.__qualname__
+        self.assertEqual(doc.operation1.__qualname__, 'operation1')
 
     def test_signature(self):
-        if hasattr(inspect, 'signature'):
-            sig = inspect.signature(doc.f1)
-            self.assertEqual(str(sig), '(x)')
+        sig = inspect.signature(doc.f1)
+        self.assertEqual(str(sig), '(x)')
 
     def test_unique_filenames(self):
         @decorator

@@ -514,8 +514,7 @@ factory. For instance, if you write this...
 ```
 
 ...then ``before_after`` is a factory function that returns
-``GeneratorContextManager`` objects, which provide the
-use of the ``with`` statement:
+``GeneratorContextManager`` objects, usable with the ``with`` statement:
 
 ```python
 >>> with before_after('BEFORE', 'AFTER'):
@@ -549,17 +548,10 @@ AFTER
 The ``ba`` decorator basically inserts a ``with ba:`` block
 inside the function.
 
-However, there are two issues:
-
-1. ``GeneratorContextManager`` objects are only callable in Python 3.2,
-   so the previous example breaks in older versions of Python.
-   (You can solve this by installing ``contextlib2``, which backports
-   the Python 3 functionality to Python 2.)
-
-2. ``GeneratorContextManager`` objects do not preserve the signature of
-   the decorated functions. The decorated ``hello`` function above will
-   have the generic signature ``hello(*args, **kwargs)``, but fails if
-   called with more than zero arguments.
+However ``GeneratorContextManager`` objects do not preserve the signature of
+the decorated functions. The decorated ``hello`` function above will
+have the generic signature ``hello(*args, **kwargs)``, but fails if
+called with more than zero arguments.
 
 For these reasons, the `decorator` module, starting from release 3.4, offers a
 ``decorator.contextmanager`` decorator that solves both problems,
@@ -1665,30 +1657,6 @@ def test_kwonly_star_notation():
     FullArgSpec(args=[], varargs=None, varkw='kw', defaults=None, kwonlyargs=['a'], kwonlydefaults={'a': 1}, annotations={})
     """
 
-
-@contextmanager
-def before_after(before, after):
-    print(before)
-    yield
-    print(after)
-
-
-ba = before_after('BEFORE', 'AFTER')  # ContextManager instance
-
-
-@ba
-def hello(user):
-    """
-    >>> ba.__class__.__name__
-    'ContextManager'
-    >>> hello('michele')
-    BEFORE
-    hello michele
-    AFTER
-    """
-    print('hello %s' % user)
-
-
 # #######################  multiple dispatch ############################ #
 
 
@@ -1897,16 +1865,15 @@ class Client:
         self.context = context
 
 
-if sys.version_info >= (3, 5):
+def test_change_sig():
+    """
+    >>> Client.foo = to_method(foo)
+    >>> Client.bar = to_method(bar)
+    >>> c = Client(None)
+    >>> assert c.foo(1) == 1
+    >>> assert c.bar(1, 2) == 3
+    """
 
-    def test_change_sig():
-        """
-        >>> Client.foo = to_method(foo)
-        >>> Client.bar = to_method(bar)
-        >>> c = Client(None)
-        >>> assert c.foo(1) == 1
-        >>> assert c.bar(1, 2) == 3
-        """
 
 if __name__ == '__main__':
     import doctest
