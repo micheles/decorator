@@ -241,6 +241,7 @@ def decorator(caller, _func=None):
     dec.__doc__ = caller.__doc__
     dec.__wrapped__ = caller
     dec.__qualname__ = caller.__qualname__
+    dec.__kwdefaults__ = getattr(caller, '__kwdefaults__', None)
     dec.__dict__.update(caller.__dict__)
     return dec
 
