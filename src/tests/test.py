@@ -3,9 +3,8 @@ import doctest
 import unittest
 import decimal
 import inspect
-import functools
 from asyncio import get_event_loop
-from collections import defaultdict, abc as c
+from collections import defaultdict, ChainMap, abc as c
 from decorator import dispatch_on, contextmanager, decorator
 import documentation as doc
 
@@ -71,13 +70,11 @@ class DocumentationTestCase(unittest.TestCase):
         self.assertEqual(err, 0)
 
     def test_singledispatch1(self):
-        if hasattr(functools, 'singledispatch'):
-            with assertRaises(RuntimeError):
-                doc.singledispatch_example1()
+        with assertRaises(RuntimeError):
+            doc.singledispatch_example1()
 
     def test_singledispatch2(self):
-        if hasattr(functools, 'singledispatch'):
-            doc.singledispatch_example2()
+        doc.singledispatch_example2()
 
     def test_context_manager(self):
 
@@ -293,14 +290,13 @@ class TestSingleDispatch(unittest.TestCase):
         self.assertEqual(g(f), "sized")
         self.assertEqual(g(t), "sized")
 
-        if hasattr(c, 'ChainMap'):
-            g.register(c.ChainMap)(lambda obj: "chainmap")
-            # irrelevant ABCs registered
-            self.assertEqual(g(d), "mutablemapping")
-            self.assertEqual(g(l), "sized")
-            self.assertEqual(g(s), "sized")
-            self.assertEqual(g(f), "sized")
-            self.assertEqual(g(t), "sized")
+        g.register(ChainMap)(lambda obj: "chainmap")
+        # irrelevant ABCs registered
+        self.assertEqual(g(d), "mutablemapping")
+        self.assertEqual(g(l), "sized")
+        self.assertEqual(g(s), "sized")
+        self.assertEqual(g(f), "sized")
+        self.assertEqual(g(t), "sized")
 
         g.register(c.MutableSequence)(lambda obj: "mutablesequence")
         self.assertEqual(g(d), "mutablemapping")
