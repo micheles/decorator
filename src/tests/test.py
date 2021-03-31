@@ -3,9 +3,8 @@ import doctest
 import unittest
 import decimal
 import inspect
-import functools
 from asyncio import get_event_loop
-from collections import defaultdict, abc as c
+from collections import defaultdict, ChainMap, abc as c
 from decorator import dispatch_on, contextmanager, decorator
 import documentation as doc
 
@@ -291,7 +290,7 @@ class TestSingleDispatch(unittest.TestCase):
         self.assertEqual(g(f), "sized")
         self.assertEqual(g(t), "sized")
 
-        g.register(c.ChainMap)(lambda obj: "chainmap")
+        g.register(ChainMap)(lambda obj: "chainmap")
         # irrelevant ABCs registered
         self.assertEqual(g(d), "mutablemapping")
         self.assertEqual(g(l), "sized")
