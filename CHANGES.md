@@ -3,7 +3,8 @@ HISTORY
 
 ## unreleased
 
-Ported CI from Travis to GitHub
+Dropped support for Python < 3.5 with a substantial simplification of
+the code base. Ported CI from Travis to GitHub.
 
 ## 4.4.2 (2020-02-29)
 
