@@ -1282,19 +1282,6 @@ notice that lately I have come to believe that decorating functions with
 keyword arguments is not such a good idea, and you may want not to do
 that.
 
-On a similar note, there is a restriction on argument names. For instance,
-if you name an argument ``_call_`` or ``_func_``, you will get a ``NameError``:
-
-```python
-￼>>> @trace
-￼... def f(_func_): print(f)
-￼...
-￼Traceback (most recent call last):
-￼  ...
-￼NameError: _func_ is overridden in
-￼def f(_func_):
-￼    return _call_(_func_, _func_)
-
 Finally, the implementation is such that the decorated function makes
 a (shallow) copy of the original function dictionary:
 

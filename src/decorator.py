@@ -1,6 +1,6 @@
 # #########################     LICENSE     ############################ #
 
-# Copyright (c) 2005-2020, Michele Simionato
+# Copyright (c) 2005-2021, Michele Simionato
 # All rights reserved.
 
 # Redistribution and use in source and binary forms, with or without
@@ -47,7 +47,7 @@ POS = inspect.Parameter.POSITIONAL_OR_KEYWORD
 EMPTY = inspect.Parameter.empty
 
 
-# basic functionality
+# this is not used anymore in the core, but kept for backward compatibility
 class FunctionMaker(object):
     """
     An object with the ability to create functions with a given signature.
@@ -114,7 +114,9 @@ class FunctionMaker(object):
             raise TypeError('You are decorating a non function: %s' % func)
 
     def update(self, func, **kw):
-        "Update the signature of func with the data in self"
+        """
+        Update the signature of func with the data in self
+        """
         func.__name__ = self.name
         func.__doc__ = getattr(self, 'doc', None)
         func.__dict__ = getattr(self, 'dict', {})
@@ -131,7 +133,9 @@ class FunctionMaker(object):
         func.__dict__.update(kw)
 
     def make(self, src_templ, evaldict=None, addsource=False, **attrs):
-        "Make a new function from a given template and update the signature"
+        """
+        Make a new function from a given template and update the signature
+        """
         src = src_templ % vars(self)  # expand name and signature
         evaldict = evaldict or {}
         mo = DEF.search(src)
@@ -219,7 +223,7 @@ def decorate(func, caller, extras=()):
 
 
 def decorator(caller, _func=None):
-    """decorator(caller) converts a caller function into a decorator"""
+    "decorator(caller) converts a caller function into a decorator"
     if _func is not None:  # return a decorated function
         # this is obsolete behavior; you should use decorate instead
         return decorate(_func, caller)
@@ -254,10 +258,10 @@ class ContextManager(_GeneratorContextManager):
         return _GeneratorContextManager.__init__(self, g, a, k)
 
     def __call__(self, func):
-        """Context manager decorator"""
-        return FunctionMaker.create(
-            func, "with _self_: return _func_(%(shortsignature)s)",
-            dict(_self_=self, _func_=func), __wrapped__=func)
+        def caller(f, *a, **k):
+            with self:
+                return f(*a, **k)
+        return decorate(func, caller)
 
 
 _contextmanager = decorator(ContextManager)
