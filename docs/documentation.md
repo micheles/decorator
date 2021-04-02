@@ -4,9 +4,9 @@ Decorators for Humans
 |Author | Michele Simionato|
 |---|---|
 |E-mail | michele.simionato@gmail.com|
-|Version| 4.4.2 (2020-02-29)|
-|Supports| Python 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8|
-|Download page| http://pypi.python.org/pypi/decorator/4.4.2|
+|Version| 5.0.0 (2021-04-02)|
+|Supports| Python 3.5, 3.6, 3.7, 3.8, 3.9|
+|Download page| http://pypi.python.org/pypi/decorator/5.0.0|
 |Installation| ``pip install decorator``|
 |License | BSD license|
 
@@ -15,22 +15,24 @@ Introduction
 
 The ``decorator`` module is over ten years old, but still alive and
 kicking. It is used by several frameworks (IPython, scipy, authkit,
-pylons, pycuda, sugar, ...) and has been stable for a *long*
-time. It is your best option if you want to preserve the signature of
-decorated functions in a consistent way across Python
-releases. Version 4 is fully compatible with the past, except for
-one thing: support for Python 2.4 and 2.5 has been dropped. That
-decision made it possible to use a single code base both for Python
-2.X and Python 3.X. This is a *huge* bonus, since I could remove over
-2,000 lines of duplicated documentation/doctests. Having to maintain
-separate docs for Python 2 and Python 3 effectively stopped any
-development on the module for several years. Moreover, it is now
-trivial to distribute the module as an universal
- [wheel](http://pythonwheels.com) since 2to3 is no more
-required. Since Python 2.5 has been released ages ago (in 2006), I felt that
-it was reasonable to drop the support for it. If you need to support
-ancient versions of Python, stick with the decorator module version
-3.4.2.  The current version supports all Python releases from 2.6 up.
+pylons, pycuda, sugar, ...) and has been stable for a *long* time. It
+is your best option if you want to preserve the signature of decorated
+functions in a consistent way across Python releases. Versions 5.X
+supports Python versions greater than 3.4, versions 4.X supports Python
+versions back to 2.6; versions 3.X are able to support even Python 2.5 and
+2.4.
+
+What's New in version 5
+-----------------------
+
+There are no new features in version 5 of the decorator module,
+except a simplification of the code base made possible by dropping
+support for Python releases older than 3.5 (from that version
+the Signature object works well enough that it is possible to fix the
+signature of a decorated function without resorting to "exec" tricks).
+The simplification gives a very neat advantage: in case of exceptions
+raised in decorated functions the traceback is nicer than it used to be.
+That's counts more than a new feature in my book ;-)
 
 What's New in version 4
 -----------------------
@@ -79,8 +81,8 @@ Python decorators are an interesting example of why syntactic sugar
 matters. In principle, their introduction in Python 2.4 changed
 nothing, since they did not provide any new functionality which was not
 already present in the language. In practice, their introduction has
-significantly changed the way we structure our programs in Python. I
-believe the change is for the best, and that decorators are a great
+significantly changed the way we structure our programs.
+I believe the change is for the best, and that decorators are a great
 idea since:
 
 * decorators help reducing boilerplate code;
@@ -175,17 +177,6 @@ in Python 2.5 to simplify the writing of decorators.
 ``__name__``, ``__doc__``, ``__module__``, and ``__dict__``
 to the decorated function by hand).
 
-Here is an example of usage:
-
-```python
-
- @memoize_uw
- def f1(x):
-     "Simulate some long computation"
-     time.sleep(1)
-     return x
-```
-
 This works insofar as the decorator accepts functions with generic signatures.
 Unfortunately, it is *not* a signature-preserving decorator, since
 ``memoize_uw`` generally returns a function with a *different signature*
@@ -207,17 +198,17 @@ but the decorated function takes any number of arguments and
 keyword arguments:
 
 ```python
->>> from decorator import getfullargspec
+>>> from inspect import getfullargspec
 >>> print(getfullargspec(f1))
 FullArgSpec(args=[], varargs='args', varkw='kw', defaults=None, kwonlyargs=[], kwonlydefaults=None, annotations={})
 
 ```
 
-This means that introspection tools (like ``pydoc``) will give false
-information about the signature of ``f1`` -- unless you are using
-Python 3.5. This is pretty bad: ``pydoc`` will tell you that the
-function accepts the generic signature ``*args, **kw``, but
-calling the function with more than one argument raises an error:
+This means that introspection tools like ``getfullargspec`` will give
+you false information about the signature of ``f1`` This is pretty bad:
+``getfullargspec`` says that the function accepts the generic
+signature ``*args, **kw``, but calling the function with more than one
+argument raises an error:
 
 ```python
 >>> f1(0, 1) 
@@ -227,9 +218,8 @@ TypeError: f1() takes exactly 1 positional argument (2 given)
 
 ```
 
-Notice that ``inspect.getfullargspec``
-will give the wrong signature, even in the latest Python, i.e. version 3.6
-at the time of writing.
+Notice that ``pydoc`` will give the right signature, but only in Python
+versions greater than 3.5.
 
 The solution
 -----------------------------------------
@@ -359,16 +349,17 @@ The decorator works with functions of any signature:
 
 ```python
 >>> @trace
-... def f(x, y=1, z=2, *args, **kw):
+... def f(x, y=1, *args, **kw):
 ...     pass
 
 >>> f(0, 3)
-calling f with args (0, 3, 2), {}
+calling f with args (0, 3), {}
 
 >>> print(getfullargspec(f))
-FullArgSpec(args=['x', 'y', 'z'], varargs='args', varkw='kw', defaults=(1, 2), kwonlyargs=[], kwonlydefaults=None, annotations={})
+FullArgSpec(args=['x', 'y'], varargs='args', varkw='kw', defaults=(1,), kwonlyargs=[], kwonlydefaults=None, annotations={})
 
 ```
+
 Function annotations
 ---------------------------------------------
 
@@ -388,8 +379,8 @@ Here is an example:
 
 ```
 
-In order to introspect functions with annotations, one needs the
-utility ``inspect.getfullargspec`` (introduced in Python 3, then
+In order to introspect functions with annotations, one needs
+``inspect.getfullargspec`` (introduced in Python 3, then
 deprecated in Python 3.5, then undeprecated in Python 3.6):
 
 ```python
@@ -438,9 +429,6 @@ It is the ``decorator`` function:
 
 ```python
 >>> from decorator import decorator
->>> print(decorator.__doc__)
-decorator(caller) converts a caller function into a decorator
-
 ```
 The ``decorator`` function can be used as a signature-changing
 decorator, just like ``classmethod`` and ``staticmethod``.
@@ -494,7 +482,7 @@ def decfactory(param1, param2, ...):
 
 This is fully general but requires an additional level of nesting. For this
 reason since version 4.2 there is a facility to build decorator factories by
-using a single caller with default arguments i.e. writing something like this:
+using a single caller with default arguments:
 
 ```python
 def caller(f, param1=default1, param2=default2, ..., *args, **kw):
@@ -687,8 +675,7 @@ factory. For instance, if you write this...
 ```
 
 ...then ``before_after`` is a factory function that returns
-``GeneratorContextManager`` objects, which provide the
-use of the ``with`` statement:
+``GeneratorContextManager`` objects, usable with the ``with`` statement:
 
 ```python
 >>> with before_after('BEFORE', 'AFTER'):
@@ -722,17 +709,10 @@ AFTER
 The ``ba`` decorator basically inserts a ``with ba:`` block
 inside the function.
 
-However, there are two issues:
-
-1. ``GeneratorContextManager`` objects are only callable in Python 3.2,
-   so the previous example breaks in older versions of Python.
-   (You can solve this by installing ``contextlib2``, which backports
-   the Python 3 functionality to Python 2.)
-
-2. ``GeneratorContextManager`` objects do not preserve the signature of
-   the decorated functions. The decorated ``hello`` function above will
-   have the generic signature ``hello(*args, **kwargs)``, but fails if
-   called with more than zero arguments.
+However ``GeneratorContextManager`` objects do not preserve the signature of
+the decorated functions. The decorated ``hello`` function above will
+have the generic signature ``hello(*args, **kwargs)``, but fails if
+called with more than zero arguments.
 
 For these reasons, the `decorator` module, starting from release 3.4, offers a
 ``decorator.contextmanager`` decorator that solves both problems,
@@ -746,14 +726,13 @@ decorator.
 The ``FunctionMaker`` class
 ---------------------------------------------------------------
 
-You may wonder how the functionality of the ``decorator`` module
-is implemented. The basic building block is
-a ``FunctionMaker`` class. It generates on-the-fly functions
+The ``decorator`` module also provides a ``FunctionMaker`` class, which
+is able to generate on-the-fly functions
 with a given name and signature from a function template
 passed as a string.
 
 If you're just writing ordinary decorators, then you probably won't
-need to use ``FunctionMaker`` directly. But in some circumstances, it
+need to use ``FunctionMaker``. But in some circumstances, it
 can be handy. You will see an example shortly--in
 the implementation of a cool decorator utility (``decorator_apply``).
 
@@ -813,9 +792,9 @@ Here is what happens:
 
 - If first argument of ``FunctionMaker.create`` is a function,
   an instance of ``FunctionMaker`` is created with the attributes
-  ``args``, ``varargs``, ``keywords``, and ``defaults``.
-  (These mirror the return values of the standard library's
-  ``inspect.getfullargspec``.)
+  ``args``, ``varargs``, ``keywords``, and ``defaults``
+  (these mirror the return values of the standard library's
+  ``inspect.getfullargspec``).
 
 - For each item in ``args`` (a list of strings of the names of all required
   arguments), an attribute ``arg0``, ``arg1``, ..., ``argN`` is also generated.
@@ -843,38 +822,6 @@ decorated function. Therefore ``inspect.getsource`` will not work for
 decorated functions. In IPython, this means that the usual ``??`` trick
 will give you the (right on the spot) message ``Dynamically generated
 function. No source code available``.
-
-In the past, I considered this acceptable, since ``inspect.getsource``
-does not really work with "regular" decorators. In those cases,
-``inspect.getsource`` gives you the wrapper source code, which is probably
-not what you want:
-
-```python
-
- def identity_dec(func):
-     def wrapper(*args, **kw):
-         return func(*args, **kw)
-     return wrapper
-```
-```python
-
-     def wrapper(*args, **kw):
-         return func(*args, **kw)
-```
-
-```python
->>> import inspect
->>> print(inspect.getsource(example))
-    def wrapper(*args, **kw):
-        return func(*args, **kw)
-
-
-```
-
-(See bug report [1764286](http://bugs.python.org/issue1764286)
-for an explanation of what is happening).
-Unfortunately the bug still exists in all versions of Python < 3.5.
-
 However, there is a workaround. The decorated function has the ``__wrapped__``
 attribute, pointing to the original function. The simplest way to get the
 source code is to call ``inspect.getsource`` on the undecorated function:
@@ -1018,11 +965,10 @@ following:
 Python 3.5 coroutines
 -----------------------
 
-I am personally not using Python 3.5 coroutines yet, because at work we are
-still maintaining compatibility with Python 2.7. However, some users requested
-support for coroutines and since version 4.1 the decorator module has it.
-You should consider the support experimental and kindly report issues if
-you find any.
+I am personally not using Python 3.5 coroutines yet. However, some
+users requested support for coroutines and since version 4.1 the
+decorator module has it.  You should consider the support experimental
+and kindly report issues if you find any.
 
 Here I will give a single example of usage. Suppose you want to log the moment
 a coroutine starts and the moment it stops for debugging purposes. You could
@@ -1034,7 +980,7 @@ import logging
 from asyncio import get_event_loop, sleep, wait
 from decorator import decorator
 
- @decorator
+@decorator
 async def log_start_stop(coro, *args, **kwargs):
     logging.info('Starting %s%s', coro.__name__, args)
     t0 = time.time()
@@ -1083,7 +1029,7 @@ def coro_to_func(coro, *args, **kw):
 ```
 
 Notice the diffence: the caller in ``log_start_stop`` was a coroutine
-function and the associate decorator was converting coroutines->coroutines;
+function and the associate decorator was converting coroutines in coroutines;
 the caller in ``coro_to_func`` is a regular function and converts
 coroutines -> functions.
 
@@ -1507,6 +1453,15 @@ not use any cache, whereas the ``singledispatch`` implementation does.
 Caveats and limitations
 -------------------------------------------
 
+It should be noted that in Python 3.5, a *lot* of improvements have
+been made: you can decorate a function with
+``func_tools.update_wrapper``, and ``pydoc`` will see the correct
+signature. Unfortunately, the function will still have an incorrect
+signature internally, as you can see by using
+``inspect.getfullargspec``; so, all documentation tools using
+``inspect.getfullargspec`` - which has been rightly deprecated -
+will see the wrong signature.
+
 One thing you should be aware of, is the performance penalty of decorators.
 The worse case is shown by the following example:
 
@@ -1543,70 +1498,12 @@ than the function ``f`` here, so the real life performance penalty
 *could* be negligible.  As always, the only way to know if there is a
 penalty in your specific use case is to measure it.
 
-More importantly, you should be aware that decorators will make your
-tracebacks longer and more difficult to understand.
-
-Consider this example:
-
-```python
->>> @trace
-... def f():
-...     1/0
-
-```
-
-Calling ``f()`` gives you a ``ZeroDivisionError``.
-But since the function is decorated, the traceback is longer:
-
-```python
->>> f() 
-Traceback (most recent call last):
-  ...
-     File "<string>", line 2, in f
-     File "<doctest __main__[22]>", line 4, in trace
-       return f(*args, **kw)
-     File "<doctest __main__[51]>", line 3, in f
-       1/0
-ZeroDivisionError: ...
-
-```
-
-You see here the inner call to the decorator ``trace``, which calls
-``f(*args, **kw)``, and a reference to  ``File "<string>", line 2, in f``.
-
-This latter reference is due to the fact that, internally, the decorator
-module uses ``exec`` to generate the decorated function. Notice that
-``exec`` is *not* responsible for the performance penalty, since is the
-called *only once* (at function decoration time); it is *not* called
-each time the decorated function is called.
-
-Presently, there is no clean way to avoid ``exec``. A clean solution
-would require changing the CPython implementation, by
-adding a hook to functions (to allow changing their signature directly).
-
-Even in Python 3.5, it is impossible to change the
-function signature directly. Thus, the ``decorator`` module is
-still useful!  As a matter of fact, this is the main reason why I still
-maintain the module and release new versions.
-
-It should be noted that in Python 3.5, a *lot* of improvements have
-been made: you can decorate a function with
-``func_tools.update_wrapper``, and ``pydoc`` will see the correct
-signature. Unfortunately, the function will still have an incorrect
-signature internally, as you can see by using
-``inspect.getfullargspec``; so, all documentation tools using
-``inspect.getfullargspec`` - which has been rightly deprecated -
-will see the wrong signature.
-
 In the present implementation, decorators generated by ``decorator``
-can only be used on user-defined Python functions or methods.
-They cannot be used on generic callable objects or built-in functions,
-due to limitations of the standard library's ``inspect`` module, especially
-for Python 2. In Python 3.5, many such limitations have been removed, but
-I still think that it is cleaner and safer to decorate only functions and
-coroutines. If you want to decorate things like classmethods/staticmethods
-and general callables - which I will never support in the decorator module -
-I suggest you to look at the [wrapt](https://wrapt.readthedocs.io/en/latest/)
+can only be used on user-defined Python functions, methods or coroutines.
+I have no interest in decorating generic callable objects. If you want to
+decorate things like classmethods/staticmethods and general callables
+- which I will never support in the decorator module - I suggest you
+to look at the [wrapt](https://wrapt.readthedocs.io/en/latest/)
 project by Graeme Dumpleton.
 
 There is a strange quirk when decorating functions with keyword
@@ -1657,21 +1554,6 @@ when writing decorators for functions with keyword arguments. Also,
 notice that lately I have come to believe that decorating functions with
 keyword arguments is not such a good idea, and you may want not to do
 that.
-
-On a similar note, there is a restriction on argument names. For instance,
-if you name an argument ``_call_`` or ``_func_``, you will get a ``NameError``:
-
-```python
->>> @trace
-... def f(_func_): print(f)
-...
-Traceback (most recent call last):
-  ...
-NameError: _func_ is overridden in
-def f(_func_):
-    return _call_(_func_, _func_)
-
-```
 
 Finally, the implementation is such that the decorated function makes
 a (shallow) copy of the original function dictionary:

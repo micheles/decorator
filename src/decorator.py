@@ -40,7 +40,7 @@ import itertools
 from contextlib import _GeneratorContextManager
 from inspect import getfullargspec, iscoroutinefunction, isgeneratorfunction
 
-__version__ = '4.5.0'
+__version__ = '5.0.0'
 
 DEF = re.compile(r'\s*def\s*([_\w][_\w\d]*)\s*\(')
 POS = inspect.Parameter.POSITIONAL_OR_KEYWORD
@@ -223,7 +223,9 @@ def decorate(func, caller, extras=()):
 
 
 def decorator(caller, _func=None):
-    "decorator(caller) converts a caller function into a decorator"
+    """
+    decorator(caller) converts a caller function into a decorator
+    """
     if _func is not None:  # return a decorated function
         # this is obsolete behavior; you should use decorate instead
         return decorate(_func, caller)
