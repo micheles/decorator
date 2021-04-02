@@ -429,6 +429,7 @@ It is the ``decorator`` function:
 
 ```python
 >>> from decorator import decorator
+
 ```
 The ``decorator`` function can be used as a signature-changing
 decorator, just like ``classmethod`` and ``staticmethod``.
