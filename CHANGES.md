@@ -3,7 +3,7 @@ HISTORY
 
 ## unreleased
 
-## 5.0.0 (2020-04-02)
+## 5.0.0 (2021-04-02)
 
 Dropped support for Python < 3.5 with a substantial simplification of
 the code base. Ported CI from Travis to GitHub.
