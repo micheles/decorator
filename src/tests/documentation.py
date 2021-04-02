@@ -43,7 +43,7 @@ the Signature object works well enough that it is possible to fix the
 signature of a decorated function without resorting to "exec" tricks).
 The simplification gives a very neat advantage: in case of exceptions
 raised in decorated functions the traceback is nicer than it used to be.
-That's counts as a new feature in my book ;-)
+That counts as a new feature in my book ;-)
 
 What's New in version 4
 -----------------------
