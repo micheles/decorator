@@ -202,18 +202,25 @@ def decorate(func, caller, extras=()):
     If the caller is a generator function, the resulting function
     will be a generator function.
     """
+    sig = inspect.signature(func)
     if iscoroutinefunction(caller):
         async def fun(*args, **kw):
-            return await caller(func, *(extras + args), **kw)
+            ba = sig.bind(*args, **kw)
+            ba.apply_defaults()
+            return await caller(func, *(extras + ba.args), **(ba.kwargs))
     elif isgeneratorfunction(caller):
         def fun(*args, **kw):
-            for res in caller(func, *(extras + args), **kw):
+            ba = sig.bind(*args, **kw)
+            ba.apply_defaults()
+            for res in caller(func, *(extras + ba.args), **(ba.kwargs)):
                 yield res
     else:
         def fun(*args, **kw):
-            return caller(func, *(extras + args), **kw)
+            ba = sig.bind(*args, **kw)
+            ba.apply_defaults()
+            return caller(func, *(extras + ba.args), **(ba.kwargs))
     fun.__name__ = func.__name__
-    fun.__signature__ = inspect.signature(func)
+    fun.__signature__ = sig
     fun.__wrapped__ = func
     fun.__qualname__ = func.__qualname__
     fun.__annotations__ = func.__annotations__
