@@ -37,6 +37,7 @@ import sys
 import inspect
 import operator
 import itertools
+import abc
 from contextlib import _GeneratorContextManager
 from inspect import getfullargspec, iscoroutinefunction, isgeneratorfunction
 
@@ -220,6 +221,19 @@ def decorate(func, caller, extras=()):
     fun.__kwdefaults__ = func.__kwdefaults__
     fun.__dict__.update(func.__dict__)
     return fun
+
+
+class Decorator(metaclass=abc.ABCMeta):
+    """
+    Abstract base class. Subclass it and override the caller method to
+    define your own decorator factories.
+    """
+    @abc.abstractmethod
+    def caller(self, func, *args, **kw):
+        pass
+
+    def __call__(self, func):
+        return decorate(func, self.caller)
 
 
 def decorator(caller, _func=None):
