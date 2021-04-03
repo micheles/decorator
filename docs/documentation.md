@@ -1481,22 +1481,28 @@ In previous versions of the decorator module
 the caller, with an empty ``kwargs`` dictionary. In version 5.X instead
 even ``args`` is empty:
 
+```python
 >>> printsum()
 () {}
 3
 
+```
 ``args`` become non-empty only if you pass the arguments as positional
 
+```python
 >>> printsum(1)
 (1,) {}
 3
 
+```
 and not if you pass them as keyword arguments:
 
+```python
 >>> printsum(x=1)
 () {'x': 1}
 3
 
+```
 This can be pretty confusing since non-keyword arguments are passed as
 keywork arguments, but it the way it works with ``functools.wraps`` and
 the way many people expect it to work:
