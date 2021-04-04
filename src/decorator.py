@@ -40,7 +40,7 @@ import itertools
 from contextlib import _GeneratorContextManager
 from inspect import getfullargspec, iscoroutinefunction, isgeneratorfunction
 
-__version__ = '5.0.4'
+__version__ = '5.0.5'
 
 DEF = re.compile(r'\s*def\s*([_\w][_\w\d]*)\s*\(')
 POS = inspect.Parameter.POSITIONAL_OR_KEYWORD
@@ -196,24 +196,42 @@ class FunctionMaker(object):
         return self.make(body, evaldict, addsource, **attrs)
 
 
-def decorate(func, caller, extras=()):
+def fix(args, kwargs, sig):
     """
-    decorate(func, caller) decorates a function using a caller.
-    If the caller is a generator function, the resulting function
-    will be a generator function.
+    Fix args and kwargs to be consistent with the signature
     """
+    ba = sig.bind(*args, **kwargs)
+    ba.apply_defaults()
+    return ba.args, ba.kwargs
+
+
+def decorate(func, caller, extras=(), kwsyntax=False):
+    """
+    Decorates a function/generator/coroutine using a caller.
+    If kwsyntax is True calling the decorated functions with keyword
+    syntax will pass the named arguments inside the ``kw`` dictionary,
+    even if such argument are positional, similarly to what functools.wraps
+    does. By default kwsyntax is False and the the arguments are untouched.
+    """
+    sig = inspect.signature(func)
     if iscoroutinefunction(caller):
         async def fun(*args, **kw):
+            if not kwsyntax:
+                args, kw = fix(args, kw, sig)
             return await caller(func, *(extras + args), **kw)
     elif isgeneratorfunction(caller):
         def fun(*args, **kw):
+            if not kwsyntax:
+                args, kw = fix(args, kw, sig)
             for res in caller(func, *(extras + args), **kw):
                 yield res
     else:
         def fun(*args, **kw):
+            if not kwsyntax:
+                args, kw = fix(args, kw, sig)
             return caller(func, *(extras + args), **kw)
     fun.__name__ = func.__name__
-    fun.__signature__ = inspect.signature(func)
+    fun.__signature__ = sig
     fun.__wrapped__ = func
     fun.__qualname__ = func.__qualname__
     fun.__annotations__ = func.__annotations__
@@ -223,7 +241,7 @@ def decorate(func, caller, extras=()):
     return fun
 
 
-def decorator(caller, _func=None):
+def decorator(caller, _func=None, kwsyntax=False):
     """
     decorator(caller) converts a caller function into a decorator
     """
@@ -240,9 +258,9 @@ def decorator(caller, _func=None):
                               for p in dec_params[na:]
                               if p.default is not EMPTY)
         if func is None:
-            return lambda func: decorate(func, caller, extras)
+            return lambda func: decorate(func, caller, extras, kwsyntax)
         else:
-            return decorate(func, caller, extras)
+            return decorate(func, caller, extras, kwsyntax)
     dec.__signature__ = sig.replace(parameters=dec_params)
     dec.__name__ = caller.__name__
     dec.__doc__ = caller.__doc__
