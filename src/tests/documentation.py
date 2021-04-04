@@ -38,13 +38,13 @@ What's New in version 5
 
 Version 5 of the decorator module features a major simplification of
 the code base made possible by dropping support for Python releases
-older than 3.5. From that version the Signature object works well
+older than 3.5. From that version the ``Signature`` object works well
 enough that it is possible to fix the signature of a decorated
-function without resorting to "exec" tricks. The simplification
+function without resorting to ``exec`` tricks. The simplification
 has a very neat advantage: in case of exceptions raised in decorated
 functions the traceback is nicer than it used to be. Moreover, it is
 now possible to mimic the behavior of decorators defined with
-``functool.wraps``: see the section about the ``kw_syntax`` flag below.
+``functool.wraps``: see the section about the ``kwsyntax`` flag below.
 
 What's New in version 4
 -----------------------
@@ -378,18 +378,20 @@ Mimicking the behavior of functools.wrap
 
 Often people are confused by the decorator module since, contrarily
 to ``functools.wraps`` in the standard library, it tries very hard
-to keep the semantic of the arguments: in particular, positional arguments stay
-positional even if they are called with the keyword argument syntax.
-An example will make the issue clear:
+to keep the semantics of the arguments: in particular, positional arguments
+stay positional even if they are called with the keyword argument syntax.
+An example will make the issue clear. Here is a simple caller
 
 $$chatty
 
+and here is a function to decorate:
+
 $$printsum
 
-In this example ``x`` and ``y`` are positional arguments (with defaults).
-It does not matter if the user calls them as named arguments, they will
-stay inside the ``args`` tuple and not inside the ``kwargs`` dictionary
-inside the caller:
+In this example ``x`` and ``y`` are positional arguments (with
+defaults). From the caller perspective, it does not matter if the user
+calls them as named arguments, they will stay inside the ``args``
+tuple and not inside the ``kwargs`` dictionary:
 
 ```python
 >>> printsum(y=2, x=1)
@@ -415,6 +417,18 @@ Here is how it works:
 ```python
 >>> printsum2(y=2, x=1)
 () {'y': 2, 'x': 1}
+3
+
+```
+
+This is exactly what the ``chattywrapper`` decorator would print:
+positional arguments are seen as keyword arguments, but only if the
+client code calls them with the keyword syntax. Otherwise they stay
+positional:
+
+```python
+>>> printsum2(1, 2)
+(1, 2) {}
 3
 
 ```
