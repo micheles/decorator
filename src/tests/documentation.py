@@ -424,7 +424,7 @@ Here is how it works:
 This is exactly what the ``chattywrapper`` decorator would print:
 positional arguments are seen as keyword arguments, but only if the
 client code calls them with the keyword syntax. Otherwise they stay
-positional:
+positional, i.e. they belongs to the ``args`` tuple and not to ``kwargs``:
 
 ```python
 >>> printsum2(1, 2)
