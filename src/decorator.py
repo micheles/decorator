@@ -201,7 +201,6 @@ def fix(args, kwargs, sig):
     Fix args and kwargs to be consistent with the signature
     """
     ba = sig.bind(*args, **kwargs)
-    ba.apply_defaults()
     return ba.args, ba.kwargs
 
 
