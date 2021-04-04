@@ -3,15 +3,12 @@ HISTORY
 
 ## unreleased
 
-## 5.0.4 (2021-04-03)
-
-Small fix (decorator.decorate was not copying the function docstring) and
-documented the breaking change between versions 5.X and the past.
-
-## 5.0.3 (2021-04-02)
+## 5.0.5 (2021-04-04)
 
 Dropped support for Python < 3.5 with a substantial simplification of
-the code base. Ported CI from Travis to GitHub.
+the code base (now building a decorator does not require calling "exec").
+Added a way to mimic functools.wraps-generated decorators.
+Ported the Continuous Integration from Travis to GitHub.
 
 ## 4.4.2 (2020-02-29)
 
