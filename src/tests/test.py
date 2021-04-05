@@ -137,10 +137,12 @@ class ExtraTestCase(unittest.TestCase):
 
         @example
         def func(**kw):
+            "Docstring"
             return kw
 
         # there is no confusion when passing args as a keyword argument
         self.assertEqual(func(args='a'), {'args': 'a'})
+        self.assertEqual(func.__doc__, "Docstring")
 
     def test_decorator_factory(self):
         # similar to what IPython is doing in traitlets.config.application
