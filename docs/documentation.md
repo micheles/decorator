@@ -4,9 +4,9 @@ Decorators for Humans
 |Author | Michele Simionato|
 |---|---|
 |E-mail | michele.simionato@gmail.com|
-|Version| 5.0.5 (2021-04-04)|
+|Version| 5.0.6 (2021-04-08)|
 |Supports| Python 3.5, 3.6, 3.7, 3.8, 3.9|
-|Download page| http://pypi.python.org/pypi/decorator/5.0.5|
+|Download page| http://pypi.python.org/pypi/decorator/5.0.6|
 |Installation| ``pip install decorator``|
 |License | BSD license|
 

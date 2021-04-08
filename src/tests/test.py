@@ -69,6 +69,12 @@ class DocumentationTestCase(unittest.TestCase):
         err = doctest.testmod(doc)[0]
         self.assertEqual(err, 0)
 
+    def test_copy_dunder_attrs(self):
+        traced = doc.trace(doc.foo)
+        self.assertEqual(traced.__module__, 'documentation')
+        self.assertEqual(traced.__annotations__, {})
+        self.assertEqual(traced.__defaults__, (None,))
+
     def test_singledispatch1(self):
         with assertRaises(RuntimeError):
             doc.singledispatch_example1()

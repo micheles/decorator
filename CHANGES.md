@@ -3,6 +3,11 @@ HISTORY
 
 ## unreleased
 
+## 5.0.6 (2021-04-08)
+
+The decorator module was not copying the __module__ attribute anymore. Thanks to
+Nikolay Markov for the notice.
+
 ## 5.0.5 (2021-04-04)
 
 Dropped support for Python < 3.5 with a substantial simplification of

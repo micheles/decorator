@@ -1852,14 +1852,13 @@ def to_method(f):
     self = inspect.Parameter('self', inspect.Parameter.POSITIONAL_OR_KEYWORD)
     params.insert(0, self)  # insert self
     del params[-1]  # remove context
-    newsig = sig.replace(parameters=params)
+    newsig = '%s%s' % (f.__name__, sig.replace(parameters=params))
     return FunctionMaker.create(
-        '%s%s' % (f.__name__, newsig),
-        'context = self.context; return _func_%s' % sig,
+        newsig, 'context = self.context; return _func_%s' % sig,
         dict(_func_=f))
 
 
-def foo(x, context):
+def foo(x, context=None):
     return x
 
 
