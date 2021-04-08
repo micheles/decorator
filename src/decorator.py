@@ -40,7 +40,7 @@ import itertools
 from contextlib import _GeneratorContextManager
 from inspect import getfullargspec, iscoroutinefunction, isgeneratorfunction
 
-__version__ = '5.0.5'
+__version__ = '5.0.6'
 
 DEF = re.compile(r'\s*def\s*([_\w][_\w\d]*)\s*\(')
 POS = inspect.Parameter.POSITIONAL_OR_KEYWORD
@@ -230,12 +230,14 @@ def decorate(func, caller, extras=(), kwsyntax=False):
                 args, kw = fix(args, kw, sig)
             return caller(func, *(extras + args), **kw)
     fun.__name__ = func.__name__
+    fun.__doc__ = func.__doc__
+    fun.__defaults__ = func.__defaults__
+    fun.__kwdefaults__ = func.__kwdefaults__
+    fun.__annotations__ = func.__annotations__
+    fun.__module__ = func.__module__
     fun.__signature__ = sig
     fun.__wrapped__ = func
     fun.__qualname__ = func.__qualname__
-    fun.__annotations__ = func.__annotations__
-    fun.__kwdefaults__ = func.__kwdefaults__
-    fun.__doc__ = func.__doc__
     fun.__dict__.update(func.__dict__)
     return fun
 
