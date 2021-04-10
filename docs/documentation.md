@@ -4,7 +4,7 @@ Decorators for Humans
 |Author | Michele Simionato|
 |---|---|
 |E-mail | michele.simionato@gmail.com|
-|Version| 5.0.6 (2021-04-08)|
+|Version| 5.0.6 (2021-04-10)|
 |Supports| Python 3.5, 3.6, 3.7, 3.8, 3.9|
 |Download page| http://pypi.python.org/pypi/decorator/5.0.6|
 |Installation| ``pip install decorator``|
@@ -1113,7 +1113,7 @@ def coro_to_func(coro, *args, **kw):
      return get_event_loop().run_until_complete(coro(*args, **kw))
 ```
 
-Notice the diffence: the caller in ``log_start_stop`` was a coroutine
+Notice the difference: the caller in ``log_start_stop`` was a coroutine
 function and the associate decorator was converting coroutines in coroutines;
 the caller in ``coro_to_func`` is a regular function and converts
 coroutines -> functions.
@@ -1299,7 +1299,7 @@ inherited from the parent:
 
 ```
 
-You can introspect the precedence used by the dispath algorithm by
+You can introspect the precedence used by the dispatch algorithm by
 calling ``.dispatch_info(*types)``:
 
 ```python
@@ -1568,7 +1568,7 @@ TypeError: _memoize() got multiple values for ... 'func'
 The error message looks really strange... until you realize that
 the caller function `_memoize` uses `func` as first argument,
 so there is a confusion between the positional argument and the
-keywork arguments.
+keyword arguments.
 
 The solution is to change the name of the first argument in `_memoize`,
 or to change the implementation like so:
