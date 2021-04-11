@@ -395,7 +395,7 @@ tuple and not inside the ``kwargs`` dictionary:
 
 ```python
 >>> printsum(y=2, x=1)
-(1, 2) {}
+(1, 2) []
 3
 
 ```
@@ -416,7 +416,7 @@ Here is how it works:
 
 ```python
 >>> printsum2(y=2, x=1)
-() {'y': 2, 'x': 1}
+() [('x', 1), ('y', 2)]
 3
 
 ```
@@ -428,7 +428,7 @@ positional, i.e. they belongs to the ``args`` tuple and not to ``kwargs``:
 
 ```python
 >>> printsum2(1, 2)
-(1, 2) {}
+(1, 2) []
 3
 
 ```
@@ -1815,7 +1815,7 @@ def operation2():
 
 
 def chatty(func, *args, **kwargs):
-    print(args, kwargs)
+    print(args, sorted(kwargs.items()))
     return func(*args, **kwargs)
 
 
