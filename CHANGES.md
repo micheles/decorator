@@ -3,6 +3,13 @@ HISTORY
 
 ## unreleased
 
+## 5.0.7 (2021-04-14)
+
+The decorator module was not passing correctly the defaults inside the
+`*args` tuple, thanks to Dan Shult for the fix. Also fixed some mispellings
+in the documentation and integrated codespell in the CI, thanks to 
+Christian Clauss.
+
 ## 5.0.6 (2021-04-08)
 
 The decorator module was not copying the __module__ attribute anymore. Thanks to

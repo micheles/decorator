@@ -4,9 +4,9 @@ Decorators for Humans
 |Author | Michele Simionato|
 |---|---|
 |E-mail | michele.simionato@gmail.com|
-|Version| 5.0.6 (2021-04-10)|
+|Version| 5.0.7 (2021-04-14)|
 |Supports| Python 3.5, 3.6, 3.7, 3.8, 3.9|
-|Download page| http://pypi.python.org/pypi/decorator/5.0.6|
+|Download page| http://pypi.python.org/pypi/decorator/5.0.7|
 |Installation| ``pip install decorator``|
 |License | BSD license|
 
@@ -480,7 +480,7 @@ An example will make the issue clear. Here is a simple caller
 ```python
 
  def chatty(func, *args, **kwargs):
-     print(args, kwargs)
+     print(args, sorted(kwargs.items()))
      return func(*args, **kwargs)
 ```
 
@@ -500,7 +500,7 @@ tuple and not inside the ``kwargs`` dictionary:
 
 ```python
 >>> printsum(y=2, x=1)
-(1, 2) {}
+(1, 2) []
 3
 
 ```
@@ -534,7 +534,7 @@ Here is how it works:
 
 ```python
 >>> printsum2(y=2, x=1)
-() {'y': 2, 'x': 1}
+() [('x', 1), ('y', 2)]
 3
 
 ```
@@ -546,7 +546,7 @@ positional, i.e. they belongs to the ``args`` tuple and not to ``kwargs``:
 
 ```python
 >>> printsum2(1, 2)
-(1, 2) {}
+(1, 2) []
 3
 
 ```

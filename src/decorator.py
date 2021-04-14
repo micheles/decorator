@@ -40,7 +40,7 @@ import itertools
 from contextlib import _GeneratorContextManager
 from inspect import getfullargspec, iscoroutinefunction, isgeneratorfunction
 
-__version__ = '5.0.6'
+__version__ = '5.0.7'
 
 DEF = re.compile(r'\s*def\s*([_\w][_\w\d]*)\s*\(')
 POS = inspect.Parameter.POSITIONAL_OR_KEYWORD
@@ -201,6 +201,7 @@ def fix(args, kwargs, sig):
     Fix args and kwargs to be consistent with the signature
     """
     ba = sig.bind(*args, **kwargs)
+    ba.apply_defaults()  # needed for test_dan_schult
     return ba.args, ba.kwargs
 
 

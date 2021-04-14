@@ -6,7 +6,10 @@ import inspect
 from asyncio import get_event_loop
 from collections import defaultdict, ChainMap, abc as c
 from decorator import dispatch_on, contextmanager, decorator
-import documentation as doc
+try:
+    from . import documentation as doc  # good with pytest
+except ImportError:
+    import documentation as doc  # good with `python src/tests/test.py`
 
 
 @contextmanager
@@ -71,7 +74,7 @@ class DocumentationTestCase(unittest.TestCase):
 
     def test_copy_dunder_attrs(self):
         traced = doc.trace(doc.foo)
-        self.assertEqual(traced.__module__, 'documentation')
+        self.assertIn('documentation', traced.__module__)
         self.assertEqual(traced.__annotations__, {})
         self.assertEqual(traced.__defaults__, (None,))
 
@@ -166,6 +169,19 @@ class ExtraTestCase(unittest.TestCase):
         def f(x):
             return x
         self.assertEqual(add(f, 2)(0), 2)
+
+    def test_dan_schult(self):
+        # see https://github.com/micheles/decorator/issues/120
+        @decorator
+        def prnt(func, index=0, *args, **kw):
+            print(args[index])
+            return func(*args, **kw)
+
+        @prnt(index=2)  # print the value of the third argument
+        def f(a, b, c=None):
+            return [a, b, c]
+
+        self.assertEqual(f(0, 1), [0, 1, None])
 
 
 # ################### test dispatch_on ############################# #
