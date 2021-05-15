@@ -3,6 +3,11 @@ HISTORY
 
 ## unreleased
 
+## 5.0.8 (2021-05-15)
+
+Made the decorator module more robust when decorating builtin functions
+lacking dunder attributes, like `dict.__setitem__`.
+
 ## 5.0.7 (2021-04-14)
 
 The decorator module was not passing correctly the defaults inside the

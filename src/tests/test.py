@@ -183,6 +183,17 @@ class ExtraTestCase(unittest.TestCase):
 
         self.assertEqual(f(0, 1), [0, 1, None])
 
+    def test_slow_wrapper(self):
+        # see https://github.com/micheles/decorator/issues/123
+        dd = defaultdict(list)
+        doc.trace(defaultdict.__setitem__)(dd, 'x', [1])
+        self.assertEqual(dd['x'], [1])
+        # NB: defaultdict.__getitem__ has no signature and cannot be decorated
+        with self.assertRaises(ValueError):
+            doc.trace(defaultdict.__getitem__)
+        doc.trace(defaultdict.__delitem__)(dd, 'x')
+        self.assertEqual(dd['x'], [])
+
 
 # ################### test dispatch_on ############################# #
 # adapted from test_functools in Python 3.5

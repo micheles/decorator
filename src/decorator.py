@@ -40,7 +40,7 @@ import itertools
 from contextlib import _GeneratorContextManager
 from inspect import getfullargspec, iscoroutinefunction, isgeneratorfunction
 
-__version__ = '5.0.7'
+__version__ = '5.0.8'
 
 DEF = re.compile(r'\s*def\s*([_\w][_\w\d]*)\s*\(')
 POS = inspect.Parameter.POSITIONAL_OR_KEYWORD
@@ -232,14 +232,33 @@ def decorate(func, caller, extras=(), kwsyntax=False):
             return caller(func, *(extras + args), **kw)
     fun.__name__ = func.__name__
     fun.__doc__ = func.__doc__
-    fun.__defaults__ = func.__defaults__
-    fun.__kwdefaults__ = func.__kwdefaults__
-    fun.__annotations__ = func.__annotations__
-    fun.__module__ = func.__module__
-    fun.__signature__ = sig
     fun.__wrapped__ = func
+    # builtin functions like defaultdict.__setitem__ lack many attributes
+    try:
+        fun.__defaults__ = func.__defaults__
+    except AttributeError:
+        pass
+    try:
+        fun.__kwdefaults__ = func.__kwdefaults__
+    except AttributeError:
+        pass
+    try:
+        fun.__annotations__ = func.__annotations__
+    except AttributeError:
+        pass
+    try:
+        fun.__module__ = func.__module__
+    except AttributeError:
+        pass
+    try:
+        fun.__signature__ = sig
+    except ValueError:
+        pass
     fun.__qualname__ = func.__qualname__
-    fun.__dict__.update(func.__dict__)
+    try:
+        fun.__dict__.update(func.__dict__)
+    except AttributeError:
+        pass
     return fun
 
 
