@@ -233,6 +233,8 @@ def decorate(func, caller, extras=(), kwsyntax=False):
     fun.__name__ = func.__name__
     fun.__doc__ = func.__doc__
     fun.__wrapped__ = func
+    fun.__signature__ = sig
+    fun.__qualname__ = func.__qualname__
     # builtin functions like defaultdict.__setitem__ lack many attributes
     try:
         fun.__defaults__ = func.__defaults__
@@ -250,11 +252,6 @@ def decorate(func, caller, extras=(), kwsyntax=False):
         fun.__module__ = func.__module__
     except AttributeError:
         pass
-    try:
-        fun.__signature__ = sig
-    except ValueError:
-        pass
-    fun.__qualname__ = func.__qualname__
     try:
         fun.__dict__.update(func.__dict__)
     except AttributeError:
