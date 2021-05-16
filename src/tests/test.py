@@ -188,11 +188,10 @@ class ExtraTestCase(unittest.TestCase):
         dd = defaultdict(list)
         doc.trace(defaultdict.__setitem__)(dd, 'x', [1])
         self.assertEqual(dd['x'], [1])
-        # NB: defaultdict.__getitem__ has no signature and cannot be decorated
-        with self.assertRaises(ValueError):
-            doc.trace(defaultdict.__getitem__)
         doc.trace(defaultdict.__delitem__)(dd, 'x')
         self.assertEqual(dd['x'], [])
+        # NB: defaultdict.__getitem__ has no signature and cannot be
+        # decorated in CPython, while it is regular in PyPy
 
 
 # ################### test dispatch_on ############################# #

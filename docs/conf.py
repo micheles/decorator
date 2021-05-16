@@ -30,6 +30,7 @@ from decorator import __version__
 # ones.
 extensions = [
     'sphinx.ext.viewcode',
+    'myst_parser'
 ]
 
 # Add any paths that contain templates here, relative to this directory.

@@ -3,6 +3,10 @@ HISTORY
 
 ## unreleased
 
+## 5.0.9 (2021-05-16)
+
+Fixed a test breaking PyPy. Restored support for Sphinx.
+
 ## 5.0.8 (2021-05-15)
 
 Made the decorator module more robust when decorating builtin functions
