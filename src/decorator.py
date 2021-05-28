@@ -265,7 +265,7 @@ def decorator(caller, _func=None, kwsyntax=False):
     """
     if _func is not None:  # return a decorated function
         # this is obsolete behavior; you should use decorate instead
-        return decorate(_func, caller)
+        return decorate(_func, caller, (), kwsyntax)
     # else return a decorator function
     sig = inspect.signature(caller)
     dec_params = [p for p in sig.parameters.values() if p.kind is POS]

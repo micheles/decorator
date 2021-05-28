@@ -3,6 +3,8 @@ HISTORY
 
 ## unreleased
 
+decorator.decorator was not passing the kwsyntax.
+
 ## 5.0.9 (2021-05-16)
 
 Fixed a test breaking PyPy. Restored support for Sphinx.
