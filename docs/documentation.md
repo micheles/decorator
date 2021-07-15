@@ -146,7 +146,7 @@ the function is called with the same input parameters the result is retrieved
 from the cache and not recomputed.
 
 There are many implementations of ``memoize`` in
-http://www.python.org/moin/PythonDecoratorLibrary,
+https://wiki.python.org/moin/PythonDecoratorLibrary,
 but they do not preserve the signature. In recent versions of
 Python you can find a sophisticated ``lru_cache`` decorator
 in the standard library's ``functools``. Here I am just
