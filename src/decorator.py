@@ -294,11 +294,11 @@ def decorator(caller, _func=None, kwsyntax=False):
 
 class ContextManager(_GeneratorContextManager):
     def __init__(self, g, *a, **k):
-        return _GeneratorContextManager.__init__(self, g, a, k)
+        _GeneratorContextManager.__init__(self, g, a, k)
 
     def __call__(self, func):
         def caller(f, *a, **k):
-            with self:
+            with self._recreate_cm():
                 return f(*a, **k)
         return decorate(func, caller)
 

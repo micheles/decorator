@@ -3,7 +3,9 @@ HISTORY
 
 ## unreleased
 
-decorator.decorator was not passing the kwsyntax.
+`decorator.decorator` was not passing the kwsyntax argument.
+Functions decorated with `decorator.contextmanager` were one-shot.
+This is now fixed, thanks to Alex Pizarro for the report.
 
 ## 5.0.9 (2021-05-16)
 
