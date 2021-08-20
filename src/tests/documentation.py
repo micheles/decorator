@@ -599,11 +599,11 @@ a ``__call__`` method, so that they can be used as decorators, like so:
 ```python
 >>> ba = before_after('BEFORE', 'AFTER')
 >>>
->>> @ba # doctest: +SKIP
+>>> @ba
 ... def hello():
 ...     print('hello')
 ...
->>> hello() # doctest: +SKIP
+>>> hello()
 BEFORE
 hello
 AFTER
