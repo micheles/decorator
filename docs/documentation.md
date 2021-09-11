@@ -1524,7 +1524,7 @@ to look at the [wrapt](https://wrapt.readthedocs.io/en/latest/)
 project by Graeme Dumpleton.
 
 Since version 5 the ``decorator`` module uses the ``inspect.Signature``
-object in the standard library. Unfortunaly, for legacy reasons, some
+object in the standard library. Unfortunately, for legacy reasons, some
 applications introspect decorated functions by using low-level entities like
 the ``__code__`` object and not signature objects. An example will make
 the issue clear:
