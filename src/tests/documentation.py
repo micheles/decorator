@@ -1202,6 +1202,40 @@ which I will never support in the decorator module - I suggest you
 to look at the [wrapt](https://wrapt.readthedocs.io/en/latest/)
 project by Graeme Dumpleton.
 
+Since version 5 the ``decorator`` module uses the ``inspect.Signature``
+object in the standard library. Unfortunaly, for legacy reasons, some
+applications introspect decorated functions by using low-level entities like
+the ``__code__`` object and not signature objects. An example will make
+the issue clear:
+
+```python
+>>> def f(a, b): pass
+>>> f_dec = decorator(_trace)(f)
+>>> f_dec.__code__.co_argcount
+0
+>>> f_dec.__code__.co_varnames
+('args', 'kw')
+
+```
+This is not what one would expect: the `argcount` should be 2 since
+the original functions has two arguments and the `varnames` should be
+`a` and `b`. The only way to fix the issue is to go back to an implementation
+of the decorator using ``exec``, which is provided for convenience since
+version 5.1:
+
+```python
+>>> from decorator import decoratorx
+>>> f_dec = decoratorx(_trace)(f)
+>>> f_dec.__code__.co_argcount
+2
+>>> f_dec.__code__.co_varnames
+('a', 'b')
+
+```
+Rather than using `decoratorx`, you should fix your introspection
+routines to use ``inspect.Signature`` without fiddling with the
+``__code__`` object.
+
 There is a strange quirk when decorating functions with keyword
 arguments, if one of the arguments has the same name used in the
 caller function for the first argument. The quirk was reported by

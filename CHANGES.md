@@ -1,11 +1,15 @@
 HISTORY
 --------
 
-## unreleased
+## 5.1.0 (2021-09-11)
 
-`decorator.decorator` was not passing the kwsyntax argument.
-Functions decorated with `decorator.contextmanager` were one-shot.
-This is now fixed, thanks to Alex Pizarro for the report.
+Added a function `decoratorx` using the `FunctionMaker` and thus
+preserving the signature of `__code__` objects. Then fixed three small bugs:
+- Sphinx was printing a few warnings when building the documentation, as
+  signaled by Tomasz Kłoczko
+- functions decorated with `decorator.contextmanager` were one-shot,
+  as discovered by Alex Pizarro.
+- `decorator.decorator` was not passing the kwsyntax argument.
 
 ## 5.0.9 (2021-05-16)
 
@@ -25,8 +29,8 @@ Christian Clauss.
 
 ## 5.0.6 (2021-04-08)
 
-The decorator module was not copying the __module__ attribute anymore. Thanks to
-Nikolay Markov for the notice.
+The decorator module was not copying the __module__ attribute anymore.
+Thanks to Nikolay Markov for the notice.
 
 ## 5.0.5 (2021-04-04)
 

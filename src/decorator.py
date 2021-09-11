@@ -40,7 +40,7 @@ import itertools
 from contextlib import _GeneratorContextManager
 from inspect import getfullargspec, iscoroutinefunction, isgeneratorfunction
 
-__version__ = '5.0.9'
+__version__ = '5.1.0'
 
 DEF = re.compile(r'\s*def\s*([_\w][_\w\d]*)\s*\(')
 POS = inspect.Parameter.POSITIONAL_OR_KEYWORD
@@ -257,6 +257,21 @@ def decorate(func, caller, extras=(), kwsyntax=False):
     except AttributeError:
         pass
     return fun
+
+
+def decoratorx(caller):
+    """
+    A version of "decorator" implemented via "exec" and not via the
+    Signature object. Use this if you are want to preserve the `.__code__`
+    object properties (https://github.com/micheles/decorator/issues/129).
+    """
+    def dec(func):
+        return FunctionMaker.create(
+            func,
+            "return _call_(_func_, %(shortsignature)s)",
+            dict(_call_=caller, _func_=func),
+            __wrapped__=func, __qualname__=func.__qualname__)
+    return dec
 
 
 def decorator(caller, _func=None, kwsyntax=False):
