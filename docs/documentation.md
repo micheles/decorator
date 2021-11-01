@@ -4,7 +4,7 @@
 |---|---|
 |E-mail | michele.simionato@gmail.com|
 |Version| 5.1.0 (2021-09-11)|
-|Supports| Python 3.5, 3.6, 3.7, 3.8, 3.9|
+|Supports| Python 3.5, 3.6, 3.7, 3.8, 3.9, 3.10|
 |Download page| http://pypi.python.org/pypi/decorator/5.1.0|
 |Installation| ``pip install decorator``|
 |License | BSD license|
