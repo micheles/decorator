@@ -1,6 +1,11 @@
 HISTORY
 --------
 
+## Unreleased
+
+The "fix" in version 5.1 broke `decorator.contextmanager` even more.
+This is now solved, thanks to Wim Glenn.
+
 ## 5.1.0 (2021-09-11)
 
 Added a function `decoratorx` using the `FunctionMaker` and thus

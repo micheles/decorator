@@ -313,7 +313,7 @@ class ContextManager(_GeneratorContextManager):
 
     def __call__(self, func):
         def caller(f, *a, **k):
-            with self._recreate_cm():
+            with self.__class__(self.func, *self.args, **self.kwds):
                 return f(*a, **k)
         return decorate(func, caller)
 
