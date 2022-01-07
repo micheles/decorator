@@ -3,8 +3,12 @@ HISTORY
 
 ## Unreleased
 
-The "fix" in version 5.1 broke `decorator.contextmanager` even more.
-This is now solved, thanks to Wim Glenn.
+## 5.1.1 (2022-01-07)
+
+Sangwoo Shim contributed a fix so that cythonized functions can be decorated.
+Brian McFee pointed out an issue in the `decorator_apply` example and
+Wim Glenn pointed out that the "fix" in version 5.1 broke
+`decorator.contextmanager` even more. Both issues are now solved.
 
 ## 5.1.0 (2021-09-11)
 
