@@ -1385,7 +1385,7 @@ def decorator_apply(dec, func):
     is not a signature-preserving decorator.
     """
     return FunctionMaker.create(
-        func, 'return decfunc(%(signature)s)',
+        func, 'return decfunc(%(shortsignature)s)',
         dict(decfunc=dec(func)), __wrapped__=func)
 
 
