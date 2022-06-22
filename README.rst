@@ -82,7 +82,7 @@ operations:
        result = func(*args, **kw)
        dt = time.time() - t0
        if dt > timelimit:
-           logging.warn('%s took %d seconds', func.__name__, dt)
+           logging.warning('%s took %d seconds', func.__name__, dt)
        else:
            logging.info('%s took %d seconds', func.__name__, dt)
        return result
