@@ -32,7 +32,7 @@ lacking dunder attributes, like `dict.__setitem__`.
 ## 5.0.7 (2021-04-14)
 
 The decorator module was not passing correctly the defaults inside the
-`*args` tuple, thanks to Dan Shult for the fix. Also fixed some mispellings
+`*args` tuple, thanks to Dan Shult for the fix. Also fixed some misspellings
 in the documentation and integrated codespell in the CI, thanks to 
 Christian Clauss.
 

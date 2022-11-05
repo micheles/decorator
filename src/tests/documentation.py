@@ -1171,7 +1171,7 @@ with ``functools.singledispatch``, the assertion will break: ``g`` will return
 will insert the ``Container`` class right before ``S``.
 
 Notice that here I am not making any bold claim such as "the standard
-library algorithm is wrong and my algorithm is right" or viceversa. It
+library algorithm is wrong and my algorithm is right" or vice versa. It
 just point out that there are some subtle differences. The only way to
 understand what is really happening here is to scratch your head by
 looking at the implementations. I will just notice that
