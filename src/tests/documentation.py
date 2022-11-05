@@ -14,7 +14,7 @@ doc = r"""# Decorators for Humans
 |---|---|
 |E-mail | michele.simionato@gmail.com|
 |Version| $VERSION ($DATE)|
-|Supports| Python 3.5, 3.6, 3.7, 3.8, 3.9, 3.10|
+|Supports| Python 3.5, 3.6, 3.7, 3.8, 3.9, 3.10, 3.11|
 |Download page| http://pypi.python.org/pypi/decorator/$VERSION|
 |Installation| ``pip install decorator``|
 |License | BSD license|
