@@ -14,8 +14,8 @@ doc = r"""# Decorators for Humans
 |---|---|
 |E-mail | michele.simionato@gmail.com|
 |Version| $VERSION ($DATE)|
-|Supports| Python 3.5, 3.6, 3.7, 3.8, 3.9, 3.10|
-|Download page| http://pypi.python.org/pypi/decorator/$VERSION|
+|Supports| Python 3.5, 3.6, 3.7, 3.8, 3.9, 3.10, 3.11|
+|Download page| https://pypi.org/project/decorator/$VERSION|
 |Installation| ``pip install decorator``|
 |License | BSD license|
 
@@ -1171,7 +1171,7 @@ with ``functools.singledispatch``, the assertion will break: ``g`` will return
 will insert the ``Container`` class right before ``S``.
 
 Notice that here I am not making any bold claim such as "the standard
-library algorithm is wrong and my algorithm is right" or viceversa. It
+library algorithm is wrong and my algorithm is right" or vice versa. It
 just point out that there are some subtle differences. The only way to
 understand what is really happening here is to scratch your head by
 looking at the implementations. I will just notice that
