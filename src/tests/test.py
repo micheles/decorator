@@ -3,6 +3,7 @@ import doctest
 import unittest
 import decimal
 import inspect
+import functools
 from asyncio import get_event_loop
 from collections import defaultdict, ChainMap, abc as c
 from decorator import dispatch_on, contextmanager, decorator
@@ -507,6 +508,21 @@ class TestSingleDispatch(unittest.TestCase):
         # There is no preference for registered versus inferred ABCs.
         with assertRaises(RuntimeError):
             h(u)
+
+
+@decorator
+def partial_before_after(func, *args, **kwargs):
+    return "<before>" + func(*args, **kwargs) + "<after>"
+
+
+class PartialTestCase(unittest.TestCase):
+    def test_before_after(self):
+        def origin_func(x, y):
+            return x + y
+        _func = functools.partial(origin_func, "x")
+        partial_func = partial_before_after(_func)
+        out = partial_func("y")
+        self.assertEqual(out, '<before>xy<after>')
 
 
 if __name__ == '__main__':
