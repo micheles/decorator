@@ -3,7 +3,6 @@ import doctest
 import unittest
 import decimal
 import inspect
-from asyncio import get_event_loop
 from collections import defaultdict, ChainMap, abc as c
 from decorator import dispatch_on, contextmanager, decorator
 try:
@@ -28,9 +27,22 @@ async def before_after(coro, *args, **kwargs):
     return "<before>" + (await coro(*args, **kwargs)) + "<after>"
 
 
+def asyncio_run(awaitable):
+    """asyncio.run for Python 3.5"""
+    try:
+        from asyncio import run
+        aio_run = run
+    except ImportError:
+        # Python 3.5
+        from asyncio import get_event_loop
+        return get_event_loop().run_until_complete(awaitable)
+    else:
+        return aio_run(awaitable)
+
+
 @decorator
 def coro_to_func(coro, *args, **kw):
-    return get_event_loop().run_until_complete(coro(*args, **kw))
+    return asyncio_run(coro(*args, **kw))
 
 
 class CoroutineTestCase(unittest.TestCase):
@@ -39,7 +51,7 @@ class CoroutineTestCase(unittest.TestCase):
         async def coro(x):
             return x
         self.assertTrue(inspect.iscoroutinefunction(coro))
-        out = get_event_loop().run_until_complete(coro('x'))
+        out = asyncio_run(coro('x'))
         self.assertEqual(out, '<before>x<after>')
 
     def test_coro_to_func(self):
