@@ -3,6 +3,8 @@ HISTORY
 
 ## Unreleased
 
+Dropped support for Python < 3.7 and added support for Python 3.11 and 3.12.
+
 ## 5.1.1 (2022-01-07)
 
 Sangwoo Shim contributed a fix so that cythonized functions can be decorated.
