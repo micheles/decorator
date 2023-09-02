@@ -37,6 +37,7 @@ import sys
 import inspect
 import operator
 import itertools
+import functools
 from contextlib import _GeneratorContextManager
 from inspect import getfullargspec, iscoroutinefunction, isgeneratorfunction
 
@@ -71,7 +72,7 @@ class FunctionMaker(object):
                 self.name = '_lambda_'
             self.doc = func.__doc__
             self.module = func.__module__
-            if inspect.isroutine(func):
+            if inspect.isroutine(func) or isinstance(func, functools.partial):
                 argspec = getfullargspec(func)
                 self.annotations = getattr(func, '__annotations__', {})
                 for a in ('args', 'varargs', 'varkw', 'defaults', 'kwonlyargs',
@@ -214,6 +215,8 @@ def decorate(func, caller, extras=(), kwsyntax=False):
     does. By default kwsyntax is False and the the arguments are untouched.
     """
     sig = inspect.signature(func)
+    if isinstance(func, functools.partial):
+        func = functools.update_wrapper(func, func.func)
     if iscoroutinefunction(caller):
         async def fun(*args, **kw):
             if not kwsyntax:
@@ -230,6 +233,7 @@ def decorate(func, caller, extras=(), kwsyntax=False):
             if not kwsyntax:
                 args, kw = fix(args, kw, sig)
             return caller(func, *(extras + args), **kw)
+
     fun.__name__ = func.__name__
     fun.__doc__ = func.__doc__
     fun.__wrapped__ = func
