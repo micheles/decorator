@@ -13,7 +13,7 @@ if __name__ == '__main__':
           author='Michele Simionato',
           author_email='michele.simionato@gmail.com',
           url='https://github.com/micheles/decorator',
-          license="new BSD License",
+          license="BSD-2-Clause",
           package_dir={'': 'src'},
           py_modules=['decorator'],
           keywords="decorators generic utility",
