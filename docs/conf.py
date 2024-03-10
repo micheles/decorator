@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 #
 # decorator documentation build configuration file, created by
 # sphinx-quickstart on Sun Jul 23 17:11:44 2017.
