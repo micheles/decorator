@@ -16,12 +16,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.7', '3.8', '3.9', '3.10', '3.11', '3.12']
+        python-version: ['3.7', '3.8', '3.9', '3.10', '3.11', '3.12', '3.13']
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
         allow-prereleases: true
@@ -30,6 +30,6 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install codespell flake8
         python -m pip install -e .
-    - run: codespell --ignore-words-list="ba,claus,vas" --quiet-level=2
+    - run: codespell --ignore-words-list="assertIn,ba,claus,vas" --quiet-level=2
     - run: flake8 . --count --ignore=E122,E226,E265,E741,E742 --max-complexity=22 --max-line-length=124 --show-source --statistics
     - run: python src/tests/test.py -v
