@@ -3,7 +3,21 @@ HISTORY
 
 ## Unreleased
 
-Dropped support for Python < 3.7 and added support for Python 3.11 and 3.12.
+## 5.2.0 (2025-02-22)
+
+Changed the build procedure to use pyproject.toml and moved the tests
+outside of the generated wheel/tarball.
+
+Added official support for Python 3.11, 3.12, 3.13 (thanks to Hugo van
+Kemenade).
+
+Dropped official support for Python < 3.8: the module is
+expected to work on older Python versions, but I cannot test such
+versions on GitHub actions, so I cannot claim that it is officially
+supported.
+
+Dafu Wu provided support for decorating partial functions, i.e.
+functions wrapped by functools.partial.
 
 ## 5.1.1 (2022-01-07)
 
