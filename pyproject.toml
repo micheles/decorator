@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "decorator"
+authors = [
+    {name = "Michele Simionato", email = "michele.simionato@gmail.com"},
+]
+description = "Decorators for Humans"
+readme = "README.rst"
+dynamic = ["version"]
+requires-python = ">=3.8"
+keywords = ["decorators"]
+license = {text = "BSD-2-Clause"}
+classifiers = [
+  'Development Status :: 5 - Production/Stable',
+  'Intended Audience :: Developers',
+  'License :: OSI Approved :: BSD License',
+  'Natural Language :: English',
+  'Operating System :: OS Independent',
+  'Programming Language :: Python',
+  'Programming Language :: Python :: 3.8',
+  'Programming Language :: Python :: 3.9',
+  'Programming Language :: Python :: 3.10',
+  'Programming Language :: Python :: 3.11',
+  'Programming Language :: Python :: 3.12',
+  'Programming Language :: Python :: 3.13',
+  'Programming Language :: Python :: Implementation :: CPython',
+  'Topic :: Software Development :: Libraries',
+  'Topic :: Utilities']
+
+[tool.setuptools.dynamic]
+version.attr = "decorator.__version__"
