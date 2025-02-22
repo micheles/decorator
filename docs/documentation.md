@@ -3,9 +3,9 @@
 |Author | Michele Simionato|
 |---|---|
 |E-mail | michele.simionato@gmail.com|
-|Version| 5.1.1 (2022-01-07)|
-|Supports| Python 3.7, 3.8, 3.9, 3.10, 3.11, 3.12, 3.13|
-|Download page| https://pypi.org/project/decorator/5.1.1|
+|Version| 5.2.0 (2025-02-22)|
+|Supports| Python 3.7, 3.8, 3.9, 3.10, 3.11, 3.12|
+|Download page| https://pypi.org/project/decorator/5.2.0|
 |Installation| ``pip install decorator``|
 |License | BSD license|
 
@@ -1042,7 +1042,7 @@ write code like the following:
 ```python
 import time
 import logging
-from asyncio import get_event_loop, sleep, wait
+from asyncio import run, sleep, wait
 from decorator import decorator
 
 @decorator
@@ -1061,7 +1061,7 @@ async def make_task(n):
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     tasks = [make_task(3), make_task(2), make_task(1)]
-    get_event_loop().run_until_complete(wait(tasks))
+    run(wait(tasks))
 ```
 
 and you will get an output like this:
@@ -1090,7 +1090,7 @@ into regular functions, such as the following:
 @decorator
 def coro_to_func(coro, *args, **kw):
     "Convert a coroutine into a function"
-     return get_event_loop().run_until_complete(coro(*args, **kw))
+     return run(coro(*args, **kw))
 ```
 
 Notice the difference: the caller in ``log_start_stop`` was a coroutine
@@ -1663,7 +1663,7 @@ penalty in your specific use case is to measure it.
 
 ## LICENSE (2-clause BSD)
 
-Copyright (c) 2005-2020, Michele Simionato
+Copyright (c) 2005-2025, Michele Simionato
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
