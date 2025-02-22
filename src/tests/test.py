@@ -219,7 +219,7 @@ class TestSingleDispatch(unittest.TestCase):
         def g(obj):
             return "base"
 
-        class A(object):
+        class A:
             pass
 
         class C(A):
@@ -251,7 +251,7 @@ class TestSingleDispatch(unittest.TestCase):
 
         @g.register(int)
         def g_int(i):
-            return "int %s" % (i,)
+            return "int {}".format(i)
         self.assertEqual(g(""), "base")
         self.assertEqual(g(12), "int 12")
 
@@ -297,7 +297,7 @@ class TestSingleDispatch(unittest.TestCase):
     def test_register_abc(self):
         d = {"a": "b"}
         l = [1, 2, 3]
-        s = set([object(), None])
+        s = {object(), None}
         f = frozenset(s)
         t = (1, 2, 3)
 
@@ -426,7 +426,7 @@ class TestSingleDispatch(unittest.TestCase):
         c.Set.register(O)
         self.assertEqual(g(o), "set")
 
-        class P(object):
+        class P:
             pass
         p = P()
         self.assertEqual(g(p), "base")
@@ -464,7 +464,7 @@ class TestSingleDispatch(unittest.TestCase):
         # MutableMapping's bases implicit as well from defaultdict's
         # perspective.
         with assertRaises(RuntimeError):
-            self.assertEqual(h(defaultdict(lambda: 0)), "sized")
+            self.assertEqual(h(defaultdict(int)), "sized")
 
         class R(defaultdict):
             pass
@@ -485,7 +485,7 @@ class TestSingleDispatch(unittest.TestCase):
         with assertRaises(RuntimeError):  # was no error
             self.assertEqual(i(r), "sequence")
 
-        class S(object):
+        class S:
             pass
 
         class T(S, c.Sized):
@@ -496,7 +496,7 @@ class TestSingleDispatch(unittest.TestCase):
         c.Container.register(T)
         self.assertEqual(h(t), "sized")   # because it's explicitly in the MRO
 
-        class U(object):
+        class U:
             def __len__(self):
                 return 0
         u = U()

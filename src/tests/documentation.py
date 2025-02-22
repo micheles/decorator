@@ -1390,8 +1390,8 @@ def decorator_apply(dec, func):
 
 
 def _trace(f, *args, **kw):
-    kwstr = ', '.join('%r: %r' % (k, kw[k]) for k in sorted(kw))
-    print("calling %s with args %s, {%s}" % (f.__name__, args, kwstr))
+    kwstr = ', '.join('{!r}: {!r}'.format(k, kw[k]) for k in sorted(kw))
+    print("calling {} with args {}, {{{}}}".format(f.__name__, args, kwstr))
     return f(*args, **kw)
 
 
@@ -1409,11 +1409,11 @@ class Future(threading.Thread):
             counter = func.counter
         except AttributeError:  # instantiate the counter at the first call
             counter = func.counter = itertools.count(1)
-        name = '%s-%s' % (func.__name__, next(counter))
+        name = '{}-{}'.format(func.__name__, next(counter))
 
         def func_wrapper():
             self._result = func(*args, **kw)
-        super(Future, self).__init__(target=func_wrapper, name=name)
+        super().__init__(target=func_wrapper, name=name)
         self.start()
 
     def result(self):
@@ -1489,7 +1489,7 @@ def blocking(f, msg='blocking', *args, **kw):
         return f.result
 
 
-class User(object):
+class User:
     "Will just be able to see a page"
 
 
@@ -1525,7 +1525,7 @@ def restricted(func, user_class=User, *args, **kw):
             % (self.user, func.__name__))
 
 
-class Action(object):
+class Action:
     @restricted(user_class=User)
     def view(self):
         "Any user can view objects"
@@ -1539,7 +1539,7 @@ class Action(object):
         "Only the admin can delete objects"
 
 
-class TailRecursive(object):
+class TailRecursive:
     """
     tail_recursive decorator based on Kay Schluehr's recipe
     http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/496691
@@ -1648,7 +1648,7 @@ def test_kwonly_star_notation():
 # #######################  multiple dispatch ############################ #
 
 
-class XMLWriter(object):
+class XMLWriter:
     def __init__(self, **config):
         self.cfg = config
 
@@ -1662,15 +1662,15 @@ def writefloat(self, obj):
     return '<float>%s</float>' % obj
 
 
-class Rock(object):
+class Rock:
     ordinal = 0
 
 
-class Paper(object):
+class Paper:
     ordinal = 1
 
 
-class Scissors(object):
+class Scissors:
     ordinal = 2
 
 
@@ -1707,7 +1707,7 @@ def winStrongRockPaper(a, b):
     return 0
 
 
-class WithLength(object):
+class WithLength:
     def __len__(self):
         return 0
 
@@ -1734,7 +1734,7 @@ def get_length_set(obj):
     return 1
 
 
-class C(object):
+class C:
     "Registered as Sized and Iterable"
 
 
@@ -1764,7 +1764,7 @@ def singledispatch_example2():
     # adapted from functools.singledispatch test case
     singledispatch = dispatch_on('arg')
 
-    class S(object):
+    class S:
         pass
 
     class V(c.Sized, S):
@@ -1856,7 +1856,7 @@ def to_method(f):
     self = inspect.Parameter('self', inspect.Parameter.POSITIONAL_OR_KEYWORD)
     params.insert(0, self)  # insert self
     del params[-1]  # remove context
-    newsig = '%s%s' % (f.__name__, sig.replace(parameters=params))
+    newsig = '{}{}'.format(f.__name__, sig.replace(parameters=params))
     return FunctionMaker.create(
         newsig, 'context = self.context; return _func_%s' % sig,
         dict(_func_=f))
