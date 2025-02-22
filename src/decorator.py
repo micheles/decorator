@@ -423,8 +423,8 @@ def dispatch_on(*dispatch_args):
             """
             check(types)
             lst = []
-            for anc in itertools.product(*ancestors(*types)):
-                lst.append(tuple(a.__name__ for a in anc))
+            for ancs in itertools.product(*ancestors(*types)):
+                lst.append(tuple(a.__name__ for a in ancs))
             return lst
 
         def _dispatch(dispatch_args, *args, **kw):
