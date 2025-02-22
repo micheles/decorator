@@ -32,4 +32,4 @@ jobs:
         python -m pip install -e .
     - run: codespell --ignore-words-list="assertIn,ba,claus,vas" --quiet-level=2
     - run: flake8 . --count --ignore=E122,E226,E265,E741,E742 --max-complexity=22 --max-line-length=124 --show-source --statistics
-    - run: python src/tests/test.py -v
+    - run: python tests/test.py -v
