@@ -855,7 +855,7 @@ write code like the following:
 ```python
 import time
 import logging
-from asyncio import get_event_loop, sleep, wait
+from asyncio import run, sleep, wait
 from decorator import decorator
 
 @decorator
@@ -874,7 +874,7 @@ async def make_task(n):
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
     tasks = [make_task(3), make_task(2), make_task(1)]
-    get_event_loop().run_until_complete(wait(tasks))
+    run(wait(tasks))
 ```
 
 and you will get an output like this:
@@ -903,7 +903,7 @@ into regular functions, such as the following:
 @decorator
 def coro_to_func(coro, *args, **kw):
     "Convert a coroutine into a function"
-     return get_event_loop().run_until_complete(coro(*args, **kw))
+     return run(coro(*args, **kw))
 ```
 
 Notice the difference: the caller in ``log_start_stop`` was a coroutine

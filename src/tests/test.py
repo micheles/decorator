@@ -4,7 +4,7 @@ import unittest
 import decimal
 import inspect
 import functools
-from asyncio import get_event_loop
+import asyncio
 from collections import defaultdict, ChainMap, abc as c
 from decorator import dispatch_on, contextmanager, decorator
 try:
@@ -31,7 +31,7 @@ async def before_after(coro, *args, **kwargs):
 
 @decorator
 def coro_to_func(coro, *args, **kw):
-    return get_event_loop().run_until_complete(coro(*args, **kw))
+    return asyncio.run(coro(*args, **kw))
 
 
 class CoroutineTestCase(unittest.TestCase):
@@ -40,7 +40,7 @@ class CoroutineTestCase(unittest.TestCase):
         async def coro(x):
             return x
         self.assertTrue(inspect.iscoroutinefunction(coro))
-        out = get_event_loop().run_until_complete(coro('x'))
+        out = asyncio.run(coro('x'))
         self.assertEqual(out, '<before>x<after>')
 
     def test_coro_to_func(self):
