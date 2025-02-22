@@ -1342,7 +1342,7 @@ penalty in your specific use case is to measure it.
 
 ## LICENSE (2-clause BSD)
 
-Copyright (c) 2005-2020, Michele Simionato
+Copyright (c) 2005-2025, Michele Simionato
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
