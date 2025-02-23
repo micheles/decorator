@@ -1,2 +1,4 @@
 include README.rst LICENSE.txt CHANGES.md performance.sh documentation.pdf
 include src/decorator.py
+include tests/*.py
+graft docs
