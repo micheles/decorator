@@ -3,6 +3,12 @@ HISTORY
 
 ## Unreleased
 
+## 5.2.1 (2025-02-24)
+
+Shiv Krishna Jaiswal suggested how to manage che case of functions
+without __name__.
+Michał Górny contributed a fix for the generation of the source package.
+
 ## 5.2.0 (2025-02-22)
 
 Changed the build procedure to use pyproject.toml and moved the tests

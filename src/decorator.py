@@ -41,7 +41,7 @@ import functools
 from contextlib import _GeneratorContextManager
 from inspect import getfullargspec, iscoroutinefunction, isgeneratorfunction
 
-__version__ = '5.2.0'
+__version__ = '5.2.1'
 
 DEF = re.compile(r'\s*def\s*([_\w][_\w\d]*)\s*\(')
 POS = inspect.Parameter.POSITIONAL_OR_KEYWORD
@@ -256,6 +256,10 @@ def decorate(func, caller, extras=(), kwsyntax=False):
         fun.__module__ = func.__module__
     except AttributeError:
         pass
+    try:
+        fun.__name__ = func.__name__
+    except AttributeError:  # happens with old versions of numpy.vectorize
+        func.__name__ == 'noname'
     try:
         fun.__dict__.update(func.__dict__)
     except AttributeError:
