@@ -61,7 +61,7 @@ class FunctionMaker(object):
 
     # make pylint happy
     args = []
-    varargs =  varkw = defaults = None
+    varargs = varkw = defaults = None
     kwonlyargs = []
     kwonlydefaults = {}
 
