@@ -40,6 +40,7 @@ import itertools
 import functools
 from contextlib import _GeneratorContextManager
 from inspect import getfullargspec, iscoroutinefunction, isgeneratorfunction
+from typing import Any, Dict, List, Optional
 
 __version__ = '5.2.0'
 
@@ -60,10 +61,10 @@ class FunctionMaker(object):
     _compile_count = itertools.count()
 
     # make pylint happy
-    args = []
+    args: List[str] = []
     varargs = varkw = defaults = None
-    kwonlyargs = []
-    kwonlydefaults = {}
+    kwonlyargs: List[str] = []
+    kwonlydefaults: Optional[Dict[str, Any]] = None
 
     def __init__(self, func=None, name=None, signature=None,
                  defaults=None, doc=None, module=None, funcdict=None):

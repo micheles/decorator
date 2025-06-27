@@ -33,3 +33,26 @@ jobs:
     - run: codespell --ignore-words-list="assertIn,ba,claus,vas" --quiet-level=2
     - run: flake8 . --count --ignore=E122,E226,E265,E741,E742 --max-complexity=22 --max-line-length=124 --show-source --statistics
     - run: python tests/test.py -v
+
+  stubtest:
+
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python 3.x
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.x
+        allow-prereleases: true
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install mypy
+        python -m pip install -e .
+    - run: |
+        python -m mypy.stubtest decorator
+        python -m mypy src/decorator.py
+
