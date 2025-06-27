@@ -60,7 +60,10 @@ class FunctionMaker(object):
     _compile_count = itertools.count()
 
     # make pylint happy
-    args = varargs = varkw = defaults = kwonlyargs = kwonlydefaults = ()
+    args = []
+    varargs = varkw = defaults = None
+    kwonlyargs = []
+    kwonlydefaults = {}
 
     def __init__(self, func=None, name=None, signature=None,
                  defaults=None, doc=None, module=None, funcdict=None):
