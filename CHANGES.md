@@ -3,6 +3,8 @@ HISTORY
 
 ## Unreleased
 
+Added official support for Python 3.14 (thanks to Hugo van Kemenade).
+
 ## 5.2.0 (2025-02-22)
 
 Changed the build procedure to use pyproject.toml and moved the tests
