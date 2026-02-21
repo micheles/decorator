@@ -194,8 +194,8 @@ class FunctionMaker(object):
         ibody = '\n'.join('    ' + line for line in body.splitlines())
         caller = evaldict.get('_call_')  # when called from `decorate`
         if caller and iscoroutinefunction(caller):
-            body = ('async def %(name)s(%(signature)s):\n' + ibody).replace(
-                'return', 'return await')
+            body = ('async def %(name)s(%(signature)s):\n' + ibody)
+            body = re.sub(r'\breturn\b', 'return await', body)
         else:
             body = 'def %(name)s(%(signature)s):\n' + ibody
         return self.make(body, evaldict, addsource, **attrs)
