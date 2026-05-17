@@ -1,4 +1,4 @@
-include README.rst LICENSE.txt CHANGES.md performance.sh
-include src/decorator.py
+include CHANGES.md performance.sh
+include src/decorator.py src/decorator.pyi
 include tests/*.py
 graft docs

@@ -42,7 +42,7 @@ from contextlib import _GeneratorContextManager
 from inspect import getfullargspec, iscoroutinefunction, isgeneratorfunction
 from typing import Any, Dict, List, Optional
 
-__version__ = '5.2.1'
+__version__ = '5.3.0'
 
 DEF = re.compile(r'\s*def\s*([_\w][_\w\d]*)\s*\(')
 POS = inspect.Parameter.POSITIONAL_OR_KEYWORD
