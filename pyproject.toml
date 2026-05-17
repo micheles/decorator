@@ -12,7 +12,6 @@ readme = "README.rst"
 dynamic = ["version"]
 requires-python = ">=3.8"
 keywords = ["decorators"]
-license-files = ["LICENSE.txt"]
 classifiers = [
   'Development Status :: 5 - Production/Stable',
   'Intended Audience :: Developers',
