@@ -3,3 +3,6 @@ md: tests/documentation.py
 
 upload: README.rst
 	rm -rf build/* dist/* && python -m build && twine upload --verbose dist/*
+
+tag:
+	git tag 5.3.0; git push origin tag 5.3.0

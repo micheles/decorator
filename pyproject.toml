@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools"]
+requires = ["setuptools>=61.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -12,11 +12,9 @@ readme = "README.rst"
 dynamic = ["version"]
 requires-python = ">=3.8"
 keywords = ["decorators"]
-license = {text = "BSD-2-Clause"}
 classifiers = [
   'Development Status :: 5 - Production/Stable',
   'Intended Audience :: Developers',
-  'License :: OSI Approved :: BSD License',
   'Natural Language :: English',
   'Operating System :: OS Independent',
   'Programming Language :: Python',
@@ -33,3 +31,9 @@ classifiers = [
 
 [tool.setuptools.dynamic]
 version.attr = "decorator.__version__"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"decorator" = ["*.pyi", "py.typed"]
