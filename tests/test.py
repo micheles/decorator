@@ -11,7 +11,9 @@ try:
     from . import documentation as doc  # good with pytest
 except ImportError:
     import documentation as doc  # good with `python src/tests/test.py`
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING  # introduced in 3.5
+if TYPE_CHECKING:  # only inside mypy
+    from datetime import date
 
 
 @contextmanager
@@ -526,11 +528,11 @@ class PartialTestCase(unittest.TestCase):
         self.assertEqual(out, '<before>xy<after>')
 
 
-if TYPE_CHECKING:
-    from datetime import date
+# testing forward references
 
 def get_dob() -> date:
     pass
+
 
 decorator(get_dob)  # this used to fail in Python 3.14
 
