@@ -3,7 +3,7 @@ HISTORY
 
 ## Unreleased
 
-## 5.3.0 (2025-05-17)
+## 5.3.0 (2026-05-17)
 
 Added official support for Python 3.14 (thanks to Hugo van Kemenade,
 David Cain and the GitHub user bersbersbers).
