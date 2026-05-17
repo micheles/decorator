@@ -54,5 +54,5 @@ jobs:
         python -m pip install -e .
     - run: |
         python -m mypy.stubtest decorator
-        python -m mypy src/decorator.py
+        python -m mypy src/__init__.py
 
