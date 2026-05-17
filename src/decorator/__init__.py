@@ -43,9 +43,11 @@ from inspect import getfullargspec, iscoroutinefunction, isgeneratorfunction
 from typing import Any, Dict, List, Optional
 try:
     import annotationlib  # in Python 3.14+
+
     def inspect_sig(func):
         return inspect.signature(
             func, annotation_format=annotationlib.Format.FORWARDREF)
+
 except ImportError:
     inspect_sig = inspect.signature
 
