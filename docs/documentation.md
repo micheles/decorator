@@ -11,7 +11,7 @@
 
 ## Introduction
 
-The ``decorator`` module is over ten years old, but still alive and
+The ``decorator`` module is over twenty years old, but still alive and
 kicking. It is used by several frameworks (IPython, scipy, authkit,
 pylons, pycuda, sugar, ...) and has been stable for a *long* time. It
 is your best option if you want to preserve the signature of decorated
