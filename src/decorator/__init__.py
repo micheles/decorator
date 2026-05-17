@@ -41,6 +41,15 @@ import functools
 from contextlib import _GeneratorContextManager
 from inspect import getfullargspec, iscoroutinefunction, isgeneratorfunction
 from typing import Any, Dict, List, Optional
+try:
+    import annotationlib  # in Python 3.14+
+
+    def inspect_sig(func):
+        return inspect.signature(
+            func, annotation_format=annotationlib.Format.FORWARDREF)
+
+except ImportError:
+    inspect_sig = inspect.signature
 
 __version__ = '5.3.0'
 
@@ -194,8 +203,8 @@ class FunctionMaker:
         ibody = '\n'.join('    ' + line for line in body.splitlines())
         caller = evaldict.get('_call_')  # when called from `decorate`
         if caller and iscoroutinefunction(caller):
-            body = ('async def %(name)s(%(signature)s):\n' + ibody).replace(
-                'return', 'return await')
+            body = ('async def %(name)s(%(signature)s):\n' + ibody)
+            body = re.sub(r'\breturn\b', 'return await', body)
         else:
             body = 'def %(name)s(%(signature)s):\n' + ibody
         return self.make(body, evaldict, addsource, **attrs)
@@ -218,7 +227,7 @@ def decorate(func, caller, extras=(), kwsyntax=False):
     even if such argument are positional, similarly to what functools.wraps
     does. By default kwsyntax is False and the the arguments are untouched.
     """
-    sig = inspect.signature(func)
+    sig = inspect_sig(func)
     if isinstance(func, functools.partial):
         func = functools.update_wrapper(func, func.func)
     if iscoroutinefunction(caller):
@@ -237,7 +246,6 @@ def decorate(func, caller, extras=(), kwsyntax=False):
                 args, kw = fix(args, kw, sig)
             return caller(func, *(extras + args), **kw)
 
-    fun.__name__ = func.__name__
     fun.__doc__ = func.__doc__
     fun.__wrapped__ = func
     fun.__signature__ = sig
@@ -293,7 +301,7 @@ def decorator(caller, _func=None, kwsyntax=False):
         # this is obsolete behavior; you should use decorate instead
         return decorate(_func, caller, (), kwsyntax)
     # else return a decorator function
-    sig = inspect.signature(caller)
+    sig = inspect_sig(caller)
     dec_params = [p for p in sig.parameters.values() if p.kind is POS]
 
     def dec(func=None, *args, **kw):

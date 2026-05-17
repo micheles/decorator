@@ -11,6 +11,10 @@ try:
     from . import documentation as doc  # good with pytest
 except ImportError:
     import documentation as doc  # good with `python src/tests/test.py`
+from typing import TYPE_CHECKING  # introduced in 3.5
+if TYPE_CHECKING:  # only inside mypy
+    from datetime import date
+PYVER = sys.version_info[:2]
 
 
 @contextmanager
@@ -523,6 +527,13 @@ class PartialTestCase(unittest.TestCase):
         partial_func = partial_before_after(_func)
         out = partial_func("y")
         self.assertEqual(out, '<before>xy<after>')
+
+
+if PYVER >= (3, 14):
+    # testing forward references in python 3.14+
+    @decorator
+    def get_dob() -> date:
+        pass
 
 
 if __name__ == '__main__':

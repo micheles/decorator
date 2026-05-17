@@ -1,10 +1,11 @@
 import inspect
+import annotationlib
 from builtins import dict as _dict  # alias to avoid conflicts with attribute name
 from collections.abc import Callable, Generator, Iterator
 from contextlib import _GeneratorContextManager
 from inspect import Signature, getfullargspec as getfullargspec, iscoroutinefunction as iscoroutinefunction
 from re import Pattern
-from typing import Any, Final, Literal, TypeVar
+from typing import Any, Final, Literal, TypeVar, Tuple
 from typing_extensions import ParamSpec
 
 _C = TypeVar("_C", bound=Callable[..., Any])
@@ -15,6 +16,11 @@ _P = ParamSpec("_P")
 DEF: Final[Pattern[str]]
 POS: Final[Literal[inspect._ParameterKind.POSITIONAL_OR_KEYWORD]]
 EMPTY: Final[type[inspect._empty]]
+
+def inspect_sig(
+    func: _Func
+) -> Tuple: ...
+
 
 class FunctionMaker:
     args: list[str]
