@@ -8,13 +8,13 @@ HISTORY
 Added official support for Python 3.14 (thanks to Hugo van Kemenade,
 David Cain and the GitHub user bersbersbers).
 Fixed a bug with "return await" contributed by Kadir Can Ozden.
-Moved decorator.py to a package structure (decorator/__init__.py) and
-added a stub file (decorator/__init__.pyi) contributed by Marco Gorelli.
+Moved decorator.py to a package structure (`decorator/__init__.py`) and
+added a stub file (`decorator/__init__.pyi`) contributed by Marco Gorelli.
 
 ## 5.2.1 (2025-02-24)
 
 Shiv Krishna Jaiswal suggested how to manage che case of functions
-without __name__.
+without `__name__`.
 Michał Górny contributed a fix for the generation of the source package.
 
 ## 5.2.0 (2025-02-22)
@@ -68,7 +68,7 @@ Christian Clauss.
 
 ## 5.0.6 (2021-04-08)
 
-The decorator module was not copying the __module__ attribute anymore.
+The decorator module was not copying the `__module__` attribute anymore.
 Thanks to Nikolay Markov for the notice.
 
 ## 5.0.5 (2021-04-04)
@@ -240,7 +240,7 @@ Ellison.
 
 ## 3.3.2 (2011-09-01)
 
-Fixed a bug with __kwdefaults__ for Python 3, submitted by Chris
+Fixed a bug with `__kwdefaults__` for Python 3, submitted by Chris
 Ellison.
 
 ## 3.3.1 (2011-04-22)
@@ -262,7 +262,7 @@ the undecorated function, as requested by Paul Ollis.
 
 ## 3.2 (2010-05-22)
 
-Added __version__ (thanks to Gregg Lind), removed functionality which 
+Added `__version__` (thanks to Gregg Lind), removed functionality which 
 has been deprecated for years, removed the confusing decorator_factory
 example and added official support for Python 3 (requested by Claus Klein).
 Moved the documentation from PyPI to googlecode.
@@ -340,8 +340,8 @@ with previous versions (in minor ways); added the utility function
 
 ## 1.1 (2006-12-02)
 
-'decorator' instances now have attributes __name__, __doc__,
-__module__ and __dict__ coming from the associated caller function; 
+'decorator' instances now have attributes `__name__`, `__doc__`,
+`__module__` and `__dict__` coming from the associated caller function; 
 included the licence into the documentation.
 
 ## 1.0 (2006-08-10)
