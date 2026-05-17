@@ -528,13 +528,11 @@ class PartialTestCase(unittest.TestCase):
         self.assertEqual(out, '<before>xy<after>')
 
 
-# testing forward references
-
-def get_dob() -> date:
-    pass
-
-
-decorator(get_dob)  # this used to fail in Python 3.14
+if sys.version > '3.13':
+    # testing forward references in python 3.14+
+    @decorator
+    def get_dob() -> date:
+        pass
 
 
 if __name__ == '__main__':
