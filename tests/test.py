@@ -14,6 +14,7 @@ except ImportError:
 from typing import TYPE_CHECKING  # introduced in 3.5
 if TYPE_CHECKING:  # only inside mypy
     from datetime import date
+PYVER = sys.version_info[:2]
 
 
 @contextmanager
@@ -528,7 +529,7 @@ class PartialTestCase(unittest.TestCase):
         self.assertEqual(out, '<before>xy<after>')
 
 
-if sys.version > '3.13':
+if PYVER >= (3, 14):
     # testing forward references in python 3.14+
     @decorator
     def get_dob() -> date:
