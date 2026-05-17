@@ -30,9 +30,11 @@ classifiers = [
   'Topic :: Software Development :: Libraries',
   'Topic :: Utilities']
 
-[tool.setuptools]
-py-modules = ["decorator"]
-package-dir = {"" = "src"}
-
 [tool.setuptools.dynamic]
 version.attr = "decorator.__version__"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"decorator" = ["*.pyi", "py.typed"]
