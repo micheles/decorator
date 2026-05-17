@@ -33,3 +33,6 @@ classifiers = [
 
 [tool.setuptools.dynamic]
 version.attr = "decorator.__version__"
+
+[tool.setuptools.package-data]
+decorator = ["*.pyi", "py.typed"]
