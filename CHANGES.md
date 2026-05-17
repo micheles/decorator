@@ -3,6 +3,8 @@ HISTORY
 
 ## Unreleased
 
+Added official support for Python 3.14 (thanks to Hugo van Kemenade).
+
 ## 5.2.1 (2025-02-24)
 
 Shiv Krishna Jaiswal suggested how to manage che case of functions

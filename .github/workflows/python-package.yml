@@ -16,12 +16,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12', '3.13']
+        python-version: ['3.8', '3.9', '3.10', '3.11', '3.12', '3.13', '3.14']
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
     - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v6
       with:
         python-version: ${{ matrix.python-version }}
         allow-prereleases: true
@@ -33,3 +33,26 @@ jobs:
     - run: codespell --ignore-words-list="assertIn,ba,claus,vas" --quiet-level=2
     - run: flake8 . --count --ignore=E122,E226,E265,E741,E742 --max-complexity=22 --max-line-length=124 --show-source --statistics
     - run: python tests/test.py -v
+
+  stubtest:
+
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+    - uses: actions/checkout@v6
+    - name: Set up Python 3.x
+      uses: actions/setup-python@v6
+      with:
+        python-version: 3.x
+        allow-prereleases: true
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install mypy
+        python -m pip install -e .
+    - run: |
+        python -m mypy.stubtest decorator
+        python -m mypy src/decorator.py
+

@@ -32,7 +32,7 @@ Testing
 
 If you have the source code installation you can run the tests with
 
- `$ python src/tests/test.py -v`
+ `$ python tests/test.py -v`
 
 or (if you have setuptools installed)
 
