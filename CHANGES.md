@@ -4,6 +4,8 @@ HISTORY
 ## Unreleased
 
 Added official support for Python 3.14 (thanks to Hugo van Kemenade).
+Moved decorator.py to a package structure (decorator/__init__.py) and
+added a stub file (decorator/__init__.pyi) contributed by Marco Gorelli.
 
 ## 5.2.1 (2025-02-24)
 
