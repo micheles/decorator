@@ -11,6 +11,7 @@ try:
     from . import documentation as doc  # good with pytest
 except ImportError:
     import documentation as doc  # good with `python src/tests/test.py`
+from typing import TYPE_CHECKING
 
 
 @contextmanager
@@ -525,7 +526,6 @@ class PartialTestCase(unittest.TestCase):
         self.assertEqual(out, '<before>xy<after>')
 
 
-from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from datetime import date
 
