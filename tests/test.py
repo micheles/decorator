@@ -525,5 +525,15 @@ class PartialTestCase(unittest.TestCase):
         self.assertEqual(out, '<before>xy<after>')
 
 
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from datetime import date
+
+def get_dob() -> date:
+    pass
+
+decorator(get_dob)  # this used to fail in Python 3.14
+
+
 if __name__ == '__main__':
     unittest.main()
