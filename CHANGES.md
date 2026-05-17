@@ -4,7 +4,7 @@ HISTORY
 ## Unreleased
 
 Added official support for Python 3.14 (thanks to Hugo van Kemenade,
-David Cain).
+David Cain and the GitHub user bersbersbers).
 Fixed a bug with "return await" contributed by Kadir Can Ozden.
 Moved decorator.py to a package structure (decorator/__init__.py) and
 added a stub file (decorator/__init__.pyi) contributed by Marco Gorelli.
