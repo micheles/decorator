@@ -34,10 +34,6 @@ If you have the source code installation you can run the tests with
 
  `$ python tests/test.py -v`
 
-or (if you have setuptools installed)
-
- `$ python setup.py test`
-
 Notice that you may run into trouble if in your system there
 is an older version of the decorator module; in such a case remove the
 old version. It is safe even to copy the module `decorator.py` over
