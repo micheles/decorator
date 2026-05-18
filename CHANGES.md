@@ -3,6 +3,11 @@ HISTORY
 
 ## Unreleased
 
+## 5.3.1 (2026-05-18)
+
+Added license SPDX identifier to pyproject.toml (reported by
+Christian Lackas).
+
 ## 5.3.0 (2026-05-17)
 
 Added official support for Python 3.14 (thanks to Hugo van Kemenade,
