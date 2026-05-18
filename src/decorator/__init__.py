@@ -1,6 +1,6 @@
 # #########################     LICENSE     ############################ #
 
-# Copyright (c) 2005-2025, Michele Simionato
+# Copyright (c) 2005-2026, Michele Simionato
 # All rights reserved.
 
 # Redistribution and use in source and binary forms, with or without
@@ -51,7 +51,7 @@ try:
 except ImportError:
     inspect_sig = inspect.signature
 
-__version__ = '5.3.0'
+__version__ = '5.3.1'
 
 DEF = re.compile(r'\s*def\s*([_\w][_\w\d]*)\s*\(')
 POS = inspect.Parameter.POSITIONAL_OR_KEYWORD
