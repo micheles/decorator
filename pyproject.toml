@@ -8,6 +8,7 @@ authors = [
     {name = "Michele Simionato", email = "michele.simionato@gmail.com"},
 ]
 description = "Decorators for Humans"
+license = "BSD-2-Clause"
 readme = "README.rst"
 dynamic = ["version"]
 requires-python = ">=3.8"
