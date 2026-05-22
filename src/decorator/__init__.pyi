@@ -3,7 +3,7 @@ import annotationlib
 from builtins import dict as _dict  # alias to avoid conflicts with attribute name
 from collections.abc import Callable, Generator, Iterator
 from contextlib import _GeneratorContextManager
-from inspect import Signature, getfullargspec as getfullargspec, iscoroutinefunction as iscoroutinefunction
+from inspect import Signature, iscoroutinefunction, isgeneratorfunction
 from re import Pattern
 from typing import Any, Final, Literal, TypeVar, Tuple
 from typing_extensions import ParamSpec
@@ -22,7 +22,7 @@ def inspect_sig(
 ) -> Tuple: ...
 
 
-def get_args(
+def getfullargspec(
     func: _Func
 ) -> Tuple: ...
 

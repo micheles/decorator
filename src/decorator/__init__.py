@@ -39,8 +39,8 @@ import operator
 import itertools
 import functools
 from contextlib import _GeneratorContextManager
-from inspect import (
-    getfullargspec, Parameter, iscoroutinefunction, isgeneratorfunction)
+from collections import namedtuple
+from inspect import Parameter, iscoroutinefunction, isgeneratorfunction
 from typing import Any, Dict, List, Optional
 try:
     import annotationlib  # in Python 3.14+
@@ -57,17 +57,67 @@ __version__ = '5.3.1'
 DEF = re.compile(r'\s*def\s*([_\w][_\w\d]*)\s*\(')
 POS = inspect.Parameter.POSITIONAL_OR_KEYWORD
 EMPTY = inspect.Parameter.empty
+FullArgSpec = namedtuple('FullArgSpec', [
+    'args', 'varargs', 'varkw', 'defaults', 
+    'kwonlyargs', 'kwonlydefaults', 'annotations'
+])
 
 
-def get_args(func):
+def getfullargspec(func):
     """
-    Replicates inspect.getfullargspec(func).args using inspect.signature.
-    Extracts positional-only and positional-or-keyword parameter names.
+    A pure re-implementation of inspect.getfullargspec(func) 
+    built entirely on top of the modern inspect.signature API.
+    This is needed to work around a python 3.14 forward references bug.
     """
-    args = [name for name, param in inspect_sig(func).parameters.items()
-            if param.kind in (Parameter.POSITIONAL_ONLY,
-                              Parameter.POSITIONAL_OR_KEYWORD)]
-    return args
+    sig = inspect_sig(func)
+    
+    args = []
+    varargs = None
+    varkw = None
+    defaults_list = []
+    kwonlyargs = []
+    kwonlydefaults = {}
+    annotations = {}
+    
+    # Process return annotation if it exists
+    if sig.return_annotation is not inspect.Signature.empty:
+        annotations['return'] = sig.return_annotation
+
+    for name, param in sig.parameters.items():
+        # Collect annotations for any parameter that defines one
+        if param.annotation is not Parameter.empty:
+            annotations[name] = param.annotation
+
+        # Segment parameters by their operational "kind"
+        if param.kind in (Parameter.POSITIONAL_ONLY,
+                          Parameter.POSITIONAL_OR_KEYWORD):
+            args.append(name)
+            # Track defaults for standard positional arguments
+            if param.default is not Parameter.empty:
+                defaults_list.append(param.default)
+            else:
+                # Legacy behavior quirk: if a non-default argument follows a 
+                # defaulted positional-only argument, the previous defaults
+                # are wiped
+                defaults_list.clear()
+
+        elif param.kind == Parameter.VAR_POSITIONAL:
+            varargs = name
+
+        elif param.kind == Parameter.KEYWORD_ONLY:
+            kwonlyargs.append(name)
+            if param.default is not Parameter.empty:
+                kwonlydefaults[name] = param.default
+
+        elif param.kind == Parameter.VAR_KEYWORD:
+            varkw = name
+
+    # Format output fields to match precise spec specifications
+    defaults = tuple(defaults_list) if defaults_list else None
+    kwonlydefaults = kwonlydefaults if kwonlydefaults else None
+
+    return FullArgSpec(args, varargs, varkw, defaults, kwonlyargs,
+                       kwonlydefaults, annotations)
 
 
 # this is not used anymore in the core, but kept for backward compatibility
@@ -395,7 +445,7 @@ def dispatch_on(*dispatch_args):
         """Decorator turning a function into a generic function"""
 
         # first check the dispatch arguments
-        argset = set(get_args(func))
+        argset = set(getfullargspec(func).args)
         if not set(dispatch_args) <= argset:
             raise NameError('Unknown dispatch arguments %s' % dispatch_str)
 
@@ -439,7 +489,7 @@ def dispatch_on(*dispatch_args):
             check(types)
 
             def dec(f):
-                check(get_args(f), operator.lt, ' in ' + f.__name__)
+                check(getfullargspec(f).args, operator.lt, ' in ' + f.__name__)
                 typemap[types] = f
                 return f
             return dec
