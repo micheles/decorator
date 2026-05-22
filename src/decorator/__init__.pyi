@@ -1,6 +1,7 @@
 import inspect
 import annotationlib
 from builtins import dict as _dict  # alias to avoid conflicts with attribute name
+from collections import namedtuple
 from collections.abc import Callable, Generator, Iterator
 from contextlib import _GeneratorContextManager
 from inspect import Signature, iscoroutinefunction, isgeneratorfunction
@@ -17,9 +18,14 @@ DEF: Final[Pattern[str]]
 POS: Final[Literal[inspect._ParameterKind.POSITIONAL_OR_KEYWORD]]
 EMPTY: Final[type[inspect._empty]]
 
+FullArgSpec = namedtuple('FullArgSpec', [
+    'args', 'varargs', 'varkw', 'defaults',
+    'kwonlyargs', 'kwonlydefaults', 'annotations'
+])
+
 def inspect_sig(
     func: _Func
-) -> Tuple: ...
+) -> FullArgSpec: ...
 
 
 def getfullargspec(
