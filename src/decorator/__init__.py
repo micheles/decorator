@@ -322,6 +322,10 @@ def decorate(func, caller, extras=(), kwsyntax=False):
     except AttributeError:
         pass
     try:
+        fun.__annotations__ = func.__annotations__
+    except (AttributeError, NameError):
+        pass
+    try:
         fun.__module__ = func.__module__
     except AttributeError:
         pass
