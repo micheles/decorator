@@ -6,7 +6,7 @@ import inspect
 import functools
 import asyncio
 from collections import defaultdict, ChainMap, abc as c
-from decorator import dispatch_on, contextmanager, decorator  #, decoratorx
+from decorator import dispatch_on, contextmanager, decorator
 try:
     from . import documentation as doc  # good with pytest
 except ImportError:
