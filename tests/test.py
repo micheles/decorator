@@ -6,7 +6,7 @@ import inspect
 import functools
 import asyncio
 from collections import defaultdict, ChainMap, abc as c
-from decorator import dispatch_on, contextmanager, decorator, decoratorx
+from decorator import dispatch_on, contextmanager, decorator  #, decoratorx
 try:
     from . import documentation as doc  # good with pytest
 except ImportError:
@@ -532,7 +532,7 @@ class PartialTestCase(unittest.TestCase):
 if PYVER >= (3, 14):
     # testing forward references in python 3.14+, see
     # https://github.com/micheles/decorator/issues/177#issuecomment-4471451108
-    @decoratorx
+    @decorator
     def identity(func, *args, **kwargs):
         return func(*args, **kwargs)
 
