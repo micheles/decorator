@@ -58,19 +58,19 @@ DEF = re.compile(r'\s*def\s*([_\w][_\w\d]*)\s*\(')
 POS = inspect.Parameter.POSITIONAL_OR_KEYWORD
 EMPTY = inspect.Parameter.empty
 FullArgSpec = namedtuple('FullArgSpec', [
-    'args', 'varargs', 'varkw', 'defaults', 
+    'args', 'varargs', 'varkw', 'defaults',
     'kwonlyargs', 'kwonlydefaults', 'annotations'
 ])
 
 
 def getfullargspec(func):
     """
-    A pure re-implementation of inspect.getfullargspec(func) 
+    A pure re-implementation of inspect.getfullargspec(func)
     built entirely on top of the modern inspect.signature API.
     This is needed to work around a python 3.14 forward references bug.
     """
     sig = inspect_sig(func)
-    
+
     args = []
     varargs = None
     varkw = None
@@ -78,7 +78,7 @@ def getfullargspec(func):
     kwonlyargs = []
     kwonlydefaults = {}
     annotations = {}
-    
+
     # Process return annotation if it exists
     if sig.return_annotation is not inspect.Signature.empty:
         annotations['return'] = sig.return_annotation
@@ -96,7 +96,7 @@ def getfullargspec(func):
             if param.default is not Parameter.empty:
                 defaults_list.append(param.default)
             else:
-                # Legacy behavior quirk: if a non-default argument follows a 
+                # Legacy behavior quirk: if a non-default argument follows a
                 # defaulted positional-only argument, the previous defaults
                 # are wiped
                 defaults_list.clear()
