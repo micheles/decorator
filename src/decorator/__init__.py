@@ -56,6 +56,19 @@ __version__ = '5.3.1'
 DEF = re.compile(r'\s*def\s*([_\w][_\w\d]*)\s*\(')
 POS = inspect.Parameter.POSITIONAL_OR_KEYWORD
 EMPTY = inspect.Parameter.empty
+import inspect
+
+
+def get_args(func):
+    """
+    Replicates inspect.getfullargspec(func).args using inspect.signature.
+    Extracts positional-only and positional-or-keyword parameter names.
+    """
+    args = [name for name, param in inspect_sig(func).parameters.items()
+            if param.kind in (
+                    inspect.Parameter.POSITIONAL_ONLY,
+                    inspect.Parameter.POSITIONAL_OR_KEYWORD)]
+    return args
 
 
 # this is not used anymore in the core, but kept for backward compatibility
@@ -383,7 +396,7 @@ def dispatch_on(*dispatch_args):
         """Decorator turning a function into a generic function"""
 
         # first check the dispatch arguments
-        argset = set(getfullargspec(func).args)
+        argset = set(get_args(func))
         if not set(dispatch_args) <= argset:
             raise NameError('Unknown dispatch arguments %s' % dispatch_str)
 
@@ -427,7 +440,7 @@ def dispatch_on(*dispatch_args):
             check(types)
 
             def dec(f):
-                check(getfullargspec(f).args, operator.lt, ' in ' + f.__name__)
+                check(get_args(f), operator.lt, ' in ' + f.__name__)
                 typemap[types] = f
                 return f
             return dec
