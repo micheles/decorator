@@ -39,7 +39,8 @@ import operator
 import itertools
 import functools
 from contextlib import _GeneratorContextManager
-from inspect import getfullargspec, iscoroutinefunction, isgeneratorfunction
+from inspect import (
+    getfullargspec, Parameter, iscoroutinefunction, isgeneratorfunction)
 from typing import Any, Dict, List, Optional
 try:
     import annotationlib  # in Python 3.14+
@@ -56,7 +57,6 @@ __version__ = '5.3.1'
 DEF = re.compile(r'\s*def\s*([_\w][_\w\d]*)\s*\(')
 POS = inspect.Parameter.POSITIONAL_OR_KEYWORD
 EMPTY = inspect.Parameter.empty
-import inspect
 
 
 def get_args(func):
@@ -65,9 +65,8 @@ def get_args(func):
     Extracts positional-only and positional-or-keyword parameter names.
     """
     args = [name for name, param in inspect_sig(func).parameters.items()
-            if param.kind in (
-                    inspect.Parameter.POSITIONAL_ONLY,
-                    inspect.Parameter.POSITIONAL_OR_KEYWORD)]
+            if param.kind in (Parameter.POSITIONAL_ONLY,
+                              Parameter.POSITIONAL_OR_KEYWORD)]
     return args
 
 

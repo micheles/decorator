@@ -22,6 +22,11 @@ def inspect_sig(
 ) -> Tuple: ...
 
 
+def get_args(
+    func: _Func
+) -> Tuple: ...
+
+
 class FunctionMaker:
     args: list[str]
     varargs: str | None
