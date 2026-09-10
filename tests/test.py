@@ -6,7 +6,8 @@ import inspect
 import functools
 import asyncio
 from collections import defaultdict, ChainMap, abc as c
-from decorator import dispatch_on, contextmanager, decorator, FunctionMaker
+from decorator import (
+    dispatch_on, contextmanager, decorator, decoratorx, FunctionMaker)
 try:
     from . import documentation as doc  # good with pytest
 except ImportError:
@@ -556,6 +557,26 @@ if PYVER >= (3, 14):
     @identity
     def foo(ints: Sequence[int]) -> None:
         pass
+
+    # decoratorx goes through FunctionMaker, a different code path from the
+    # plain @decorator above. FunctionMaker.__init__ used to read
+    # func.__annotations__ directly after already collecting the same
+    # annotations, forward-ref-safe, through getfullargspec a line earlier;
+    # that direct read forces Python 3.14+ to evaluate every annotation
+    # eagerly and raises NameError the moment one names something not in
+    # scope at decoration time, such as a type only imported for checkers.
+    @decoratorx
+    def passthrough(func, *args, **kwargs):
+        return func(*args, **kwargs)
+
+    @passthrough
+    def bar(ints: Sequence[int]) -> None:
+        pass
+
+    class ForwardRefAnnotationTestCase(unittest.TestCase):
+        def test_decoratorx_does_not_evaluate_forward_ref(self):
+            self.assertIsNone(bar([1, 2, 3]))
+            self.assertIn('ints', bar.__annotations__)
 
 
 if __name__ == '__main__':

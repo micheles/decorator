@@ -149,7 +149,16 @@ class FunctionMaker:
             self.module = func.__module__
             if inspect.isroutine(func) or isinstance(func, functools.partial):
                 argspec = getfullargspec(func)
-                self.annotations = getattr(func, '__annotations__', {})
+                # argspec.annotations was already collected through
+                # inspect_sig above, which on Python 3.14+ asks for
+                # ForwardRef placeholders instead of evaluating each
+                # annotation. Re-reading func.__annotations__ directly here
+                # undoes that: on 3.14+ that attribute access runs the
+                # function's __annotate__ eagerly and raises NameError for
+                # any annotation whose name isn't in scope at decoration
+                # time, even though nothing in this class ever needed the
+                # evaluated value.
+                self.annotations = argspec.annotations
                 for a in ('args', 'varargs', 'varkw', 'defaults', 'kwonlyargs',
                           'kwonlydefaults'):
                     setattr(self, a, getattr(argspec, a))
