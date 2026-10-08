@@ -3,6 +3,9 @@ HISTORY
 
 ## Unreleased
 
+Preserved each layer of `__wrapped__` when stacking decorators or wrapping
+an already decorated caller.
+
 Fixed `FunctionMaker.create` raising a `SyntaxError` when the signature
 string contains a return annotation, e.g.
 `create("f(a) -> int", "return a")` (issue #138).

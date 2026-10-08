@@ -107,6 +107,34 @@ class DocumentationTestCase(unittest.TestCase):
 
 
 class ExtraTestCase(unittest.TestCase):
+    def test_stacked_wrapped(self):
+        @decorator
+        def increment(func, *args, **kwargs):
+            return func(*args, **kwargs) + 1
+
+        def original(value):
+            return value
+
+        first = increment(original)
+        second = increment(first)
+        self.assertEqual(second(3), 5)
+        self.assertIs(second.__wrapped__, first)
+        self.assertEqual(second.__wrapped__(3), 4)
+        self.assertIs(inspect.unwrap(second, stop=lambda f: f is first), first)
+        self.assertIs(inspect.unwrap(second), original)
+
+    def test_wrapped_caller(self):
+        def caller(func, *args, **kwargs):
+            return func(*args, **kwargs)
+
+        @functools.wraps(caller)
+        def wrapped_caller(*args, **kwargs):
+            return caller(*args, **kwargs)
+
+        dec = decorator(wrapped_caller)
+        self.assertIs(dec.__wrapped__, wrapped_caller)
+        self.assertIs(dec.__wrapped__.__wrapped__, caller)
+
     def test_qualname(self):
         self.assertEqual(doc.operation1.__qualname__, 'operation1')
 
