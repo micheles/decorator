@@ -30,6 +30,10 @@ classifiers = [
   'Topic :: Software Development :: Libraries',
   'Topic :: Utilities']
 
+[project.urls]
+Homepage = "https://github.com/micheles/decorator"
+Repository = "https://github.com/micheles/decorator"
+
 [tool.setuptools.dynamic]
 version.attr = "decorator.__version__"
 
