@@ -309,7 +309,7 @@ def decorate(func, caller, extras=(), kwsyntax=False):
         def generator_fun(*args, **kw):
             if not kwsyntax:
                 args, kw = fix(args, kw, sig)
-            yield from caller(func, *(extras + args), **kw)
+            return (yield from caller(func, *(extras + args), **kw))
         fun = generator_fun
     else:
         def sync_fun(*args, **kw):
