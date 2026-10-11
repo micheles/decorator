@@ -1,12 +1,11 @@
 import inspect
-import annotationlib
+import sys
 from builtins import dict as _dict  # alias to avoid conflicts with attribute name
-from collections import namedtuple
 from collections.abc import Callable, Generator, Iterator
 from contextlib import _GeneratorContextManager
 from inspect import Signature, iscoroutinefunction, isgeneratorfunction
 from re import Pattern
-from typing import Any, Final, Literal, TypeVar, Tuple
+from typing import Any, Final, Literal, NamedTuple, TypeVar
 from typing_extensions import ParamSpec
 
 _C = TypeVar("_C", bound=Callable[..., Any])
@@ -18,19 +17,26 @@ DEF: Final[Pattern[str]]
 POS: Final[Literal[inspect._ParameterKind.POSITIONAL_OR_KEYWORD]]
 EMPTY: Final[type[inspect._empty]]
 
-FullArgSpec = namedtuple('FullArgSpec', [
-    'args', 'varargs', 'varkw', 'defaults',
-    'kwonlyargs', 'kwonlydefaults', 'annotations'
-])
+class FullArgSpec(NamedTuple):
+    args: list[str]
+    varargs: str | None
+    varkw: str | None
+    defaults: tuple[Any, ...] | None
+    kwonlyargs: list[str]
+    kwonlydefaults: _dict[str, Any] | None
+    annotations: _dict[str, Any]
 
-def inspect_sig(
-    func: _Func
-) -> FullArgSpec: ...
+if sys.version_info >= (3, 14):
+    def inspect_sig(func: _Func) -> Signature: ...
+else:
+    from inspect import signature as _signature
+
+    inspect_sig = _signature
 
 
 def getfullargspec(
     func: _Func
-) -> Tuple: ...
+) -> FullArgSpec: ...
 
 
 class FunctionMaker:
