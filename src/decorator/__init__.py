@@ -523,7 +523,7 @@ def dispatch_on(*dispatch_args):
             else:
                 return f(*args, **kw)
             combinations = itertools.product(*ancestors(*types))
-            next(combinations)  # the first one has been already tried
+            next(combinations, None)  # the first one has been already tried
             for types_ in combinations:
                 f = typemap.get(types_)
                 if f is not None:
