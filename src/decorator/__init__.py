@@ -149,7 +149,12 @@ class FunctionMaker:
             self.module = func.__module__
             if inspect.isroutine(func) or isinstance(func, functools.partial):
                 argspec = getfullargspec(func)
-                self.annotations = getattr(func, '__annotations__', {})
+                try:
+                    self.annotations = getattr(func, '__annotations__', {})
+                except NameError:
+                    # A deferred annotation can refer to a name defined later.
+                    self.annotations = argspec.annotations
+                    self._annotate = func.__annotate__
                 for a in ('args', 'varargs', 'varkw', 'defaults', 'kwonlyargs',
                           'kwonlydefaults'):
                     setattr(self, a, getattr(argspec, a))
@@ -199,6 +204,8 @@ class FunctionMaker:
         func.__defaults__ = self.defaults
         func.__kwdefaults__ = self.kwonlydefaults or None
         func.__annotations__ = getattr(self, 'annotations', None)
+        if getattr(self, '_annotate', None) is not None:
+            func.__annotate__ = self._annotate
         try:
             frame = sys._getframe(3)
         except AttributeError:  # for IronPython and similar implementations
