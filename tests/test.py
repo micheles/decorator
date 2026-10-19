@@ -6,7 +6,7 @@ import inspect
 import functools
 import asyncio
 from collections import defaultdict, ChainMap, abc as c
-from decorator import dispatch_on, contextmanager, decorator, FunctionMaker
+from decorator import dispatch_on, contextmanager, decorator, decoratorx, FunctionMaker
 try:
     from . import documentation as doc  # good with pytest
 except ImportError:
@@ -572,6 +572,106 @@ class PartialTestCase(unittest.TestCase):
         partial_func = partial_before_after(_func)
         out = partial_func("y")
         self.assertEqual(out, '<before>xy<after>')
+
+
+class FunctionMakerAnnotationsTestCase(unittest.TestCase):
+    @staticmethod
+    def identity(func, *args, **kwargs):
+        return func(*args, **kwargs)
+
+    def test_concrete_annotations_keep_the_original_mapping(self):
+        def original(value: int) -> str:
+            return str(value)
+
+        wrapped = decoratorx(self.identity)(original)
+        self.assertEqual(wrapped(3), '3')
+        self.assertIs(wrapped.__annotations__, original.__annotations__)
+
+    def test_string_annotations_keep_the_original_mapping(self):
+        namespace = {}
+        exec('from __future__ import annotations\n'
+             'def original(value: Undefined) -> Undefined: return value', namespace)
+        original = namespace['original']
+        wrapped = decoratorx(self.identity)(original)
+        self.assertEqual(wrapped(3), 3)
+        self.assertIs(wrapped.__annotations__, original.__annotations__)
+        self.assertEqual(wrapped.__annotations__,
+                         {'value': 'Undefined', 'return': 'Undefined'})
+
+    @unittest.skipIf(PYVER < (3, 14), 'requires deferred annotations')
+    def test_type_checking_only_annotations_do_not_prevent_decoration(self):
+        import annotationlib
+
+        namespace = {}
+        exec('from typing import TYPE_CHECKING\n'
+             'if TYPE_CHECKING:\n'
+             '    from collections.abc import Sequence\n'
+             'def original(values: Sequence[int], *, factor: int = 2) -> int:\n'
+             '    return len(values) * factor', namespace)
+        original = namespace['original']
+        wrapped = decoratorx(self.identity)(original)
+        self.assertEqual(wrapped([1, 2], factor=3), 6)
+        self.assertEqual(wrapped.__code__.co_argcount, 1)
+        self.assertEqual(wrapped.__code__.co_kwonlyargcount, 1)
+        self.assertEqual(wrapped.__kwdefaults__, {'factor': 2})
+        annotations = annotationlib.get_annotations(
+            wrapped, format=annotationlib.Format.FORWARDREF)
+        self.assertIsInstance(annotations['values'], annotationlib.ForwardRef)
+        original_annotations = annotationlib.get_annotations(
+            original, format=annotationlib.Format.FORWARDREF)
+        self.assertEqual(annotations['values'].__forward_arg__,
+                         original_annotations['values'].__forward_arg__)
+        namespace['Sequence'] = c.Sequence
+        self.assertEqual(wrapped.__annotations__['values'], c.Sequence[int])
+        self.assertIs(annotations['return'], int)
+
+    @unittest.skipIf(PYVER < (3, 14), 'requires deferred annotations')
+    def test_annotations_resolve_after_a_later_definition(self):
+        namespace = {}
+        exec('def original(value: Later) -> Later: return value', namespace)
+        original = namespace['original']
+        wrapped = decoratorx(self.identity)(original)
+        second = decoratorx(self.identity)(wrapped)
+        self.assertEqual(second(3), 3)
+        with self.assertRaises(NameError):
+            second.__annotations__
+        namespace['Later'] = int
+        expected = {'value': int, 'return': int}
+        self.assertEqual(second.__annotations__, expected)
+        self.assertEqual(wrapped.__annotations__, expected)
+        self.assertEqual(original.__annotations__, expected)
+
+    @unittest.skipIf(PYVER < (3, 14), 'requires deferred annotations')
+    def test_annotations_keep_the_original_closure(self):
+        namespace = {}
+        exec('def factory():\n'
+             '    class Local: pass\n'
+             '    def original(value: Local, other: Later) -> Local:\n'
+             '        return value\n'
+             '    return original, Local\n'
+             'original, Local = factory()', namespace)
+        original = namespace['original']
+        generated = FunctionMaker.create(
+            original, 'return target(value, other)', {'target': original})
+        namespace['Later'] = str
+        local = namespace['Local']
+        value = local()
+        self.assertIs(generated(value, 'text'), value)
+        self.assertEqual(generated.__annotations__,
+                         {'value': local, 'other': str, 'return': local})
+
+    @unittest.skipIf(PYVER < (3, 14), 'requires deferred annotations')
+    def test_async_wrapper_keeps_deferred_annotations(self):
+        async def caller(func, *args, **kwargs):
+            return await func(*args, **kwargs)
+
+        namespace = {}
+        exec('async def original(value: Later) -> Later: return value', namespace)
+        wrapped = decoratorx(caller)(namespace['original'])
+        self.assertTrue(inspect.iscoroutinefunction(wrapped))
+        self.assertEqual(asyncio.run(wrapped(3)), 3)
+        namespace['Later'] = int
+        self.assertEqual(wrapped.__annotations__, {'value': int, 'return': int})
 
 
 if PYVER >= (3, 14):
