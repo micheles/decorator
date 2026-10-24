@@ -6,7 +6,7 @@ import inspect
 import functools
 import asyncio
 from collections import defaultdict, ChainMap, abc as c
-from decorator import dispatch_on, contextmanager, decorator, FunctionMaker
+from decorator import dispatch_on, contextmanager, decorator, decoratorx, FunctionMaker
 try:
     from . import documentation as doc  # good with pytest
 except ImportError:
@@ -158,6 +158,21 @@ class ExtraTestCase(unittest.TestCase):
             'add3(a: int, b: int) -> int', 'return add(a, b)',
             evaldict={'add': add})
         self.assertEqual(add3(6, 8), 14)
+
+    def test_decoratorx_positional_only_parameters(self):
+        @decoratorx
+        def identity(func, *args, **kwargs):
+            return func(*args, **kwargs)
+
+        @identity
+        def target(a, /, b=2, *, c=3):
+            return a + b + c
+
+        self.assertEqual(target.__code__.co_posonlyargcount, 1)
+        self.assertEqual(target(1), 6)
+        self.assertEqual(target(1, b=4, c=5), 10)
+        with self.assertRaises(TypeError):
+            target(a=1)
 
     def test_unique_filenames(self):
         @decorator

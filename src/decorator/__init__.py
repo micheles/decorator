@@ -157,6 +157,11 @@ class FunctionMaker:
                     setattr(self, 'arg%d' % i, arg)
                 allargs = list(self.args)
                 allshortargs = list(self.args)
+                posonly_count = sum(
+                    p.kind is Parameter.POSITIONAL_ONLY
+                    for p in inspect_sig(func).parameters.values())
+                if posonly_count:
+                    allargs.insert(posonly_count, '/')
                 if self.varargs:
                     allargs.append('*' + self.varargs)
                     allshortargs.append('*' + self.varargs)
