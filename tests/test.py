@@ -573,6 +573,24 @@ class PartialTestCase(unittest.TestCase):
         out = partial_func("y")
         self.assertEqual(out, '<before>xy<after>')
 
+    def test_decorating_partial_does_not_change_its_signature(self):
+        def origin_func(x, y):
+            return x + y
+        original = functools.partial(origin_func, "x")
+        original.custom = "preserved"
+        signature = inspect.signature(original)
+
+        first = partial_before_after(original)
+        self.assertEqual(inspect.signature(original), signature)
+        self.assertFalse(hasattr(original, '__wrapped__'))
+        self.assertEqual(first.custom, "preserved")
+
+        second = partial_before_after(original)
+        self.assertEqual(inspect.signature(first), signature)
+        self.assertEqual(inspect.signature(second), signature)
+        self.assertEqual(first("y"), '<before>xy<after>')
+        self.assertEqual(second("z"), '<before>xz<after>')
+
 
 if PYVER >= (3, 14):
     # testing forward references in python 3.14+, see
