@@ -5,6 +5,7 @@ import decimal
 import inspect
 import functools
 import asyncio
+from pathlib import Path
 from collections import defaultdict, ChainMap, abc as c
 from decorator import dispatch_on, contextmanager, decorator, FunctionMaker
 try:
@@ -584,6 +585,12 @@ if PYVER >= (3, 14):
     @identity
     def foo(ints: Sequence[int]) -> None:
         pass
+
+
+def load_tests(loader, tests, pattern):
+    tests.addTests(loader.discover(str(Path(__file__).resolve().parent),
+                                   pattern='test_getfullargspec.py'))
+    return tests
 
 
 if __name__ == '__main__':
