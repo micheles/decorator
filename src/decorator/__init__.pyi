@@ -24,7 +24,7 @@ FullArgSpec = namedtuple('FullArgSpec', [
 ])
 
 def inspect_sig(
-    func: _Func
+    func: _Func, *, follow_wrapped: bool = True
 ) -> FullArgSpec: ...
 
 
