@@ -1,7 +1,9 @@
 HISTORY
 --------
 
-## Unreleased
+## 5.3.2 (2026-11-21)
+
+Added official support for Python 3.15.
 
 Preserved each layer of `__wrapped__` when stacking decorators or wrapping
 an already decorated caller (contributed by Jake Wang).
