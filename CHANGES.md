@@ -30,6 +30,11 @@ like `range`, `memoryview` or `bool`, or of an enum (reported by
 Rajatendu Dey). Also fixed `dispatch_on` raising a `TypeError` when a
 class is passed as a dispatch argument.
 
+Decorating a `functools.partial` no longer alters the original partial
+(adding `__wrapped__` and changing its signature), so decorating the same
+partial twice no longer rejects valid calls (contributed by Gabriel
+Demetrios Lafis).
+
 ## 5.3.1 (2026-05-18)
 
 Added license SPDX identifier to pyproject.toml (reported by
