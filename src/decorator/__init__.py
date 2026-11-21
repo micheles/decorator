@@ -70,8 +70,13 @@ def getfullargspec(func):
     built entirely on top of the modern inspect.signature API.
     This is needed to work around a python 3.14 forward references bug.
     """
-    sig = inspect_sig(func)
+    return _fullargspec(inspect_sig(func))
 
+
+def _fullargspec(sig):
+    """
+    Convert an inspect.Signature object into a FullArgSpec
+    """
     args = []
     varargs = None
     varkw = None
@@ -149,7 +154,8 @@ class FunctionMaker:
             self.doc = func.__doc__
             self.module = func.__module__
             if inspect.isroutine(func) or isinstance(func, functools.partial):
-                argspec = getfullargspec(func)
+                sig = inspect_sig(func)
+                argspec = _fullargspec(sig)
                 self.annotations = getattr(func, '__annotations__', {})
                 for a in ('args', 'varargs', 'varkw', 'defaults', 'kwonlyargs',
                           'kwonlydefaults'):
@@ -159,8 +165,8 @@ class FunctionMaker:
                 allargs = list(self.args)
                 allshortargs = list(self.args)
                 posonly_count = sum(
-                    p.kind is Parameter.POSITIONAL_ONLY
-                    for p in inspect_sig(func).parameters.values())
+                    p.kind == Parameter.POSITIONAL_ONLY
+                    for p in sig.parameters.values())
                 if posonly_count:
                     allargs.insert(posonly_count, '/')
                 if self.varargs:

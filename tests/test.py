@@ -191,6 +191,13 @@ class ExtraTestCase(unittest.TestCase):
         with self.assertRaises(TypeError):
             target(a=1)
 
+        @identity
+        def kwtarget(a, /, **kw):
+            return a, kw
+
+        # a positional-only name can also be passed in **kw
+        self.assertEqual(kwtarget(1, a=2), (1, {'a': 2}))
+
     def test_unique_filenames(self):
         @decorator
         def d1(f, *args, **kwargs):
