@@ -436,6 +436,34 @@ def append(a, vancestors):
         vancestors.append(a)
 
 
+def _virtual_mro(t, va):
+    """
+    Return the MRO that a class with bases ``(t, va)`` would have, without
+    the class itself. The C3 linearization is computed directly, since
+    creating such a class is impossible when ``t`` is final (like ``range``,
+    ``memoryview`` or ``bool``) or its metaclass conflicts with the one
+    of ``va`` (like for enums), and it would have side effects if ``t``
+    defines ``__init_subclass__``.
+    """
+    seqs = [list(t.__mro__), list(va.__mro__), [t, va]]
+    mro = []
+    while True:
+        seqs = [seq for seq in seqs if seq]
+        if not seqs:
+            return mro
+        for seq in seqs:  # look for a head not in the tail of any sequence
+            head = seq[0]
+            if not any(head in s[1:] for s in seqs):
+                break
+        else:
+            raise RuntimeError('Inconsistent MRO for {} with virtual '
+                               'ancestor {}'.format(t, va))
+        mro.append(head)
+        for seq in seqs:
+            if seq[0] is head:
+                del seq[0]
+
+
 # inspired from simplegeneric by P.J. Eby and functools.singledispatch
 def dispatch_on(*dispatch_args):
     """
@@ -469,7 +497,7 @@ def dispatch_on(*dispatch_args):
             ras = [[] for _ in range(len(dispatch_args))]
             for types_ in typemap:
                 for t, type_, ra in zip(types, types_, ras):
-                    if issubclass(t, type_) and type_ not in t.mro():
+                    if issubclass(t, type_) and type_ not in t.__mro__:
                         append(type_, ra)
             return [set(ra) for ra in ras]
 
@@ -486,10 +514,11 @@ def dispatch_on(*dispatch_args):
                         'Ambiguous dispatch for {}: {}'.format(t, vas))
                 elif n_vas == 1:
                     va, = vas
-                    mro = type('t', (t, va), {}).mro()[1:]
+                    mro = _virtual_mro(t, va)
                 else:
-                    mro = t.mro()
-                lists.append(mro[:-1])  # discard t and object
+                    # not t.mro(), which is unbound when t is a metaclass
+                    mro = list(t.__mro__)
+                lists.append(mro[:-1])  # discard object
             return lists
 
         def register(*types):
