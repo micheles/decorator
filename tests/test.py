@@ -72,6 +72,23 @@ class GeneratorCallerTestCase(unittest.TestCase):
         self.assertEqual(list(new()), [1, 4, 9])
 
 
+    def test_generator_return_value(self):
+        @decorator
+        def identity(func, *args, **kw):
+            return (yield from func(*args, **kw))
+
+        @identity
+        def numbers():
+            yield 1
+            return 42
+
+        gen = numbers()
+        self.assertEqual(next(gen), 1)
+        with self.assertRaises(StopIteration) as caught:
+            next(gen)
+        self.assertEqual(caught.exception.value, 42)
+
+
 class DocumentationTestCase(unittest.TestCase):
     def test(self):
         err = doctest.testmod(doc)[0]
