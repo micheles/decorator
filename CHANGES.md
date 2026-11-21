@@ -45,6 +45,12 @@ follow `__wrapped__`, like `inspect.getfullargspec`, so `decoratorx` and
 `dispatch_on` keep working with functions decorated by `functools.wraps`
 (contributed by Tejesh Vaish).
 
+In Python 3.14+ `FunctionMaker` copies the deferred annotations of the
+original function without evaluating them, so `decoratorx` and
+`dispatch_on` work with annotations referring to names imported only
+under `TYPE_CHECKING` (issue #177, reported by the GitHub user
+bersbersbers and fixed by Mayank Dhingra).
+
 ## 5.3.1 (2026-05-18)
 
 Added license SPDX identifier to pyproject.toml (reported by

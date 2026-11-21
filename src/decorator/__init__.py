@@ -158,7 +158,11 @@ class FunctionMaker:
             if inspect.isroutine(func) or isinstance(func, functools.partial):
                 sig = inspect_sig(func, follow_wrapped=False)
                 argspec = _fullargspec(sig)
-                self.annotations = getattr(func, '__annotations__', {})
+                # in Python 3.14+ copy the deferred annotations without
+                # evaluating them, since they can refer to undefined names
+                self._annotate = getattr(func, '__annotate__', None)
+                if self._annotate is None:
+                    self.annotations = getattr(func, '__annotations__', {})
                 for a in ('args', 'varargs', 'varkw', 'defaults', 'kwonlyargs',
                           'kwonlydefaults'):
                     setattr(self, a, getattr(argspec, a))
@@ -213,6 +217,8 @@ class FunctionMaker:
         func.__defaults__ = self.defaults
         func.__kwdefaults__ = self.kwonlydefaults or None
         func.__annotations__ = getattr(self, 'annotations', None)
+        if getattr(self, '_annotate', None) is not None:
+            func.__annotate__ = self._annotate
         try:
             frame = sys._getframe(3)
         except AttributeError:  # for IronPython and similar implementations
