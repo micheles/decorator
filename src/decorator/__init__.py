@@ -54,7 +54,7 @@ try:
 except ImportError:
     inspect_sig = inspect.signature
 
-__version__ = '5.3.1'
+__version__ = '6.0.0'
 
 DEF = re.compile(r'\s*def\s*([_\w][_\w\d]*)\s*\(')
 POS = inspect.Parameter.POSITIONAL_OR_KEYWORD
