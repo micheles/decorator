@@ -3,6 +3,14 @@ HISTORY
 
 ## Unreleased
 
+Breaking change: decorating a coroutine function with a regular caller now
+gives a coroutine function, which awaits the result of the caller if it is
+awaitable. So the same decorator works on both regular functions and
+coroutine functions, preserving `inspect.iscoroutinefunction` (issue #159,
+reported by the GitHub user Doma1204). It is no longer possible to convert
+coroutine functions into regular functions with a regular caller, as in the
+`coro_to_func` example of the documentation.
+
 Preserved each layer of `__wrapped__` when stacking decorators or wrapping
 an already decorated caller (contributed by Jake Wang).
 
