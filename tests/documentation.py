@@ -75,7 +75,8 @@ now possible to mimic the behavior of decorators defined with
 - **Python 3.5 coroutines**
   From version 4.1 it is possible to decorate coroutines, i.e. functions
   defined with the `async def` syntax, and to maintain the
-  `inspect.iscoroutinefunction` check working for the decorated function.
+  `inspect.iscoroutinefunction` check working for the decorated function,
+  even if the caller is a regular function.
 
 - **Decorator factories**
   From version 4.2 there is facility to define factories of decorators in
@@ -896,20 +897,38 @@ of the coroutines makes sense). Notice that
 ``inspect.iscoroutinefunction(make_task)``
 will return the right answer (i.e. ``True``).
 
-It is also possible to define decorators converting coroutine functions
-into regular functions, such as the following:
+The caller does not need to be a coroutine function: a decorator with
+a regular caller works for both regular functions and coroutine
+functions, and preserves the result of ``inspect.iscoroutinefunction``.
+For instance
 
 ```python
 @decorator
-def coro_to_func(coro, *args, **kw):
-    "Convert a coroutine into a function"
-     return run(coro(*args, **kw))
+def log_calls(func, *args, **kwargs):
+    logging.info('Calling %s%s', func.__name__, args)
+    return func(*args, **kwargs)
+
+@log_calls
+def add(x, y):
+    return x + y
+
+@log_calls
+async def async_add(x, y):
+    return x + y
 ```
 
-Notice the difference: the caller in ``log_start_stop`` was a coroutine
-function and the associate decorator was converting coroutines in coroutines;
-the caller in ``coro_to_func`` is a regular function and converts
-coroutines -> functions.
+Here ``add`` is a regular function, while ``async_add`` is a coroutine
+function. When the decorated function is a coroutine function, the result
+of the caller (normally the coroutine returned by ``func``) is awaited, if
+it is awaitable. Notice that the caller runs when the coroutine is awaited,
+not when the coroutine function is called. On the other hand, if the caller
+is a coroutine function, the decorated function is always a coroutine
+function.
+
+Up to version 5.3 a regular caller converted coroutine functions into regular
+functions; that was changed since it went against the principle of
+preserving the properties of the decorated function
+(see https://github.com/micheles/decorator/issues/159).
 
 ## Multiple dispatch
 

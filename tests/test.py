@@ -35,11 +35,6 @@ async def before_after(coro, *args, **kwargs):
     return "<before>" + (await coro(*args, **kwargs)) + "<after>"
 
 
-@decorator
-def coro_to_func(coro, *args, **kw):
-    return asyncio.run(coro(*args, **kw))
-
-
 class CoroutineTestCase(unittest.TestCase):
     def test_before_after(self):
         @before_after
@@ -49,12 +44,44 @@ class CoroutineTestCase(unittest.TestCase):
         out = asyncio.run(coro('x'))
         self.assertEqual(out, '<before>x<after>')
 
-    def test_coro_to_func(self):
-        @coro_to_func
-        async def coro(x):
-            return x
-        self.assertFalse(inspect.iscoroutinefunction(coro))
-        self.assertEqual(coro('x'), 'x')
+    def test_regular_caller(self):
+        # see https://github.com/micheles/decorator/issues/159
+        calls = []
+
+        def trace(func, *args, **kw):
+            calls.append(func.__name__)
+            return func(*args, **kw)
+
+        for deco in (decorator(trace), decoratorx(trace)):
+            @deco
+            def add(x, y):
+                return x + y
+
+            @deco
+            async def async_add(x, y):
+                return x + y
+
+            self.assertFalse(inspect.iscoroutinefunction(add))
+            self.assertTrue(inspect.iscoroutinefunction(async_add))
+            self.assertEqual(add(1, 2), 3)
+            self.assertEqual(asyncio.run(async_add(1, 2)), 3)
+        self.assertEqual(calls, ['add', 'async_add', 'add', 'async_add'])
+
+    def test_regular_caller_returning_a_value(self):
+        # the result of the caller is awaited only if it is awaitable
+        def default_on_none(func, x):
+            if x is None:
+                return 'default'
+            return func(x)
+
+        for deco in (decorator(default_on_none), decoratorx(default_on_none)):
+            @deco
+            async def coro(x):
+                return x
+
+            self.assertTrue(inspect.iscoroutinefunction(coro))
+            self.assertEqual(asyncio.run(coro('x')), 'x')
+            self.assertEqual(asyncio.run(coro(None)), 'default')
 
 
 def gen123():

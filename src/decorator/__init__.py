@@ -307,6 +307,21 @@ def fix(args, kwargs, sig):
     return ba.args, ba.kwargs
 
 
+def _async_caller(caller):
+    """
+    Convert a regular caller into a coroutine function awaiting the result
+    of the caller, if it is awaitable. Used to decorate coroutine functions
+    with regular callers, so that the decorated functions are still
+    coroutine functions.
+    """
+    async def acaller(func, *args, **kw):
+        result = caller(func, *args, **kw)
+        if inspect.isawaitable(result):  # usually the coroutine of func
+            result = await result
+        return result
+    return acaller
+
+
 def decorate(func, caller, extras=(), kwsyntax=False):
     """
     Decorates a function/generator/coroutine using a caller.
@@ -321,6 +336,8 @@ def decorate(func, caller, extras=(), kwsyntax=False):
         func.__dict__ = func.__dict__.copy()
         func = functools.update_wrapper(func, func.func)
     fun: Callable[..., Any]
+    if iscoroutinefunction(func) and not iscoroutinefunction(caller):
+        caller = _async_caller(caller)  # coroutines stay coroutines
     if iscoroutinefunction(caller):
         async def async_fun(*args, **kw):
             if not kwsyntax:
@@ -379,10 +396,13 @@ def decoratorx(caller):
     object properties (https://github.com/micheles/decorator/issues/129).
     """
     def dec(func):
+        call = caller
+        if iscoroutinefunction(func) and not iscoroutinefunction(caller):
+            call = _async_caller(caller)  # coroutines stay coroutines
         return FunctionMaker.create(
             func,
             "return _call_(_func_, %(shortsignature)s)",
-            dict(_call_=caller, _func_=func),
+            dict(_call_=call, _func_=func),
             __wrapped__=func, __qualname__=func.__qualname__)
     return dec
 
