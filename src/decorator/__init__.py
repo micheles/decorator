@@ -46,9 +46,10 @@ from typing import Any, Callable, Dict, List, Optional
 try:
     import annotationlib  # in Python 3.14+
 
-    def inspect_sig(func):
+    def inspect_sig(func, *, follow_wrapped=True):
         return inspect.signature(
-            func, annotation_format=annotationlib.Format.FORWARDREF)
+            func, follow_wrapped=follow_wrapped,
+            annotation_format=annotationlib.Format.FORWARDREF)
 
 except ImportError:
     inspect_sig = inspect.signature
@@ -70,7 +71,8 @@ def getfullargspec(func):
     built entirely on top of the modern inspect.signature API.
     This is needed to work around a python 3.14 forward references bug.
     """
-    return _fullargspec(inspect_sig(func))
+    # like inspect.getfullargspec, do not follow the __wrapped__ chain
+    return _fullargspec(inspect_sig(func, follow_wrapped=False))
 
 
 def _fullargspec(sig):
@@ -154,7 +156,7 @@ class FunctionMaker:
             self.doc = func.__doc__
             self.module = func.__module__
             if inspect.isroutine(func) or isinstance(func, functools.partial):
-                sig = inspect_sig(func)
+                sig = inspect_sig(func, follow_wrapped=False)
                 argspec = _fullargspec(sig)
                 self.annotations = getattr(func, '__annotations__', {})
                 for a in ('args', 'varargs', 'varkw', 'defaults', 'kwonlyargs',

@@ -27,7 +27,7 @@ class FullArgSpec(NamedTuple):
     annotations: _dict[str, Any]
 
 if sys.version_info >= (3, 14):
-    def inspect_sig(func: _Func) -> Signature: ...
+    def inspect_sig(func: _Func, *, follow_wrapped: bool = True) -> Signature: ...
 else:
     from inspect import signature as _signature
 
