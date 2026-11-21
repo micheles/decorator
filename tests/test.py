@@ -250,6 +250,28 @@ singledispatch = dispatch_on('obj')
 
 
 class TestSingleDispatch(unittest.TestCase):
+    def test_object_uses_default(self):
+        @singledispatch
+        def g(obj):
+            return "base"
+
+        self.assertEqual(g(object()), "base")
+
+        @g.register(object)
+        def g_object(obj):
+            return "object"
+
+        self.assertEqual(g(object()), "object")
+
+    def test_object_uses_default_in_multiple_dispatch(self):
+        @dispatch_on('left', 'right')
+        def g(left, right):
+            return "base"
+
+        self.assertEqual(g(object(), 1), "base")
+        self.assertEqual(g(1, object()), "base")
+        self.assertEqual(g(object(), object()), "base")
+
     def test_simple_overloads(self):
         @singledispatch
         def g(obj):
