@@ -1,6 +1,7 @@
 import sys
 import doctest
 import unittest
+import enum
 import decimal
 import inspect
 import functools
@@ -70,7 +71,6 @@ class GeneratorCallerTestCase(unittest.TestCase):
         new = square(gen123)
         self.assertTrue(inspect.isgeneratorfunction(new))
         self.assertEqual(list(new()), [1, 4, 9])
-
 
     def test_generator_return_value(self):
         @decorator
@@ -288,6 +288,87 @@ class TestSingleDispatch(unittest.TestCase):
         self.assertEqual(g(object(), 1), "base")
         self.assertEqual(g(1, object()), "base")
         self.assertEqual(g(object(), object()), "base")
+
+    def test_virtual_ancestor_of_final_types(self):
+        # see https://github.com/micheles/decorator/issues/198
+        @singledispatch
+        def g(obj):
+            return "base"
+
+        @g.register(c.Sequence)
+        def g_sequence(obj):
+            return "sequence"
+
+        self.assertEqual(g([1, 2]), "sequence")
+        self.assertEqual(g(range(3)), "sequence")
+        self.assertEqual(g(memoryview(b"abc")), "sequence")
+        self.assertEqual(g.dispatch_info(range)[:2],
+                         [('range',), ('Sequence',)])
+
+        class Color(enum.Enum):  # final, with a metaclass other than ABCMeta
+            RED = 1
+
+        @singledispatch
+        def h(obj):
+            return "base"
+
+        @h.register(c.Hashable)
+        def h_hashable(obj):
+            return "hashable"
+
+        for obj in (True, None, Ellipsis, NotImplemented, Color.RED):
+            self.assertEqual(h(obj), "hashable")
+
+    def test_virtual_ancestor_of_final_types_in_multiple_dispatch(self):
+        @dispatch_on('left', 'right')
+        def g(left, right):
+            return "base"
+
+        @g.register(c.Sequence, c.Sequence)
+        def g_sequences(left, right):
+            return "sequences"
+
+        for left in (range(2), memoryview(b"ab")):
+            for right in (range(2), memoryview(b"ab")):
+                self.assertEqual(g(left, right), "sequences")
+        self.assertEqual(g(range(2), 1), "base")
+
+    def test_virtual_ancestor_without_subclassing(self):
+        # computing the virtual MRO must not create subclasses of the type
+        subclasses = []
+
+        class Base(object):
+            def __init_subclass__(cls, **kw):
+                super().__init_subclass__(**kw)
+                subclasses.append(cls)
+
+            def __len__(self):  # implicitly a Sized
+                return 0
+
+        @singledispatch
+        def g(obj):
+            return "base"
+
+        @g.register(c.Sized)
+        def g_sized(obj):
+            return "sized"
+
+        self.assertEqual(g(Base()), "sized")
+        self.assertEqual(subclasses, [])
+
+    def test_class_arguments(self):
+        # type(int) is type, and type.mro() is an unbound method
+        @singledispatch
+        def g(obj):
+            return "base"
+
+        @g.register(c.Sized)
+        def g_sized(obj):
+            return "sized"
+
+        self.assertEqual(g(int), "base")
+        self.assertEqual(g(list), "base")  # the class is not Sized
+        self.assertEqual(g(c.Sized), "base")  # type is ABCMeta
 
     def test_simple_overloads(self):
         @singledispatch

@@ -4,11 +4,31 @@ HISTORY
 ## Unreleased
 
 Preserved each layer of `__wrapped__` when stacking decorators or wrapping
-an already decorated caller.
+an already decorated caller (contributed by Jake Wang).
 
 Fixed `FunctionMaker.create` raising a `SyntaxError` when the signature
 string contains a return annotation, e.g.
-`create("f(a) -> int", "return a")` (issue #138).
+`create("f(a) -> int", "return a")` (contributed by Apoorv Darshan).
+
+Generator functions decorated with a generator caller now return the
+value returned by the caller, instead of always returning `None`
+(contributed by Huanyi Xie).
+
+Fixed `dispatch_on` raising `StopIteration` when called with an
+unregistered `object()` instance: now the default implementation is
+called (contributed by Muneeb Sheikh).
+
+Corrected the return types of `getfullargspec` and `inspect_sig` in the
+stub file (contributed by Huanyi Xie).
+
+Added homepage and repository links to the package metadata (contributed
+by the GitHub user Sinkleberg).
+
+Fixed `dispatch_on` raising a `TypeError` when an implementation is
+registered for a virtual ancestor of a type that cannot be subclassed,
+like `range`, `memoryview` or `bool`, or of an enum (reported by
+Rajatendu Dey). Also fixed `dispatch_on` raising a `TypeError` when a
+class is passed as a dispatch argument.
 
 ## 5.3.1 (2026-05-18)
 
@@ -19,7 +39,9 @@ Christian Lackas).
 
 Added official support for Python 3.14 (thanks to Hugo van Kemenade,
 David Cain and the GitHub user bersbersbers).
+
 Fixed a bug with "return await" contributed by Kadir Can Ozden.
+
 Moved decorator.py to a package structure (`decorator/__init__.py`) and
 added a stub file (`decorator/__init__.pyi`) contributed by Marco Gorelli.
 
