@@ -7,7 +7,8 @@ import inspect
 import functools
 import asyncio
 from collections import defaultdict, ChainMap, abc as c
-from decorator import dispatch_on, contextmanager, decorator, decoratorx, FunctionMaker
+from decorator import (dispatch_on, contextmanager, decorator, decoratorx,
+                       FunctionMaker, getfullargspec)
 try:
     from . import documentation as doc  # good with pytest
 except ImportError:
@@ -190,6 +191,52 @@ class ExtraTestCase(unittest.TestCase):
         self.assertEqual(target(1, b=4, c=5), 10)
         with self.assertRaises(TypeError):
             target(a=1)
+
+        @identity
+        def kwtarget(a, /, **kw):
+            return a, kw
+
+        # a positional-only name can also be passed in **kw
+        self.assertEqual(kwtarget(1, a=2), (1, {'a': 2}))
+
+    def test_getfullargspec_does_not_follow_wrapped(self):
+        # see https://github.com/micheles/decorator/pull/197
+        def original(hidden):
+            return hidden
+
+        @functools.wraps(original)
+        def wrapper(actual, optional=3, *items, flag=True, **options):
+            return actual, optional, items, flag, options
+
+        self.assertEqual(getfullargspec(wrapper),
+                         inspect.getfullargspec(wrapper))
+        wrapper.__wrapped__ = wrapper  # a cycle is not a problem
+        self.assertEqual(getfullargspec(wrapper),
+                         inspect.getfullargspec(wrapper))
+
+    def test_wrapped_functions_keep_their_signature(self):
+        def original(hidden):
+            return hidden
+
+        @functools.wraps(original)
+        def wrapper(actual, optional=3):
+            return actual + optional
+
+        @decoratorx
+        def double(func, *args, **kw):
+            return func(*args, **kw) * 2
+
+        self.assertEqual(double(wrapper)(actual=2), 10)
+        self.assertEqual(double(wrapper)(2, 5), 14)
+
+        generic = dispatch_on('actual')(wrapper)
+
+        @generic.register(str)
+        def generic_str(actual, optional=3):
+            return actual * optional
+
+        self.assertEqual(generic(1), 4)
+        self.assertEqual(generic('x'), 'xxx')
 
     def test_unique_filenames(self):
         @decorator
