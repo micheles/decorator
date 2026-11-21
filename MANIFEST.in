@@ -1,4 +1,4 @@
 include CHANGES.md performance.sh
-include src/decorator
+include src/decorator/*.py src/decorator/*.pyi src/decorator/py.typed
 include tests/*.py
 graft docs
