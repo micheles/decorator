@@ -72,7 +72,6 @@ class GeneratorCallerTestCase(unittest.TestCase):
         self.assertTrue(inspect.isgeneratorfunction(new))
         self.assertEqual(list(new()), [1, 4, 9])
 
-
     def test_generator_return_value(self):
         @decorator
         def identity(func, *args, **kw):
