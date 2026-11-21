@@ -38,6 +38,7 @@ import inspect
 import operator
 import itertools
 import functools
+import copy
 from contextlib import _GeneratorContextManager
 from collections import namedtuple
 from inspect import Parameter, iscoroutinefunction, isgeneratorfunction
@@ -297,6 +298,8 @@ def decorate(func, caller, extras=(), kwsyntax=False):
     """
     sig = inspect_sig(func)
     if isinstance(func, functools.partial):
+        func = copy.copy(func)
+        func.__dict__ = func.__dict__.copy()
         func = functools.update_wrapper(func, func.func)
     fun: Callable[..., Any]
     if iscoroutinefunction(caller):
