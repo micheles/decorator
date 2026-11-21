@@ -3,9 +3,9 @@
 |Author | Michele Simionato|
 |---|---|
 |E-mail | michele.simionato@gmail.com|
-|Version| 5.3.1 (2026-05-18)|
+|Version| 5.3.2 (2026-11-21)|
 |Supports| Python 3.8, 3.9, 3.10, 3.11, 3.12, 3.13, 3.14, 3.15|
-|Download page| https://pypi.org/project/decorator/5.3.1|
+|Download page| https://pypi.org/project/decorator/5.3.2|
 |Installation| ``pip install decorator``|
 |License | BSD license|
 
