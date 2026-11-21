@@ -116,6 +116,21 @@ class GeneratorCallerTestCase(unittest.TestCase):
             next(gen)
         self.assertEqual(caught.exception.value, 42)
 
+    def test_regular_caller_converting_generators(self):
+        # unlike coroutine functions, generator functions decorated with
+        # a regular caller can be converted, as in decorator.contextmanager
+        def listify(func, *args, **kw):
+            return list(func(*args, **kw))
+
+        for deco in (decorator(listify), decoratorx(listify)):
+            @deco
+            def squares(n):
+                for i in range(n):
+                    yield i * i
+
+            self.assertFalse(inspect.isgeneratorfunction(squares))
+            self.assertEqual(squares(4), [0, 1, 4, 9])
+
 
 class DocumentationTestCase(unittest.TestCase):
     def test(self):

@@ -925,6 +925,11 @@ not when the coroutine function is called. On the other hand, if the caller
 is a coroutine function, the decorated function is always a coroutine
 function.
 
+Generator functions are treated differently: a decorated generator function
+is a generator function only if the caller is a generator function too, so
+that a regular caller can convert generator functions into something else,
+which is how ``decorator.contextmanager`` works.
+
 Up to version 5.3 a regular caller converted coroutine functions into regular
 functions; that was changed since it went against the principle of
 preserving the properties of the decorated function
