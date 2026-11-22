@@ -911,6 +911,52 @@ function and the associate decorator was converting coroutines in coroutines;
 the caller in ``coro_to_func`` is a regular function and converts
 coroutines -> functions.
 
+### Decorating both sync and async functions
+
+``decorate`` chooses the wrapper's kind from the caller, not the wrapped
+function. To use one decorator for both kinds while preserving
+``inspect.iscoroutinefunction``, define two callers and select between them:
+
+```python
+>>> import asyncio
+>>> import inspect
+>>> from decorator import decorator
+>>> @decorator
+... def sync_caller(func, *args, **kw):
+...     print("calling", func.__name__)
+...     return func(*args, **kw)
+...
+>>> @decorator
+... async def async_caller(func, *args, **kw):
+...     print("calling", func.__name__)
+...     return await func(*args, **kw)
+...
+>>> def trace_call(func):
+...     caller = async_caller if inspect.iscoroutinefunction(func) else sync_caller
+...     return caller(func)
+...
+>>> @trace_call
+... def add(x, y=1):
+...     return x + y
+...
+>>> @trace_call
+... async def async_add(x, y=1):
+...     return x + y
+...
+>>> inspect.iscoroutinefunction(add), inspect.iscoroutinefunction(async_add)
+(False, True)
+>>> add(2)
+calling add
+3
+>>> asyncio.run(async_add(2, y=3))
+calling async_add
+5
+
+```
+
+This selection follows ``inspect.iscoroutinefunction``: a regular function
+that merely returns an awaitable still takes the synchronous path.
+
 ## Multiple dispatch
 
 There has been talk of implementing multiple dispatch functions
